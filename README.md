@@ -18,7 +18,7 @@ Usage:
 	
 	3. Enter the following command: python 'Avatar Scanner.py'
 	
-	4. When propted for the avatar name enter it (CaSeSeNsItIvE)
+	4. When propted for the search term enter it This can be a part of the name or even the avatar ID itself!
 	
 	5. You will get the data objets directory, itll look somthing like this: "B1489EB51AA62D85\00000000000000000000000002000000\__data" That data file is your vrca so just rename it to AVATAR.vrca and boom you can continue with a hotswap or begin tearing down the vrca with utinyripper or asset bundle extractor!
 		
