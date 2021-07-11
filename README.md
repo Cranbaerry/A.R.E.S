@@ -25,3 +25,5 @@ Usage:
 	WARNING: Odd avatar names may bug out the program and they will not be scanned correctly, you can only enter single strings, this means you cannot use spaces! If the avatar contains spaces in its name the try entering key words like the first word in the name in an attempt to find the data object file!
 			 
 How does it work?
+
+It scans all filkes in cache for a string relvant to the avatar you are looking for then prints its findings including its directory and the string where the name appears!
