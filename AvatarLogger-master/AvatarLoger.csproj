@@ -7,8 +7,8 @@
     <ProjectGuid>{92AD6C2F-7ABB-4871-BDFF-B724D4025BF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AvatarLoger</RootNamespace>
-    <AssemblyName>AvatarLoger</AssemblyName>
+    <RootNamespace>AvatarLogger</RootNamespace>
+    <AssemblyName>AvatarLogger</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

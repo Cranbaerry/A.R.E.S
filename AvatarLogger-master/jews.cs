@@ -48,9 +48,9 @@ namespace AvatarLoger
 
             // create log files if they dont exist
             if (!File.Exists(PublicAvatarFile))
-                File.AppendAllText(PublicAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
+                File.AppendAllText(PublicAvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi{Environment.NewLine}");
             if (!File.Exists(PrivateAvatarFile))
-                File.AppendAllText(PrivateAvatarFile, $"Made by KeafyIsHere{Environment.NewLine}");
+                File.AppendAllText(PrivateAvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi{Environment.NewLine}");
 
 
             // load all ids from the the text files
@@ -106,7 +106,7 @@ namespace AvatarLoger
             }
 
             // start thread to 
-            MelonCoroutines.Start(DoCheck());
+            // MelonCoroutines.Start(DoCheck());
         }
 
         // ReSharper disable once UnusedMember.Local
