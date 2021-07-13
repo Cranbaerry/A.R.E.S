@@ -1,4 +1,7 @@
 # CachedAvatarLocator
+
+SHIT MAY BE BROKEN< MSAAIVE UPDATE COMING UP!
+
 Allows for easy searching of the VRChat cache folder for a particular avatar!
 Installation:
 
