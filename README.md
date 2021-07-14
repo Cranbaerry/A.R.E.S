@@ -9,7 +9,7 @@ Installation:
 	
 	2. Install melon loader (https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe) (Latest)
 	
-	3. Run VRchat once, this will allow melon to build the nessacary mod files!
+	3. Run VRchat once, this will allow melon to build the necessary mod files!
 	
 	4. Download "CachedAvatarLocator VX.rar" from realeases and extract its contents to your VRChat folder!
 	
