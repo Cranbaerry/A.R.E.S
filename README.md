@@ -23,7 +23,7 @@ Usage:
 	
 	3. If you want to simply open up the logs generated you can open the "Private.txt" containing logged private avatars or the "Public.txt" containing logged public avatars!
 	
-	4. You can also edit the configuration files! The game must be closed during this! Edit Config.json and you can disablke logging of your own/firends avatars from here!
+	4. You can also edit the configuration files! The game must be closed during this! Edit Config.json and you can disable logging of your own/firends avatars from here!
 	
 	5. If you know exactly what you are looking for launch the "Avatar Logger Locator.py", read what keywords are acceptable and begin your search!
 	
