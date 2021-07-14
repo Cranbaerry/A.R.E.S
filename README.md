@@ -1,6 +1,6 @@
 # CachedAvatarLocator
 
-THXX to (https://github.com/KeafyIsHere) for the original avatar logging script!
+Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered!
 Installation:
