@@ -25,7 +25,7 @@ Usage:
 	
 	4. You can also edit the configuration files! The game must be closed during this! Edit Config.json and you can disable logging of your own/firends avatars from here!
 	
-	5. If you know exactly what you are looking for launch the "Avatar Logger Locator.py", read what keywords are acceptable and begin your search!
+	5. If you know exactly what you are looking for launch the "Avatar Logger Locator.py", read the accepetable keywords before searching (these are displayed in the script)
 	
 	6. You will be given a line number and a log type, enter that log file and goto the line provided and all captured information will be there! The asset url is the download to the vrca file! The images can be used to identify what the avatar is before downloading, they can also be used to perfectly replicate the avatar on ur VRChat account!
 		
