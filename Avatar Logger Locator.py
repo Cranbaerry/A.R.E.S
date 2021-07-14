@@ -23,4 +23,4 @@ with open("Public.txt", 'r', encoding="latin-1") as read_obj:
         line_number += 1
         if Key in line:
             print(f'Line Number (Public): {line_number}')
-input()
+input("Script Complete!")

@@ -1,35 +1,34 @@
 # CachedAvatarLocator
 
-SHIT MAY BE BROKEN< MASSIVE UPDATE COMING UP!
+THXX to (https://github.com/KeafyIsHere) for the original avatar logging script!
 
-Allows for easy searching of the VRChat cache folder for a particular avatar!
+Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered!
 Installation:
 
 	1. Install Python from here: https://www.python.org/downloads/ (Latest)
 	
-	2. Download the "Avatar Scanner.py" an place it in your VRChat cache folder: (C:\Users\WINDOWSUSERNAME\AppData\LocalLow\VRChat\VRChat\Cache-WindowsPlayer) OR (C:\VRCCache\Cache-WindowsPlayer)
+	2. Install melon loader (https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe) (Latest)
 	
-	3. Create a shortcut to your VRChat cache folder on your desktop or anywhere convenient!
+	3. Run VRchat once, this will allow melon to build the nessacary mod files!
 	
-	4. Install complete!
+	4. Download "CachedAvatarLocator VX.rar" from realeases and extract its contents to your VRChat folder!
+	
+	5. Launch VRChat and begin navigating worlds! Every avatar you see will be logged!
 	
 Usage:
 
-	1. Open the shortcut to your cache folder
+	1. Open the "AvatarLog" folder
 	
-	2. Shift+RightClick and open a powershell/cmd window in the directory
+	2. Here there will be two txt files, your config and the Locator script!
 	
-	3. Enter the following command: python 'Avatar Scanner.py'
+	3. If you want to simpley open up the logs generated you can open the "Private.txt" containing logged private avatar or the "Public.txt" containing logged public avatars!
 	
-	4. When propted for the search term enter it This can be a part of the name or even the avatar ID itself!
+	4. You can alos edit the configuration files! The game must be closed during this! Edit Config.json and you can disablke logging of your own/firends avatrs from here! (Webhooks currently broken! ONLY change the "CanPost" categories for now)
 	
-	5. You will get the data objets directory, itll look somthing like this: "B1489EB51AA62D85\00000000000000000000000002000000\__data" That data file is your vrca so just rename it to AVATAR.vrca and boom you can continue with a hotswap or begin tearing down the vrca with utinyripper or asset bundle extractor!
+	5. If you know exactly what you are looking for launch the "Avatar Logger Locator.py", read what keywords are acceptable and beging your search!
+	
+	6. You will be given a line number and a log type, enter that log file and goto the line provided and all captured information will be there! The asset url is the downlod to the vrca file! The images can be used to identify what the avatar is before downloading, they can also be used to perfectly replicate the avi on ur VRChat account!
 		
-	WARNING: Odd avatar names may bug out the program and they will not be scanned correctly, you can only enter single strings, this means you cannot use spaces! If the avatar contains spaces in its name the try entering key words like the first word in the name in an attempt to find the data object file!
+	WIP: Discord functionality is actively being worked on!
 	 
 	Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
-	
-	Tips: To better help locate avatar vrca's I suggest the use of the "VRChatTeo" modded client! (https://discord.gg/WKPdWT2Ypw), you don't need the paid version to get the names/avatar IDs of individuals. To get the avatar ID of a user with Teo client first ensure all individuals in the wrold are done loading and no avatars are actively downloading, select the user of the avatar you want the vrca of and force the avatar to reload! This will reload the individuals avatar printing the following in cosole "VRCPlayer.OnAvatarCreated bobthebuilder   avtr_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" This is that individuals avatar ID. You can then just copy "avtr_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" string and use the avatar locator tool to find its location in cache!
-How does it work?
-
-It scans all files in cache for a string relvant to the avatar you are looking for then prints its findings including its directory and the string where the name appears!
