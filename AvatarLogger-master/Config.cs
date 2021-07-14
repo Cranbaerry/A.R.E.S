@@ -1,12 +1,6 @@
-﻿namespace AvatarLoger
+﻿public class Config
 {
-    public class Config
-    {
-        public string PublicWebhook { get; set; }
-        public string PrivateWebhook { get; set; }
-        public string BotName { get; set; }
-        public string AvatarURL { get; set; }
-        public bool CanPostFriendsAvatar { get; set; }
-        public bool CanPostSelfAvatar { get; set; }
-    }
+    public bool LogOwnAvatars { get; set; }
+    public bool LogFriendsAvatars { get; set; }
+    public bool LogToConsole { get; set; }
 }
