@@ -2,8 +2,8 @@
     Dim PubLog As String
     Dim PriLog As String
     Dim LogFol As String
-    Dim PubLogPharsed As String
-    Dim PriLogPharsed As String
+    Dim PubLogParsed As String
+    Dim PriLogParsed As String
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Title = "Open File Dialog"
@@ -31,35 +31,35 @@
     End Sub
 
     Public Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time detected:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse.txt").Replace("Avatar ID:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse2.txt").Replace("Avatar Name:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse.txt").Replace("Avatar Description:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse2.txt").Replace("Avatar Author ID:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse.txt").Replace("Avatar Author Name:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse2.txt").Replace("Avatar Asset URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse.txt").Replace("Avatar Image URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse2.txt").Replace("Avatar Thumbnail Image URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse.txt").Replace("Avatar Release Status:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PubLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "pharse2.txt").Replace("Avatar Version:", ""), False)
-        My.Computer.FileSystem.DeleteFile(PubLog & "pharse2.txt")
-        My.Computer.FileSystem.RenameFile(PubLog & "pharse.txt", "PharsedPubLog.txt")
-        PubLogPharsed = (LogFol & "PharsedPubLog.txt")
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog).Replace("Time detected:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse.txt").Replace("Avatar ID:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse2.txt").Replace("Avatar Name:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse.txt").Replace("Avatar Description:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse2.txt").Replace("Avatar Author ID:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse.txt").Replace("Avatar Author Name:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse2.txt").Replace("Avatar Asset URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse.txt").Replace("Avatar Image URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse2.txt").Replace("Avatar Thumbnail Image URL:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse.txt").Replace("Avatar Release Status:", ""), False)
-        My.Computer.FileSystem.WriteAllText(PriLog & "pharse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "pharse2.txt").Replace("Avatar Version:", ""), False)
-        My.Computer.FileSystem.DeleteFile(PriLog & "pharse2.txt")
-        My.Computer.FileSystem.RenameFile(PriLog & "pharse.txt", "PharsedPriLog.txt")
-        PriLogPharsed = (LogFol & "PharsedPriLog.txt")
-        MessageBox.Show("Logs Pharsed!")
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time detected:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar ID:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Name:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar Description:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Author ID:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar Author Name:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Asset URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar Image URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Thumbnail Image URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar Release Status:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Version:", ""), False)
+        My.Computer.FileSystem.DeleteFile(PubLog & "parse2.txt")
+        My.Computer.FileSystem.RenameFile(PubLog & "parse.txt", "parsedPubLog.txt")
+        PubLogParsed = (LogFol & "parsedPubLog.txt")
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog).Replace("Time detected:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar ID:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Name:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar Description:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Author ID:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar Author Name:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Asset URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar Image URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Thumbnail Image URL:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar Release Status:", ""), False)
+        My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Version:", ""), False)
+        My.Computer.FileSystem.DeleteFile(PriLog & "parse2.txt")
+        My.Computer.FileSystem.RenameFile(PriLog & "parse.txt", "parsedPriLog.txt")
+        PriLogParsed = (LogFol & "parsedPriLog.txt")
+        MessageBox.Show("Logs parsed!")
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
