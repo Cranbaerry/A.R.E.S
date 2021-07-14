@@ -17,7 +17,7 @@ Installation:
 	
 Usage:
 
-	1. Open the "AvatarLog" folder
+	1. Open the "AvatarLog" folder within your VRChat directory
 	
 	2. Here there will be two txt files, your config and the Locator script!
 	
