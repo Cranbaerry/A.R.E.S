@@ -24,6 +24,7 @@ def Search():
             line_number += 1
             if Key in line:
                 print(f'Line Number (Public): {line_number}')
+    read_obj.close()
     print("Search Complete!")
     Search()
 Search()
