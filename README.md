@@ -21,7 +21,7 @@ Usage:
 	
 	2. Here there will be two txt files, your config and the Locator script!
 	
-	3. If you want to simply open up the logs generated you can open the "Private.txt" containing logged private avatar or the "Public.txt" containing logged public avatars!
+	3. If you want to simply open up the logs generated you can open the "Private.txt" containing logged private avatars or the "Public.txt" containing logged public avatars!
 	
 	4. You can alos edit the configuration files! The game must be closed during this! Edit Config.json and you can disablke logging of your own/firends avatrs from here! (Webhooks currently broken! ONLY change the "CanPost" categories for now)
 	
