@@ -29,6 +29,6 @@ Usage:
 	
 	6. You will be given a line number and a log type, enter that log file and go to the line provided and all captured information will be there! The asset url is the download to the vrca file! The images can be used to identify what the avatar is before downloading, they can also be used to perfectly replicate the avatar on ur VRChat account!
 		
-	WIP: Discord functionality is actively being worked on!
+	WIP: GUI is actively being worked on!
 	 
 	Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
