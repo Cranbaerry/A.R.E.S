@@ -43,8 +43,8 @@
         My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar Release Status:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Version:", ""), False)
         My.Computer.FileSystem.DeleteFile(PubLog & "parse2.txt")
-        My.Computer.FileSystem.RenameFile(PubLog & "parse.txt", "parsedPubLog.txt")
-        PubLogParsed = (LogFol & "parsedPubLog.txt")
+        My.Computer.FileSystem.RenameFile(PubLog & "parse.txt", "ParsedPubLog.txt")
+        PubLogParsed = (LogFol & "ParsedPubLog.txt")
         My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog).Replace("Time detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar ID:", ""), False)
         My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Name:", ""), False)
@@ -57,8 +57,8 @@
         My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar Release Status:", ""), False)
         My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Version:", ""), False)
         My.Computer.FileSystem.DeleteFile(PriLog & "parse2.txt")
-        My.Computer.FileSystem.RenameFile(PriLog & "parse.txt", "parsedPriLog.txt")
-        PriLogParsed = (LogFol & "parsedPriLog.txt")
+        My.Computer.FileSystem.RenameFile(PriLog & "parse.txt", "ParsedPriLog.txt")
+        PriLogParsed = (LogFol & "ParsedPriLog.txt")
         MessageBox.Show("Logs parsed!")
     End Sub
 
