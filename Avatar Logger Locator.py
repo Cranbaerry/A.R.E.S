@@ -15,12 +15,12 @@ with open("Private.txt", 'r', encoding="latin-1") as read_obj:
     for line in read_obj:
         line_number += 1
         if Key in line:
-            print(line_number)
+            print(f'Line Number (Private): {line_number}')
 line_number = 0
 with open("Public.txt", 'r', encoding="latin-1") as read_obj:
     print("Reading public log...")
     for line in read_obj:
         line_number += 1
         if Key in line:
-            print(line_number)
+            print(f'Line Number (Public): {line_number}')
 input()
