@@ -11,7 +11,7 @@ Installation:
 	
 	3. Run VRchat once, this will allow melon to build the necessary mod files!
 	
-	4. Download "CachedAvatarLocator VX.rar" from realeases and extract its contents to your VRChat folder!
+	4. Download "CachedAvatarLocator VX.rar" from releases and extract its contents to your VRChat folder!
 	
 	5. Launch VRChat and begin navigating worlds! Every avatar you see will be logged!
 	
