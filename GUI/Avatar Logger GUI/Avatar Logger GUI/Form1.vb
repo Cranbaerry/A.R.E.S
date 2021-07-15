@@ -201,14 +201,10 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'PriLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPriLog.txt"
-        'PubLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPubLog.txt"
+        PriLogParsed = "C:\Users\Fall0ut\Desktop\CachedAvatarLocator\GUI\AvatarLog\ParsedPriLog.txt"
+        PubLogParsed = "C:\Users\Fall0ut\Desktop\CachedAvatarLocator\GUI\AvatarLog\ParsedPubLog.txt"
         RadioButton4.Checked = True
         RadioButton1.Checked = True
-    End Sub
-
-    Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
-        WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
     End Sub
 
     Private Sub TextBox1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TextBox1.KeyDown
