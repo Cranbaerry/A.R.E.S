@@ -6,6 +6,9 @@ Public Class Form1
     Dim PubLogParsed As String
     Dim PriLogParsed As String
     Dim CurrentLine As Integer = 2
+    Dim FoundLine As Integer = 0
+    Dim NextLine As Integer = 0
+    Dim NextButton As Integer = 0
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Title = "Open File Dialog"
@@ -85,29 +88,35 @@ Public Class Form1
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click 'Search Button
         Dim Searched As String = TextBox1.Text
-        If PriLog = "" Then
-            MessageBox.Show("Assign a private avatar log!")
-            Exit Sub
-        ElseIf PubLog = "" Then
-            MessageBox.Show("Assign a public avatar log!")
-            Exit Sub
-        ElseIf LogFol = "" Then
-            MessageBox.Show("Assign an avatar log folder!")
-            Exit Sub
-        ElseIf PriLogParsed = "" Then
-            MessageBox.Show("Private log not parsed!")
-            Exit Sub
-        ElseIf PubLogParsed = "" Then
-            MessageBox.Show("Public log not parsed!")
-            Exit Sub
-        End If
-        If Searched = "" Then
-            MessageBox.Show("Please enter the search field")
-            Exit Sub
-        End If
+        'If PriLog = "" Then
+        '    MessageBox.Show("Assign a private avatar log!")
+        '    Exit Sub
+        'ElseIf PubLog = "" Then
+        '    MessageBox.Show("Assign a public avatar log!")
+        '    Exit Sub
+        'ElseIf LogFol = "" Then
+        '    MessageBox.Show("Assign an avatar log folder!")
+        '    Exit Sub
+        'ElseIf PriLogParsed = "" Then
+        '    MessageBox.Show("Private log not parsed!")
+        '    Exit Sub
+        'ElseIf PubLogParsed = "" Then
+        '    MessageBox.Show("Public log not parsed!")
+        '    Exit Sub
+        'End If
+        'If Searched = "" Then
+        '    MessageBox.Show("Please enter the search field")
+        '    Exit Sub
+        'End If
         Dim allLines As List(Of String) = New List(Of String)
         Dim ParsedFile As String = PubLogParsed
-        Dim Temp As String = "1"
+        If NextButton = 1 Then
+            NextButton = 0
+            NextLine = 0
+        Else
+            FoundLine = 0
+            NextLine = 0
+        End If
 
         If RadioButton1.Checked Then 'Avatar Name
             CurrentLine = 4
@@ -128,16 +137,29 @@ Public Class Form1
             Loop
         reader.Close()
         Dim LineCount = File.ReadAllLines(ParsedFile).Length
+        ListBox1.Items.Clear()
         For i = 1 To (LineCount \ 13)
             If ReadLine(CurrentLine, allLines) = Searched Then
-                Temp = "1"
-                Exit For
+                Dim NextLineSkip As Integer = 0
+                If RadioButton2.Checked Then
+                Else
+                    ListBox1.Items.Add(Searched)
+                End If
+                If FoundLine = 0 Then
+                    FoundLine = CurrentLine
+                    NextLineSkip = 1
+                End If
+                If NextLineSkip = 0 And NextLine = 0 And CurrentLine <> FoundLine Then
+                    NextLine = CurrentLine
+                End If
+                CurrentLine = CurrentLine + 13
             Else
-                Temp = "0"
                 CurrentLine = CurrentLine + 13
             End If
         Next
-        If Temp = "0" Then
+        CurrentLine = FoundLine
+
+        If FoundLine = "0" Then
             TextBox2.Text = ""
             TextBox3.Text = ""
             TextBox4.Text = ""
@@ -227,8 +249,10 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PriLogParsed = My.Settings.ParsedPrivate
-        PubLogParsed = My.Settings.ParsedPublic
+        'PriLogParsed = My.Settings.ParsedPrivate
+        'PubLogParsed = My.Settings.ParsedPublic
+        PriLogParsed = "C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\AvatarLog\ParsedPriLog.txt"
+        PubLogParsed = "C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\AvatarLog\ParsedPubLog.txt"
         LogFol = My.Settings.AvatarFolder
         PubLog = My.Settings.PublicLog
         PriLog = My.Settings.PrivateLog
@@ -249,10 +273,16 @@ Public Class Form1
     Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
         Process.Start(TextBox14.Text)
     End Sub
-    Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
-        WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
-    End Sub
+    'Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
+    '    WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
+    'End Sub
     Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
         Process.Start("https://github.com/LargestBoi/CachedAvatarLocator")
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        FoundLine = NextLine
+        NextButton = 1
+        Button5_Click(sender, e)
     End Sub
 End Class

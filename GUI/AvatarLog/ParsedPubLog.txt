@@ -1,10 +1,23 @@
 Original Mod by KeafyIsHere and Maintained by LargestBoi
 REDACTED
 avtr_a9ece219-2c5a-4eb0-9118-99cbd81df95e
-Arti Turtle Neck - By Arti․
+Arti Turtle Neck - By Arti․ 1
 Arti Turtle Neck - By Arti․
 usr_059c54f7-33d9-4ff3-88c2-dfa9495649d0
-Arti․
+Arti.
+https://api.vrchat.cloud/api/1/file/file_06e5ae7c-0f8b-4992-b91e-c902ef04c3e9/2/file
+https://api.vrchat.cloud/api/1/file/file_f7e2b010-0b04-4c69-a851-616c3a22effb/1/file
+https://d348imysud55la.cloudfront.net/thumbnails/302005768.thumbnail-500.png
+public
+2
+
+
+REDACTED
+avtr_a9ece219-2c5a-4eb0-9118-99cbd81df95e
+Arti Turtle Neck - By Arti․ 2
+Arti Turtle Neck - By Arti․
+usr_059c54f7-33d9-4ff3-88c2-dfa9495649d0
+Arti.
 https://api.vrchat.cloud/api/1/file/file_06e5ae7c-0f8b-4992-b91e-c902ef04c3e9/2/file
 https://api.vrchat.cloud/api/1/file/file_f7e2b010-0b04-4c69-a851-616c3a22effb/1/file
 https://d348imysud55la.cloudfront.net/thumbnails/302005768.thumbnail-500.png
