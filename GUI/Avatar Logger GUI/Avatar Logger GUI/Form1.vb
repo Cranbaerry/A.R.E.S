@@ -149,7 +149,7 @@ Public Class Form1
                     FoundLine = CurrentLine
                     NextLineSkip = 1
                 End If
-                If NextLineSkip = 0 And NextLine = 0 And CurrentLine <> FoundLine Then
+                If NextLineSkip = 0 And NextLine = 0 And CurrentLine <> FoundLine Then '''ISSUE
                     NextLine = CurrentLine
                 End If
                 CurrentLine = CurrentLine + 13
