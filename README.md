@@ -16,5 +16,7 @@ Installation:
 Usage:
 
 	1. Open the "Avatar Logger GUI.exe" and follow the built in instructions!
+	
+	WARNING{Whenever new avatars are logged the parse becomes oudated! To update the parse follow the instructions on the "How To Update Parsed Logs:" section in the GUI!}
 	 
 	Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
