@@ -100,7 +100,7 @@ Public Class Form1
             Do While Not reader.EndOfStream
                 allLines.Add(reader.ReadLine())
             Loop
-            reader.Close() 'Save and close the file
+        reader.Close()
         Dim LineCount = File.ReadAllLines(ParsedFile).Length
         For i = 1 To (LineCount \ 13)
             If ReadLine(CurrentLine, allLines) = Searched Then
@@ -201,8 +201,8 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PriLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPriLog.txt"
-        PubLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPubLog.txt"
+        'PriLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPriLog.txt"
+        'PubLogParsed = "F:\SteamLibrary\steamapps\common\VRChat\AvatarLog\ParsedPubLog.txt"
         RadioButton4.Checked = True
         RadioButton1.Checked = True
     End Sub
@@ -217,11 +217,15 @@ Public Class Form1
         End If
     End Sub
 
-    Public Function ReadLine(lineNumber As Integer, lines As List(Of String)) As String 'Function that allows reading lines from a file to work and to keep the ReadLine() command neat and easy the read/write in the code
+    Public Function ReadLine(lineNumber As Integer, lines As List(Of String)) As String
         Return lines(lineNumber - 1)
     End Function
 
     Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
         Process.Start(TextBox14.Text)
+    End Sub
+
+    Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
+        Process.Start("https://github.com/LargestBoi/CachedAvatarLocator")
     End Sub
 End Class

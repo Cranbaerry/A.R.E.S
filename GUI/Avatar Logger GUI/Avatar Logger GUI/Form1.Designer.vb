@@ -58,6 +58,7 @@ Partial Class Form1
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -168,7 +169,7 @@ Partial Class Form1
         Me.WebBrowser1.Margin = New System.Windows.Forms.Padding(2)
         Me.WebBrowser1.MinimumSize = New System.Drawing.Size(11, 11)
         Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(310, 242)
+        Me.WebBrowser1.Size = New System.Drawing.Size(310, 248)
         Me.WebBrowser1.TabIndex = 4
         '
         'TextBox15
@@ -396,11 +397,22 @@ Partial Class Form1
         Me.Label12.TabIndex = 191
         Me.Label12.Text = "Avatar Version:"
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(767, 448)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(94, 13)
+        Me.Label13.TabIndex = 192
+        Me.Label13.Text = "GUI By LargestBoi"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(873, 457)
+        Me.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.ClientSize = New System.Drawing.Size(873, 463)
+        Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
@@ -479,4 +491,5 @@ Partial Class Form1
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
 End Class
