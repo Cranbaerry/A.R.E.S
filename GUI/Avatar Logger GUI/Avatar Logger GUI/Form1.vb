@@ -39,11 +39,6 @@ Public Class Form1
     End Sub
 
     Public Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        If System.IO.File.Exists(LogFol & "\ParsedPubLog.txt") = True Then
-            System.IO.File.Delete(LogFol & "\ParsedPubLog.txt")
-        ElseIf System.IO.File.Exists(LogFol & "\ParsedPriLog.txt") = True Then
-            System.IO.File.Delete(LogFol & "\ParsedPriLog.txt")
-        End If
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time Detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar ID:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Name:", ""), False)
@@ -89,26 +84,26 @@ Public Class Form1
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click 'Search Button
         Dim Searched As String = TextBox1.Text
-        'If PriLog = "" Then
-        '    MessageBox.Show("Assign a private avatar log!")
-        '    Exit Sub
-        'ElseIf PubLog = "" Then
-        '    MessageBox.Show("Assign a public avatar log!")
-        '    Exit Sub
-        'ElseIf LogFol = "" Then
-        '    MessageBox.Show("Assign an avatar log folder!")
-        '    Exit Sub
-        'ElseIf PriLogParsed = "" Then
-        '    MessageBox.Show("Private log not parsed!")
-        '    Exit Sub
-        'ElseIf PubLogParsed = "" Then
-        '    MessageBox.Show("Public log not parsed!")
-        '    Exit Sub
-        'End If
-        'If Searched = "" Then
-        '    MessageBox.Show("Please enter the search field")
-        '    Exit Sub
-        'End If
+        If PriLog = "" Then
+            MessageBox.Show("Assign a private avatar log!")
+            Exit Sub
+        ElseIf PubLog = "" Then
+            MessageBox.Show("Assign a public avatar log!")
+            Exit Sub
+        ElseIf LogFol = "" Then
+            MessageBox.Show("Assign an avatar log folder!")
+            Exit Sub
+        ElseIf PriLogParsed = "" Then
+            MessageBox.Show("Private log not parsed!")
+            Exit Sub
+        ElseIf PubLogParsed = "" Then
+            MessageBox.Show("Public log not parsed!")
+        Exit Sub
+        End If
+        If Searched = "" Then
+            MessageBox.Show("Please enter the search field")
+            Exit Sub
+        End If
         Dim allLines As List(Of String) = New List(Of String)
         Dim ParsedFile As String = PubLogParsed
         If NextButton = 1 Then
@@ -139,7 +134,7 @@ Public Class Form1
         reader.Close()
         Dim LineCount = File.ReadAllLines(ParsedFile).Length
         ListBox1.Items.Clear()
-        For i = 1 To (LineCount \ 13)
+        For i = 1 To (LineCount \ 12)
             If ReadLine(CurrentLine, allLines) = Searched Then
                 Dim NextLineSkip As Integer = 0
                 If RadioButton2.Checked Then
@@ -153,9 +148,9 @@ Public Class Form1
                 If NextLineSkip = 0 And NextLine = 0 And CurrentLine > FoundLine Then
                     NextLine = CurrentLine
                 End If
-                CurrentLine = CurrentLine + 13
+                CurrentLine = CurrentLine + 12
             Else
-                CurrentLine = CurrentLine + 13
+                CurrentLine = CurrentLine + 12
             End If
         Next
         CurrentLine = FoundLine
@@ -253,10 +248,8 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'PriLogParsed = My.Settings.ParsedPrivate
-        'PubLogParsed = My.Settings.ParsedPublic
-        PriLogParsed = "C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\AvatarLog\ParsedPriLog.txt"
-        PubLogParsed = "C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\AvatarLog\ParsedPubLog.txt"
+        PriLogParsed = My.Settings.ParsedPrivate
+        PubLogParsed = My.Settings.ParsedPublic
         LogFol = My.Settings.AvatarFolder
         PubLog = My.Settings.PublicLog
         PriLog = My.Settings.PrivateLog
@@ -287,8 +280,17 @@ Public Class Form1
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         FoundLine = NextLine
         NextButton = 1
-        LabelLog = LabelLog + 1
+        If LabelLog >= ListBox1.Items.Count() Then
+            LabelLog = 0
+        End If
         Label15.Text = (LabelLog & "/" & ListBox1.Items.Count.ToString())
+        LabelLog = LabelLog + 1
         Button5_Click(sender, e)
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        My.Computer.FileSystem.DeleteFile(LogFol & "\ParsedPriLog.txt")
+        My.Computer.FileSystem.DeleteFile(LogFol & "\ParsedPubLog.txt")
+        MessageBox.Show("Parse reset!")
     End Sub
 End Class

@@ -83,7 +83,7 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
-                        $"Version:{__0.version}\n"
+                        $"Version:{__0.version}\n",
                     });
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Public]"); }
                 }
@@ -102,7 +102,7 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
-                        $"Version:{__0.version}\n"
+                        $"Version:{__0.version}\n",
                     });
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Private]"); }
                 }
