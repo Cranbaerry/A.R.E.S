@@ -15,6 +15,6 @@ Installation:
 	
 Usage:
 
-	1. Open the "Avatar Logger GUI.exe"
+	1. Open the "Avatar Logger GUI.exe" and follow the built in instructions!
 	 
 	Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
