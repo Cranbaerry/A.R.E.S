@@ -9,6 +9,7 @@ Public Class Form1
     Dim FoundLine As Integer = 0
     Dim NextLine As Integer = 0
     Dim NextButton As Integer = 0
+    Dim LabelLog As Integer = 1
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Title = "Open File Dialog"
@@ -149,7 +150,7 @@ Public Class Form1
                     FoundLine = CurrentLine
                     NextLineSkip = 1
                 End If
-                If NextLineSkip = 0 And NextLine = 0 And CurrentLine <> FoundLine Then '''ISSUE
+                If NextLineSkip = 0 And NextLine = 0 And CurrentLine > FoundLine Then
                     NextLine = CurrentLine
                 End If
                 CurrentLine = CurrentLine + 13
@@ -176,6 +177,8 @@ Public Class Form1
             TextBox9.Text = ""
             TextBox8.Text = ""
             WebBrowser1.Navigate("")
+            Label15.Text = "0/0"
+            LabelLog = 1
             MessageBox.Show("Search term not found")
             Exit Sub
         Else
@@ -246,6 +249,7 @@ Public Class Form1
         TextBox8.Text = AvatarVer
         Label6.ForeColor = Color.Blue
         WebBrowser1.Navigate(Thumbnail)
+        Label15.Text = (LabelLog & "/" & ListBox1.Items.Count.ToString())
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -283,6 +287,8 @@ Public Class Form1
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         FoundLine = NextLine
         NextButton = 1
+        LabelLog = LabelLog + 1
+        Label15.Text = (LabelLog & "/" & ListBox1.Items.Count.ToString())
         Button5_Click(sender, e)
     End Sub
 End Class
