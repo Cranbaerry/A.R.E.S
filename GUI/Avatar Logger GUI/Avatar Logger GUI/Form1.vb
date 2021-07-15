@@ -37,8 +37,8 @@ Public Class Form1
     Public Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         If System.IO.File.Exists(LogFol & "\ParsedPubLog.txt") = True Then
             System.IO.File.Delete(LogFol & "\ParsedPubLog.txt")
-            MsgBox("File Deleted")
-        ElseIf LogFol & "\ParsedPubLog.txt" Then
+        ElseIf System.IO.File.Exists(LogFol & "\ParsedPriLog.txt") = True Then
+            System.IO.File.Delete(LogFol & "\ParsedPriLog.txt")
         End If
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time Detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar ID:", ""), False)
