@@ -15,7 +15,8 @@ Public Class Form1
         fd.RestoreDirectory = True
         If fd.ShowDialog() = DialogResult.OK Then
             PubLog = fd.FileName
-            MessageBox.Show("You selected: " + PubLog)
+            My.Settings.PublicLog = PubLog
+            MessageBox.Show("(SAVED)You selected: " + PubLog)
         End If
     End Sub
 
@@ -28,11 +29,17 @@ Public Class Form1
         fd.RestoreDirectory = True
         If fd.ShowDialog() = DialogResult.OK Then
             PriLog = fd.FileName
-            MessageBox.Show("You selected: " + PriLog)
+            My.Settings.PrivateLog = PriLog
+            MessageBox.Show("(SAVED)You selected: " + PriLog)
         End If
     End Sub
 
     Public Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If System.IO.File.Exists(LogFol & "\ParsedPubLog.txt") = True Then
+            System.IO.File.Delete(LogFol & "\ParsedPubLog.txt")
+            MsgBox("File Deleted")
+        ElseIf LogFol & "\ParsedPubLog.txt" Then
+        End If
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time Detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar ID:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse2.txt").Replace("Avatar Name:", ""), False)
@@ -47,6 +54,7 @@ Public Class Form1
         My.Computer.FileSystem.DeleteFile(PubLog & "parse2.txt")
         My.Computer.FileSystem.RenameFile(PubLog & "parse.txt", "ParsedPubLog.txt")
         PubLogParsed = (LogFol & "\ParsedPubLog.txt")
+        My.Settings.ParsedPublic = PubLogParsed
         My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog).Replace("Time Detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PriLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse.txt").Replace("Avatar ID:", ""), False)
         My.Computer.FileSystem.WriteAllText(PriLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PriLog & "parse2.txt").Replace("Avatar Name:", ""), False)
@@ -61,6 +69,7 @@ Public Class Form1
         My.Computer.FileSystem.DeleteFile(PriLog & "parse2.txt")
         My.Computer.FileSystem.RenameFile(PriLog & "parse.txt", "ParsedPriLog.txt")
         PriLogParsed = (LogFol & "\ParsedPriLog.txt")
+        My.Settings.ParsedPrivate = PriLogParsed
         MessageBox.Show("Logs parsed!")
     End Sub
 
@@ -69,12 +78,29 @@ Public Class Form1
         Fol.Description = "Select a folder"
         If (Fol.ShowDialog() = DialogResult.OK) Then
             LogFol = Fol.SelectedPath
-            MessageBox.Show("You selected: " + Fol.SelectedPath)
+            My.Settings.AvatarFolder = LogFol
+            MessageBox.Show("(SAVED)You selected: " + Fol.SelectedPath)
         End If
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click 'Search Button
         Dim Searched As String = TextBox1.Text
+        If PriLog = "" Then
+            MessageBox.Show("Assign a private avatar log!")
+            Exit Sub
+        ElseIf PubLog = "" Then
+            MessageBox.Show("Assign a public avatar log!")
+            Exit Sub
+        ElseIf LogFol = "" Then
+            MessageBox.Show("Assign an avatar log folder!")
+            Exit Sub
+        ElseIf PriLogParsed = "" Then
+            MessageBox.Show("Private log not parsed!")
+            Exit Sub
+        ElseIf PubLogParsed = "" Then
+            MessageBox.Show("Public log not parsed!")
+            Exit Sub
+        End If
         If Searched = "" Then
             MessageBox.Show("Please enter the search field")
             Exit Sub
@@ -122,7 +148,7 @@ Public Class Form1
             TextBox9.Text = ""
             TextBox10.Text = ""
             TextBox14.Text = ""
-            Label6.ForeColor = Color.Black
+            Label6.ForeColor = Color.White
             TextBox15.Text = ""
             TextBox10.Text = ""
             TextBox9.Text = ""
@@ -201,8 +227,11 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PriLogParsed = "C:\Users\Fall0ut\Desktop\CachedAvatarLocator\GUI\AvatarLog\ParsedPriLog.txt"
-        PubLogParsed = "C:\Users\Fall0ut\Desktop\CachedAvatarLocator\GUI\AvatarLog\ParsedPubLog.txt"
+        PriLogParsed = My.Settings.ParsedPrivate
+        PubLogParsed = My.Settings.ParsedPublic
+        LogFol = My.Settings.AvatarFolder
+        PubLog = My.Settings.PublicLog
+        PriLog = My.Settings.PrivateLog
         RadioButton4.Checked = True
         RadioButton1.Checked = True
     End Sub
@@ -220,7 +249,9 @@ Public Class Form1
     Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
         Process.Start(TextBox14.Text)
     End Sub
-
+    Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
+        WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
+    End Sub
     Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
         Process.Start("https://github.com/LargestBoi/CachedAvatarLocator")
     End Sub
