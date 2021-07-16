@@ -76,13 +76,16 @@ Partial Class Form1
         Me.TextBox11 = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
         Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Location = New System.Drawing.Point(614, 122)
+        Me.Button1.Location = New System.Drawing.Point(655, 146)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(102, 23)
         Me.Button1.TabIndex = 20
@@ -92,7 +95,7 @@ Partial Class Form1
         'Button2
         '
         Me.Button2.ForeColor = System.Drawing.Color.Black
-        Me.Button2.Location = New System.Drawing.Point(508, 122)
+        Me.Button2.Location = New System.Drawing.Point(549, 146)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(102, 23)
         Me.Button2.TabIndex = 19
@@ -102,7 +105,7 @@ Partial Class Form1
         'Button3
         '
         Me.Button3.ForeColor = System.Drawing.Color.Black
-        Me.Button3.Location = New System.Drawing.Point(614, 152)
+        Me.Button3.Location = New System.Drawing.Point(655, 176)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(102, 23)
         Me.Button3.TabIndex = 22
@@ -112,7 +115,7 @@ Partial Class Form1
         'Button4
         '
         Me.Button4.ForeColor = System.Drawing.Color.Black
-        Me.Button4.Location = New System.Drawing.Point(509, 152)
+        Me.Button4.Location = New System.Drawing.Point(550, 176)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(101, 23)
         Me.Button4.TabIndex = 21
@@ -134,13 +137,13 @@ Partial Class Form1
         Me.TextBox1.BackColor = System.Drawing.Color.Silver
         Me.TextBox1.Location = New System.Drawing.Point(563, 240)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(120, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(169, 20)
         Me.TextBox1.TabIndex = 1
         '
         'Button5
         '
         Me.Button5.ForeColor = System.Drawing.Color.Black
-        Me.Button5.Location = New System.Drawing.Point(587, 266)
+        Me.Button5.Location = New System.Drawing.Point(563, 266)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(75, 23)
         Me.Button5.TabIndex = 2
@@ -329,7 +332,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Controls.Add(Me.RadioButton2)
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.GroupBox1.Location = New System.Drawing.Point(708, 190)
+        Me.GroupBox1.Location = New System.Drawing.Point(764, 126)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
@@ -341,7 +344,7 @@ Partial Class Form1
         'RadioButton4
         '
         Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(536, 200)
+        Me.RadioButton4.Location = New System.Drawing.Point(657, 211)
         Me.RadioButton4.Margin = New System.Windows.Forms.Padding(2)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.Size = New System.Drawing.Size(75, 17)
@@ -353,7 +356,7 @@ Partial Class Form1
         'RadioButton5
         '
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(619, 200)
+        Me.RadioButton5.Location = New System.Drawing.Point(574, 211)
         Me.RadioButton5.Margin = New System.Windows.Forms.Padding(2)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(79, 17)
@@ -465,7 +468,7 @@ Partial Class Form1
         '
         Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button6.ForeColor = System.Drawing.Color.Black
-        Me.Button6.Location = New System.Drawing.Point(274, 280)
+        Me.Button6.Location = New System.Drawing.Point(268, 278)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(29, 24)
         Me.Button6.TabIndex = 195
@@ -475,7 +478,7 @@ Partial Class Form1
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(308, 287)
+        Me.Label15.Location = New System.Drawing.Point(296, 285)
         Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(24, 13)
@@ -603,12 +606,46 @@ Partial Class Form1
         Me.Button7.Text = "Reset Parse"
         Me.Button7.UseVisualStyleBackColor = True
         '
+        'Button8
+        '
+        Me.Button8.ForeColor = System.Drawing.Color.Black
+        Me.Button8.Location = New System.Drawing.Point(657, 266)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(75, 23)
+        Me.Button8.TabIndex = 209
+        Me.Button8.Text = "Browse"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Button9
+        '
+        Me.Button9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button9.ForeColor = System.Drawing.Color.Black
+        Me.Button9.Location = New System.Drawing.Point(738, 264)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(29, 24)
+        Me.Button9.TabIndex = 210
+        Me.Button9.Text = "↓"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Button11
+        '
+        Me.Button11.ForeColor = System.Drawing.Color.Black
+        Me.Button11.Location = New System.Drawing.Point(665, 93)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(102, 23)
+        Me.Button11.TabIndex = 212
+        Me.Button11.Text = "Delete Logs"
+        Me.Button11.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(874, 571)
+        Me.Controls.Add(Me.Button11)
+        Me.Controls.Add(Me.Button9)
+        Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Label25)
         Me.Controls.Add(Me.TextBox11)
@@ -723,4 +760,7 @@ Partial Class Form1
     Friend WithEvents TextBox11 As TextBox
     Friend WithEvents Label25 As Label
     Friend WithEvents Button7 As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents Button9 As Button
+    Friend WithEvents Button11 As Button
 End Class

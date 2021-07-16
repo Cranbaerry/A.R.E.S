@@ -2,15 +2,15 @@
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
-Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://i.imgur.com/LdOsP67.png).
+Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://i.imgur.com/9wAvbfJ.png).
 
 Installation:
 	
-	1. Install melon loader (https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe) (Latest)
+	1. Install [Melon Loader](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
 	
 	2. Run VRchat once, this will allow melon to build the necessary mod files
 	
-	3. Download "Avatar Logger GUI V2.rar" from releases and extract its contents to your VRChat folder
+	3. Download "Avatar Logger GUI V2.5.rar" from releases and extract its contents to your VRChat folder
 	
 	4. Place the "Avatar Logger GUI.exe" wherever its convenient
 	
