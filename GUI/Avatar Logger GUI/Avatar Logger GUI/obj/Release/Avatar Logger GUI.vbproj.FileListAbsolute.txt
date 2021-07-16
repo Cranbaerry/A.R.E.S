@@ -10,13 +10,13 @@ C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\Avatar Logger GUI\Avatar
 C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.pdb
 C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.vbprojResolveAssemblyReference.cache
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\bin\Release\Avatar Logger GUI.exe.config
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.exe
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.xml
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.pdb
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\bin\Release\Avatar Logger GUI.exe
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\bin\Release\Avatar Logger GUI.pdb
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\bin\Release\Avatar Logger GUI.xml
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar_Logger_GUI.Form1.resources
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar_Logger_GUI.Resources.resources
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.vbproj.GenerateResource.cache
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.vbproj.GenerateResource.Cache
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.vbproj.CoreCompileInputs.cache
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.exe
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.xml
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\GUI\Avatar Logger GUI\Avatar Logger GUI\obj\Release\Avatar Logger GUI.pdb
