@@ -1,6 +1,6 @@
 The project has been greatly improved! Now it is a MOD but does not change any in-game files, the mod runs seperately and does not change anything within VRChat! It now logs every avatar you see in game! All is saved into a neat/easy txt file that can be navigated around with the included GUI, the project is still completely open source! You can search VIA Avatar Name, Avatar ID and Avatar Author!
 
-I have been looking for a tool that does this for a few weeks now, I have found nothing that allows this that is not some dodgy back-ally client so I thought "Fine ill do it myself!". With that I present to you the Avatar Logger + GUI! It does logs all avatars seen in-game to a txt file and has an easy to navigate GUI to search through your logs!
+I have been looking for a tool that does this for a few weeks now, I have found nothing that allows this that is not some dodgy back-ally client so I thought "Fine ill do it myself!". With that I present to you the Avatar Logger + GUI! It logs all avatars seen in-game to a txt file and has an easy to navigate GUI to search through your logs!
 
 (Please do not just redistribute the raw files! If you want to give it to a pal LINK THE GITHUB so that way any updates made they will be made aware of and they will get the latest version of this project and be able to report issues on GitHub!)
 
