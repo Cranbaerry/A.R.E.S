@@ -10,9 +10,6 @@ Public Class Form1
     Dim NextLine As Integer = 0
     Dim NextButton As Integer = 0
     Dim LabelLog As Integer = 1
-    Dim BrowseType As String
-    Dim BrowseLine As Integer = 0
-    Dim BrowseNext As String = "no"
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Title = "Open File Dialog"
@@ -26,6 +23,7 @@ Public Class Form1
             MessageBox.Show("(SAVED)You selected: " + PubLog)
         End If
     End Sub
+
     Public Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Title = "Open File Dialog"
@@ -39,6 +37,7 @@ Public Class Form1
             MessageBox.Show("(SAVED)You selected: " + PriLog)
         End If
     End Sub
+
     Public Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         My.Computer.FileSystem.WriteAllText(PubLog & "parse.txt", My.Computer.FileSystem.ReadAllText(PubLog).Replace("Time Detected:", ""), False)
         My.Computer.FileSystem.WriteAllText(PubLog & "parse2.txt", My.Computer.FileSystem.ReadAllText(PubLog & "parse.txt").Replace("Avatar ID:", ""), False)
@@ -72,6 +71,7 @@ Public Class Form1
         My.Settings.ParsedPrivate = PriLogParsed
         MessageBox.Show("Logs parsed!")
     End Sub
+
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Dim Fol As FolderBrowserDialog = New FolderBrowserDialog()
         Fol.Description = "Select a folder"
@@ -81,6 +81,7 @@ Public Class Form1
             MessageBox.Show("(SAVED)You selected: " + Fol.SelectedPath)
         End If
     End Sub
+
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click 'Search Button
         Dim Searched As String = TextBox1.Text
         If PriLog = "" Then
@@ -97,7 +98,7 @@ Public Class Form1
             Exit Sub
         ElseIf PubLogParsed = "" Then
             MessageBox.Show("Public log not parsed!")
-            Exit Sub
+        Exit Sub
         End If
         If Searched = "" Then
             MessageBox.Show("Please enter the search field")
@@ -112,6 +113,7 @@ Public Class Form1
             FoundLine = 0
             NextLine = 0
         End If
+
         If RadioButton1.Checked Then 'Avatar Name
             CurrentLine = 4
         ElseIf RadioButton2.Checked Then 'Avatar ID
@@ -119,15 +121,16 @@ Public Class Form1
         ElseIf RadioButton3.Checked Then 'Avatar Author
             CurrentLine = 7
         End If
+
         If RadioButton4.Checked Then
             ParsedFile = PubLogParsed
         ElseIf RadioButton5.Checked Then
             ParsedFile = PriLogParsed
         End If
-        Dim reader As New System.IO.StreamReader(ParsedFile)
-        Do While Not reader.EndOfStream
-            allLines.Add(reader.ReadLine())
-        Loop
+            Dim reader As New System.IO.StreamReader(ParsedFile)
+            Do While Not reader.EndOfStream
+                allLines.Add(reader.ReadLine())
+            Loop
         reader.Close()
         Dim LineCount = File.ReadAllLines(ParsedFile).Length
         ListBox1.Items.Clear()
@@ -151,6 +154,7 @@ Public Class Form1
             End If
         Next
         CurrentLine = FoundLine
+
         If FoundLine = "0" Then
             TextBox2.Text = ""
             TextBox3.Text = ""
@@ -185,6 +189,7 @@ Public Class Form1
         Dim AssetImage As String
         Dim ReleaseType As String
         Dim AvatarVer As String
+
         If RadioButton1.Checked Then 'Avatar Name
             TimeDetected = ReadLine((CurrentLine - 2), allLines)
             AvatarID = ReadLine((CurrentLine - 1), allLines)
@@ -197,6 +202,7 @@ Public Class Form1
             Thumbnail = ReadLine((CurrentLine + 6), allLines)
             ReleaseType = ReadLine((CurrentLine + 7), allLines)
             AvatarVer = ReadLine((CurrentLine + 8), allLines)
+
         ElseIf RadioButton2.Checked Then 'Avatar ID
             TimeDetected = ReadLine((CurrentLine - 1), allLines)
             AvatarID = ReadLine((CurrentLine), allLines)
@@ -209,6 +215,7 @@ Public Class Form1
             Thumbnail = ReadLine((CurrentLine + 7), allLines)
             ReleaseType = ReadLine((CurrentLine + 8), allLines)
             AvatarVer = ReadLine((CurrentLine + 9), allLines)
+
         ElseIf RadioButton3.Checked Then 'Avatar Author
             TimeDetected = ReadLine((CurrentLine - 5), allLines)
             AvatarID = ReadLine((CurrentLine - 4), allLines)
@@ -221,7 +228,9 @@ Public Class Form1
             Thumbnail = ReadLine((CurrentLine + 3), allLines)
             ReleaseType = ReadLine((CurrentLine + 4), allLines)
             AvatarVer = ReadLine((CurrentLine + 5), allLines)
+
         End If
+
         TextBox2.Text = TimeDetected
         TextBox3.Text = AvatarID
         TextBox4.Text = AvatarName
@@ -237,23 +246,27 @@ Public Class Form1
         WebBrowser1.Navigate(Thumbnail)
         Label15.Text = (LabelLog & "/" & ListBox1.Items.Count.ToString())
     End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PriLogParsed = My.Settings.ParsedPrivate
         PubLogParsed = My.Settings.ParsedPublic
         LogFol = My.Settings.AvatarFolder
         PubLog = My.Settings.PublicLog
         PriLog = My.Settings.PrivateLog
-        RadioButton5.Checked = True
+        RadioButton4.Checked = True
         RadioButton1.Checked = True
     End Sub
+
     Private Sub TextBox1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TextBox1.KeyDown
         If e.KeyCode = Keys.Enter Then
             Button5_Click(sender, e)
         End If
     End Sub
+
     Public Function ReadLine(lineNumber As Integer, lines As List(Of String)) As String
         Return lines(lineNumber - 1)
     End Function
+
     Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
         Process.Start(TextBox14.Text)
     End Sub
@@ -261,8 +274,9 @@ Public Class Form1
     '    WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
     'End Sub
     Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
-        Process.Start("https://github.com/LargestBoi/AvatarLogger-GUI")
+        Process.Start("https://github.com/LargestBoi/AvatarLogger-GUIr")
     End Sub
+
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         FoundLine = NextLine
         NextButton = 1
@@ -273,14 +287,10 @@ Public Class Form1
         LabelLog = LabelLog + 1
         Button5_Click(sender, e)
     End Sub
+
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
         My.Computer.FileSystem.DeleteFile(LogFol & "\ParsedPriLog.txt")
         My.Computer.FileSystem.DeleteFile(LogFol & "\ParsedPubLog.txt")
         MessageBox.Show("Parse reset!")
-    End Sub
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        My.Computer.FileSystem.DeleteFile(LogFol & "\Private.txt")
-        My.Computer.FileSystem.DeleteFile(LogFol & "\Public.txt")
-        MessageBox.Show("Logs deleted!")
     End Sub
 End Class
