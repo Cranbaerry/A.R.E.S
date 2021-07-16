@@ -274,7 +274,7 @@ Public Class Form1
     '    WebBrowser1.Size = WebBrowser1.Document.Body.ScrollRectangle.Size
     'End Sub
     Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
-        Process.Start("https://github.com/LargestBoi/CachedAvatarLocator")
+        Process.Start("https://github.com/LargestBoi/AvatarLogger-GUI")
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click

@@ -10,7 +10,7 @@ Installation:
 	
 	2. Run VRchat once, this will allow melon to build the necessary mod files
 	
-	3. Download "CachedAvatarLocator VX.rar" from releases and extract its contents to your VRChat folder
+	3. Download "Avatar Logger GUI V2.rar" from releases and extract its contents to your VRChat folder
 	
 	4. Place the "Avatar Logger GUI.exe" wherever its convenient
 	
