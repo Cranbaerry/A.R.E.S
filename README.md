@@ -1,4 +1,4 @@
-# CachedAvatarLocator
+# Avatar Logger GUI
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
@@ -10,7 +10,7 @@ Installation:
 	
 	2. Run VRchat once, this will allow melon to build the necessary mod files
 	
-	3. Download "CachedAvatarLocator VX.rar" from releases and extract its contents to your VRChat folder
+	3. Download "AvatarLoggerGUI.rar" from releases and extract its contents to your VRChat folder
 	
 	4. Place the "Avatar Logger GUI.exe" wherever its convenient
 	
@@ -20,4 +20,4 @@ Usage:
 	
 	WARNING{Whenever new avatars are logged the parse becomes oudated! To update the parse follow the instructions on the "How To Update Parsed Logs:" section in the GUI!}
 	 
-	Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
+Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
