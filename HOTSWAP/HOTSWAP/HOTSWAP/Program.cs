@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using AssetsTools.NET;
 using AssetsTools.NET.Extra;
+using System.Text.RegularExpressions;
 
 namespace HOTSWAP
 {
@@ -37,6 +38,7 @@ namespace HOTSWAP
 
                 bun = new AssetBundleFile();
                 bun.Read(reader);
+                bun.Close();
             }
 
             return bun;
@@ -51,12 +53,22 @@ namespace HOTSWAP
 
         static void Main(string[] args)
         {
-            //string file = @"C:\Users\adamc\Desktop\VRC\Avis\Bumblebee.vrca";
-            //string decompFile = @"C:\Users\adamc\Desktop\VRC\Avis\Bumblebee.D";
-            //DecompressBundle(file, decompFile);
-            //string file = @"C:\Users\adamc\Desktop\VRC\Avis\Bumblebee.D";
-            //string compFile = @"C:\Users\adamc\Desktop\VRC\Avis\Bumblebee2.vrca";
-            //CompressBundle(file, compFile);
+            string compressedfile = args[0];
+            string avtrid = args[1];
+            DecompressBundle(compressedfile, "decompressedfile");
+            string readFile  = System.IO.File.ReadAllText("decompressedfile", Encoding.Default);
+            Regex rx = new Regex(@"avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}");
+            MatchCollection matches = rx.Matches(readFile);
+            foreach (Match match in matches)
+            {
+                GroupCollection groups = match.Groups;
+                Console.WriteLine("'{0}' repeated at positions {1} and {2}",
+                                  groups["word"].Value,
+                                  groups[0].Index,
+                                  groups[1].Index);
+            }
+            //Console.WriteLine(readFile);
+            Console.Read();
         }
     }
 }
