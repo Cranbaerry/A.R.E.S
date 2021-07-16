@@ -278,51 +278,6 @@ Public Class Form1
         My.Computer.FileSystem.DeleteFile(LogFol & "\ParsedPubLog.txt")
         MessageBox.Show("Parse reset!")
     End Sub
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        If BrowseNext = "no" Then
-            If RadioButton5.Checked Then 'Private Browse
-                BrowseType = (LogFol & "\ParsedPriLog.txt")
-                BrowseLine = 0
-            Else BrowseType = (LogFol & "\ParsedPubLog.txt") 'Public Browse
-                BrowseLine = 0
-            End If
-        End If
-        TextBox2.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox2.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox3.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox4.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox5.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox6.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox7.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox14.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox15.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox10.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox9.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        BrowseLine = BrowseLine + 1
-        TextBox8.Text = System.IO.File.ReadAllLines(BrowseType)(BrowseLine)
-        Label6.ForeColor = Color.Blue
-        WebBrowser1.Navigate(TextBox10.Text)
-    End Sub
-    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        BrowseLine = BrowseLine + 13
-        If BrowseLine + 5 > File.ReadAllLines(BrowseType).Length Then
-            MessageBox.Show("End of log!")
-            Exit Sub
-        End If
-        BrowseNext = "yes"
-        Button8_Click(sender, e)
-        BrowseNext = "no"
-    End Sub
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
         My.Computer.FileSystem.DeleteFile(LogFol & "\Private.txt")
         My.Computer.FileSystem.DeleteFile(LogFol & "\Public.txt")

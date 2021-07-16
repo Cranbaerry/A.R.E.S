@@ -76,8 +76,6 @@ Partial Class Form1
         Me.TextBox11 = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -145,7 +143,7 @@ Partial Class Form1
         Me.Button5.ForeColor = System.Drawing.Color.Black
         Me.Button5.Location = New System.Drawing.Point(563, 266)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.Size = New System.Drawing.Size(169, 23)
         Me.Button5.TabIndex = 2
         Me.Button5.Text = "Search"
         Me.Button5.UseVisualStyleBackColor = True
@@ -606,27 +604,6 @@ Partial Class Form1
         Me.Button7.Text = "Reset Parse"
         Me.Button7.UseVisualStyleBackColor = True
         '
-        'Button8
-        '
-        Me.Button8.ForeColor = System.Drawing.Color.Black
-        Me.Button8.Location = New System.Drawing.Point(657, 266)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
-        Me.Button8.TabIndex = 209
-        Me.Button8.Text = "Browse"
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Button9
-        '
-        Me.Button9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button9.ForeColor = System.Drawing.Color.Black
-        Me.Button9.Location = New System.Drawing.Point(738, 264)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(29, 24)
-        Me.Button9.TabIndex = 210
-        Me.Button9.Text = "↓"
-        Me.Button9.UseVisualStyleBackColor = True
-        '
         'Button11
         '
         Me.Button11.ForeColor = System.Drawing.Color.Black
@@ -634,7 +611,7 @@ Partial Class Form1
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(102, 23)
         Me.Button11.TabIndex = 212
-        Me.Button11.Text = "Delete Logs"
+        Me.Button11.Text = "Delete Logs!"
         Me.Button11.UseVisualStyleBackColor = True
         '
         'Form1
@@ -644,8 +621,6 @@ Partial Class Form1
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(874, 571)
         Me.Controls.Add(Me.Button11)
-        Me.Controls.Add(Me.Button9)
-        Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Label25)
         Me.Controls.Add(Me.TextBox11)
@@ -760,7 +735,5 @@ Partial Class Form1
     Friend WithEvents TextBox11 As TextBox
     Friend WithEvents Label25 As Label
     Friend WithEvents Button7 As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button9 As Button
     Friend WithEvents Button11 As Button
 End Class
