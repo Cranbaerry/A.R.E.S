@@ -6,7 +6,7 @@ Allows for easy searching of the VRChat cache folder for a particular avatar tha
 
 Installation:
 	
-	1. Install [Melon Loader](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
+	1. Install Melon Loader(https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
 	
 	2. Run VRchat once, this will allow melon to build the necessary mod files
 	
