@@ -19,5 +19,8 @@ Usage:
 	1. Open the "Avatar Logger GUI.exe" and follow the built in instructions!
 	
 	WARNING{Whenever new avatars are logged the parse becomes oudated! To update the parse follow the instructions on the "How To Update Parsed Logs:" section in the GUI!}
+	Microsoft has deemed the "Avatar Logger GUI.exe" to be safe! (https://i.imgur.com/dedebSK.png)
+	Within the next few windows updates it will stop being detected as a dalse positive!
+	For now if you are propted you need to manually allow the program to run
 	 
 Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
