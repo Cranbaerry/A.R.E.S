@@ -19,7 +19,8 @@ Usage:
 	1. Open the "Avatar Logger GUI.exe" and follow the built in instructions!
 	
 	WARNING{Whenever new avatars are logged the parse becomes oudated! To update the parse follow the instructions on the "How To Update Parsed Logs:" section in the GUI!}
-			You may also get a false positive for the GUI so here I have provided a virus total scan: (https://www.virustotal.com/gui/file/9b4192e2fd07a4590252d2eeb77944533e7738cf20a892aa31fd2712c2116057/summary) I have created a ticket with windows defender to get it unlisted as a false positive!
+			You may also get a false positive for the GUI so here I have provided a virus total scan: (https://www.virustotal.com/gui/file/9b4192e2fd07a4590252d2eeb77944533e7738cf20a892aa31fd2712c2116057/summary)
+			I have created a ticket with windows defender to get it unlisted as a false positive! (https://i.imgur.com/xM9VYuA.png)
 			If you are still suspicious of the code take a look yourslef and feel free to download/build your own copy, if its not too much trouble also go to the page on VT and vote that it is safe to speed up the process and stop it as being detected as false positive!
 	 
 Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
