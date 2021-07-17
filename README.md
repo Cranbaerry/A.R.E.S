@@ -2,7 +2,7 @@
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
-And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the auto hotswap!
+And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap!
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://i.imgur.com/02xNo0V.png).
 
