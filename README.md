@@ -49,7 +49,7 @@ Usage:
 	2. Parse your logs by pressing the parse button this will prepare your logs to be scanned
 	{Every time you log new avatars the parse will need to be updated, to do this press the "Reset Parse" button then the "Parse" button to re-parse your logs}
 	
-	3. Select your log type and search type and search away!
+	3. Select your log type and search type, you are now ready to search your logs!
 	
 	4. If you want to just browse your logs it is as simple as selecting your log type pressing browse, to go through the list just press the arrow next to the browse button
 	
