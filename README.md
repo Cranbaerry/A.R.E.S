@@ -52,7 +52,7 @@ Usage:
 	
 	3. Select your log type and search type, you are now ready to search your logs!
 	
-	4. If you want to just browse your logs it is as simple as selecting your log type pressing browse, to go through the list just press the arrow next to the browse button
+	4. If you want to just browse your logs it is as simple as selecting your log type and pressing browse, to go through the list just press the arrow next to the browse button
 	
 	5. If the GUI begins to run slightly sluggish/slow or your logs have gotten large it is as simple as pressing the "Reset Parse" and "Delete Logs" buttons, once deleted logs and parses cannot be recovered!
 	
