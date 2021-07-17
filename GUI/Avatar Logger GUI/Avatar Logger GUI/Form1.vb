@@ -1,4 +1,4 @@
-﻿Imports System.IO
+﻿Imports System.IO, System.Net.WebClient.DownloadFile
 Public Class Form1
     Dim PubLog As String
     Dim PriLog As String
@@ -86,16 +86,20 @@ Public Class Form1
         If PriLog = "" Then
             MessageBox.Show("Assign a private avatar log!")
             Exit Sub
-        ElseIf PubLog = "" Then
+        End If
+        If PubLog = "" Then
             MessageBox.Show("Assign a public avatar log!")
             Exit Sub
-        ElseIf LogFol = "" Then
+        End If
+        If LogFol = "" Then
             MessageBox.Show("Assign an avatar log folder!")
             Exit Sub
-        ElseIf PriLogParsed = "" Then
+        End If
+        If PriLogParsed = "" Then
             MessageBox.Show("Private log not parsed!")
             Exit Sub
-        ElseIf PubLogParsed = "" Then
+        End If
+        If PubLogParsed = "" Then
             MessageBox.Show("Public log not parsed!")
             Exit Sub
         End If
@@ -327,5 +331,28 @@ Public Class Form1
         My.Computer.FileSystem.DeleteFile(LogFol & "\Private.txt")
         My.Computer.FileSystem.DeleteFile(LogFol & "\Public.txt")
         MessageBox.Show("Logs deleted!")
+    End Sub
+
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        If TextBox14.Text = "" Then
+            MessageBox.Show("Select an avatar!")
+            Exit Sub
+        End If
+        If TextBox3.Text = "" Then
+            MessageBox.Show("Select an avatar!")
+            Exit Sub
+        End If
+        If TextBox12.Text = "" Then
+            MessageBox.Show("Please enter a new avatar ID!!")
+            Exit Sub
+        End If
+        Dim newid = TextBox12.Text
+        Dim Process1 = Process.Start("cmd", "/c curl -L " & TextBox14.Text & " --output Compressed.vrca")
+        Process1.WaitForExit()
+        Dim Process2 = Process.Start("cmd", "/c HOTSWAP.exe Compressed.vrca " & TextBox3.Text & " " & newid)
+        Process2.WaitForExit()
+        My.Computer.FileSystem.DeleteFile("Compressed.vrca")
+        My.Computer.FileSystem.DeleteFile("decompressedfile")
+        My.Computer.FileSystem.DeleteFile("decompressedfile1")
     End Sub
 End Class

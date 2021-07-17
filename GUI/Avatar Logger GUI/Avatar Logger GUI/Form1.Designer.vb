@@ -79,6 +79,9 @@ Partial Class Form1
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -195,7 +198,7 @@ Partial Class Form1
         Me.WebBrowser1.Margin = New System.Windows.Forms.Padding(2)
         Me.WebBrowser1.MinimumSize = New System.Drawing.Size(11, 11)
         Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(309, 240)
+        Me.WebBrowser1.Size = New System.Drawing.Size(309, 256)
         Me.WebBrowser1.TabIndex = 4
         '
         'TextBox15
@@ -438,7 +441,7 @@ Partial Class Form1
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(773, 553)
+        Me.Label13.Location = New System.Drawing.Point(12, 580)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(94, 13)
         Me.Label13.TabIndex = 192
@@ -461,7 +464,7 @@ Partial Class Form1
         Me.ListBox1.Location = New System.Drawing.Point(11, 280)
         Me.ListBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(252, 277)
+        Me.ListBox1.Size = New System.Drawing.Size(237, 277)
         Me.ListBox1.TabIndex = 194
         '
         'Button6
@@ -637,12 +640,43 @@ Partial Class Form1
         Me.Button11.Text = "Delete Logs"
         Me.Button11.UseVisualStyleBackColor = True
         '
+        'Button10
+        '
+        Me.Button10.ForeColor = System.Drawing.Color.Black
+        Me.Button10.Location = New System.Drawing.Point(253, 563)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(67, 27)
+        Me.Button10.TabIndex = 213
+        Me.Button10.Text = "Hotswap"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'TextBox12
+        '
+        Me.TextBox12.BackColor = System.Drawing.Color.Silver
+        Me.TextBox12.Location = New System.Drawing.Point(410, 567)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.Size = New System.Drawing.Size(456, 20)
+        Me.TextBox12.TabIndex = 214
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(321, 570)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(80, 13)
+        Me.Label26.TabIndex = 215
+        Me.Label26.Text = "New Avatar ID:"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(874, 571)
+        Me.ClientSize = New System.Drawing.Size(874, 602)
+        Me.Controls.Add(Me.Label26)
+        Me.Controls.Add(Me.TextBox12)
+        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.Button11)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.Button8)
@@ -697,7 +731,9 @@ Partial Class Form1
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.ForeColor = System.Drawing.Color.White
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.Text = "Avatar Logger GUI"
         Me.GroupBox1.ResumeLayout(False)
@@ -763,4 +799,7 @@ Partial Class Form1
     Friend WithEvents Button8 As Button
     Friend WithEvents Button9 As Button
     Friend WithEvents Button11 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents TextBox12 As TextBox
+    Friend WithEvents Label26 As Label
 End Class
