@@ -5,6 +5,20 @@ And special thanks to [cassell1337](https://github.com/cassell1337) for willingl
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://i.imgur.com/9wAvbfJ.png).
 
+Features:
+	-Logs ALL avatars seen in game regardless of them being private or public!
+	-An easy to navigate and in my opinion extremely sexy GUI
+	-Ability to search avatar logs by:
+		-Avatar Name
+		-Avatar ID
+		-Avatar Author
+	-Ability to delete logs and parses from within the GUI
+	-Browse the logs with image previews of avatars
+	-Semi-Automatic Hotswap
+
+Plans:
+	-A main server containing all avatrs ever logged by the logger mod/GUI, this will be opted out by default. If you wish to participate in this once the feature realeases you will have to manually edit your configuration to opt-in to supporting the server!
+
 Installation:
 	
 	1. Install Melon Loader(https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
