@@ -54,7 +54,7 @@ Usage:
 	
 	4. If you want to just browse your logs it is as simple as selecting your log type and pressing browse, to go through the list just press the arrow next to the browse button
 	
-	5. If the GUI begins to run slightly sluggish/slow or your logs have gotten large it is as simple as pressing the "Reset Parse" and "Delete Logs" buttons, once deleted logs and parses cannot be recovered!
+	5. If the GUI begins to run slightly sluggish,slow or your logs have gotten larger than you'd like them to be it is as simple as pressing the "Reset Parse" and "Delete Logs" buttons, once deleted logs and parses cannot be recovered!
 	
 	6. To utilise the Hotswap button first open a blank unity project and import your avatar SDK
 	
