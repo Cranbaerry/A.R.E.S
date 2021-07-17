@@ -60,7 +60,7 @@ Usage:
 	
 	7. Login to the VRChat SDK, create a new game object and attach a blank avatar descriptor to the object
 	
-	8. Build & publish the black avatar, give it a name, desc and tags before uploading the avatar.
+	8. Build & publish the blank avatar, give it a name, desc and tags before uploading the avatar
 	
 	9. You may then navigate to the avatar you would like to Hotswap within the GUI
 	
