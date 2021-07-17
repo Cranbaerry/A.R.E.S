@@ -44,7 +44,7 @@ Installation:
 	
 Usage:
 
-	1. On first load you will have to select your private log, public log and log folder
+	1. On first load you will have to select your private log, public log and log folder, these are txt files stored in your VRC folder, the folder name is "AvatarLog" and the txt logs are stored there.
 	{You will not need to load these three values on every launch!}
 	
 	2. Parse your logs by pressing the parse button this will prepare your logs to be scanned
