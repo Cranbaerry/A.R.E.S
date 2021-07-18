@@ -59,14 +59,18 @@ class Ui(QtWidgets.QMainWindow):
         self.NextButton.hide()
         self.AvatarIndex -= 1
         self.AvatarUpdate(self.AvatarIndex)
+        self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
 
     def Next(self):
-        if self.AvatarIndex > self.MaxAvatar:
+        if self.AvatarIndex + 1 >= self.MaxAvatar:
             return
+        print("passed return")
         self.NextButton.hide()
         self.BackButton.hide()
         self.AvatarIndex += 1
         self.AvatarUpdate(self.AvatarIndex)
+        self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
+
 
     def AvatarUpdate(self, AVIndex):
         self.AVIS = self.Avatars[AVIndex]
@@ -83,6 +87,8 @@ class Ui(QtWidgets.QMainWindow):
         self.Avatars = sorted(self.Avatars, key=self.sortFunction, reverse=True)
         self.MaxAvatar = len(self.Avatars)
         self.AvatarIndex = 0
+        self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
+        self.resultsbox.setText("LOADED: " +str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
         self.AvatarUpdate(0)
 
     def Cleantext(self, data):
@@ -90,12 +96,29 @@ class Ui(QtWidgets.QMainWindow):
         return klean
 
     def Search(self):
+        self.loadavatars()
+        avarats1 = []
+        self.lineEdit = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
+        self.searched = self.lineEdit.text()
         if self.AvatarNameRB.isChecked():
-            pass
+            for x in self.Avatars:
+                if str(self.searched).lower() in str(x[2]).lower():
+                    avarats1.append(x)
         if self.AvatarAuthorRB.isChecked():
-            pass
+            for x in self.Avatars:
+                if str(self.searched).lower() in str(x[5]).lower():
+                    avarats1.append(x)
         if self.AvatarIDRB.isChecked():
-            pass
+            for x in self.Avatars:
+                if str(self.searched).lower() in str(x[1]).lower():
+                    avarats1.append(x)
+        self.Avatars = avarats1
+        self.MaxAvatar = len(self.Avatars)
+        self.AvatarIndex = 0
+        self.AvatarUpdate(self.AvatarIndex)
+        self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
+        self.resultsbox.setText("LOADED: "+str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
+        print(json.dumps(self.Avatars))
 
 app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
 app.setStyleSheet(qdarkstyle.load_stylesheet())
