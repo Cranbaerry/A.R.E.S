@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
-
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
@@ -12,7 +11,12 @@ class Ui(QtWidgets.QMainWindow):
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
+        self.LogFolder = self.Settings["Avatar_Folder"]
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
+        self.LogSize = self.findChild(QtWidgets.QLabel, 'LogSize')
+        if os.path.exists(self.LogFolder + "/Log.txt"):
+            self.LSize = os.path.getsize(self.LogFolder + "/Log.txt")
+            self.LogSize.setText(str(round(self.LSize/(1024*1024)))+"MB")
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         self.LogFolderButton = self.findChild(QtWidgets.QPushButton, 'SetLogFolder')
         self.LogFolderButton.clicked.connect(self.updatesettings)
@@ -34,6 +38,8 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
         self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
         self.HotswapButton.clicked.connect(self.HotSwap)
+        self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
+        self.DeleteLogButton.clicked.connect(self.DeleteLogs)
 
     def updateimage(self, url):
         self.leftbox = self.findChild(QtWidgets.QLabel, 'PreviewImage')
@@ -94,9 +100,9 @@ class Ui(QtWidgets.QMainWindow):
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)"
-        LogFolder = self.Settings["Avatar_Folder"]
+        self.LogFolder = self.Settings["Avatar_Folder"]
         try:
-            with open(LogFolder + "\Log.txt", "r+", errors="ignore") as s:
+            with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
                 self.Logs = s.read()
                 self.Avatars = re.findall(pat, self.Logs)
             avii = []
@@ -195,6 +201,10 @@ class Ui(QtWidgets.QMainWindow):
         if os.path.exists("decompressedfile1"):
             os.remove("decompressedfile1")
         os.chdir("..")
+
+    def DeleteLogs(self):
+        if os.path.exists(self.LogFolder + "/Log.txt"):
+            os.remove(self.LogFolder + "/Log.txt")
 
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
 app.setStyleSheet(qdarkstyle.load_stylesheet())

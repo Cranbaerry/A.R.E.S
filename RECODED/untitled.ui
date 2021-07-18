@@ -439,7 +439,7 @@ p, li { white-space: pre-wrap; }
        <string>Current Directory:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="DeleteLogsButton">
+     <widget class="QPushButton" name="DeleteLogButton">
       <property name="geometry">
        <rect>
         <x>10</x>
