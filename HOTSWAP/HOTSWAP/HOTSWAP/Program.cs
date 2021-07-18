@@ -54,16 +54,16 @@ namespace HOTSWAP
 
         static void Main(string[] args)
         {
-        string compressedfile = args[0];
-        string oavtrid = args[1];
-        string navtrid = args[2];
-        Console.WriteLine("Decompressing...");
-        DecompressBundle(compressedfile, "decompressedfile");
-        Console.WriteLine("Changing avatar ID...");
-        var Process1 = Process.Start(@"Rewrite.exe",oavtrid + " " + navtrid);
-        Process1.WaitForExit();
-        Console.WriteLine("Compressing...");
-        CompressBundle("decompressedfile1", "custom.vrca");
+        string work = args[0];
+        if (work == "d")
+        {
+            string dir = args[1];
+            DecompressBundle(dir, "decompressedfile");
+        }
+        if (work == "c")
+        {
+            CompressBundle("decompressedfile1", "custom.vrca");
+        }
     }
 }
 }
