@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Users\\adamc\\Documents\\GitHub\\AvatarLogger-GUI\\RECODED'],
+             pathex=['C:\\Users\\adamc\\Documents\\GitHub\\AvatarLogger-GUI\\GUI'],
              binaries=[],
              datas=[],
              hiddenimports=[],

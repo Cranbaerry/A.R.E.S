@@ -6,6 +6,7 @@ from PyQt5.QtGui import *
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
+        self.setFixedSize(842, 525)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
@@ -54,7 +55,7 @@ class Ui(QtWidgets.QMainWindow):
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
         try:
-            ss=requests.get("https://raw.githubusercontent.com/LargestBoi/AvatarLogger-GUI/main/ToolUsage.txt").text
+            ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
             self.Instructions.setText(ss)
         except:
             pass
