@@ -26,6 +26,8 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
         self.AvatarIDRB = self.findChild(QtWidgets.QRadioButton, 'AvatarIDRB')
+        self.Status = self.findChild(QtWidgets.QLabel, 'Status')
+
 
     def updateimage(self, url):
         self.leftbox = self.findChild(QtWidgets.QLabel, 'PreviewImage')
@@ -64,7 +66,6 @@ class Ui(QtWidgets.QMainWindow):
     def Next(self):
         if self.AvatarIndex + 1 >= self.MaxAvatar:
             return
-        print("passed return")
         self.NextButton.hide()
         self.BackButton.hide()
         self.AvatarIndex += 1
@@ -74,6 +75,12 @@ class Ui(QtWidgets.QMainWindow):
 
     def AvatarUpdate(self, AVIndex):
         self.AVIS = self.Avatars[AVIndex]
+        if self.AVIS[9] == "private":
+            self.Status.setStyleSheet("background-color: red; border: 3px solid black;")
+            self.Status.setText("Private")
+        if self.AVIS[9] == "public":
+            self.Status.setStyleSheet("background-color: blue; border: 3px solid black;")
+            self.Status.setText("public")
         threading.Thread(target=self.updateimage, args={self.AVIS[7],}).start()
         self.RawData = self.findChild(QtWidgets.QTextEdit, 'RawData')
         self.RawData.setPlainText(self.Cleantext(self.AVIS))
@@ -97,28 +104,27 @@ class Ui(QtWidgets.QMainWindow):
 
     def Search(self):
         self.loadavatars()
-        avarats1 = []
+        AvatarsS = []
         self.lineEdit = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
         self.searched = self.lineEdit.text()
         if self.AvatarNameRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[2]).lower():
-                    avarats1.append(x)
+                    AvatarsS.append(x)
         if self.AvatarAuthorRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[5]).lower():
-                    avarats1.append(x)
+                    AvatarsS.append(x)
         if self.AvatarIDRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[1]).lower():
-                    avarats1.append(x)
-        self.Avatars = avarats1
+                    AvatarsS.append(x)
+        self.Avatars = AvatarsS
         self.MaxAvatar = len(self.Avatars)
         self.AvatarIndex = 0
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.resultsbox.setText("LOADED: "+str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
-        print(json.dumps(self.Avatars))
 
 app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
 app.setStyleSheet(qdarkstyle.load_stylesheet())
