@@ -21,8 +21,7 @@ namespace AvatarLogger
     public class Main : MelonMod
     {
         private const string ConfigFile = "AvatarLog\\Config.json";
-        private const string PublicAvatarFile = "AvatarLog\\Public.txt";
-        private const string PrivateAvatarFile = "AvatarLog\\Private.txt";
+        private const string AvatarFile = "AvatarLog\\Log.txt";
 
         private static List<string> AvatarIDs = new List<string>();
         private static Regex AvatarRegex = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
@@ -36,13 +35,10 @@ namespace AvatarLogger
         {
             Directory.CreateDirectory("AvatarLog");
 
-            if (!File.Exists(PublicAvatarFile))
-            { File.AppendAllText(PublicAvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi\n"); }
-            if (!File.Exists(PrivateAvatarFile))
-            { File.AppendAllText(PrivateAvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi\n"); }
+            if (!File.Exists(AvatarFile))
+            { File.AppendAllText(AvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi\n"); }
 
-            foreach (string line in File.ReadAllLines(PublicAvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
-            foreach (string line in File.ReadAllLines(PrivateAvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
+            foreach (string line in File.ReadAllLines(AvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
 
             if (!File.Exists(ConfigFile))
             {
@@ -71,9 +67,11 @@ namespace AvatarLogger
                 if (__0.releaseStatus == "public")
                 {
                     AvatarIDs.Add(__0.id);
-                    File.AppendAllLines(PublicAvatarFile, new string[]
+                    DateTime foo = DateTime.Now;
+                    long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+                    File.AppendAllLines(AvatarFile, new string[]
                     {
-                        $"Time Detected:{DateTime.Now}",
+                        $"Time Detected:{unixTime}",
                         $"Avatar ID:{__0.id}",
                         $"Avatar Name:{__0.name}",
                         $"Avatar Description:{__0.description}",
@@ -90,9 +88,11 @@ namespace AvatarLogger
                 else if (__0.releaseStatus == "private")
                 {
                     AvatarIDs.Add(__0.id);
-                    File.AppendAllLines(PrivateAvatarFile, new string[]
+                    DateTime foo = DateTime.Now;
+                    long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+                    File.AppendAllLines(AvatarFile, new string[]
                     {
-                        $"Time Detected:{DateTime.Now}",
+                        $"Time Detected:{unixTime}",
                         $"Avatar ID:{__0.id}",
                         $"Avatar Name:{__0.name}",
                         $"Avatar Description:{__0.description}",

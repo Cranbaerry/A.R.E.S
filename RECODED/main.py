@@ -40,14 +40,10 @@ class Ui(QtWidgets.QMainWindow):
     def loadavatars(self):
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)"
         LogFolder = self.Settings["Avatar_Folder"]
-        with open(LogFolder+"\Public.txt", "r+") as s:
+        with open(LogFolder+"\Log.txt", "r+", errors="ignore") as s:
             self.Logs = s.read()
-            self.ho = re.findall(pat, self.Logs)
-        with open(LogFolder+"\Private.txt", "r+") as s:
-            self.Logs = s.read()
-            self.ho1 = re.findall(pat, self.Logs)
-        self.avatars = self.ho + self.ho1
-        #print(json.dumps(self.avatars))
+            self.Avatars = re.findall(pat, self.Logs)
+        print(json.dumps(self.Avatars))
 
 app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
 app.setStyleSheet(qdarkstyle.load_stylesheet())
