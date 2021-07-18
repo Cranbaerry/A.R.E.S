@@ -27,6 +27,9 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
         self.AvatarIDRB = self.findChild(QtWidgets.QRadioButton, 'AvatarIDRB')
         self.Status = self.findChild(QtWidgets.QLabel, 'Status')
+        self.PrivateBox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox')
+        self.PublicBox = self.findChild(QtWidgets.QCheckBox, 'PublicBox')
+
 
 
     def updateimage(self, url):
@@ -86,17 +89,32 @@ class Ui(QtWidgets.QMainWindow):
         self.RawData.setPlainText(self.Cleantext(self.AVIS))
 
     def loadavatars(self):
+        self.leftbox.show()
+        self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)"
         LogFolder = self.Settings["Avatar_Folder"]
-        with open(LogFolder+"\Log.txt", "r+", errors="ignore") as s:
-            self.Logs = s.read()
-            self.Avatars = re.findall(pat, self.Logs)
-        self.Avatars = sorted(self.Avatars, key=self.sortFunction, reverse=True)
-        self.MaxAvatar = len(self.Avatars)
-        self.AvatarIndex = 0
-        self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
-        self.resultsbox.setText("LOADED: " +str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
-        self.AvatarUpdate(0)
+        try:
+            with open(LogFolder+"\Log.txt", "r+", errors="ignore") as s:
+                self.Logs = s.read()
+                self.Avatars = re.findall(pat, self.Logs)
+            avii = []
+            self.Avatars = sorted(self.Avatars, key=self.sortFunction, reverse=True)
+            allowed = []
+            if self.PrivateBox.isChecked():
+                allowed.append("private")
+            if self.PublicBox.isChecked():
+                allowed.append("public")
+            for x in self.Avatars:
+                if x[9] in allowed:
+                    avii.append(x)
+            self.Avatars = avii
+            self.MaxAvatar = len(self.Avatars)
+            self.AvatarIndex = 0
+            self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
+            self.resultsbox.setText("LOADED: " +str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
+            self.AvatarUpdate(0)
+        except:
+            self.RawData.setPlainText("UPDATE THE LOG FOLDER YOU NUB")
 
     def Cleantext(self, data):
         klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}"""
@@ -122,6 +140,13 @@ class Ui(QtWidgets.QMainWindow):
         self.Avatars = AvatarsS
         self.MaxAvatar = len(self.Avatars)
         self.AvatarIndex = 0
+        if self.MaxAvatar == 0:
+            self.RawData.setPlainText("NO RESULTS")
+            self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
+            self.resultsbox.setText("LOADED: " + str(self.AvatarIndex) + "/" + str(self.MaxAvatar))
+            self.leftbox.hide()
+            self.Status.hide()
+            return
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.resultsbox.setText("LOADED: "+str(self.AvatarIndex + 1)+"/"+str(self.MaxAvatar))
