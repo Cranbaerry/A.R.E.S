@@ -52,6 +52,12 @@ class Ui(QtWidgets.QMainWindow):
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
         self.apibox.clicked.connect(self.updateapi)
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
+        self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
+        try:
+            ss=requests.get("https://raw.githubusercontent.com/LargestBoi/AvatarLogger-GUI/main/ToolUsage.txt").text
+            self.Instructions.setText(ss)
+        except:
+            pass
         try:
             self.LogOwnAvatarsbox = self.findChild(QtWidgets.QCheckBox, 'LogOwnAvatarsbox')
             self.LogOwnAvatarsbox.clicked.connect(self.LogOwnAvatarsbox1)
