@@ -8,7 +8,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 I have gone about validating the latets V5 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
-Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://imgur.com/a/YkvAhzN).
+Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://imgur.com/a/Otzqfco).
 
 Features:
 
