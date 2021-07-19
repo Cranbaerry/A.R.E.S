@@ -13,6 +13,17 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
+        VERSION = "5"
+        self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
+        self.UPDATEBUTTON.hide()
+        try:
+            ss = requests.get("https://pastebin.com/raw/w3f0jC9P").text
+            if VERSION != ss:
+                self.UPDATEBUTTON.show()
+                self.UPDATEBUTTON.clicked.connect(self.UPDATEPUSHED)
+                self.UPDATEBUTTON.setStyleSheet("background-color: red; border: 3px solid black;")
+        except:
+            pass
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
@@ -88,6 +99,9 @@ class Ui(QtWidgets.QMainWindow):
             self.LogToConsolebox.setCheckState(self.ModSettings["LogToConsole"])
         except:
             pass
+
+    def UPDATEPUSHED(self):
+        os.startfile("https://github.com/LargestBoi/AvatarLogger-GUI/releases")
 
     def tagstogs(self):
         if self.Tagscheckbox.isChecked():
