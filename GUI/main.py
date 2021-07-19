@@ -5,7 +5,9 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtCore import *
-
+from generatehtml import makehtml
+import traceback
+DEBUGG = True
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
@@ -34,7 +36,7 @@ class Ui(QtWidgets.QMainWindow):
         self.LogFolderButton = self.findChild(QtWidgets.QPushButton, 'SetLogFolder')
         self.LogFolderButton.clicked.connect(self.updatesettings)
         self.LoadButton = self.findChild(QtWidgets.QPushButton, 'LoadButton')
-        self.LoadButton.clicked.connect(self.loadavatars)
+        self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
         self.BackButton.clicked.connect(self.Back)
         self.SearchButton = self.findChild(QtWidgets.QPushButton, 'SearchButton')
@@ -55,6 +57,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
         self.apibox.clicked.connect(self.updateapi)
+        self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
         try:
@@ -222,7 +225,9 @@ class Ui(QtWidgets.QMainWindow):
         self.RawData = self.findChild(QtWidgets.QTextEdit, 'RawData')
         self.RawData.setPlainText(self.Cleantext(self.AVIS))
 
-    def loadavatars(self):
+    def loadavatar0(self):
+        self.loadavatars(True)
+    def loadavatars(self, makehtmll=False):
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
@@ -242,6 +247,10 @@ class Ui(QtWidgets.QMainWindow):
                 if x[9] in allowed:
                     avii.append(x)
             self.Avatars = avii
+            if self.HTMLBox.isChecked():
+                if makehtmll:
+                    threading.Thread(target=makehtml, args={json.dumps(self.Avatars),}).start()
+
             self.MaxAvatar = len(self.Avatars)
             self.AvatarIndex = 0
             self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
@@ -249,6 +258,8 @@ class Ui(QtWidgets.QMainWindow):
             self.AvatarUpdate(0)
         except:
             self.RawData.setPlainText("INVALID LOG FOLDER")
+            if DEBUGG:
+                traceback.print_exc()
 
     def Cleantext(self, data):
         klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
@@ -281,6 +292,8 @@ class Ui(QtWidgets.QMainWindow):
             self.leftbox.hide()
             self.Status.hide()
             return
+        if self.HTMLBox.isChecked():
+            threading.Thread(target=makehtml, args={json.dumps(self.Avatars),}).start()
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
