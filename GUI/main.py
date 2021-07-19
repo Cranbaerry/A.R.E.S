@@ -1,4 +1,4 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue
+import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -6,12 +6,11 @@ from datetime import datetime
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtCore import *
 from generatehtml import makehtml
-import traceback
 DEBUGG = True
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
-        self.setFixedSize(1101, 602)
+        self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")

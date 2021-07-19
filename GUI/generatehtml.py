@@ -1,5 +1,4 @@
-import os
-import json
+import os, json
 def makehtml(aci):
     avatars = json.loads(aci)
     html = """<!DOCTYPE html>
