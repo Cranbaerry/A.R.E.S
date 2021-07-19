@@ -10,6 +10,8 @@ Usage:
 
 4. If you want to just browse your logs it is as simple as selecting your log types and navigating the logs using the "Previous" and "Next" buttons
 
+5. If you want to take advantage of HTML browsing its as simple as checking the HTML box and whatever you search/load will be generated into a HTML file that will be opened by your default browser! This view will display avatars preview images, avatar ID and status (Blue=Public, Red=Private). Once you find an avatr you like its as simple as unchecking HTML, and searching the avatar ID in the GUI to bring up all its specific information!
+
 5. If the GUI begins to run slightly sluggish,slow or your logs have gotten larger than you'd like them to be it is as simple as pressing the "Delete Logs" button in settings, once deleted logs cannot be recovered!
 
 6. To utilise the Hotswap button first open a blank unity project and import your avatar SDK
@@ -32,5 +34,9 @@ Usage:
 Complete! You may now log on to VRChat and switch into the avatar you had just uploaded!
 
 Extras:
+
 -The "ALLOW API" option is disabled by default, if enabled this option will upload your logged avatars to a central database! This will allow us (in fututre updates) to create a public search of all avatars uploaded to the API
+
 -The "LogOwnAvatars", "LogFriendsAvatars" and "LogToConsole" all do exactly what they say they do! These setting effect the mod and will reqire a restart of VRChat to take effect!
+
+Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
