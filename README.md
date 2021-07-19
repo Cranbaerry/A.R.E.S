@@ -4,6 +4,8 @@ Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar log
 
 And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap!
 
+If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
+
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://imgur.com/a/YkvAhzN).
 
 Features:
