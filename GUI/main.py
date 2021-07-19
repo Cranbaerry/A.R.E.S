@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
-from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtCore import *
 from generatehtml import makehtml
 DEBUGG = True
