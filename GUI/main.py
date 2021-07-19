@@ -109,7 +109,7 @@ class Ui(QtWidgets.QMainWindow):
         pubpath = self.LogFolder + "/Log.txt"
         with open("uploaded.txt", "r+", errors="ignore") as k:
             avis = k.read()
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
         with open(pubpath, "r+", errors="ignore") as g:
             kk = g.read()
             ho = re.findall(pat, kk)
@@ -129,7 +129,8 @@ class Ui(QtWidgets.QMainWindow):
             "ImageURL": x[7],
             "ThumbnailURL": x[8],
             "ReleaseStatus": x[9],
-            "Version": x[10]
+            "Version": x[10],
+            "Tags": x[11]
         }
         url = "http://" + domain + "/upload"
         headers = {"Content-Type": "application/json"}
@@ -222,7 +223,7 @@ class Ui(QtWidgets.QMainWindow):
     def loadavatars(self):
         self.leftbox.show()
         self.Status.show()
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
         self.LogFolder = self.Settings["Avatar_Folder"]
         try:
             with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
@@ -248,7 +249,7 @@ class Ui(QtWidgets.QMainWindow):
             self.RawData.setPlainText("INVALID LOG FOLDER")
 
     def Cleantext(self, data):
-        klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}"""
+        klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
         return klean
 
     def Search(self):
