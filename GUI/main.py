@@ -57,6 +57,16 @@ class Ui(QtWidgets.QMainWindow):
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
         self.apibox.clicked.connect(self.updateapi)
+        self.NSFWcheckbox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox_2')
+        self.NSFWcheckbox.hide()
+        self.Violencecheckbox = self.findChild(QtWidgets.QCheckBox, 'PublicBox_2')
+        self.Violencecheckbox.hide()
+        self.Gorecheckbox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox_2')
+        self.Gorecheckbox.hide()
+        self.Othernsfwcheckbox = self.findChild(QtWidgets.QCheckBox, 'TagSettings_2')
+        self.Othernsfwcheckbox.hide()
+        self.Tagscheckbox = self.findChild(QtWidgets.QCheckBox, 'TagSettings')
+        self.Tagscheckbox.clicked.connect(self.tagstogs)
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
@@ -79,6 +89,24 @@ class Ui(QtWidgets.QMainWindow):
             self.LogToConsolebox.setCheckState(self.ModSettings["LogToConsole"])
         except:
             pass
+
+    def tagstogs(self):
+        if self.Tagscheckbox.isChecked():
+            self.NSFWcheckbox.show()
+            self.Violencecheckbox.show()
+            self.Gorecheckbox.show()
+            self.Othernsfwcheckbox.show()
+        else:
+            self.NSFWcheckbox.setChecked(False)
+            self.Violencecheckbox.setChecked(False)
+            self.Gorecheckbox.setChecked(False)
+            self.Othernsfwcheckbox.setChecked(False)
+            self.NSFWcheckbox.hide()
+            self.Violencecheckbox.hide()
+            self.Gorecheckbox.hide()
+            self.Othernsfwcheckbox.hide()
+
+
 
     def LogToConsolebox1(self):
         self.ModSettings["LogToConsole"] = self.LogToConsolebox.isChecked()
@@ -282,6 +310,26 @@ class Ui(QtWidgets.QMainWindow):
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[1]).lower():
                     AvatarsS.append(x)
+        if self.Tagscheckbox.isChecked():
+            newavis = []
+            if self.NSFWcheckbox.isChecked():
+                for x in AvatarsS:
+                    if str("content_sex").lower() in str(x[11]).lower():
+                        newavis.append(x)
+            if self.Violencecheckbox.isChecked():
+                for x in AvatarsS:
+                    if str("content_violence").lower() in str(x[11]).lower():
+                        newavis.append(x)
+            if self.Gorecheckbox.isChecked():
+                for x in AvatarsS:
+                    if str("content_gore").lower() in str(x[11]).lower():
+                        newavis.append(x)
+            if self.Othernsfwcheckbox.isChecked():
+                for x in AvatarsS:
+                    if str("content_other").lower() in str(x[11]).lower():
+                        newavis.append(x)
+            AvatarsS = list(set(newavis))
+
         self.Avatars = AvatarsS
         self.MaxAvatar = len(self.Avatars)
         self.AvatarIndex = 0
