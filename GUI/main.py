@@ -311,24 +311,25 @@ class Ui(QtWidgets.QMainWindow):
                 if str(self.searched).lower() in str(x[1]).lower():
                     AvatarsS.append(x)
         if self.Tagscheckbox.isChecked():
-            newavis = []
-            if self.NSFWcheckbox.isChecked():
-                for x in AvatarsS:
-                    if str("content_sex").lower() in str(x[11]).lower():
-                        newavis.append(x)
-            if self.Violencecheckbox.isChecked():
-                for x in AvatarsS:
-                    if str("content_violence").lower() in str(x[11]).lower():
-                        newavis.append(x)
-            if self.Gorecheckbox.isChecked():
-                for x in AvatarsS:
-                    if str("content_gore").lower() in str(x[11]).lower():
-                        newavis.append(x)
-            if self.Othernsfwcheckbox.isChecked():
-                for x in AvatarsS:
-                    if str("content_other").lower() in str(x[11]).lower():
-                        newavis.append(x)
-            AvatarsS = list(set(newavis))
+            if self.NSFWcheckbox.isChecked() or self.Violencecheckbox.isChecked() or self.Gorecheckbox.isChecked() or self.Othernsfwcheckbox.isChecked():
+                newavis = []
+                if self.NSFWcheckbox.isChecked():
+                    for x in AvatarsS:
+                        if str("content_sex").lower() in str(x[11]).lower():
+                            newavis.append(x)
+                if self.Violencecheckbox.isChecked():
+                    for x in AvatarsS:
+                        if str("content_violence").lower() in str(x[11]).lower():
+                            newavis.append(x)
+                if self.Gorecheckbox.isChecked():
+                    for x in AvatarsS:
+                        if str("content_gore").lower() in str(x[11]).lower():
+                            newavis.append(x)
+                if self.Othernsfwcheckbox.isChecked():
+                    for x in AvatarsS:
+                        if str("content_other").lower() in str(x[11]).lower():
+                            newavis.append(x)
+                AvatarsS = list(set(newavis))
 
         self.Avatars = AvatarsS
         self.MaxAvatar = len(self.Avatars)
