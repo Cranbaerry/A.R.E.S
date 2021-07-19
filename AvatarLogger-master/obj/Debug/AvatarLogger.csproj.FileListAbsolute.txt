@@ -123,8 +123,8 @@ C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Debug\w
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Debug\Il2CppSystem.Drawing.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Debug\VRC.Udon.Serialization.OdinSerializer.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Debug\VRC.Udon.ClientBindings.dll
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.csproj.AssemblyReference.cache
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.csproj.CoreCompileInputs.cache
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.csproj.CopyComplete
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.pdb
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Debug\AvatarLogger.csproj.AssemblyReference.cache

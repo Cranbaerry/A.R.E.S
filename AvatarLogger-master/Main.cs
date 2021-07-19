@@ -9,6 +9,7 @@ using HarmonyLib;
 using Newtonsoft.Json;
 using VRC.Core;
 using VRC;
+using System.Text;
 
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "2", "KeafyIsHere & LargestBoi")]
@@ -69,6 +70,7 @@ namespace AvatarLogger
                     AvatarIDs.Add(__0.id);
                     DateTime foo = DateTime.Now;
                     long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+                    string tagstr = string.Join(",", __0.tags);
                     File.AppendAllLines(AvatarFile, new string[]
                     {
                         $"Time Detected:{unixTime}",
@@ -81,8 +83,20 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
-                        $"Version:{__0.version}\n",
+                        $"Version:{__0.version}",
                     });
+                    if (__0.tags.Count > 0)
+                    {
+                        StringBuilder builder = new StringBuilder();
+                        builder.Append("Tags: ");
+                        foreach (string tag in __0.tags) { builder.Append($"{tag},"); }
+                        File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                    }
+                    else
+                    {
+                        File.AppendAllText(AvatarFile, "Tags: None");
+                    }
+                    File.AppendAllText(AvatarFile, "\n\n");
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Public]"); }
                 }
                 else if (__0.releaseStatus == "private")
@@ -90,6 +104,7 @@ namespace AvatarLogger
                     AvatarIDs.Add(__0.id);
                     DateTime foo = DateTime.Now;
                     long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+                    string tagstr = string.Join(",", __0.tags);
                     File.AppendAllLines(AvatarFile, new string[]
                     {
                         $"Time Detected:{unixTime}",
@@ -102,8 +117,20 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
-                        $"Version:{__0.version}\n",
+                        $"Version:{__0.version}",
                     });
+                    if (__0.tags.Count > 0)
+                    {
+                        StringBuilder builder = new StringBuilder();
+                        builder.Append("Tags: ");
+                        foreach (string tag in __0.tags) { builder.Append($"{tag},"); }
+                        File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                    }
+                    else
+                    {
+                        File.AppendAllText(AvatarFile, "Tags: None");
+                    }
+                    File.AppendAllText(AvatarFile, "\n\n");
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Private]"); }
                 }
             }
