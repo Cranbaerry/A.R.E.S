@@ -22,7 +22,7 @@ Usage:
 
 10. Enter the "Content Manager" within the VRChat SDK and copy the ID of your blank avatar and paste it into the "New Avatar ID" box and press Hotswap
 
-11. The avatars VRCA will be automatically downloaded, unpacked, have its avatar ID swapped out with yours and repacked creating a "custom.vrca" file in the same directory as the GUI
+11. The avatars VRCA will be automatically downloaded, unpacked, have its avatar ID swapped out with yours and repacked creating a "custom.vrca" file in the "HOTSWAP" folder
 
 12. In Unity press the build and publish button again and when you reach the screen where you can set your avatars name fill out the fields as you would like (Be sure to tick the box at the bottom agreeing to T&Cs!) then navigate to your %temp% folder
 

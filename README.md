@@ -68,7 +68,7 @@ Usage:
 	
 	10. Enter the "Content Manager" within the VRChat SDK and copy the ID of your blank avatar and paste it into the "New Avatar ID" box and press Hotswap
 	
-	11. The avatars VRCA will be automatically downloaded, unpacked, have its avatar ID swapped out with yours and repacked creating a "custom.vrca" file in the same directory as the GUI
+	11. The avatars VRCA will be automatically downloaded, unpacked, have its avatar ID swapped out with yours and repacked creating a "custom.vrca" file in the "HOTSWAP" folder
 	
 	12. In Unity press the build and publish button again and when you reach the screen where you can set your avatars name fill out the fields as you would like (Be sure to tick the box at the bottom agreeing to T&Cs!) then navigate to your %temp% folder
 	
@@ -78,7 +78,9 @@ Usage:
 	Complete! You may now log on to VRChat and switch into the avatar you had just uploaded!
 	
 Extras:
+
 	-The "ALLOW API" option is disabled by default, if enabled this option will upload your logged avatars to a central database! This will allow us (in fututre updates) to create a public search of all avatars uploaded to the API
+	
 	-The "LogOwnAvatars", "LogFriendsAvatars" and "LogToConsole" all do exactly what they say they do! These setting effect the mod and will reqire a restart of VRChat to take effect!
 	
 Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
