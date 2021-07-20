@@ -96,7 +96,7 @@ Usage:
 	
 Extras:
 
-	-The "ALLOW API" option is disabled by default, if enabled this option will upload your logged avatars to a central database! This will allow us (in fututre updates) to create a public search of all avatars uploaded to the API
+	-The "ALLOW API" option is disabled by default, if enabled this option will upload your logged avatars to a central database! This will allow us to create a public search of all avatars uploaded to the API!
 	
 	-The "LogOwnAvatars", "LogFriendsAvatars" and "LogToConsole" all do exactly what they say they do! These setting effect the mod and will reqire a restart of VRChat to take effect!
 	
