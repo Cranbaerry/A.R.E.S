@@ -38,7 +38,12 @@ class Ui(QtWidgets.QMainWindow):
         if os.path.exists(self.LogFolder + "/Log.txt"):
             self.LSize = os.path.getsize(self.LogFolder + "/Log.txt")
             self.LogSize.setText(str(round(self.LSize/(1024*1024)))+"MB")
+        self.searchapibutton = self.findChild(QtWidgets.QPushButton, 'searchapibutton')
+        self.searchapibutton.clicked.connect(self.callapiforavis)
         if self.Settings["ALLOW_API_UPLOAD"]:
+            kk = requests.get(url="https://pastebin.com/raw/8DzGLek5").text
+            self.domain = kk
+            self.searchapibutton.setEnabled(True)
             if os.path.exists(self.LogFolder + "/Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
@@ -79,6 +84,7 @@ class Ui(QtWidgets.QMainWindow):
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
+
         try:
             ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
             self.Instructions.setText(ss)
@@ -139,18 +145,15 @@ class Ui(QtWidgets.QMainWindow):
         self.Settings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
         with open("Settings.json", "w+") as s:
             s.write(json.dumps(self.Settings, indent=4))
+        sys.exit()
 
     def upload1(self):
-        global domain
         global avis
         global q
         q = queue.Queue()
         if not os.path.exists("uploaded.txt"):
             with open("uploaded.txt", "a") as p:
                 pass
-        kk = requests.get(url="https://pastebin.com/raw/8DzGLek5").text
-        # input(kk)
-        domain = kk
         pubpath = self.LogFolder + "/Log.txt"
         with open("uploaded.txt", "r+", errors="ignore") as k:
             avis = k.read()
@@ -177,8 +180,9 @@ class Ui(QtWidgets.QMainWindow):
             "Version": x[10],
             "Tags": x[11]
         }
-        url = "http://" + domain + "/upload"
-        headers = {"Content-Type": "application/json"}
+        url = "http://" + self.domain + "/upload"
+        headers = {"Content-Type": "application/json",
+                   "Bypass-Tunnel-Reminder": "bypass"}
         if str(x[1]) not in avis:
             try:
                 response = requests.request("POST", url, json=hooh, headers=headers)
@@ -191,9 +195,12 @@ class Ui(QtWidgets.QMainWindow):
     def startuploads(self):
         headers = {
             'accept': 'application/json',
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "bypass"
         }
+
         try:
-            response = requests.get('https://avataruploader.loca.lt/status', headers=headers, timeout=5)
+            response = requests.get(f'https://{self.domain}/status', headers=headers, timeout=5)
             if "ONLINE" in response.text:
                 self.upload1()
                 tt = 10
@@ -213,7 +220,11 @@ class Ui(QtWidgets.QMainWindow):
         self.leftbox = self.findChild(QtWidgets.QLabel, 'PreviewImage')
         payload = ""
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "bypass"
+        }
+
         data = requests.request("GET", url, data=payload, headers=headers)
         pixmap = QPixmap()
         pixmap.loadFromData(data.content)
@@ -276,17 +287,7 @@ class Ui(QtWidgets.QMainWindow):
             with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
                 self.Logs = s.read()
                 self.Avatars = re.findall(pat, self.Logs)
-            avii = []
             self.Avatars = sorted(self.Avatars, key=self.sortFunction, reverse=True)
-            allowed = []
-            if self.PrivateBox.isChecked():
-                allowed.append("private")
-            if self.PublicBox.isChecked():
-                allowed.append("public")
-            for x in self.Avatars:
-                if x[9] in allowed:
-                    avii.append(x)
-            self.Avatars = avii
             if self.HTMLBox.isChecked():
                 if makehtmll:
                     threading.Thread(target=makehtml, args={json.dumps(self.Avatars),}).start()
@@ -307,21 +308,70 @@ class Ui(QtWidgets.QMainWindow):
 
     def Search(self):
         self.loadavatars()
+        self.filter()
+
+    def sortFunctionapi(self, value):
+        kk = str(value[0])
+        value[0] = kk
+        return value[0]
+    def callapiforavis(self):
+        seardata = {
+            "author": False,
+            "avatarid": False,
+            "name": False,
+            "searchterm": "string"
+        }
+        self.lineEdit = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
+        seardata["searchterm"] = self.lineEdit.text()
+        if self.AvatarNameRB.isChecked():
+            seardata["name"] = True
+        if self.AvatarAuthorRB.isChecked():
+            seardata["author"] = True
+        if self.AvatarIDRB.isChecked():
+            seardata["avatarid"] = True
+        headers = {
+            'accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36',
+            'Content-Type': 'application/json',
+            "Bypass-Tunnel-Reminder": "bypass"
+        }
+
+        data = json.dumps(seardata)
+
+        response = requests.post(f'http://{self.domain}/search', headers=headers, data=data)
+        kk = json.loads(response.text)
+        #print(response.text)
+        self.Avatars = kk
+        self.Avatars = sorted(self.Avatars, key=self.sortFunctionapi, reverse=True)
+        #print(self.Avatars)
+        self.filter()
+
+    def filter(self):
+        allowed = []
+        if self.PrivateBox.isChecked():
+            allowed.append("private")
+        if self.PublicBox.isChecked():
+            allowed.append("public")
         AvatarsS = []
         self.lineEdit = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
         self.searched = self.lineEdit.text()
         if self.AvatarNameRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[2]).lower():
-                    AvatarsS.append(x)
+                    if x[9] in allowed:
+                        AvatarsS.append(x)
+
         if self.AvatarAuthorRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[5]).lower():
-                    AvatarsS.append(x)
+                    if x[9] in allowed:
+                        AvatarsS.append(x)
+
         if self.AvatarIDRB.isChecked():
             for x in self.Avatars:
                 if str(self.searched).lower() in str(x[1]).lower():
-                    AvatarsS.append(x)
+                    if x[9] in allowed:
+                        AvatarsS.append(x)
         if self.Tagscheckbox.isChecked():
             if self.NSFWcheckbox.isChecked() or self.Violencecheckbox.isChecked() or self.Gorecheckbox.isChecked() or self.Othernsfwcheckbox.isChecked():
                 newavis = []
@@ -362,7 +412,10 @@ class Ui(QtWidgets.QMainWindow):
     def DownVRCAT(self, url, dir1):
         payload = ""
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "bypass"
+        }
         data = requests.request("GET", url, data=payload, headers=headers, stream=True)
         with open(dir1, "wb") as v:
             v.write(data.content)

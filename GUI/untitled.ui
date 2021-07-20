@@ -90,7 +90,17 @@
        <item>
         <widget class="QPushButton" name="SearchButton">
          <property name="text">
-          <string>Search</string>
+          <string>Search[local]</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="searchapibutton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Search[API]</string>
          </property>
         </widget>
        </item>
