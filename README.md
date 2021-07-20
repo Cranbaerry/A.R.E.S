@@ -6,12 +6,15 @@ And special thanks to [cassell1337](https://github.com/cassell1337) for willingl
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
 
-I have gone about validating the latets V5 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+I have gone about validating the latest V6 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
-Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple [GUI](https://imgur.com/a/Otzqfco).
-![IMAGE !](https://i.imgur.com/Eyz2M2x.png)
-![IMAGE !](https://i.imgur.com/ksTXWYK.png)
-![IMAGE !](https://i.imgur.com/UHlI7BQ.png)
+Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple GUI:
+![IMAGE !](https://i.imgur.com/SxgNGkv.png)
+![IMAGE !](https://i.imgur.com/XLhPj6n.png)
+![IMAGE !](https://i.imgur.com/8bgq6Rm.png)
+![IMAGE !](https://i.imgur.com/43VhZ38.png)
+![IMAGE !](https://i.imgur.com/6SaIDA8.png)
+![IMAGE !](https://i.imgur.com/GNYVwaE.png)
 Features:
 
 	-Logs ALL avatars seen in game regardless of them being private or public!
@@ -40,13 +43,7 @@ Features:
 	
 	-Version detection: IF your copy is out of dste your application will now propmt you to upgrade!
 
-Plans:
-
-	-A main server containing all avatars ever logged by the logger mod/GUI, this will be opted out by default. If you wish to participate in this once the feature realeases you will have to manually edit your configuration to opt-in to supporting the server!
-
-- [x] UPDATED TO PYTHON
-- [x] CHANGED GUI
-- [ ] REWORK SEARCH
+    -API support! If you are willing to share your logs with us in return you will gain access to a database containing avatars logged by other users!
 
 Installation:
 	
@@ -104,4 +101,4 @@ Extras:
 	-The "LogOwnAvatars", "LogFriendsAvatars" and "LogToConsole" all do exactly what they say they do! These setting effect the mod and will reqire a restart of VRChat to take effect!
 	
 
-Issues? Open an issue in the "Issues" tab and I will do my best to resolve your issue!
+Issues? Open an issue in the "Issues" tab, We will do our best to resolve your issue!

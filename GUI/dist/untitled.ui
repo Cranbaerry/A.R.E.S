@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V5</string>
+   <string>Avatar Logger GUI V6</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -90,7 +90,17 @@
        <item>
         <widget class="QPushButton" name="SearchButton">
          <property name="text">
-          <string>Search</string>
+          <string>Search[local]</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="searchapibutton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Search[API]</string>
          </property>
         </widget>
        </item>
@@ -703,7 +713,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>836</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
