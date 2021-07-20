@@ -51,13 +51,13 @@ Installation:
 	
 	2. Run VRchat once, this will allow melon to build the necessary mod files
 	
-	3. Download "Avatar Logger GUI V4.rar" from releases and extract the "Mods" folder into your game directory
+	3. Download "Avatar Logger GUI V6.rar" from releases and extract the "Mods" folder into your game directory
 	
 	4. Place the "GUI" folder wherever it is most convenient
 	
 	5. Run VRChat and enter some public worlds to create the needed paths/files
 	
-	6. Run the "Avatar Logger GUI.exe" and enjoy!
+	6. Run the "Avatar Logger V6.exe" and enjoy!
 	
 Usage:
 
