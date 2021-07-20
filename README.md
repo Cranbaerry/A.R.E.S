@@ -43,6 +43,7 @@ Features:
 Plans:
 
 	-A main server containing all avatars ever logged by the logger mod/GUI, this will be opted out by default. If you wish to participate in this once the feature realeases you will have to manually edit your configuration to opt-in to supporting the server!
+
 - [x] UPDATED TO PYTHON
 - [x] CHANGED GUI
 - [ ] REWORK SEARCH
