@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V6</string>
+   <string>Avatar Logger GUI V6.1</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -202,9 +202,19 @@ p, li { white-space: pre-wrap; }
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLineEdit" name="NewID">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="ProjName">
          <property name="text">
-          <string>New Avatar ID</string>
+          <string>Enter Unity Project Name</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

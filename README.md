@@ -6,15 +6,9 @@ And special thanks to [cassell1337](https://github.com/cassell1337) for willingl
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
 
-I have gone about validating the latest V6 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+I have gone about validating the latest V6.1 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple GUI:
-![IMAGE !](https://i.imgur.com/SxgNGkv.png)
-![IMAGE !](https://i.imgur.com/XLhPj6n.png)
-![IMAGE !](https://i.imgur.com/8bgq6Rm.png)
-![IMAGE !](https://i.imgur.com/43VhZ38.png)
-![IMAGE !](https://i.imgur.com/6SaIDA8.png)
-![IMAGE !](https://i.imgur.com/GNYVwaE.png)
 Features:
 
 	-Logs ALL avatars seen in game regardless of them being private or public!
@@ -57,7 +51,7 @@ Installation:
 	
 	5. Run VRChat and enter some public worlds to create the needed paths/files
 	
-	6. Run the "Avatar Logger V6.exe" and enjoy!
+	6. Run the "Avatar Logger GUI V6.1.exe" and enjoy!
 	
 Usage:
 

@@ -1,4 +1,4 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback
+import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -12,7 +12,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
-        VERSION = "6"
+        VERSION = "6.1"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
@@ -66,7 +66,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
         self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
-        self.HotswapButton.clicked.connect(self.HotSwap)
+        self.HotswapButton.clicked.connect(self.HotSwap1)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
@@ -105,6 +105,15 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pass
 
+    def HotSwap1(self):
+        self.HotswapButton.setEnabled(False)
+        threading.Thread(target=self.HotSwap, args={}).start()
+
+
+    def ErrorLog(self, Log):
+        with open("Error.log", "a+") as e:
+            e.writelines(Log+"\n")
+    
     def UPDATEPUSHED(self):
         os.startfile("https://github.com/LargestBoi/AvatarLogger-GUI/releases")
 
@@ -300,7 +309,7 @@ class Ui(QtWidgets.QMainWindow):
         except:
             self.RawData.setPlainText("INVALID LOG FOLDER")
             if DEBUGG:
-                traceback.print_exc()
+                self.ErrorLog(traceback.print_exc())
 
     def Cleantext(self, data):
         klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
@@ -347,6 +356,7 @@ class Ui(QtWidgets.QMainWindow):
         self.filter()
 
     def filter(self):
+        #print(json.dumps(self.Avatars))
         allowed = []
         if self.PrivateBox.isChecked():
             allowed.append("private")
@@ -372,26 +382,46 @@ class Ui(QtWidgets.QMainWindow):
                 if str(self.searched).lower() in str(x[1]).lower():
                     if x[9] in allowed:
                         AvatarsS.append(x)
-        if self.Tagscheckbox.isChecked():
-            if self.NSFWcheckbox.isChecked() or self.Violencecheckbox.isChecked() or self.Gorecheckbox.isChecked() or self.Othernsfwcheckbox.isChecked():
-                newavis = []
-                if self.NSFWcheckbox.isChecked():
-                    for x in AvatarsS:
-                        if str("content_sex").lower() in str(x[11]).lower():
-                            newavis.append(x)
-                if self.Violencecheckbox.isChecked():
-                    for x in AvatarsS:
-                        if str("content_violence").lower() in str(x[11]).lower():
-                            newavis.append(x)
-                if self.Gorecheckbox.isChecked():
-                    for x in AvatarsS:
-                        if str("content_gore").lower() in str(x[11]).lower():
-                            newavis.append(x)
-                if self.Othernsfwcheckbox.isChecked():
-                    for x in AvatarsS:
-                        if str("content_other").lower() in str(x[11]).lower():
-                            newavis.append(x)
-                AvatarsS = list(set(newavis))
+        try:
+            #raise ValueError("TEST ERROR")
+            if self.Tagscheckbox.isChecked():
+                if self.NSFWcheckbox.isChecked() or self.Violencecheckbox.isChecked() or self.Gorecheckbox.isChecked() or self.Othernsfwcheckbox.isChecked():
+                    newavis = []
+                    if self.NSFWcheckbox.isChecked():
+                        for x in AvatarsS:
+                            try:
+                                if str("content_sex").lower() in str(x[11]).lower():
+                                    newavis.append(x)
+                            except:
+                                self.ErrorLog(traceback.format_exc())
+                    if self.Violencecheckbox.isChecked():
+                        for x in AvatarsS:
+                            try:
+                                if str("content_violence").lower() in str(x[11]).lower():
+                                    newavis.append(x)
+                            except:
+                                self.ErrorLog(traceback.format_exc())
+                    if self.Gorecheckbox.isChecked():
+                        for x in AvatarsS:
+                            try:
+                                if str("content_gore").lower() in str(x[11]).lower():
+                                    newavis.append(x)
+                            except:
+                                self.ErrorLog(traceback.format_exc())
+                    if self.Othernsfwcheckbox.isChecked():
+                        for x in AvatarsS:
+                            try:
+                                if str("content_other").lower() in str(x[11]).lower():
+                                    newavis.append(x)
+                            except:
+                                self.ErrorLog(traceback.format_exc())
+                    print(json.dumps(newavis))
+                    AvatarsS = newavis
+                    #AvatarsS = list(set(newavis))
+                    print(json.dumps(AvatarsS))
+        except:
+            self.ErrorLog(traceback.format_exc())
+
 
         self.Avatars = AvatarsS
         self.MaxAvatar = len(self.Avatars)
@@ -434,26 +464,55 @@ class Ui(QtWidgets.QMainWindow):
             f.write(kok)
 
     def HotSwap(self):
-        self.NewID = self.findChild(QtWidgets.QLineEdit, 'NewID')
-        self.NewID1 = self.NewID.text()
-        if "New Avatar ID" in self.NewID1:
-            self.NewID.setText("New Avatar ID Required!")
-            return
-        self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
-        os.chdir("HOTSWAP")
-        if os.path.exists("custom.vrca"):
-            os.remove("custom.vrca")
-        os.system("HOTSWAP.exe d Avatar.vrca")
-        self.oldid = self.Avatars[self.AvatarIndex][1]
-        self.ReplaceID(self.oldid, self.NewID1)
-        os.system("HOTSWAP.exe c")
-        if os.path.exists("Avatar.vrca"):
-            os.remove("Avatar.vrca")
-        if os.path.exists("decompressedfile"):
-            os.remove("decompressedfile")
-        if os.path.exists("decompressedfile1"):
-            os.remove("decompressedfile1")
-        os.chdir("..")
+        try:
+            self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
+            self.ProgBar.setEnabled(True)
+            self.ProjName1 = self.findChild(QtWidgets.QLineEdit, 'ProjName')
+            self.ProjName = self.ProjName1.text()
+            self.ProgBar.setValue(10)
+            self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\"+self.ProjName+"\\custom.vrca"
+            os.chdir("HOTSWAP")
+            self.ProgBar.setValue(20)
+            os.system("HOTSWAP.exe d "+self.ProjPath)
+            with open("decompressedfile", "rb") as f:
+                f = f.read()
+            self.NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
+            self.ProgBar.setValue(30)
+            if os.path.exists("decompressedfile"):
+                os.remove("decompressedfile")
+            os.chdir("..")
+            self.ProgBar.setValue(40)
+            self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
+            os.chdir("HOTSWAP")
+            if os.path.exists("custom.vrca"):
+                os.remove("custom.vrca")
+            self.ProgBar.setValue(50)
+            os.system("HOTSWAP.exe d Avatar.vrca")
+            self.ProgBar.setValue(60)
+            self.oldid = self.Avatars[self.AvatarIndex][1]
+            self.ReplaceID(self.oldid, self.NewID)
+            self.ProgBar.setValue(70)
+            os.system("HOTSWAP.exe c")
+            self.ProgBar.setValue(80)
+            if os.path.exists("Avatar.vrca"):
+                os.remove("Avatar.vrca")
+            if os.path.exists("decompressedfile"):
+                os.remove("decompressedfile")
+            if os.path.exists("decompressedfile1"):
+                os.remove("decompressedfile1")
+            if os.path.exists(self.ProjPath):
+                os.remove(self.ProjPath)
+            self.ProgBar.setValue(90)
+            shutil.move("custom.vrca", self.ProjPath)
+            self.ProgBar.setValue(100)
+            os.chdir("..")
+            self.ProgBar.setEnabled(False)
+            self.ProjName1.setText("COMPLETE")
+            time.sleep(10)
+            self.ProgBar.setValue(0)
+            self.HotswapButton.setEnabled(True)
+        except:
+            traceback.print_exc()
 
     def DeleteLogs(self):
         if os.path.exists(self.LogFolder + "/Log.txt"):
