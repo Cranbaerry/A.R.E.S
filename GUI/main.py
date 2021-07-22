@@ -16,7 +16,7 @@ class Ui(QtWidgets.QMainWindow):
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
-            ss = requests.get("https://pastebin.com/raw/w3f0jC9P").text
+            ss = requests.get("https://pastebin.com/raw/w3f0jC9P", timeout=10).text
             if VERSION != ss:
                 self.UPDATEBUTTON.show()
                 self.UPDATEBUTTON.clicked.connect(self.UPDATEPUSHED)
@@ -519,6 +519,6 @@ class Ui(QtWidgets.QMainWindow):
             os.remove(self.LogFolder + "/Log.txt")
 
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
-app.setStyleSheet(qdarkstyle.load_stylesheet())
+#app.setStyleSheet(qdarkstyle.load_stylesheet())
 window = Ui()  # Create an instance of our class
 app.exec_()  # Start the application
