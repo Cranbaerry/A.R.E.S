@@ -8,6 +8,7 @@ using AssetsTools.NET;
 using AssetsTools.NET.Extra;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using VRC.Core;
 
 namespace HOTSWAP
 {
