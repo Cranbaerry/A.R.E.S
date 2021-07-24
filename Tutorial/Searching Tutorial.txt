@@ -1,4 +1,0 @@
-1. Set your filters, "Private, Public, HTML, Tags" (HTML is just a different browse mode that allows you to preview many avatars at once)
-2. If you are searching your local logs press the "Load Avatars" button before searching
-3. If you want to just browse you don't need to enter a search term
-4. SEARCH COMPLETE

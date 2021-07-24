@@ -1,9 +1,0 @@
-1. Install Melon Loader(https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-2. Launch VRChat once and allow melon loader files to build
-3. Extract the "Mods" folder into your VRChat installation
-4. Extract the "GUI" folder to a convenient area
-5. Launch VRChat and head over to a public world to create the reqired mod files and begin logging
-6. Exit VRChat and run the "Avatar Logger GUI V6.1.exe" (Only use the GUI when VRChat is closed)
-7. Navigate to the settings tab and set your log folder, refer to "Install Tutorial.mp4" (2:07-2:16)
-8. (Optional) Enable "ALLOW API" to gain access to our API server
-9. INSTALL COMPLETE
