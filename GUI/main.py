@@ -132,7 +132,6 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as E:
             print(E)
 
-
     def HotSwap1(self):
         self.HotswapButton.setEnabled(False)
         threading.Thread(target=self.HotSwap, args={}).start()
