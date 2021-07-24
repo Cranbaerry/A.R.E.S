@@ -30,7 +30,7 @@ Features:
 	
 	-Browse the logs with image previews of avatars
 	
-	-Semi-Automatic Hotswap
+	-Mostly-Automatic Hotswaping
 	
 	-HTML Viewer for easy browsing of larger logs!
 	
