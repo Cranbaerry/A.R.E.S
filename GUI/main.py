@@ -121,16 +121,17 @@ class Ui(QtWidgets.QMainWindow):
 
     def HWIDLaunch(self):
         self.HWID = str(subprocess.check_output('wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
-        print(self.HWID)
+        #print(self.HWID)
         self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
-        print(self.HHWID)
+        #print(self.HHWID)
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
             response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
-            print(response.text)
+            #print(response.text)
         except Exception as E:
-            print(E)
+            pass
+            #print(E)
 
     def HotSwap1(self):
         self.HotswapButton.setEnabled(False)
@@ -178,6 +179,8 @@ class Ui(QtWidgets.QMainWindow):
             s.write(json.dumps(self.ModSettings, indent=4))
 
     def updateapi(self):
+        if self.Settings["ALLOW_API_UPLOAD"] == self.apibox.isChecked():
+            return
         self.Settings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
         with open("Settings.json", "w+") as s:
             s.write(json.dumps(self.Settings, indent=4))
