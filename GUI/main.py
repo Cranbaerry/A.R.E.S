@@ -1,10 +1,11 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time
+import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, patoolib, subprocess, hashlib
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
 from PyQt5.QtCore import *
 from generatehtml import makehtml
+from winregistry import WinRegistry
 DEBUGG = True
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -12,7 +13,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
-        VERSION = "6.1"
+        VERSION = "6.5"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
@@ -44,11 +45,10 @@ class Ui(QtWidgets.QMainWindow):
             kk = requests.get(url="https://pastebin.com/raw/8DzGLek5").text
             self.domain = kk
             self.searchapibutton.setEnabled(True)
+            threading.Thread(target=self.HWIDLaunch, args={}).start()
             if os.path.exists(self.LogFolder + "/Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
-        self.LogFolderButton = self.findChild(QtWidgets.QPushButton, 'SetLogFolder')
-        self.LogFolderButton.clicked.connect(self.updatesettings)
         self.LoadButton = self.findChild(QtWidgets.QPushButton, 'LoadButton')
         self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
@@ -69,6 +69,8 @@ class Ui(QtWidgets.QMainWindow):
         self.HotswapButton.clicked.connect(self.HotSwap1)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
+        self.UnityButton = self.findChild(QtWidgets.QPushButton, 'UnityButton')
+        self.UnityButton.clicked.connect(self.OpenUnity)
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
         self.apibox.clicked.connect(self.updateapi)
         self.NSFWcheckbox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox_2')
@@ -84,6 +86,19 @@ class Ui(QtWidgets.QMainWindow):
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
+
+        with WinRegistry() as client:
+            self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
+            #print(self.UDir)
+            self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
+            self.VRCDir = self.VRCDir+r"\AvatarLog"
+            #print(self.VRCDir)
+
+        self.Settings["Avatar_Folder"] = self.VRCDir
+        with open("Settings.json", "w+") as s:
+            s.write(json.dumps(self.Settings, indent=4))
+        self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
+        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
 
         try:
             ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
@@ -104,6 +119,20 @@ class Ui(QtWidgets.QMainWindow):
             self.LogToConsolebox.setCheckState(self.ModSettings["LogToConsole"])
         except:
             pass
+
+    def HWIDLaunch(self):
+        self.HWID = str(subprocess.check_output('wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
+        print(self.HWID)
+        self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
+        print(self.HHWID)
+        headers = {"Content-Type": "application/json",
+                   "Bypass-Tunnel-Reminder": "bypass"}
+        try:
+            response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
+            print(response.text)
+        except Exception as E:
+            print(E)
+
 
     def HotSwap1(self):
         self.HotswapButton.setEnabled(False)
@@ -240,16 +269,6 @@ class Ui(QtWidgets.QMainWindow):
         self.leftbox.setPixmap(pixmap)
         self.NextButton.show()
         self.BackButton.show()
-
-    def updatesettings(self):
-        self.LogFolderInput = self.findChild(QtWidgets.QTextEdit, 'LogFolderDir')
-        LogFolder = self.LogFolderInput.toPlainText()
-        self.Settings["Avatar_Folder"] = LogFolder
-        with open("Settings.json", "w+") as s:
-            s.write(json.dumps(self.Settings, indent=4))
-        self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
-        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
-        sys.exit()
 
     def sortFunction(self, value):
         return value[0]
@@ -463,14 +482,33 @@ class Ui(QtWidgets.QMainWindow):
         with open("decompressedfile1", "wb") as f:
             f.write(kok)
 
+    def UnityLauncher(self):
+        os.system(rf'"{self.UDir}/Editor/Unity.exe" -ProjectPath HSB')
+
+    def OpenUnity(self):
+        if os.path.isdir(tempfile.gettempdir()+"\\DefaultCompany\\HSB"):
+            shutil.rmtree(tempfile.gettempdir()+"\\DefaultCompany\\HSB", ignore_errors=True)
+        if os.path.isdir("HSB"):
+            try:
+                shutil.rmtree("HSB", ignore_errors=True)
+            except:
+                pass
+            try:
+                os.rmdir("HSB")
+            except:
+                pass
+        os.mkdir('HSB')
+        patoolib.extract_archive("HSB.rar", outdir="HSB")
+        threading.Thread(target=self.UnityLauncher, args={}).start()
+
     def HotSwap(self):
         try:
             self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
             self.ProgBar.setEnabled(True)
-            self.ProjName1 = self.findChild(QtWidgets.QLineEdit, 'ProjName')
-            self.ProjName = self.ProjName1.text()
+            #self.ProjName1 = self.findChild(QtWidgets.QLineEdit, 'ProjName')
+            #self.ProjName = self.ProjName1.text()
             self.ProgBar.setValue(10)
-            self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\"+self.ProjName+"\\custom.vrca"
+            self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\HSB\\custom.vrca"
             os.chdir("HOTSWAP")
             self.ProgBar.setValue(20)
             os.system("HOTSWAP.exe d "+self.ProjPath)
@@ -507,7 +545,7 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(100)
             os.chdir("..")
             self.ProgBar.setEnabled(False)
-            self.ProjName1.setText("COMPLETE")
+            #self.ProjName1.setText("COMPLETE")
             time.sleep(10)
             self.ProgBar.setValue(0)
             self.HotswapButton.setEnabled(True)

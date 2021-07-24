@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V6.1</string>
+   <string>Avatar Logger GUI V6.5</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -745,12 +745,9 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="ProjName">
+        <widget class="QPushButton" name="UnityButton">
          <property name="text">
-          <string>Enter Unity Project Name</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>Open Unity</string>
          </property>
         </widget>
        </item>
@@ -1059,52 +1056,12 @@ p, li { white-space: pre-wrap; }
      <attribute name="title">
       <string>Settings</string>
      </attribute>
-     <widget class="QPushButton" name="SetLogFolder">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>221</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Set Log Folder</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="LogFolderDir">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>10</y>
-        <width>641</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>18</pointsize>
-       </font>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:18pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="DirLabel">
       <property name="geometry">
        <rect>
-        <x>230</x>
-        <y>60</y>
-        <width>561</width>
+        <x>10</x>
+        <y>20</y>
+        <width>781</width>
         <height>61</height>
        </rect>
       </property>
@@ -1121,7 +1078,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>90</y>
         <width>221</width>
         <height>61</height>
        </rect>
@@ -1135,29 +1092,11 @@ p, li { white-space: pre-wrap; }
        <string>Delete Logs</string>
       </property>
      </widget>
-     <widget class="QLabel" name="DirLabel_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>131</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Desired Directory</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="LogSize">
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>130</y>
+        <y>90</y>
         <width>141</width>
         <height>61</height>
        </rect>
@@ -1175,7 +1114,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>170</y>
         <width>201</width>
         <height>181</height>
        </rect>
@@ -1241,9 +1180,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>130</y>
+        <y>90</y>
         <width>391</width>
-        <height>291</height>
+        <height>391</height>
        </rect>
       </property>
      </widget>
@@ -1256,7 +1195,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>836</width>
-     <height>19</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>
