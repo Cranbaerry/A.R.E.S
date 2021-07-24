@@ -1,4 +1,4 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, patoolib, subprocess, hashlib
+import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, subprocess, hashlib
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -27,6 +27,18 @@ class Ui(QtWidgets.QMainWindow):
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
+        with WinRegistry() as client:
+            self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
+            #print(self.UDir)
+            self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
+            self.VRCDir = self.VRCDir+r"\AvatarLog"
+            #print(self.VRCDir)
+
+        self.Settings["Avatar_Folder"] = self.VRCDir
+        with open("Settings.json", "w+") as s:
+            s.write(json.dumps(self.Settings, indent=4))
+        self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
+        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         self.LogFolder = self.Settings["Avatar_Folder"]
         self.ModConfig = self.Settings["Avatar_Folder"]+"/Config.json"
         try:
@@ -86,19 +98,6 @@ class Ui(QtWidgets.QMainWindow):
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
-
-        with WinRegistry() as client:
-            self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
-            #print(self.UDir)
-            self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
-            self.VRCDir = self.VRCDir+r"\AvatarLog"
-            #print(self.VRCDir)
-
-        self.Settings["Avatar_Folder"] = self.VRCDir
-        with open("Settings.json", "w+") as s:
-            s.write(json.dumps(self.Settings, indent=4))
-        self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
-        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
 
         try:
             ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
@@ -484,8 +483,10 @@ class Ui(QtWidgets.QMainWindow):
 
     def UnityLauncher(self):
         os.system(rf'"{self.UDir}/Editor/Unity.exe" -ProjectPath HSB')
+        self.UnityButton.setEnabled(True)
 
     def OpenUnity(self):
+        self.UnityButton.setEnabled(False)
         if os.path.isdir(tempfile.gettempdir()+"\\DefaultCompany\\HSB"):
             shutil.rmtree(tempfile.gettempdir()+"\\DefaultCompany\\HSB", ignore_errors=True)
         if os.path.isdir("HSB"):
@@ -498,7 +499,7 @@ class Ui(QtWidgets.QMainWindow):
             except:
                 pass
         os.mkdir('HSB')
-        patoolib.extract_archive("HSB.rar", outdir="HSB")
+        os.system("UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q]")
         threading.Thread(target=self.UnityLauncher, args={}).start()
 
     def HotSwap(self):
