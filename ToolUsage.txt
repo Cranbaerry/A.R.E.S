@@ -17,7 +17,7 @@ Hotswapping:
 
 1. Press the "Open Unity" button, this will launch a blank Unity project with VRCSDK3 and PoiyomiToon free shaders
 2. Login to the SDK here
-3. Press Build&Publish but do not upload the avatar, here you can set an image, name descriptions and tags
-4. Press the "Hotswap" button, one the bar reaches 100% you may then press "Upload" in unity
+3. Press Build&Publish but do not upload the avatar, here you can set an image, name, descriptions and tags
+4. Press the "Hotswap" button, once the bar reaches 100% you may then press "Upload" in unity
 6. Launch VRChat, enter your avatar menu and change into your newly uploaded avatar!
 7. HOTSWAP COMPLETE
