@@ -54,6 +54,14 @@ Installation/Usage:
 
     6. Launch the game and log some avatars before attempting to use the GUI
 
+Common issues and fixes:
+
+    -The GUI may incorrectly locate your unity/vrchat installations, to fix this simply open the "Settings.json" file in any text editor and manually change the direcories. The options should look like this if done correctly:
+        {
+        "Avatar_Folder": "F:\\SteamLibrary\\steamapps\\common\\VRChat\\AvatarLog",
+        "Unity_Exe": "C:\\Program Files\\Unity",
+        }
+        The "Unity_Exe" should not be aimed directly at the exe but instead aimed at the folder containing the exe!
 Extras:
 
     -If you enable API in the settings you will have all logged avatars sent to our database, in exchange you will gain access to an entire collection of avatars logged by others!
