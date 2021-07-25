@@ -40,7 +40,7 @@ Features:
 
     -API support! If you are willing to share your logs with us in return you will gain access to a database containing avatars logged by other users!
 
-Installation/Usage:
+Installation/Usage: Videos can be found in the "Tutorials" folder!
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
@@ -61,7 +61,7 @@ Common issues and fixes:
         "Avatar_Folder": "F:\\SteamLibrary\\steamapps\\common\\VRChat\\AvatarLog",
         "Unity_Exe": "C:\\Program Files\\Unity",
         }
-        The "Unity_Exe" should not be aimed directly at the exe but instead aimed at the folder containing the exe!
+        The "Unity_Exe" should not be aimed directly at the exe but instead aimed at the folder containing the "Editor" folder!
 Extras:
 
     -If you enable API in the settings you will have all logged avatars sent to our database, in exchange you will gain access to an entire collection of avatars logged by others!
