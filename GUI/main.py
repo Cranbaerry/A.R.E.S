@@ -13,7 +13,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
-        VERSION = "6.5"
+        VERSION = "6.7"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
@@ -27,16 +27,24 @@ class Ui(QtWidgets.QMainWindow):
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
-        with WinRegistry() as client:
-            self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
-            #print(self.UDir)
-            self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
-            self.VRCDir = self.VRCDir+r"\AvatarLog"
-            #print(self.VRCDir)
 
-        self.Settings["Avatar_Folder"] = self.VRCDir
-        with open("Settings.json", "w+") as s:
-            s.write(json.dumps(self.Settings, indent=4))
+        if self.Settings["Is_First_Run"]:
+            self.Settings["Is_First_Run"] = False
+            with open("Settings.json", "w+") as s:
+                s.write(json.dumps(self.Settings, indent=4))
+            with WinRegistry() as client:
+                self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
+                self.VRCDir = self.VRCDir+r"\AvatarLog"
+                self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
+            self.Settings["Avatar_Folder"] = self.VRCDir
+            self.Settings["Unity_Exe"] = self.UDir
+            with open("Settings.json", "w+") as s:
+                s.write(json.dumps(self.Settings, indent=4))
+        with open("Settings.json", "r+") as s:
+            self.Settings = json.loads(s.read())
+            self.VRCDir = self.Settings["Avatar_Folder"]
+            self.UDir = self.Settings["Unity_Exe"]
+
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         self.LogFolder = self.Settings["Avatar_Folder"]
@@ -98,6 +106,7 @@ class Ui(QtWidgets.QMainWindow):
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
         self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
+        self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
 
         try:
             ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
@@ -506,15 +515,13 @@ class Ui(QtWidgets.QMainWindow):
 
     def HotSwap(self):
         try:
-            self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
             self.ProgBar.setEnabled(True)
-            #self.ProjName1 = self.findChild(QtWidgets.QLineEdit, 'ProjName')
-            #self.ProjName = self.ProjName1.text()
             self.ProgBar.setValue(10)
             self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\HSB\\custom.vrca"
             os.chdir("HOTSWAP")
             self.ProgBar.setValue(20)
-            os.system("HOTSWAP.exe d "+self.ProjPath)
+            shutil.copy(self.ProjPath, "custom.vrca")
+            os.system("HOTSWAP.exe d custom.vrca")
             with open("decompressedfile", "rb") as f:
                 f = f.read()
             self.NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
@@ -548,12 +555,11 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(100)
             os.chdir("..")
             self.ProgBar.setEnabled(False)
-            #self.ProjName1.setText("COMPLETE")
             time.sleep(10)
             self.ProgBar.setValue(0)
             self.HotswapButton.setEnabled(True)
         except:
-            traceback.print_exc()
+            self.HotSwap()
 
     def DeleteLogs(self):
         if os.path.exists(self.LogFolder + "/Log.txt"):
