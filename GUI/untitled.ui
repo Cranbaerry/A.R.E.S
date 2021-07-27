@@ -644,6 +644,13 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="LoadVRCAButton">
+         <property name="text">
+          <string>Load VRCA</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QTextEdit" name="RawData">

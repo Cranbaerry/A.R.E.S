@@ -14,7 +14,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
-        VERSION = "6.7"
+        VERSION = "6.8"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
@@ -77,6 +77,7 @@ class Ui(QtWidgets.QMainWindow):
         self.BackButton.clicked.connect(self.Back)
         self.SearchButton = self.findChild(QtWidgets.QPushButton, 'SearchButton')
         self.SearchButton.clicked.connect(self.Search)
+        self.SearchButton.setEnabled(False)
         self.NextButton = self.findChild(QtWidgets.QPushButton, 'NextButton')
         self.NextButton.clicked.connect(self.Next)
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
@@ -87,8 +88,11 @@ class Ui(QtWidgets.QMainWindow):
         self.PublicBox = self.findChild(QtWidgets.QCheckBox, 'PublicBox')
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
+        self.DLVRCAButton.setEnabled(False)
         self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
         self.HotswapButton.clicked.connect(self.HotSwap1)
+        self.LoadVRCAButton = self.findChild(QtWidgets.QPushButton, 'LoadVRCAButton')
+        self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
         self.UnityButton = self.findChild(QtWidgets.QPushButton, 'UnityButton')
@@ -323,6 +327,8 @@ class Ui(QtWidgets.QMainWindow):
     def loadavatar0(self):
         self.loadavatars(True)
     def loadavatars(self, makehtmll=False):
+        self.SearchButton.setEnabled(True)
+        self.DLVRCAButton.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
@@ -347,7 +353,10 @@ class Ui(QtWidgets.QMainWindow):
                 self.ErrorLog(traceback.print_exc())
 
     def Cleantext(self, data):
-        klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
+        try:
+            klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
+        except:
+            klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
         return klean
 
     def Search(self):
@@ -359,6 +368,8 @@ class Ui(QtWidgets.QMainWindow):
         value[0] = kk
         return value[0]
     def callapiforavis(self):
+        self.SearchButton.setEnabled(True)
+        self.DLVRCAButton.setEnabled(True)
         seardata = {
             "author": False,
             "avatarid": False,
@@ -489,7 +500,7 @@ class Ui(QtWidgets.QMainWindow):
         self.fileName = QFileDialog.getSaveFileName(self, 'Save VRCA', "Avatar", ".vrca")
         self.DLLink = self.Avatars[self.AvatarIndex][6]
         self.SaveDir = "".join(self.fileName)
-        threading.Thread(target=self.DownVRCAT, args={self.DLLink, self.SaveDir, }).start()
+        threading.Thread(target=self.DownVRCAT, args=(self.DLLink, self.SaveDir,)).start()
 
     def ReplaceID(self, oldid, newid):
         with open("decompressedfile", "rb") as f:
@@ -519,6 +530,38 @@ class Ui(QtWidgets.QMainWindow):
         os.system("UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q]")
         threading.Thread(target=self.UnityLauncher, args={}).start()
 
+    def LoadVRCA(self):
+        self.lvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
+        os.chdir("HOTSWAP")
+        os.system(rf'HOTSWAP.exe d "{self.lvrca}"')
+        with open("decompressedfile", "rb") as f:
+            f = f.read()
+        self.oldid = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
+        if os.path.exists("decompressedfile"):
+            os.remove("decompressedfile")
+        os.chdir("..")
+        self.Avatars = []
+        self.Avatars1 = [
+            "VRCA",
+            "AvtrID",
+            "VRCA",
+            "VRCA",
+            "VRCA",
+            "VRCA",
+            "AssetURL",
+            "VRCA",
+            "VRCA",
+            "VRCA",
+            "VRCA",
+            "VRCA"
+        ]
+        self.Avatars1[1] = self.oldid
+        self.Avatars1[6] = self.lvrca
+        self.Avatars1[7] = "https://i.ibb.co/3pHS4wB/Default-Placeholder.png"
+        self.Avatars.append(self.Avatars1)
+        self.AvatarIndex = 0
+        self.AvatarUpdate(0)
+
     def HotSwap(self):
         try:
             self.ProgBar.setEnabled(True)
@@ -536,7 +579,10 @@ class Ui(QtWidgets.QMainWindow):
                 os.remove("decompressedfile")
             os.chdir("..")
             self.ProgBar.setValue(40)
-            self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
+            if self.Avatars[0][0] != "VRCA":
+                self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
+            else:
+                shutil.copy(self.lvrca, "HOTSWAP/Avatar.vrca")
             os.chdir("HOTSWAP")
             if os.path.exists("custom.vrca"):
                 os.remove("custom.vrca")
@@ -565,7 +611,7 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(0)
             self.HotswapButton.setEnabled(True)
         except:
-            self.HotSwap()
+            traceback.print_exc()
 
     def DeleteLogs(self):
         if os.path.exists(self.LogFolder + "/Log.txt"):
