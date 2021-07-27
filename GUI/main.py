@@ -1,4 +1,5 @@
 import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, subprocess, hashlib
+from getmac import get_mac_address as gma
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -66,6 +67,7 @@ class Ui(QtWidgets.QMainWindow):
             self.domain = kk
             self.searchapibutton.setEnabled(True)
             threading.Thread(target=self.HWIDLaunch, args={}).start()
+            #self.HWIDLaunch()
             if os.path.exists(self.LogFolder + "/Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
@@ -129,18 +131,22 @@ class Ui(QtWidgets.QMainWindow):
             pass
 
     def HWIDLaunch(self):
-        self.HWID = str(subprocess.check_output('wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
+        self.HWID = gma()
         #print(self.HWID)
+        #self.ErrorLog("HWID: "+self.HWID)
         self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
         #print(self.HHWID)
+        #self.ErrorLog("HASHED_HWID: " + self.HHWID)
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
             response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
             #print(response.text)
+            #self.ErrorLog("REQ: " + response.text)
         except Exception as E:
             pass
             #print(E)
+            #self.ErrorLog("EXEPTION: " + str(E))
 
     def HotSwap1(self):
         self.HotswapButton.setEnabled(False)
