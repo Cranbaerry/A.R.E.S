@@ -2,7 +2,7 @@
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
-And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap!
+And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap and the new GUI!
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
 
