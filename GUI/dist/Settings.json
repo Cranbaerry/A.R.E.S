@@ -1,6 +1,6 @@
 {
-    "Avatar_Folder": "",
-    "Unity_Exe": "",
+    "Avatar_Folder": "F:\\SteamLibrary\\steamapps\\common\\VRChat\\AvatarLog",
+    "Unity_Exe": "C:\\Program Files\\Unity",
     "ALLOW_API_UPLOAD": false,
-    "Is_First_Run": true
+    "Is_First_Run": false
 }
