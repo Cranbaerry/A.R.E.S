@@ -69,3 +69,7 @@ Extras:
     -If you enable API in the settings you will have all logged avatars sent to our database, in exchange you will gain access to an entire collection of avatars logged by others!
 
 Issues? Open an issue in the "Issues" tab, We will do our best to resolve your issue!
+
+Licesnse:
+
+[GNU GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html)
