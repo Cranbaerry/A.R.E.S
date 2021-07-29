@@ -63,6 +63,9 @@
       <HintPath>D:\Steam Library\steamapps\common\VRChat\MelonLoader\Managed\System.Net.Http.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="VRCMenuUtils">
+      <HintPath>..\Dependencies\VRCMenuUtils.dll</HintPath>
+    </Reference>
     <Reference Include="websocket-sharp">
       <HintPath>..\Dependencies\websocket-sharp.dll</HintPath>
     </Reference>
