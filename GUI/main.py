@@ -1,4 +1,4 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, subprocess, hashlib
+import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, subprocess, hashlib, subprocess
 from getmac import get_mac_address as gma
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
@@ -89,8 +89,8 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
         self.DLVRCAButton.setEnabled(False)
-        self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
-        self.HotswapButton.clicked.connect(self.HotSwap1)
+        self.UploadButton = self.findChild(QtWidgets.QPushButton, 'UploadButton')
+        self.UploadButton.clicked.connect(self.ReUpload1)
         self.LoadVRCAButton = self.findChild(QtWidgets.QPushButton, 'LoadVRCAButton')
         self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
@@ -152,9 +152,9 @@ class Ui(QtWidgets.QMainWindow):
             #print(E)
             #self.ErrorLog("EXEPTION: " + str(E))
 
-    def HotSwap1(self):
-        self.HotswapButton.setEnabled(False)
-        threading.Thread(target=self.HotSwap, args={}).start()
+    def ReUpload1(self):
+        self.UploadButton.setEnabled(False)
+        threading.Thread(target=self.ReUpload, args={}).start()
 
 
     def ErrorLog(self, Log):
@@ -562,7 +562,13 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarIndex = 0
         self.AvatarUpdate(0)
 
-    def HotSwap(self):
+    def ReUpload(self):
+        os.chdir("HOTSWAP")
+        self.NewID = subprocess.check_output(["HOTSWAP.exe", "mId"]).decode('utf-8').strip()
+        os.chdir("..")
+        print(self.NewID)
+        self.UploadButton.setEnabled(True)
+        return
         try:
             self.ProgBar.setEnabled(True)
             self.ProgBar.setValue(10)

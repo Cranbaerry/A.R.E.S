@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V6.8</string>
+   <string>Avatar Logger GUI V7</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -759,9 +759,9 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="HotswapButton">
+        <widget class="QPushButton" name="UploadButton">
          <property name="text">
-          <string>Hotswap</string>
+          <string>Upload</string>
          </property>
         </widget>
        </item>
@@ -1058,6 +1058,23 @@ p, li { white-space: pre-wrap; }
        <string>OUTDATED CLICK TO UPDATE!!!</string>
       </property>
      </widget>
+     <zorder>UPDATEBUTTON</zorder>
+     <zorder>PreviewImage</zorder>
+     <zorder>label_3</zorder>
+     <zorder>frame</zorder>
+     <zorder>RawData</zorder>
+     <zorder>frame_4</zorder>
+     <zorder>resultsbox</zorder>
+     <zorder>frame_5</zorder>
+     <zorder>Status</zorder>
+     <zorder>label_2</zorder>
+     <zorder>lineEdit</zorder>
+     <zorder>frame_2</zorder>
+     <zorder>TagSettings_2</zorder>
+     <zorder>PrivateBox_2</zorder>
+     <zorder>HTMLBox_2</zorder>
+     <zorder>PublicBox_2</zorder>
+     <zorder>frame_6</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">

@@ -65,6 +65,10 @@ namespace HOTSWAP
         {
             CompressBundle("decompressedfile1", "custom.vrca");
         }
+        if (work == "mID") ;
+        {
+            Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
+        }
     }
 }
 }
