@@ -9,6 +9,7 @@ using AssetsTools.NET.Extra;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using VRC.Core;
+using librsync.net;
 
 namespace HOTSWAP
 {
@@ -65,10 +66,58 @@ namespace HOTSWAP
         {
             CompressBundle("decompressedfile1", "custom.vrca");
         }
-        if (work == "mID") ;
+        if (work == "mID")
         {
             Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
         }
-    }
+        if (work == "gSIG")
+        {
+            Stream inStream = null;
+            FileStream outStream = null;
+            byte[] buf = new byte[64 * 1024];
+            IAsyncResult asyncRead = null;
+            IAsyncResult asyncWrite = null;
+            int read = 0;
+            inStream = Librsync.ComputeSignature(File.OpenRead("AvatarC.vrca"));
+            outStream = File.Open("Signature.sig", FileMode.Create, FileAccess.Write);
+            asyncRead = inStream.BeginRead(buf, 0, buf.Length, null, null);
+            read = inStream.EndRead(asyncRead);
+            asyncWrite = outStream.BeginWrite(buf, 0, read, null, null);
+            outStream.EndWrite(asyncWrite);
+            inStream.Close();
+            //outStream.Close();
+
+            string signatureFilename = "Signature.sig";
+            bool wait = true;
+            bool wasError = false;
+            bool worthRetry = false;
+            string errorStr = "";
+            string sigMD5Base64 = "";
+            wait = true;
+            errorStr = "";
+                VRC.Tools.FileMD5(signatureFilename, md5Bytes);
+                {
+                    sigMD5Base64 = Convert.ToBase64String(md5Bytes);
+                }
+            );
+            }
+        if (work == "hSIG")
+        {
+            string signatureFilename = "Signature.sig";
+            bool wait = true;
+            bool wasError = false;
+            bool worthRetry = false;
+            string errorStr = "";
+            string sigMD5Base64 = "";
+            wait = true;
+            errorStr = "";
+            VRC.Tools.FileMD5(signatureFilename,
+                delegate (byte[] md5Bytes)
+                {
+                    sigMD5Base64 = Convert.ToBase64String(md5Bytes);
+                    wait = false;
+                }
+            );
+        }
 }
 }
