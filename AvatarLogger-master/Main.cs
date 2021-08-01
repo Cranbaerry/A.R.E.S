@@ -83,6 +83,9 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
+                        $"Unity Version:{__0.unityVersion}",
+                        $"Platform:{__0.platform}",
+                        $"API Version:{__0.apiVersion}",
                         $"Version:{__0.version}",
                     });
                     if (__0.tags.Count > 0)
@@ -117,6 +120,9 @@ namespace AvatarLogger
                         $"Image URL:{__0.imageUrl}",
                         $"Thumbnail URL:{__0.thumbnailImageUrl}",
                         $"Release Status:{__0.releaseStatus}",
+                        $"Unity Version:{__0.unityVersion}",
+                        $"Platform:{__0.platform}",
+                        $"API Version:{__0.apiVersion}",
                         $"Version:{__0.version}",
                     });
                     if (__0.tags.Count > 0)

@@ -1,5 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.Net.Http;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using UnhollowerRuntimeLib;
+using UnityEngine;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using VRC.Core;
 using librsync.net;
+using apifilehelper;
 
 namespace HOTSWAP
 {
@@ -56,68 +62,51 @@ namespace HOTSWAP
 
         static void Main(string[] args)
         {
-        string work = args[0];
-        if (work == "d")
-        {
-            string dir = args[1];
-            DecompressBundle(dir, "decompressedfile");
-        }
-        if (work == "c")
-        {
-            CompressBundle("decompressedfile1", "custom.vrca");
-        }
-        if (work == "mID")
-        {
-            Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
-        }
-        if (work == "gSIG")
-        {
-            Stream inStream = null;
-            FileStream outStream = null;
-            byte[] buf = new byte[64 * 1024];
-            IAsyncResult asyncRead = null;
-            IAsyncResult asyncWrite = null;
-            int read = 0;
-            inStream = Librsync.ComputeSignature(File.OpenRead("AvatarC.vrca"));
-            outStream = File.Open("Signature.sig", FileMode.Create, FileAccess.Write);
-            asyncRead = inStream.BeginRead(buf, 0, buf.Length, null, null);
-            read = inStream.EndRead(asyncRead);
-            asyncWrite = outStream.BeginWrite(buf, 0, read, null, null);
-            outStream.EndWrite(asyncWrite);
-            inStream.Close();
-            //outStream.Close();
-
-            string signatureFilename = "Signature.sig";
-            bool wait = true;
-            bool wasError = false;
-            bool worthRetry = false;
-            string errorStr = "";
-            string sigMD5Base64 = "";
-            wait = true;
-            errorStr = "";
-                VRC.Tools.FileMD5(signatureFilename, md5Bytes);
-                {
-                    sigMD5Base64 = Convert.ToBase64String(md5Bytes);
-                }
-            );
+            string work = args[0];
+            if (work == "d")
+            {
+                string dir = args[1];
+                DecompressBundle(dir, "decompressedfile");
             }
-        if (work == "hSIG")
-        {
-            string signatureFilename = "Signature.sig";
-            bool wait = true;
-            bool wasError = false;
-            bool worthRetry = false;
-            string errorStr = "";
-            string sigMD5Base64 = "";
-            wait = true;
-            errorStr = "";
-            VRC.Tools.FileMD5(signatureFilename,
-                delegate (byte[] md5Bytes)
-                {
-                    sigMD5Base64 = Convert.ToBase64String(md5Bytes);
-                    wait = false;
-                }
-            );
+            if (work == "c")
+            {
+                CompressBundle("decompressedfile1", "custom.vrca");
+            }
+            if (work == "mID")
+            {
+                Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
+            }
+            if (work == "gSIG")
+            {
+                Stream inStream = null;
+                FileStream outStream = null;
+                byte[] buf = new byte[64 * 1024];
+                IAsyncResult asyncRead = null;
+                IAsyncResult asyncWrite = null;
+                int read = 0;
+                inStream = Librsync.ComputeSignature(File.OpenRead("AvatarC.vrca"));
+                outStream = File.Open("Signature.sig", FileMode.Create, FileAccess.Write);
+                asyncRead = inStream.BeginRead(buf, 0, buf.Length, null, null);
+                read = inStream.EndRead(asyncRead);
+                asyncWrite = outStream.BeginWrite(buf, 0, read, null, null);
+                outStream.EndWrite(asyncWrite);
+                inStream.Close();
+                outStream.Close();
+            }
+            if (work == "Upload")
+            {
+
+
+
+                string AvatarName = args[1];
+                string unityVersion = args[2];
+                string platform = args[3];
+                string ApiVersion = args[4];
+                string PackedBundle = args[5];
+                var avatarimage = "Avatar - " + AvatarName + " - Image - " + unityVersion + "_" + ApiVersion + "_" + platform + "_Release";
+                var AvatarAssetBundle = "Avatar - " + AvatarName + " - Asset bundle - " + unityVersion + "_" + ApiVersion + "_" + platform + "_Release";
+                ApiFileHelper.upload(PackedBundle, null, AvatarAssetBundle, OnUploadVrcaAsyncSuccess, OnUploadVrcaAsyncFailure, delegate (ApiFile imageBundle, string string_0, string string_1, float UploadingStatus)
+            }
         }
-}
+    }
 }

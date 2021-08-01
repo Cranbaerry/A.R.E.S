@@ -73,6 +73,9 @@
     <Reference Include="UnhollowerBaseLib">
       <HintPath>..\DLLs\UnhollowerBaseLib.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\DLLs\UnityEngine.dll</HintPath>
+    </Reference>
     <Reference Include="VRCCore-Editor">
       <HintPath>..\DLLs\VRCCore-Editor.dll</HintPath>
     </Reference>
@@ -90,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiFileHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
