@@ -93,20 +93,6 @@ namespace HOTSWAP
                 inStream.Close();
                 outStream.Close();
             }
-            if (work == "Upload")
-            {
-
-
-
-                string AvatarName = args[1];
-                string unityVersion = args[2];
-                string platform = args[3];
-                string ApiVersion = args[4];
-                string PackedBundle = args[5];
-                var avatarimage = "Avatar - " + AvatarName + " - Image - " + unityVersion + "_" + ApiVersion + "_" + platform + "_Release";
-                var AvatarAssetBundle = "Avatar - " + AvatarName + " - Asset bundle - " + unityVersion + "_" + ApiVersion + "_" + platform + "_Release";
-                ApiFileHelper.upload(PackedBundle, null, AvatarAssetBundle, OnUploadVrcaAsyncSuccess, OnUploadVrcaAsyncFailure, delegate (ApiFile imageBundle, string string_0, string string_1, float UploadingStatus)
-            }
         }
     }
 }
