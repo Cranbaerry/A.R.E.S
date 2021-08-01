@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using VRC.Core;
 using librsync.net;
-using apifilehelper;
+using ApiFileHelper;
 
 namespace HOTSWAP
 {
