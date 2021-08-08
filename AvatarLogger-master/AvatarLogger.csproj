@@ -37,6 +37,9 @@
     <Reference Include="Il2Cppmscorlib">
       <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
+    <Reference Include="Leaf.xNet">
+      <HintPath>.\Leaf.xNet.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>

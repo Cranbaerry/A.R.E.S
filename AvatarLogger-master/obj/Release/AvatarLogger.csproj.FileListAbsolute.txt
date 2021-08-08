@@ -128,3 +128,7 @@ C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Release
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Release\AvatarLogger.csproj.CopyComplete
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Release\AvatarLogger.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\obj\Release\AvatarLogger.pdb
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.AndroidJNIModule.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.InputLegacyModule.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.SubsystemsModule.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Leaf.xNet.dll

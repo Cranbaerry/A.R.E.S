@@ -203,6 +203,9 @@ class Ui(QtWidgets.QMainWindow):
         self.Settings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
         with open("Settings.json", "w+") as s:
             s.write(json.dumps(self.Settings, indent=4))
+        self.ModSettings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
+        with open(self.ModConfig, "w+") as s:
+            s.write(json.dumps(self.ModSettings, indent=4))
         sys.exit()
 
     def upload1(self):

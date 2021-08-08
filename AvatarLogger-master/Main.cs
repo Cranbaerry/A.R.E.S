@@ -10,9 +10,12 @@ using Newtonsoft.Json;
 using VRC.Core;
 using VRC;
 using System.Text;
+using Leaf.xNet;
+using static System.Net.WebRequest;
+using System.Threading.Tasks;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "2.5", "KeafyIsHere & LargestBoi")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "2.5", "KeafyIsHere, LargestBoi & cassell1337")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
@@ -26,6 +29,7 @@ namespace AvatarLogger
 
         private static List<string> AvatarIDs = new List<string>();
         private static Regex AvatarRegex = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
+        private static string tagsstr = "None";
 
         private static Config Config { get; set; }
 
@@ -37,7 +41,7 @@ namespace AvatarLogger
             Directory.CreateDirectory("AvatarLog");
 
             if (!File.Exists(AvatarFile))
-            { File.AppendAllText(AvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi\n"); }
+            { File.AppendAllText(AvatarFile, $"Original Mod by KeafyIsHere and Maintained by LargestBoi & cassell1337\n"); }
 
             foreach (string line in File.ReadAllLines(AvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
 
@@ -48,6 +52,8 @@ namespace AvatarLogger
                     LogOwnAvatars = true,
                     LogFriendsAvatars = true,
                     LogToConsole = true,
+                    ALLOW_API_UPLOAD = false,
+
                 }, Formatting.Indented));
             }
             Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("AvatarLog\\Config.json"));
@@ -71,9 +77,10 @@ namespace AvatarLogger
                     DateTime foo = DateTime.Now;
                     long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
                     string tagstr = string.Join(",", __0.tags);
+                    string UT = unixTime.ToString();
                     File.AppendAllLines(AvatarFile, new string[]
                     {
-                        $"Time Detected:{unixTime}",
+                        $"Time Detected:{UT}",
                         $"Avatar ID:{__0.id}",
                         $"Avatar Name:{__0.name}",
                         $"Avatar Description:{__0.description}",
@@ -94,13 +101,26 @@ namespace AvatarLogger
                         builder.Append("Tags: ");
                         foreach (string tag in __0.tags) { builder.Append($"{tag},"); }
                         File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                        string tagsstr = builder.ToString().Remove(builder.ToString().LastIndexOf(","));
                     }
                     else
                     {
                         File.AppendAllText(AvatarFile, "Tags: None");
+                        var tagsstr = "";
                     }
                     File.AppendAllText(AvatarFile, "\n\n");
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Public]"); }
+                    if (Config.ALLOW_API_UPLOAD)
+                    {
+                        Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
+                        string AvatarJson = "{\"TimeDetected\":\"" + UT + "\",\"AvatarID\":\"" + __0.id + "\",\"AvatarName\":\"" + __0.name + "\",\"AvatarDescription\":\"" + __0.description + "\",\"AuthorID\":\"" + __0.authorId + "\",\"AuthorName\":\"" + __0.authorName + "\",\"AssetURL\":\"" + __0.assetUrl + "\",\"ImageURL\":\"" + __0.imageUrl + "\",\"ThumbnailURL\":\"" + __0.thumbnailImageUrl + "\",\"ReleaseStatus\":\"" + __0.releaseStatus + "\",\"UnityVersion\":\"" + __0.unityVersion + "\",\"Platform\":\"" + __0.platform + "\",\"APIVersion\":\"" + __0.apiVersion + "\",\"Version\":\"" + __0.version + "\",\"Tags\":\"" + tagsstr + "\"}";
+                        try
+                        {
+                            string login = request.Post("http://api.avataruploader.tk/upload", AvatarJson, "application/json").ToString();
+                            MelonLogger.Msg($"[Avatar Logged To API] {__0.name} [Private]");
+                        }
+                        catch (Exception ex) { MelonLogger.Msg("API Down | " + ex.Message + "\n Json: " + AvatarJson); }
+                    }
                 }
                 else if (__0.releaseStatus == "private")
                 {
@@ -108,9 +128,10 @@ namespace AvatarLogger
                     DateTime foo = DateTime.Now;
                     long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
                     string tagstr = string.Join(",", __0.tags);
+                    string UT = unixTime.ToString();
                     File.AppendAllLines(AvatarFile, new string[]
                     {
-                        $"Time Detected:{unixTime}",
+                        $"Time Detected:{UT}",
                         $"Avatar ID:{__0.id}",
                         $"Avatar Name:{__0.name}",
                         $"Avatar Description:{__0.description}",
@@ -131,13 +152,26 @@ namespace AvatarLogger
                         builder.Append("Tags: ");
                         foreach (string tag in __0.tags) { builder.Append($"{tag},"); }
                         File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                        string tagsstr = builder.ToString().Remove(builder.ToString().LastIndexOf(","));
                     }
                     else
                     {
                         File.AppendAllText(AvatarFile, "Tags: None");
+                        var tagsstr = "";
                     }
                     File.AppendAllText(AvatarFile, "\n\n");
                     if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {__0.name} [Private]"); }
+                    if (Config.ALLOW_API_UPLOAD)
+                    {
+                        Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
+                        string AvatarJson = "{\"TimeDetected\":\"" + UT + "\",\"AvatarID\":\"" + __0.id + "\",\"AvatarName\":\"" + __0.name + "\",\"AvatarDescription\":\"" + __0.description + "\",\"AuthorID\":\"" + __0.authorId + "\",\"AuthorName\":\"" + __0.authorName + "\",\"AssetURL\":\"" + __0.assetUrl + "\",\"ImageURL\":\"" + __0.imageUrl + "\",\"ThumbnailURL\":\"" + __0.thumbnailImageUrl + "\",\"ReleaseStatus\":\"" + __0.releaseStatus + "\",\"UnityVersion\":\"" + __0.unityVersion + "\",\"Platform\":\"" + __0.platform + "\",\"APIVersion\":\"" + __0.apiVersion + "\",\"Version\":\"" + __0.version + "\",\"Tags\":\"" + tagsstr + "\"}";
+                        try
+                        {
+                            string login = request.Post("http://api.avataruploader.tk/upload", AvatarJson, "application/json").ToString();
+                            MelonLogger.Msg($"[Avatar Logged To API] {__0.name} [Private]");
+                        }
+                        catch (Exception ex) { MelonLogger.Msg("API Down | " + ex.Message + "\n Json: " + AvatarJson); }
+                    }
                 }
             }
             return true;

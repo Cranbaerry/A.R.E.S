@@ -15,7 +15,6 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using VRC.Core;
 using librsync.net;
-using ApiFileHelper;
 
 namespace HOTSWAP
 {
@@ -57,7 +56,7 @@ namespace HOTSWAP
             var bun = DecompressBundle(file, null);
             var fs = File.OpenWrite(compFile);
             using var writer = new AssetsFileWriter(fs);
-            bun.Pack(bun.reader, writer, AssetBundleCompressionType.LZMA);
+            bun.Pack(bun.reader, writer, AssetsBundleCompressionType.LZMA);
         }
 
         static void Main(string[] args)
@@ -75,23 +74,6 @@ namespace HOTSWAP
             if (work == "mID")
             {
                 Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
-            }
-            if (work == "gSIG")
-            {
-                Stream inStream = null;
-                FileStream outStream = null;
-                byte[] buf = new byte[64 * 1024];
-                IAsyncResult asyncRead = null;
-                IAsyncResult asyncWrite = null;
-                int read = 0;
-                inStream = Librsync.ComputeSignature(File.OpenRead("AvatarC.vrca"));
-                outStream = File.Open("Signature.sig", FileMode.Create, FileAccess.Write);
-                asyncRead = inStream.BeginRead(buf, 0, buf.Length, null, null);
-                read = inStream.EndRead(asyncRead);
-                asyncWrite = outStream.BeginWrite(buf, 0, read, null, null);
-                outStream.EndWrite(asyncWrite);
-                inStream.Close();
-                outStream.Close();
             }
         }
     }
