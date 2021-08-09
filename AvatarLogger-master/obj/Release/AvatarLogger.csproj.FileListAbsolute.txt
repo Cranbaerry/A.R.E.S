@@ -65,13 +65,8 @@ C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\AvatarLogger-master\obj\Rele
 C:\Users\adamc\Documents\GitHub\CachedAvatarLocator\AvatarLogger-master\obj\Release\AvatarLogger.pdb
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\AvatarLogger.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\AvatarLogger.pdb
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Assembly-CSharp.dll
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Il2Cppmscorlib.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\MelonLoader.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Newtonsoft.Json.dll
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnhollowerBaseLib.dll
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.CoreModule.dll
-C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\VRCCore-Standalone.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.UI.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.AnimationModule.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\VRCSDKBase.dll
@@ -132,3 +127,8 @@ C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.InputLegacyModule.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.SubsystemsModule.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Leaf.xNet.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Assembly-CSharp.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\Il2Cppmscorlib.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnhollowerBaseLib.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.CoreModule.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\VRCCore-Standalone.dll
