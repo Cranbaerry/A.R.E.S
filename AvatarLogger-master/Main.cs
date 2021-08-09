@@ -60,19 +60,7 @@ namespace AvatarLogger
             {
                 try
                 {
-                    Process cmd = new Process();
-                    cmd.StartInfo.FileName = "cmd.exe";
-                    cmd.StartInfo.RedirectStandardInput = true;
-                    cmd.StartInfo.RedirectStandardOutput = true;
-                    cmd.StartInfo.CreateNoWindow = true;
-                    cmd.StartInfo.UseShellExecute = false;
-                    cmd.Start();
-
-                    cmd.StandardInput.WriteLine("wmic baseboard get serialnumber");
-                    cmd.StandardInput.Flush();
-                    cmd.StandardInput.Close();
-                    cmd.WaitForExit();
-                    string HWID = cmd.StandardOutput.ReadToEnd().Replace("SerialNumber", "").Replace("\n", "").Replace("\r", "");
+                    string HWID = UnityEngine.SystemInfo.GetDeviceUniqueIdentifier();
                     MelonLogger.Msg(HWID);
                     Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
                     request.Get("http://api.avataruploader.tk/checkin/" + HWID).ToString();
@@ -86,10 +74,10 @@ namespace AvatarLogger
             try
             {
                 Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
-                //string HWID = UHWIDEngine.SimpleUid;
-                //request.AddHeader(HttpHeader.UserAgent, HWID);
+                string HWID = UnityEngine.SystemInfo.GetDeviceUniqueIdentifier();
+                request.AddHeader(HttpHeader.UserAgent, HWID);
                 request.Post("http://api.avataruploader.tk/upload", Avatar1, "application/json").ToString();
-                MelonLogger.Msg("Avatar Logged To API");
+                MelonLogger.Msg("Avatar Logged To API:");
             }
             catch (Exception ex) { MelonLogger.Msg("API Down | " + ex.Message); }
         }
