@@ -1,4 +1,4 @@
-import sys, os, re
+import sys, os, re, subprocess
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -17,8 +17,13 @@ class Ui(QtWidgets.QMainWindow):
         self.SwapIDB.setEnabled(False)
     def LoadVRCA(self):
         self.lvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
-        os.system(rf'HOTSWAP.exe d "{self.lvrca}"')
-        with open("decompressedfile", "rb") as f:
+        res = subprocess.Popen(rf'HOTSWAP.exe d "{self.lvrca}"')
+        if res.wait() != 0:
+            print("Error")
+            os.system(rf'HOTSWAP.exe c "{self.lvrca}"')
+            os.system(rf'HOTSWAP.exe d decompressed.vrca')
+            os.remove("compressed.vrca")
+        with open("decompressed.vrca", "rb") as f:
             f = f.read()
         self.oldavtrid = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
         self.OLDID.setText(self.oldavtrid)

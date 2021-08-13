@@ -65,11 +65,12 @@ namespace HOTSWAP
             if (work == "d")
             {
                 string dir = args[1];
-                DecompressBundle(dir, "decompressedfile");
+                DecompressBundle(dir, "decompressed.vrca");
             }
             if (work == "c")
             {
-                CompressBundle("decompressedfile1", "custom.vrca");
+                string dir = args[1];
+                CompressBundle(dir, "compressed.vrca");
             }
             if (work == "mID")
             {
