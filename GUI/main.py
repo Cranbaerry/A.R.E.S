@@ -514,10 +514,10 @@ class Ui(QtWidgets.QMainWindow):
         threading.Thread(target=self.DownVRCAT, args=(self.DLLink, self.SaveDir,)).start()
 
     def ReplaceID(self, oldid, newid):
-        with open("decompressedfile", "rb") as f:
+        with open("decompressed.vrca", "rb") as f:
             kok = f.read()
         kok = kok.replace(bytes(oldid, 'utf-8'), bytes(newid, 'utf-8'))
-        with open("decompressedfile1", "wb") as f:
+        with open("decompressed1.vrca", "wb") as f:
             f.write(kok)
 
     def UnityLauncher(self):
@@ -615,13 +615,15 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(70)
             self.updateconsole("ID's Swapped...")
             self.updateconsole("New Avatar Compression Started...")
-            os.system("HOTSWAP.exe c decompressed.vrca")
+            os.system("HOTSWAP.exe c decompressed1.vrca")
             self.updateconsole("New Avatar Compressed...")
             self.ProgBar.setValue(80)
             if os.path.exists("Avatar.vrca"):
                 os.remove("Avatar.vrca")
             if os.path.exists("decompressed.vrca"):
                 os.remove("decompressed.vrca")
+            if os.path.exists("decompressed1.vrca"):
+                os.remove("decompressed1.vrca")
             if os.path.exists(self.ProjPath):
                 os.remove(self.ProjPath)
             self.ProgBar.setValue(90)
@@ -630,6 +632,7 @@ class Ui(QtWidgets.QMainWindow):
             shutil.move("custom.vrca", self.ProjPath)
             self.updateconsole("VRCA Moved...")
             self.ProgBar.setValue(100)
+            self.updateconsole("DONE SWAPPING BITCH")
             os.chdir("..")
             self.ProgBar.setEnabled(False)
             time.sleep(10)
