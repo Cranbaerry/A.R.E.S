@@ -132,3 +132,5 @@ C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnhollowerBaseLib.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\UnityEngine.CoreModule.dll
 C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\VRCCore-Standalone.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\NLog.dll
+C:\Users\adamc\Documents\GitHub\AvatarLogger-GUI\AvatarLogger-master\bin\Release\NLog.xml

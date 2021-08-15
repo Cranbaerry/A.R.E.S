@@ -17,7 +17,7 @@ using System.Diagnostics;
 using NLog;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3B1(BetaPhase)", "KeafyIsHere, LargestBoi & cassell1337")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3", "KeafyIsHere, LargestBoi & cassell1337")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
@@ -67,12 +67,12 @@ namespace AvatarLogger
                     Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
                     request.ConnectTimeout = 25000;
                     request.Get("http://api.avataruploader.tk/checkin/" + HWID).ToString();
-                    MelonLogger.Msg("Connected to API, UserID: " + HWID);
+                    //MelonLogger.Msg("Connected to API, UserID: " + HWID);
                 }
                 catch (Exception ex)
                 {
                     File.AppendAllText(ErrorLogFile, ex.Message);
-                    MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
+                    //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
                 }
             }
         }
@@ -85,12 +85,12 @@ namespace AvatarLogger
                 request.ConnectTimeout = 25000;
                 request.AddHeader(HttpHeader.UserAgent, HWID);
                 request.Post("https://api.avataruploader.tk/upload", Avatar1, "application/json").ToString();
-                MelonLogger.Msg("Avatar Logged To API:");
+                //MelonLogger.Msg("Avatar Logged To API:");
             }
             catch (Exception ex) 
             {
                 File.AppendAllText(ErrorLogFile, ex.Message);
-                MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
+                //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
             }
         }
         private static bool OnAvatarDownloaded(ApiAvatar __0)

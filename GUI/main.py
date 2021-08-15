@@ -7,7 +7,7 @@ from datetime import datetime
 from PyQt5.QtCore import *
 from generatehtml import makehtml
 from winregistry import WinRegistry
-DEBUGG = True
+DEBUGG = False
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
@@ -15,7 +15,7 @@ class Ui(QtWidgets.QMainWindow):
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
         debugg = True
-        VERSION = "6.8"
+        VERSION = "6.9"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
         try:
@@ -92,8 +92,8 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
         self.DLVRCAButton.setEnabled(False)
-        self.UploadButton = self.findChild(QtWidgets.QPushButton, 'UploadButton')
-        self.UploadButton.clicked.connect(self.ReUpload1)
+        self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
+        self.HotswapButton.clicked.connect(self.Hotswap)
         self.LoadVRCAButton = self.findChild(QtWidgets.QPushButton, 'LoadVRCAButton')
         self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
@@ -573,29 +573,31 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarIndex = 0
         self.AvatarUpdate(0)
 
-    def ReUpload(self):
+    def Hotswap(self):
         os.chdir("HOTSWAP")
-        self.NewID = subprocess.check_output(["HOTSWAP.exe", "mId"]).decode('utf-8').strip()
-        os.chdir("..")
-        print(self.NewID)
-        self.UploadButton.setEnabled(True)
-        return
+        self.HotswapButton.setEnabled(True)
         try:
             self.ProgBar.setEnabled(True)
             self.ProgBar.setValue(10)
+            self.updateconsole("Hotswap Started...")
             self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\HSB\\custom.vrca"
             os.chdir("HOTSWAP")
             self.ProgBar.setValue(20)
+            self.updateconsole("Got Temp Dir...")
             shutil.copy(self.ProjPath, "custom.vrca")
+            self.updateconsole("Decompress Started...")
             os.system("HOTSWAP.exe d custom.vrca")
+            self.updateconsole("Decompressed...")
             with open("decompressedfile", "rb") as f:
                 f = f.read()
             self.NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
             self.ProgBar.setValue(30)
+            self.updateconsole("New ID Located...")
             if os.path.exists("decompressedfile"):
                 os.remove("decompressedfile")
             os.chdir("..")
             self.ProgBar.setValue(40)
+            self.updateconsole("Cleaned Temp FIles...")
             if self.Avatars[0][0] != "VRCA":
                 self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
             else:
@@ -604,12 +606,18 @@ class Ui(QtWidgets.QMainWindow):
             if os.path.exists("custom.vrca"):
                 os.remove("custom.vrca")
             self.ProgBar.setValue(50)
+            self.updateconsole("Downloaded/Copied VRCA...")
+            self.updateconsole("Decompression Of New Avatar Started...")
             os.system("HOTSWAP.exe d Avatar.vrca")
             self.ProgBar.setValue(60)
+            self.updateconsole("New Avatar Decompressed...")
             self.oldid = self.Avatars[self.AvatarIndex][1]
             self.ReplaceID(self.oldid, self.NewID)
             self.ProgBar.setValue(70)
+            self.updateconsole("ID's Swapped...")
+            self.updateconsole("New Avatar Compression Started...")
             os.system("HOTSWAP.exe c")
+            self.updateconsole("New Avatar Compressed...")
             self.ProgBar.setValue(80)
             if os.path.exists("Avatar.vrca"):
                 os.remove("Avatar.vrca")
@@ -620,7 +628,9 @@ class Ui(QtWidgets.QMainWindow):
             if os.path.exists(self.ProjPath):
                 os.remove(self.ProjPath)
             self.ProgBar.setValue(90)
+            self.updateconsole("Temp Cleaned...")
             shutil.move("custom.vrca", self.ProjPath)
+            self.updateconsole("VRCA Moved...")
             self.ProgBar.setValue(100)
             os.chdir("..")
             self.ProgBar.setEnabled(False)

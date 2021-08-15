@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>836</width>
+    <width>831</width>
     <height>575</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V6.8</string>
+   <string>Avatar Logger GUI V6.9</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -1183,13 +1183,13 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QTextEdit" name="Instructions">
+     <widget class="QPlainTextEdit" name="Instructions">
       <property name="geometry">
        <rect>
         <x>400</x>
         <y>90</y>
-        <width>391</width>
-        <height>391</height>
+        <width>401</width>
+        <height>401</height>
        </rect>
       </property>
      </widget>
@@ -1201,7 +1201,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>836</width>
+     <width>831</width>
      <height>18</height>
     </rect>
    </property>

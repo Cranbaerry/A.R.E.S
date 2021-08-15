@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V7</string>
+   <string>Avatar Logger GUI V6.9</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -557,7 +557,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -759,9 +759,9 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="UploadButton">
+        <widget class="QPushButton" name="HotswapButton">
          <property name="text">
-          <string>Upload</string>
+          <string>Hotswap</string>
          </property>
         </widget>
        </item>
@@ -1202,7 +1202,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>831</width>
-     <height>19</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>
