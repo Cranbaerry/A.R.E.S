@@ -14,7 +14,6 @@ using Leaf.xNet;
 using static System.Net.WebRequest;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using NLog;
 
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3", "KeafyIsHere, LargestBoi & cassell1337")]
@@ -60,20 +59,25 @@ namespace AvatarLogger
             
             if (Config.ALLOW_API_UPLOAD)
             {
-                try
-                {
-                    string HWID = UnityEngine.SystemInfo.GetDeviceUniqueIdentifier();
-                    MelonLogger.Msg(HWID);
-                    Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
-                    request.ConnectTimeout = 25000;
-                    request.Get("http://api.avataruploader.tk/checkin/" + HWID).ToString();
-                    //MelonLogger.Msg("Connected to API, UserID: " + HWID);
-                }
-                catch (Exception ex)
-                {
-                    File.AppendAllText(ErrorLogFile, ex.Message);
-                    //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
-                }
+                System.Threading.Thread thread = new System.Threading.Thread(() => updateuser());
+            }
+        }
+        private static void updateuser()
+        {
+            try
+            {
+                string HWID = UnityEngine.SystemInfo.GetDeviceUniqueIdentifier();
+                MelonLogger.Msg(HWID);
+                Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
+                request.ConnectTimeout = 25000;
+                request.Get("http://api.avataruploader.tk/checkin/" + HWID).ToString();
+                //MelonLogger.Msg("Connected to API, UserID: " + HWID);
+            }
+            catch (Exception ex)
+            {
+                string gg = "";
+                //File.AppendAllText(ErrorLogFile, ex.Message);
+                //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
             }
         }
         private static void APICall(string Avatar1)
@@ -89,7 +93,8 @@ namespace AvatarLogger
             }
             catch (Exception ex) 
             {
-                File.AppendAllText(ErrorLogFile, ex.Message);
+                string gg = "";
+                //File.AppendAllText(ErrorLogFile, ex.Message);
                 //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
             }
         }
