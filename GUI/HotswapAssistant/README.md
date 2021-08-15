@@ -1,6 +1,8 @@
 # HotswapAssistantTool
 Hello this is a simplistic tool to speed up the process of avatar hotswapping by providing a simple GUI for ID replacement. It currenly supports all forms of VRC avatars regardless of SDK or Unity versions!
 
+[Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
+
 Tool Usage:
     
     -Download the latest rar file from the releases tab.

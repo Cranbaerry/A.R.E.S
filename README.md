@@ -6,7 +6,9 @@ And special thanks to [cassell1337](https://github.com/cassell1337) for willingl
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
 
-I have gone about validating the latest V6.8 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+[Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
+
+I have gone about validating the latest V6.9 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple GUI
 
