@@ -14,6 +14,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
         self.show()  # Show the GUI
+        debugg = True
         VERSION = "6.8"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.UPDATEBUTTON.hide()
@@ -23,6 +24,8 @@ class Ui(QtWidgets.QMainWindow):
                 self.UPDATEBUTTON.show()
                 self.UPDATEBUTTON.clicked.connect(self.UPDATEPUSHED)
                 self.UPDATEBUTTON.setStyleSheet("background-color: red; border: 3px solid black;")
+            if debugg:
+                self.UPDATEBUTTON.hide()
         except:
             pass
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
@@ -111,14 +114,8 @@ class Ui(QtWidgets.QMainWindow):
         self.Tagscheckbox.clicked.connect(self.tagstogs)
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
         self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
-        self.Instructions = self.findChild(QtWidgets.QTextEdit, 'Instructions')
+        self.Instructions = self.findChild(QtWidgets.QPlainTextEdit, 'Instructions')
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
-
-        try:
-            ss=requests.get("https://pastebin.com/raw/37Kt7J0r").text
-            self.Instructions.setText(ss)
-        except:
-            pass
         try:
             self.LogOwnAvatarsbox = self.findChild(QtWidgets.QCheckBox, 'LogOwnAvatarsbox')
             self.LogOwnAvatarsbox.clicked.connect(self.LogOwnAvatarsbox1)
@@ -134,6 +131,11 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pass
 
+    def updateconsole(self, word):
+        try:
+            self.Instructions.appendPlainText(word)
+        except Exception as e:
+            print(e)
     def HWIDLaunch(self):
         self.HWID = gma()
         #print(self.HWID)
@@ -145,6 +147,7 @@ class Ui(QtWidgets.QMainWindow):
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
             response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
+            self.updateconsole("SENT USERID :"+str(datetime.now()))
             #print(response.text)
             #self.ErrorLog("REQ: " + response.text)
         except Exception as E:
@@ -218,7 +221,7 @@ class Ui(QtWidgets.QMainWindow):
         pubpath = self.LogFolder + "/Log.txt"
         with open("uploaded.txt", "r+", errors="ignore") as k:
             avis = k.read()
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
         with open(pubpath, "r+", errors="ignore") as g:
             kk = g.read()
             ho = re.findall(pat, kk)
@@ -238,8 +241,11 @@ class Ui(QtWidgets.QMainWindow):
             "ImageURL": x[7],
             "ThumbnailURL": x[8],
             "ReleaseStatus": x[9],
-            "Version": x[10],
-            "Tags": x[11]
+            "UnityVersion": x[10],
+            "Platform": x[11],
+            "APIVersion": x[12],
+            "Version": x[13],
+            "Tags": x[14]
         }
         url = "http://" + self.domain + "/upload"
         headers = {"Content-Type": "application/json",
@@ -251,9 +257,11 @@ class Ui(QtWidgets.QMainWindow):
                 pass
             with open("uploaded.txt", "a+", errors="ignore") as k:
                 k.writelines(x[1] + "\n")
+                self.updateconsole("Uplaoded Avatar:" + str(x[2]))
             #print("uploaded: " + str(x[2]))
 
     def startuploads(self):
+        self.updateconsole("Starting Upload")
         headers = {
             'accept': 'application/json',
             "Content-Type": "application/json",
@@ -334,7 +342,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nVersion:(.*)\nTags: (.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
         self.LogFolder = self.Settings["Avatar_Folder"]
         try:
             with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
@@ -357,10 +365,10 @@ class Ui(QtWidgets.QMainWindow):
 
     def Cleantext(self, data):
         try:
-            klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
+            Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nUnity Version:{data[10]}\nPlatform:{data[11]}\nAPI Version:{data[12]}\nVersion:{data[13]}\nTags:{data[14]}"""
         except:
-            klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nVersion:{data[10]}\nTags:{data[11]}"""
-        return klean
+            Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nUnity Version:{data[10]}\nPlatform:{data[11]}\nAPI Version:{data[12]}\nVersion:{data[13]}\nTags:{data[14]}"""
+        return Klean
 
     def Search(self):
         self.loadavatars()

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>836</width>
+    <width>831</width>
     <height>575</height>
    </rect>
   </property>
@@ -557,7 +557,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1058,23 +1058,6 @@ p, li { white-space: pre-wrap; }
        <string>OUTDATED CLICK TO UPDATE!!!</string>
       </property>
      </widget>
-     <zorder>UPDATEBUTTON</zorder>
-     <zorder>PreviewImage</zorder>
-     <zorder>label_3</zorder>
-     <zorder>frame</zorder>
-     <zorder>RawData</zorder>
-     <zorder>frame_4</zorder>
-     <zorder>resultsbox</zorder>
-     <zorder>frame_5</zorder>
-     <zorder>Status</zorder>
-     <zorder>label_2</zorder>
-     <zorder>lineEdit</zorder>
-     <zorder>frame_2</zorder>
-     <zorder>TagSettings_2</zorder>
-     <zorder>PrivateBox_2</zorder>
-     <zorder>HTMLBox_2</zorder>
-     <zorder>PublicBox_2</zorder>
-     <zorder>frame_6</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -1200,13 +1183,13 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QTextEdit" name="Instructions">
+     <widget class="QPlainTextEdit" name="Instructions">
       <property name="geometry">
        <rect>
         <x>400</x>
         <y>90</y>
-        <width>391</width>
-        <height>391</height>
+        <width>401</width>
+        <height>401</height>
        </rect>
       </property>
      </widget>
@@ -1218,8 +1201,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>836</width>
-     <height>18</height>
+     <width>831</width>
+     <height>19</height>
     </rect>
    </property>
   </widget>
