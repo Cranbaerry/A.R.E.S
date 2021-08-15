@@ -574,7 +574,6 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarUpdate(0)
 
     def Hotswap(self):
-        os.chdir("HOTSWAP")
         self.HotswapButton.setEnabled(True)
         try:
             self.ProgBar.setEnabled(True)
@@ -588,13 +587,13 @@ class Ui(QtWidgets.QMainWindow):
             self.updateconsole("Decompress Started...")
             os.system("HOTSWAP.exe d custom.vrca")
             self.updateconsole("Decompressed...")
-            with open("decompressedfile", "rb") as f:
+            with open("decompressed.vrca", "rb") as f:
                 f = f.read()
             self.NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
             self.ProgBar.setValue(30)
             self.updateconsole("New ID Located...")
-            if os.path.exists("decompressedfile"):
-                os.remove("decompressedfile")
+            if os.path.exists("decompressed.vrca"):
+                os.remove("decompressed.vrca")
             os.chdir("..")
             self.ProgBar.setValue(40)
             self.updateconsole("Cleaned Temp FIles...")
@@ -616,19 +615,18 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(70)
             self.updateconsole("ID's Swapped...")
             self.updateconsole("New Avatar Compression Started...")
-            os.system("HOTSWAP.exe c")
+            os.system("HOTSWAP.exe c decompressed.vrca")
             self.updateconsole("New Avatar Compressed...")
             self.ProgBar.setValue(80)
             if os.path.exists("Avatar.vrca"):
                 os.remove("Avatar.vrca")
-            if os.path.exists("decompressedfile"):
-                os.remove("decompressedfile")
-            if os.path.exists("decompressedfile1"):
-                os.remove("decompressedfile1")
+            if os.path.exists("decompressed.vrca"):
+                os.remove("decompressed.vrca")
             if os.path.exists(self.ProjPath):
                 os.remove(self.ProjPath)
             self.ProgBar.setValue(90)
             self.updateconsole("Temp Cleaned...")
+            os.rename("compressed.vrca", "custom.vrca")
             shutil.move("custom.vrca", self.ProjPath)
             self.updateconsole("VRCA Moved...")
             self.ProgBar.setValue(100)
