@@ -134,6 +134,8 @@ class Ui(QtWidgets.QMainWindow):
     def updateconsole(self, word):
         try:
             self.Instructions.appendPlainText(word)
+            with open("outputlogs.txt", "a+", errors="ignore") as f:
+                f.writelines(word+"\n")
         except Exception as e:
             print(e)
     def HWIDLaunch(self):
