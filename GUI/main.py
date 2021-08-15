@@ -547,11 +547,11 @@ class Ui(QtWidgets.QMainWindow):
         self.lvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
         os.chdir("HOTSWAP")
         os.system(rf'HOTSWAP.exe d "{self.lvrca}"')
-        with open("decompressedfile", "rb") as f:
+        with open("decompressed.vrca", "rb") as f:
             f = f.read()
         self.oldid = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
-        if os.path.exists("decompressedfile"):
-            os.remove("decompressedfile")
+        if os.path.exists("decompressed.vrca"):
+            os.remove("decompressed.vrca")
         os.chdir("..")
         self.Avatars = []
         self.Avatars1 = [
@@ -562,6 +562,9 @@ class Ui(QtWidgets.QMainWindow):
             "VRCA",
             "VRCA",
             "AssetURL",
+            "VRCA",
+            "VRCA",
+            "VRCA",
             "VRCA",
             "VRCA",
             "VRCA",
