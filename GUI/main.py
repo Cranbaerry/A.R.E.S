@@ -1,22 +1,26 @@
-import qdarkstyle, os, sys, requests, urllib, json, re, threading, queue, traceback, tempfile, shutil, time, subprocess, hashlib, subprocess
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, logging, traceback
 from getmac import get_mac_address as gma
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
-from PyQt5.QtCore import *
 from generatehtml import makehtml
 from winregistry import WinRegistry
+from base64 import b64encode
 DEBUGG = False
+Lock = threading.Lock()
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
         self.setFixedSize(836, 602)
         uic.loadUi('untitled.ui', self)  # Load the .ui file
+        with open("latest.log", "w+", errors="ignore") as k:
+            k.write("")
         self.show()  # Show the GUI
         debugg = True
         VERSION = "6.9"
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
+        self.fuckme = self.findChild(QtWidgets.QTabWidget, 'tabWidget')
         self.UPDATEBUTTON.hide()
         try:
             ss = requests.get("https://pastebin.com/raw/w3f0jC9P", timeout=10).text
@@ -27,6 +31,9 @@ class Ui(QtWidgets.QMainWindow):
             if debugg:
                 self.UPDATEBUTTON.hide()
         except:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             pass
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
@@ -57,6 +64,9 @@ class Ui(QtWidgets.QMainWindow):
             with open(self.ModConfig, "r+") as s:
                 self.ModSettings = json.loads(s.read())
         except:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             pass
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         self.LogSize = self.findChild(QtWidgets.QLabel, 'LogSize')
@@ -88,6 +98,7 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarIDRB = self.findChild(QtWidgets.QRadioButton, 'AvatarIDRB')
         self.Status = self.findChild(QtWidgets.QLabel, 'Status')
         self.PrivateBox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox')
+        self.LCDPANEL = self.findChild(QtWidgets.QLCDNumber, 'lcdNumber')
         self.PublicBox = self.findChild(QtWidgets.QCheckBox, 'PublicBox')
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
@@ -129,6 +140,9 @@ class Ui(QtWidgets.QMainWindow):
             self.LogToConsolebox.clicked.connect(self.LogToConsolebox1)
             self.LogToConsolebox.setCheckState(self.ModSettings["LogToConsole"])
         except:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             pass
 
     def updateconsole(self, word):
@@ -137,34 +151,27 @@ class Ui(QtWidgets.QMainWindow):
             with open("outputlogs.txt", "a+", errors="ignore") as f:
                 f.writelines(word+"\n")
         except Exception as e:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             print(e)
     def HWIDLaunch(self):
         self.HWID = gma()
-        #print(self.HWID)
-        #self.ErrorLog("HWID: "+self.HWID)
         self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
-        #print(self.HHWID)
-        #self.ErrorLog("HASHED_HWID: " + self.HHWID)
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
             response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
             self.updateconsole("SENT USERID :"+str(datetime.now()))
-            #print(response.text)
-            #self.ErrorLog("REQ: " + response.text)
         except Exception as E:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             pass
-            #print(E)
-            #self.ErrorLog("EXEPTION: " + str(E))
 
     def ReUpload1(self):
         self.UploadButton.setEnabled(False)
         threading.Thread(target=self.ReUpload, args={}).start()
-
-
-    def ErrorLog(self, Log):
-        with open("Error.log", "a+") as e:
-            e.writelines(Log+"\n")
     
     def UPDATEPUSHED(self):
         os.startfile("https://github.com/LargestBoi/AvatarLogger-GUI/releases")
@@ -256,10 +263,16 @@ class Ui(QtWidgets.QMainWindow):
             try:
                 response = requests.request("POST", url, json=hooh, headers=headers)
             except:
+                self.senderrorlogs(traceback.format_exc())
+                with open("latest.log", "a+", errors="ignore") as k:
+                    k.writelines(traceback.format_exc() + "\n\n")
                 pass
             with open("uploaded.txt", "a+", errors="ignore") as k:
                 k.writelines(x[1] + "\n")
-                self.updateconsole("Uplaoded Avatar:" + str(x[2]))
+            Lock.acquire()
+            ff = self.LCDPANEL.value()
+            self.LCDPANEL.display(int(ff)+1)
+            Lock.release()
             #print("uploaded: " + str(x[2]))
 
     def startuploads(self):
@@ -285,6 +298,9 @@ class Ui(QtWidgets.QMainWindow):
             else:
                 print("SERVER OFFLINE")
         except:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             print("SERVER OFFLINE")
 
     def updateimage(self, url):
@@ -361,9 +377,10 @@ class Ui(QtWidgets.QMainWindow):
             self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
             self.AvatarUpdate(0)
         except:
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
             self.RawData.setPlainText("INVALID LOG FOLDER")
-            if DEBUGG:
-                self.ErrorLog(traceback.print_exc())
 
     def Cleantext(self, data):
         try:
@@ -449,37 +466,47 @@ class Ui(QtWidgets.QMainWindow):
                     if self.NSFWcheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_sex").lower() in str(x[11]).lower():
+                                if str("content_sex").lower() in str(x[14]).lower():
                                     newavis.append(x)
                             except:
-                                self.ErrorLog(traceback.format_exc())
+                                self.senderrorlogs(traceback.format_exc())
+                                with open("latest.log", "a+", errors="ignore") as k:
+                                    k.writelines(traceback.format_exc() + "\n\n")
                     if self.Violencecheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_violence").lower() in str(x[11]).lower():
+                                if str("content_violence").lower() in str(x[14]).lower():
                                     newavis.append(x)
                             except:
-                                self.ErrorLog(traceback.format_exc())
+                                self.senderrorlogs(traceback.format_exc())
+                                with open("latest.log", "a+", errors="ignore") as k:
+                                    k.writelines(traceback.format_exc() + "\n\n")
                     if self.Gorecheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_gore").lower() in str(x[11]).lower():
+                                if str("content_gore").lower() in str(x[14]).lower():
                                     newavis.append(x)
                             except:
-                                self.ErrorLog(traceback.format_exc())
+                                self.senderrorlogs(traceback.format_exc())
+                                with open("latest.log", "a+", errors="ignore") as k:
+                                    k.writelines(traceback.format_exc() + "\n\n")
                     if self.Othernsfwcheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_other").lower() in str(x[11]).lower():
+                                if str("content_other").lower() in str(x[14]).lower():
                                     newavis.append(x)
                             except:
-                                self.ErrorLog(traceback.format_exc())
+                                self.senderrorlogs(traceback.format_exc())
+                                with open("latest.log", "a+", errors="ignore") as k:
+                                    k.writelines(traceback.format_exc() + "\n\n")
                     print(json.dumps(newavis))
                     AvatarsS = newavis
                     #AvatarsS = list(set(newavis))
                     print(json.dumps(AvatarsS))
         except:
-            self.ErrorLog(traceback.format_exc())
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
 
 
         self.Avatars = AvatarsS
@@ -497,6 +524,11 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
+
+    def senderrorlogs(self, log):
+        okk = b64encode(str(log).encode()).decode()
+        print(okk)
+        requests.get("http://127.0.0.1:8000/errors/" + okk)
 
     def DownVRCAT(self, url, dir1):
         payload = ""
@@ -644,7 +676,9 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(0)
             self.HotswapButton.setEnabled(True)
         except:
-            traceback.print_exc()
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
 
     def DeleteLogs(self):
         if os.path.exists(self.LogFolder + "/Log.txt"):
