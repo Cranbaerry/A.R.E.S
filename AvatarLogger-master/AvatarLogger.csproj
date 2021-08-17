@@ -68,6 +68,14 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="VRCCore-Standalone">
       <HintPath>F:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\VRCCore-Standalone.dll</HintPath>
     </Reference>
@@ -75,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="RubyButtonAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
