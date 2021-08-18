@@ -1,13 +1,12 @@
-import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, logging, traceback
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback
 from getmac import get_mac_address as gma
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
-from winregistry import WinRegistry
 from base64 import b64encode
-DEBUGG = False
+DEBUGG = True
 Lock = threading.Lock()
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -18,7 +17,13 @@ class Ui(QtWidgets.QMainWindow):
             k.write("")
         self.show()  # Show the GUI
         debugg = True
-        VERSION = "6.9"
+        VERSION = "7"
+        self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
+        try:
+            SPTX = requests.get("https://pastebin.com/raw/vayK7gC2", timeout=10).text
+        except:
+            SPTX = "Couldn't Connect!"
+        self.ST.appendPlainText(SPTX)
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
         self.fuckme = self.findChild(QtWidgets.QTabWidget, 'tabWidget')
         self.UPDATEBUTTON.hide()
@@ -38,19 +43,6 @@ class Ui(QtWidgets.QMainWindow):
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
-
-        if self.Settings["Is_First_Run"]:
-            self.Settings["Is_First_Run"] = False
-            with open("Settings.json", "w+") as s:
-                s.write(json.dumps(self.Settings, indent=4))
-            with WinRegistry() as client:
-                self.VRCDir = client.read_entry(r"HKEY_CURRENT_USER\Software\VRChat", "").value
-                self.VRCDir = self.VRCDir+r"\AvatarLog"
-                self.UDir = client.read_entry(r"HKEY_CURRENT_USER\Software\Unity Technologies\Installer\Unity", "Location x64").value
-            self.Settings["Avatar_Folder"] = self.VRCDir
-            self.Settings["Unity_Exe"] = self.UDir
-            with open("Settings.json", "w+") as s:
-                s.write(json.dumps(self.Settings, indent=4))
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
             self.VRCDir = self.Settings["Avatar_Folder"]
@@ -59,7 +51,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         self.LogFolder = self.Settings["Avatar_Folder"]
-        self.ModConfig = self.Settings["Avatar_Folder"]+"/Config.json"
+        self.ModConfig = self.Settings["Avatar_Folder"]+"\\Config.json"
         try:
             with open(self.ModConfig, "r+") as s:
                 self.ModSettings = json.loads(s.read())
@@ -75,7 +67,7 @@ class Ui(QtWidgets.QMainWindow):
             self.LogSize.setText(str(round(self.LSize/(1024*1024)))+"MB")
         self.searchapibutton = self.findChild(QtWidgets.QPushButton, 'searchapibutton')
         self.searchapibutton.clicked.connect(self.callapiforavis)
-        if self.Settings["ALLOW_API_UPLOAD"]:
+        if self.ModSettings["SendToAPI"]:
             kk = requests.get(url="https://pastebin.com/raw/8DzGLek5").text
             self.domain = kk
             self.searchapibutton.setEnabled(True)
@@ -109,6 +101,10 @@ class Ui(QtWidgets.QMainWindow):
         self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
+        self.SetUserButton = self.findChild(QtWidgets.QPushButton, 'SetUserButton')
+        self.SetUserButton.clicked.connect(self.SetUser)
+        self.SetUserBox = self.findChild(QtWidgets.QLineEdit, 'SetUserBox')
+        self.SetUserBox.setText(self.ModSettings["Username"])
         self.UnityButton = self.findChild(QtWidgets.QPushButton, 'UnityButton')
         self.UnityButton.clicked.connect(self.OpenUnity)
         self.apibox = self.findChild(QtWidgets.QCheckBox, 'apibox')
@@ -124,7 +120,7 @@ class Ui(QtWidgets.QMainWindow):
         self.Tagscheckbox = self.findChild(QtWidgets.QCheckBox, 'TagSettings')
         self.Tagscheckbox.clicked.connect(self.tagstogs)
         self.HTMLBox = self.findChild(QtWidgets.QCheckBox, 'HTMLBox')
-        self.apibox.setCheckState(self.Settings["ALLOW_API_UPLOAD"])
+        self.apibox.setCheckState(self.ModSettings["SendToAPI"])
         self.Instructions = self.findChild(QtWidgets.QPlainTextEdit, 'Instructions')
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
         try:
@@ -154,7 +150,19 @@ class Ui(QtWidgets.QMainWindow):
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
-            print(e)
+    def SetUser(self):
+        threading.Thread(target=self.SetUser1, args=()).start()
+    def SetUser1(self):
+        self.SetUserButton.setEnabled(False)
+        self.UserText = self.SetUserBox.text()
+        self.ModSettings["Username"] = self.UserText
+        with open(self.ModConfig, "w+") as s:
+            s.write(json.dumps(self.ModSettings, indent=4))
+        self.SetUserBox.setText("Username Set!")
+        self.updateconsole("Username Set")
+        time.sleep(3)
+        self.SetUserBox.setText(self.UserText)
+        self.SetUserButton.setEnabled(True)
     def HWIDLaunch(self):
         self.HWID = gma()
         self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
@@ -210,12 +218,9 @@ class Ui(QtWidgets.QMainWindow):
             s.write(json.dumps(self.ModSettings, indent=4))
 
     def updateapi(self):
-        if self.Settings["ALLOW_API_UPLOAD"] == self.apibox.isChecked():
+        if self.ModSettings["SendToAPI"] == self.apibox.isChecked():
             return
-        self.Settings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
-        with open("Settings.json", "w+") as s:
-            s.write(json.dumps(self.Settings, indent=4))
-        self.ModSettings["ALLOW_API_UPLOAD"] = self.apibox.isChecked()
+        self.ModSettings["SendToAPI"] = self.apibox.isChecked()
         with open(self.ModConfig, "w+") as s:
             s.write(json.dumps(self.ModSettings, indent=4))
         sys.exit()
@@ -258,7 +263,8 @@ class Ui(QtWidgets.QMainWindow):
         }
         url = "http://" + self.domain + "/upload"
         headers = {"Content-Type": "application/json",
-                   "Bypass-Tunnel-Reminder": "bypass"}
+                   "Bypass-Tunnel-Reminder": "bypass",
+                   "User-Agent" : self.ModSettings["Username"]}
         if str(x[1]) not in avis:
             try:
                 response = requests.request("POST", url, json=hooh, headers=headers)
@@ -555,7 +561,7 @@ class Ui(QtWidgets.QMainWindow):
             f.write(kok)
 
     def UnityLauncher(self):
-        os.system(rf'"{self.UDir}/Editor/Unity.exe" -ProjectPath HSB')
+        os.system(rf'"{self.UDir}" -ProjectPath HSB')
         self.UnityButton.setEnabled(True)
 
     def OpenUnity(self):
