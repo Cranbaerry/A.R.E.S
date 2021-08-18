@@ -189,13 +189,13 @@ namespace AvatarLogger
                 {
                     Config.LogOwnAvatars = true;
                     RelogWorld();
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Log Own\nAvatars Off",
                 delegate ()
                 {
                     Config.LogOwnAvatars = false;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Toggles logging of own avatars"
                 );
@@ -208,13 +208,13 @@ namespace AvatarLogger
                 {
                     Config.LogFriendsAvatars = true;
                     RelogWorld();
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Log Friends\nAvatars Off",
                 delegate ()
                 {
                     Config.LogFriendsAvatars = false;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Toggles logging of friends avatars"
                 );
@@ -226,13 +226,13 @@ namespace AvatarLogger
                 delegate ()
                 {
                     Config.LogToConsole = true;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Log To\nConsole Off",
                 delegate ()
                 {
                     Config.LogToConsole = false;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Toggles logging of to console"
                 );
@@ -245,13 +245,13 @@ namespace AvatarLogger
                 {
                     Config.LogAvatars = true;
                     RelogWorld();
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Log Avatars\nOff",
                 delegate ()
                 {
                     Config.LogAvatars = false;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Toggles logging avatars"
                 );
@@ -264,13 +264,13 @@ namespace AvatarLogger
                 {
                     Config.SendToAPI = true;
                     RelogWorld();
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Send To\nAPI Off",
                 delegate ()
                 {
                     Config.SendToAPI = false;
-                    Helper.SaveConfig();
+                    Helper.SaveConfig(Config);
                 },
                 "Toggles logging avatars to the API"
                 );
