@@ -1,4 +1,4 @@
-import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback, pymsgbox
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -378,6 +378,7 @@ class Ui(QtWidgets.QMainWindow):
             self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
             self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
             self.AvatarUpdate(0)
+            raise Exception
         except:
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
@@ -528,8 +529,20 @@ class Ui(QtWidgets.QMainWindow):
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
 
     def senderrorlogs(self, log):
-        okk = b64encode(str(log).encode()).decode()
+        try:
+            possiblesol = "Not found"
+            kk = requests.get(url="https://pastebin.com/raw/1022jnvn").json()
+            for x in kk:
+                if x[0] in log:
+                    possiblesol = x[1]
+        except:
+            pass
+
+        pymsgbox.alert(log+"\nPossible Fix: "+possiblesol, 'ID10T')
+        dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
+        okk = b64encode(str(log+"\nPossible Fix: "+possiblesol+"\nUsername: "+dtag).encode()).decode()
         requests.get("https://api.avataruploader.tk/errors/" + okk)
+
 
     def DownVRCAT(self, url, dir1):
         payload = ""
