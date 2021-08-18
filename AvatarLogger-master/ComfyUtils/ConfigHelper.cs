@@ -23,9 +23,9 @@ namespace ComfyUtils
         private void UpdateConfig(object obj, FileSystemEventArgs args)
         {
             Config = JsonConvert.DeserializeObject<T>(File.ReadAllText(ConfigPath));
-            OnConfigUpdated.Invoke();
+            OnConfigUpdated?.Invoke();
         }
-		public void SaveConfig()
-        => File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(Config, Formatting.Indented));
+		public void SaveConfig(T config)
+        => File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(config, Formatting.Indented));
     }
 }
