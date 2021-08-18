@@ -15,7 +15,7 @@ class Ui(QtWidgets.QMainWindow):
         with open("latest.log", "w+", errors="ignore") as k:
             k.write("")
         self.show()  # Show the GUI
-        debugg = True
+        debugg = False
         VERSION = "7"
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         try:
