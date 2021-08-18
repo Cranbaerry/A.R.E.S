@@ -25,7 +25,6 @@ class Ui(QtWidgets.QMainWindow):
             SPTX = "Couldn't Connect!"
         self.ST.appendPlainText(SPTX)
         self.UPDATEBUTTON = self.findChild(QtWidgets.QPushButton, 'UPDATEBUTTON')
-        self.fuckme = self.findChild(QtWidgets.QTabWidget, 'tabWidget')
         self.UPDATEBUTTON.hide()
         try:
             ss = requests.get("https://pastebin.com/raw/w3f0jC9P", timeout=10).text
@@ -50,8 +49,8 @@ class Ui(QtWidgets.QMainWindow):
 
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
-        self.LogFolder = self.Settings["Avatar_Folder"]
-        self.ModConfig = self.Settings["Avatar_Folder"]+"\\Config.json"
+        self.LogFolder = self.Settings["Avatar_Folder"]+"\\AvatarLog"
+        self.ModConfig = self.Settings["Avatar_Folder"]+"\\AvatarLog\\Config.json"
         try:
             with open(self.ModConfig, "r+") as s:
                 self.ModSettings = json.loads(s.read())
