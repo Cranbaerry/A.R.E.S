@@ -8,7 +8,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-I have gone about validating the latest V6.9 package with Microsoft, if a false positive is detected please follow the insructions under GUI>Dist>Submission Details. <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+I have gone about validating the latest V7 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
 Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple GUI
 
@@ -44,28 +44,16 @@ Features:
 
     -Ability to hotswap from a VRCA file downloaded elsewhere
 
+    -Ability to set usernames
+
+    -Ability to configure logging settings from within the game itself
+
 Installation/Usage: Videos can be found in the "Tutorials" folder!
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
-    2. Get the latest package from the releases secetion (Currently V6.8)
+    2. Use the latest installer from our releases page!
 
-    3. Install the mod in the "Mods" folder
-
-    4. Place the "GUI" folder wherever it is easiest to access
-
-    5. (Optional) Only install if you want to hotswap, you need the latest supported VRChat unity version (https://download.unity3d.com/download_unity/008688490035/Windows64EditorInstaller/UnitySetup64-2018.4.20f1.exe)
-
-    6. Launch the game and log some avatars before attempting to use the GUI
-
-Common issues and fixes:
-
-    -The GUI may incorrectly locate your unity/vrchat installations, to fix this simply open the "Settings.json" file in any text editor and manually change the direcories. The options should look like this if done correctly:
-        {
-        "Avatar_Folder": "F:\\SteamLibrary\\steamapps\\common\\VRChat\\AvatarLog",
-        "Unity_Exe": "C:\\Program Files\\Unity",
-        }
-        The "Unity_Exe" should not be aimed directly at the exe but instead aimed at the folder containing the "Editor" folder!
 Extras:
 
     -If you enable API in the settings you will have all logged avatars sent to our database, in exchange you will gain access to an entire collection of avatars logged by others!

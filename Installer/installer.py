@@ -1,7 +1,5 @@
-import os, sys, requests, json, threading, shutil
-import time
-import traceback
-
+import os, sys, requests, json, threading, shutil, winshell, traceback, win32com
+from win32com.client import Dispatch
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 
@@ -105,6 +103,17 @@ class Ui(QtWidgets.QMainWindow):
                 shutil.rmtree("GUI")
             os.remove("MOD.rar")
             os.remove("GUI.rar")
+            self.DT = winshell.desktop()
+            self.path = os.path.join(self.DT, 'Avatar Logger GUI.lnk')
+            self.target = self.VRCPath + "/GUI/main.exe"
+            self.wDir = self.VRCPath + "/GUI"
+            self.icon = self.VRCPath + "/GUI/main.exe"
+            self.shell = Dispatch('WScript.Shell')
+            self.shortcut = self.shell.CreateShortCut(self.path)
+            self.shortcut.Targetpath = self.target
+            self.shortcut.WorkingDirectory = self.wDir
+            self.shortcut.IconLocation = self.icon
+            self.shortcut.save()
             self.ProgBar.setValue(100)
         except:
             traceback.print_exc()

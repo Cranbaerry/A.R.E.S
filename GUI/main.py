@@ -1,12 +1,11 @@
 import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback
-from getmac import get_mac_address as gma
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-DEBUGG = True
+DEBUGG = False
 Lock = threading.Lock()
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -153,7 +152,7 @@ class Ui(QtWidgets.QMainWindow):
         threading.Thread(target=self.SetUser1, args=()).start()
     def SetUser1(self):
         self.SetUserButton.setEnabled(False)
-        self.UserText = self.SetUserBox.text()
+        self.UserText = self.SetUserBox.text().encode().decode("ascii", errors="ignore")
         self.ModSettings["Username"] = self.UserText
         with open(self.ModConfig, "w+") as s:
             s.write(json.dumps(self.ModSettings, indent=4))
@@ -163,8 +162,7 @@ class Ui(QtWidgets.QMainWindow):
         self.SetUserBox.setText(self.UserText)
         self.SetUserButton.setEnabled(True)
     def HWIDLaunch(self):
-        self.HWID = gma()
-        self.HHWID = hashlib.md5(self.HWID.encode()).hexdigest()
+        self.HHWID = self.ModSettings["Username"]
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
@@ -292,7 +290,7 @@ class Ui(QtWidgets.QMainWindow):
             response = requests.get(f'https://{self.domain}/status', headers=headers, timeout=5)
             if "ONLINE" in response.text:
                 self.upload1()
-                tt = 10
+                tt = 15
                 while True:
                     if threading.activeCount() <= tt:
                         threading.Thread(target=self.upload, args={q.get(), }).start()
@@ -366,7 +364,6 @@ class Ui(QtWidgets.QMainWindow):
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
-        self.LogFolder = self.Settings["Avatar_Folder"]
         try:
             with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
                 self.Logs = s.read()
@@ -532,8 +529,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def senderrorlogs(self, log):
         okk = b64encode(str(log).encode()).decode()
-        print(okk)
-        requests.get("http://127.0.0.1:8000/errors/" + okk)
+        requests.get("https://api.avataruploader.tk/errors/" + okk)
 
     def DownVRCAT(self, url, dir1):
         payload = ""
@@ -550,7 +546,7 @@ class Ui(QtWidgets.QMainWindow):
         self.fileName = QFileDialog.getSaveFileName(self, 'Save VRCA', "Avatar", ".vrca")
         self.DLLink = self.Avatars[self.AvatarIndex][6]
         self.SaveDir = "".join(self.fileName)
-        threading.Thread(target=self.DownVRCAT, args=(self.DLLink, self.SaveDir,)).start()
+        os.system("curl -L " + self.DLLink + " > " + self.SaveDir)
 
     def ReplaceID(self, oldid, newid):
         with open("decompressed.vrca", "rb") as f:
@@ -619,6 +615,11 @@ class Ui(QtWidgets.QMainWindow):
         self.HotswapButton.setEnabled(True)
         try:
             self.ProgBar.setEnabled(True)
+            if self.Avatars[self.AvatarIndex][7] != "VRCA":
+                self.imgurl = self.Avatars[self.AvatarIndex][7]
+                self.DownVRCAT(self.imgurl, "Koh.jpg")
+                os.remove("HSB/Assets/Koh.jpg")
+                shutil.move("Koh.jpg", "HSB/Assets/Koh.jpg")
             self.ProgBar.setValue(10)
             self.updateconsole("Hotswap Started...")
             self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\HSB\\custom.vrca"
