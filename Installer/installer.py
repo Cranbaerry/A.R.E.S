@@ -107,9 +107,9 @@ class Ui(QtWidgets.QMainWindow):
             os.remove("GUI.rar")
             self.DT = winshell.desktop()
             self.path = os.path.join(self.DT, 'Avatar Logger GUI.lnk')
-            self.target = self.VRCPath + "/GUI/main.exe"
+            self.target = self.VRCPath + "/GUI/Avatar Logger GUI.exe"
             self.wDir = self.VRCPath + "/GUI"
-            self.icon = self.VRCPath + "/GUI/main.exe"
+            self.icon = self.VRCPath + "/GUI/Avatar Logger GUI.exe"
             self.shell = Dispatch('WScript.Shell')
             self.shortcut = self.shell.CreateShortCut(self.path)
             self.shortcut.Targetpath = self.target

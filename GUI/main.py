@@ -390,7 +390,6 @@ class Ui(QtWidgets.QMainWindow):
             self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
             self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
             self.AvatarUpdate(0)
-            raise Exception
         except:
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
