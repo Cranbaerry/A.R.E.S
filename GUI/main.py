@@ -1,12 +1,13 @@
 import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback, pymsgbox
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-DEBUGG = False
+debugg = False
 Lock = threading.Lock()
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
@@ -15,8 +16,7 @@ class Ui(QtWidgets.QMainWindow):
         with open("latest.log", "w+", errors="ignore") as k:
             k.write("")
         self.show()  # Show the GUI
-        debugg = False
-        VERSION = "7"
+        VERSION = "7.2"
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         try:
             SPTX = requests.get("https://pastebin.com/raw/vayK7gC2", timeout=10).text
@@ -89,6 +89,7 @@ class Ui(QtWidgets.QMainWindow):
         self.Status = self.findChild(QtWidgets.QLabel, 'Status')
         self.PrivateBox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox')
         self.LCDPANEL = self.findChild(QtWidgets.QLCDNumber, 'lcdNumber')
+        self.UsrTotal = self.findChild(QtWidgets.QLCDNumber, 'UsrTotal')
         self.PublicBox = self.findChild(QtWidgets.QCheckBox, 'PublicBox')
         self.DLVRCAButton = self.findChild(QtWidgets.QPushButton, 'DLVRCAButton')
         self.DLVRCAButton.clicked.connect(self.DownVRCA)
@@ -121,6 +122,11 @@ class Ui(QtWidgets.QMainWindow):
         self.apibox.setCheckState(self.ModSettings["SendToAPI"])
         self.Instructions = self.findChild(QtWidgets.QPlainTextEdit, 'Instructions')
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
+        try:
+            kk = requests.get(url="https://api.avataruploader.tk/user/" + self.ModSettings["Username"]).text
+            self.UsrTotal.display(int(kk))
+        except:
+            pass
         try:
             self.LogOwnAvatarsbox = self.findChild(QtWidgets.QCheckBox, 'LogOwnAvatarsbox')
             self.LogOwnAvatarsbox.clicked.connect(self.LogOwnAvatarsbox1)
@@ -275,6 +281,12 @@ class Ui(QtWidgets.QMainWindow):
             Lock.acquire()
             ff = self.LCDPANEL.value()
             self.LCDPANEL.display(int(ff)+1)
+            try:
+                if '"UPLOADED"' in response.text:
+                    ff = self.UsrTotal.value()
+                    self.UsrTotal.display(int(ff)+1)
+            except:
+                pass
             Lock.release()
             #print("uploaded: " + str(x[2]))
 
@@ -704,6 +716,8 @@ class Ui(QtWidgets.QMainWindow):
             os.remove(self.LogFolder + "/Log.txt")
 
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
 #app.setStyleSheet(qdarkstyle.load_stylesheet())
 window = Ui()  # Create an instance of our class
 app.exec_()  # Start the application

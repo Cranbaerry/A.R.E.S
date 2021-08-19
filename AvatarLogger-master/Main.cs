@@ -22,7 +22,7 @@ using VRC.UI;
 using VRC.Core;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3.2", "KeafyIsHere, LargestBoi, cassell1337, MonkeyBoi(Boppr)")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3.3", "KeafyIsHere, LargestBoi, cassell1337, MonkeyBoi(Boppr)")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
@@ -69,7 +69,7 @@ namespace AvatarLogger
             Config = Helper.Config;
             Helper.OnConfigUpdated += new Action(delegate () { Config = Helper.Config; MelonLogger.Msg("[Config Updated]"); });
             if (!File.Exists(AvatarFile))
-            { File.AppendAllText(AvatarFile, "Original Mod by KeafyIsHere and Maintained by LargestBoi & cassell1337\n"); }
+            { File.AppendAllText(AvatarFile, "Original Mod by KeafyIsHere and Maintained by LargestBoi, cassell1337 & MonkeyBoi(Boppr)\n"); }
             foreach (string line in File.ReadAllLines(AvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
             foreach (MethodInfo method in typeof(AssetBundleDownloadManager).GetMethods().Where(m =>
             m.GetParameters().Length == 1
@@ -99,7 +99,7 @@ namespace AvatarLogger
             try
             {
                 Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
-                string HWID = UnityEngine.SystemInfo.GetDeviceUniqueIdentifier();
+                string HWID = Config.Username;
                 request.ConnectTimeout = 25000;
                 request.AddHeader(HttpHeader.UserAgent, HWID);
                 request.Post("https://api.avataruploader.tk/upload", JsonConvert.SerializeObject(avatar), "application/json");
@@ -152,7 +152,7 @@ namespace AvatarLogger
             }
             else { File.AppendAllText(AvatarFile, "Tags: None"); }
             File.AppendAllText(AvatarFile, "\n\n");
-            if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {avatar.name} [Public]"); }
+            if (Config.LogToConsole) { MelonLogger.Msg($"[Avatar Logged] {avatar.name}"); }
             if (Config.SendToAPI)
             {
                 Avatar AvatarToSend = new Avatar

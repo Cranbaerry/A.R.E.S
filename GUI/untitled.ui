@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V7</string>
+   <string>Avatar Logger GUI V7.2</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -1193,39 +1193,6 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>360</y>
-        <width>161</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>UPLOADED</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLCDNumber" name="lcdNumber">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>440</y>
-        <width>151</width>
-        <height>41</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
@@ -1303,6 +1270,64 @@ p, li { white-space: pre-wrap; }
           <string>Set User</string>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="frame_9">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>170</y>
+        <width>161</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>UPLOADED</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="lcdNumber"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>User Total</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="UsrTotal"/>
        </item>
       </layout>
      </widget>

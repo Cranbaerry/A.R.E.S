@@ -1,7 +1,9 @@
-import os, sys, requests, json, threading, shutil, winshell, traceback, win32com
+import os, sys, requests, json, threading, shutil, winshell, traceback, win32com, PyQt5
 from win32com.client import Dispatch
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import *
+
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -118,6 +120,7 @@ class Ui(QtWidgets.QMainWindow):
         except:
             traceback.print_exc()
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
+app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 # app.setStyleSheet(qdarkstyle.load_stylesheet())
 window = Ui()  # Create an instance of our class
 app.exec_()  # Start the application
