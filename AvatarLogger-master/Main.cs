@@ -4,17 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Collections.Generic;
-using IEnumerator = System.Collections.IEnumerator;
 using System.Text.RegularExpressions;
+using IEnumerator = System.Collections.IEnumerator;
 using Newtonsoft.Json;
 using MelonLoader;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 using Leaf.xNet;
 using RubyButtonAPI;
 using ComfyUtils;
 using VRC;
+using VRC.UI;
 using VRC.Core;
 
 [assembly: MelonGame("VRChat", "VRChat")]
@@ -284,6 +288,34 @@ namespace AvatarLogger
                 { LogAvatar(QuickMenu.prop_QuickMenu_0.field_Private_Player_0.prop_ApiAvatar_0); },
                 "Logs selected user's avatar"
                 );
+            CreateLPA();
+        }
+        private async void CreateLPA()
+        {
+            GameObject LPAOriginal = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/Favorite Button");
+            GameObject LPA = GameObject.Instantiate(LPAOriginal, LPAOriginal.transform.parent);
+            await Task.Delay(10);
+            LPA.name = "LogPreviewAvatar";
+            LPA.transform.localPosition = new Vector3(-241f, 375f, LPA.transform.position.z);
+            Transform child = LPA.transform.FindChild("Horizontal");
+            for (int i = 0; i < child.childCount; i++)
+            {
+                GameObject child0 = child.GetChild(i).gameObject;
+                if (child0.name != "FavoriteActionText") { GameObject.Destroy(child0); }
+            }
+            child.GetComponentInChildren<Text>().text = "Log Avatar";
+            LPA.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
+            LPA.GetComponent<Button>().onClick.AddListener((UnityAction)delegate ()
+            {
+                new Thread(() =>
+                {
+                    while (LPA.transform.parent.GetComponent<PageAvatar>().field_Private_GameObject_0 == null) { Task.Delay(1); }
+                    string avatarID = AvatarRegex.Match(LPA.transform.parent.GetComponent<PageAvatar>().field_Private_GameObject_0.name).Value;
+                    API.Fetch<ApiAvatar>(avatarID, onSuccess: new Action<ApiContainer>(container =>
+                    { LogAvatar(container.Model.Cast<ApiAvatar>()); }));
+                }).Start();
+            });
+            LPA.SetActive(true);
         }
         private void RelogWorld()
         {
