@@ -540,8 +540,8 @@ class Ui(QtWidgets.QMainWindow):
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
 
     def senderrorlogs(self, log):
+        possiblesol = "Not found"
         try:
-            possiblesol = "Not found"
             kk = requests.get(url="https://pastebin.com/raw/1022jnvn").json()
             for x in kk:
                 if x[0] in log:

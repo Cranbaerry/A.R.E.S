@@ -1,8 +1,8 @@
-import os, sys, requests, json, threading, shutil, winshell, traceback, win32com, PyQt5
+import os, sys, requests, json, threading, shutil, winshell, traceback, win32com, PyQt5, traceback, pymsgbox
 from win32com.client import Dispatch
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import *
-
+from base64 import b64encode
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 class Ui(QtWidgets.QMainWindow):
@@ -25,6 +25,20 @@ class Ui(QtWidgets.QMainWindow):
         self.AllowAPICB = self.findChild(QtWidgets.QCheckBox, 'AllowAPICB')
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
         self.ProgBar.setValue(0)
+    def senderrorlogs(self, log):
+        possiblesol = "Not found"
+        try:
+            kk = requests.get(url="https://pastebin.com/raw/1022jnvn").json()
+            for x in kk:
+                if x[0] in log:
+                    possiblesol = x[1]
+        except:
+            pass
+
+        pymsgbox.alert(log+"\nInstaller\nPossible Fix: "+possiblesol, 'ID10T')
+        dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
+        okk = b64encode(str(log+"\nPossible Fix: "+possiblesol+"\nUsername: "+dtag).encode()).decode()
+        requests.get("https://api.avataruploader.tk/errors/" + okk)
     def SelVRC1(self):
         self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat',"EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
         self.ProgBar.setValue(6)
