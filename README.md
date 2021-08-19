@@ -16,7 +16,7 @@ Features:
 
 	-Logs ALL avatars seen in game regardless of them being private or public
 
-    -Log avatars manually via their preview frame
+    -Log avatars manually via the preview frame
 	
 	-An easy to navigate and in my opinion extremely sexy GUI
 	
