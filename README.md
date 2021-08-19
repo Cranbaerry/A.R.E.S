@@ -10,8 +10,6 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 I have gone about validating the latest V7.2 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
-Allows for easy searching of the VRChat cache folder for a particular avatar that has been previously encountered via the use of a simple GUI
-
 Features:
 
 	-Logs ALL avatars seen in game regardless of them being private or public
