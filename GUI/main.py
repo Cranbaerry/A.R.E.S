@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-debugg = False
+debugg = True
 Lock = threading.Lock()
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 class Ui(QtWidgets.QMainWindow):
@@ -96,12 +96,16 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.setEnabled(False)
         self.HotswapButton = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
         self.HotswapButton.clicked.connect(self.Hotswap)
+        self.HotswapButton.setEnabled(False)
         self.LoadVRCAButton = self.findChild(QtWidgets.QPushButton, 'LoadVRCAButton')
         self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
         self.SetUserButton = self.findChild(QtWidgets.QPushButton, 'SetUserButton')
         self.SetUserButton.clicked.connect(self.SetUser)
+        self.VRCAExtractButton = self.findChild(QtWidgets.QPushButton, 'VRCAExtractButton')
+        self.VRCAExtractButton.clicked.connect(self.VRCAExtract)
+        self.VRCAExtractButton.setEnabled(False)
         self.SetUserBox = self.findChild(QtWidgets.QLineEdit, 'SetUserBox')
         self.SetUserBox.setText(self.ModSettings["Username"])
         self.UnityButton = self.findChild(QtWidgets.QPushButton, 'UnityButton')
@@ -183,10 +187,8 @@ class Ui(QtWidgets.QMainWindow):
     def ReUpload1(self):
         self.UploadButton.setEnabled(False)
         threading.Thread(target=self.ReUpload, args={}).start()
-    
     def UPDATEPUSHED(self):
         os.startfile("https://github.com/LargestBoi/AvatarLogger-GUI/releases")
-
     def tagstogs(self):
         if self.Tagscheckbox.isChecked():
             self.NSFWcheckbox.show()
@@ -202,9 +204,30 @@ class Ui(QtWidgets.QMainWindow):
             self.Violencecheckbox.hide()
             self.Gorecheckbox.hide()
             self.Othernsfwcheckbox.hide()
-
-
-
+    def VRCAExtract(self):
+        try:
+            self.APSF = QFileDialog.getExistingDirectory(self, "Select Directory")
+            if self.Avatars[self.AvatarIndex][2] == "VRCA":
+                self.filepath = self.Avatars[self.AvatarIndex][6]
+                self.keepvrca = True
+                self.filepatha = len(self.filepath.split("/"))
+                self.pathname = self.filepath.split("/")[self.filepatha - 1].replace(".vrca", "")
+            else:
+                self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
+                self.DownVRCAT(self.Avatars[self.AvatarIndex][6], f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
+                self.keepvrca = False
+                self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
+            os.chdir("AssetRipperConsole_win64(ds5678)")
+            os.system(f'AssetRipperConsole.exe "{self.filepath}" -q')
+            os.rename("Ripped", self.pathname)
+            if not self.keepvrca:
+                os.remove(self.filepath)
+            shutil.rmtree("temp")
+            shutil.move(self.pathname, self.APSF)
+            os.chdir("..")
+        except:
+            print(self.pathname)
+            traceback.print_exc()
     def LogToConsolebox1(self):
         self.ModSettings["LogToConsole"] = self.LogToConsolebox.isChecked()
         with open(self.ModConfig, "w+") as s:
@@ -357,6 +380,10 @@ class Ui(QtWidgets.QMainWindow):
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
 
     def AvatarUpdate(self, AVIndex):
+        self.SearchButton.setEnabled(True)
+        self.DLVRCAButton.setEnabled(True)
+        self.VRCAExtractButton.setEnabled(True)
+        self.HotswapButton.setEnabled(True)
         self.AVIS = self.Avatars[AVIndex]
         if self.AVIS[9] == "private":
             self.Status.setStyleSheet("background-color: red; border: 3px solid black;")
@@ -373,6 +400,8 @@ class Ui(QtWidgets.QMainWindow):
     def loadavatars(self, makehtmll=False):
         self.SearchButton.setEnabled(True)
         self.DLVRCAButton.setEnabled(True)
+        self.VRCAExtractButton.setEnabled(True)
+        self.HotswapButton.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
@@ -414,6 +443,8 @@ class Ui(QtWidgets.QMainWindow):
     def callapiforavis(self):
         self.SearchButton.setEnabled(True)
         self.DLVRCAButton.setEnabled(True)
+        self.VRCAExtractButton.setEnabled(True)
+        self.HotswapButton.setEnabled(True)
         seardata = {
             "author": False,
             "avatarid": False,

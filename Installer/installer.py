@@ -34,22 +34,30 @@ class Ui(QtWidgets.QMainWindow):
                     possiblesol = x[1]
         except:
             pass
-
         pymsgbox.alert(log+"\nInstaller\nPossible Fix: "+possiblesol, 'ID10T')
         dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
         okk = b64encode(str(log+"\nPossible Fix: "+possiblesol+"\nUsername: "+dtag).encode()).decode()
         requests.get("https://api.avataruploader.tk/errors/" + okk)
     def SelVRC1(self):
-        self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat',"EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
-        self.ProgBar.setValue(6)
-        self.UPath = ""
-        self.SelUnity.setEnabled(True)
-        self.Install.setEnabled(True)
+        try:
+            self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat',"EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
+            self.ProgBar.setValue(6)
+            self.UPath = ""
+            self.SelUnity.setEnabled(True)
+            self.Install.setEnabled(True)
+        except:
+            self.senderrorlogs(traceback.print_exc())
     def SelUnity1(self):
-        self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
-        self.ProgBar.setValue(12)
+        try:
+            self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
+            self.ProgBar.setValue(12)
+        except:
+            self.senderrorlogs(traceback.print_exc())
     def Install1(self):
-        threading.Thread(target=self.Install2, args=()).start()
+        try:
+            threading.Thread(target=self.Install2, args=()).start()
+        except:
+            self.senderrorlogs(traceback.print_exc())
     def Install2(self):
         try:
             if os.path.isdir(self.VRCPath + "/AvatarLog"):
@@ -132,7 +140,7 @@ class Ui(QtWidgets.QMainWindow):
             self.shortcut.save()
             self.ProgBar.setValue(100)
         except:
-            traceback.print_exc()
+            self.senderrorlogs(traceback.print_exc())
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
 app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 # app.setStyleSheet(qdarkstyle.load_stylesheet())

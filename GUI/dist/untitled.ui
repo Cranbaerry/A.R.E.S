@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V7.2</string>
+   <string>Avatar Logger GUI V7.4</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -648,6 +648,13 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <widget class="QPushButton" name="LoadVRCAButton">
          <property name="text">
           <string>Load VRCA</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="VRCAExtractButton">
+         <property name="text">
+          <string>Extract VRCA</string>
          </property>
         </widget>
        </item>
