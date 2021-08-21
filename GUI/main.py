@@ -16,7 +16,7 @@ class Ui(QtWidgets.QMainWindow):
         with open("latest.log", "w+", errors="ignore") as k:
             k.write("")
         self.show()  # Show the GUI
-        VERSION = "7.2"
+        VERSION = "7.4"
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         try:
             SPTX = requests.get("https://pastebin.com/raw/vayK7gC2", timeout=10).text
@@ -182,8 +182,6 @@ class Ui(QtWidgets.QMainWindow):
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
-            pass
-
     def ReUpload1(self):
         self.UploadButton.setEnabled(False)
         threading.Thread(target=self.ReUpload, args={}).start()
