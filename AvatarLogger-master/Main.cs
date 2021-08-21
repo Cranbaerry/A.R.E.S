@@ -285,7 +285,7 @@ namespace AvatarLogger
                 4, 1,
                 "Log User's\nAvatar",
                 delegate ()
-                { LogAvatar(QuickMenu.prop_QuickMenu_0.field_Private_Player_0.prop_ApiAvatar_0); },
+                { OnAvatarDownloaded(QuickMenu.prop_QuickMenu_0.field_Private_Player_0.prop_ApiAvatar_0); },
                 "Logs selected user's avatar"
                 );
             CreateLPA();
@@ -306,21 +306,22 @@ namespace AvatarLogger
             child.GetComponentInChildren<Text>().text = "Log Avatar";
             LPA.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
             LPA.GetComponent<Button>().onClick.AddListener((UnityAction)delegate ()
-            {
-                new Thread(() =>
-                {
-                    while (LPA.transform.parent.GetComponent<PageAvatar>().field_Private_GameObject_0 == null) { Task.Delay(1); }
-                    string avatarID = AvatarRegex.Match(LPA.transform.parent.GetComponent<PageAvatar>().field_Private_GameObject_0.name).Value;
-                    API.Fetch<ApiAvatar>(avatarID, onSuccess: new Action<ApiContainer>(container =>
-                    { LogAvatar(container.Model.Cast<ApiAvatar>()); }));
-                }).Start();
-            });
+            { OnAvatarDownloaded(LPA.transform.parent.FullFind("AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0); });
             LPA.SetActive(true);
         }
         private void RelogWorld()
         {
             foreach (Player player in PlayerManager.field_Private_Static_PlayerManager_0.field_Private_List_1_Player_0)
             { OnAvatarDownloaded(player.prop_ApiAvatar_0); }
+        }
+    }
+    internal static class Utils
+    {
+        public static Transform FullFind(this Transform transform, string path)
+        {
+            string[] pathArray = path.Split('/');
+            foreach (string obj in pathArray) { transform = transform.Find(obj); }
+            return transform;
         }
     }
 }
