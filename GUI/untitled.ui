@@ -658,6 +658,13 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="browserview">
+         <property name="text">
+          <string>Browser view</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QTextEdit" name="RawData">
@@ -1016,21 +1023,6 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="HTMLBox">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>HTML</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QCheckBox" name="TagSettings">
          <property name="font">
           <font>
@@ -1065,6 +1057,23 @@ p, li { white-space: pre-wrap; }
        <string>OUTDATED CLICK TO UPDATE!!!</string>
       </property>
      </widget>
+     <zorder>label_3</zorder>
+     <zorder>frame</zorder>
+     <zorder>RawData</zorder>
+     <zorder>frame_4</zorder>
+     <zorder>resultsbox</zorder>
+     <zorder>frame_5</zorder>
+     <zorder>Status</zorder>
+     <zorder>label_2</zorder>
+     <zorder>lineEdit</zorder>
+     <zorder>frame_2</zorder>
+     <zorder>TagSettings_2</zorder>
+     <zorder>PrivateBox_2</zorder>
+     <zorder>HTMLBox_2</zorder>
+     <zorder>PublicBox_2</zorder>
+     <zorder>frame_6</zorder>
+     <zorder>PreviewImage</zorder>
+     <zorder>UPDATEBUTTON</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -1471,7 +1480,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>831</width>
-     <height>18</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

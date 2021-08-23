@@ -78,6 +78,8 @@ class Ui(QtWidgets.QMainWindow):
         self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
         self.BackButton.clicked.connect(self.Back)
+        self.browserview = self.findChild(QtWidgets.QPushButton, 'browserview')
+        self.browserview.clicked.connect(self.browserview1)
         self.SearchButton = self.findChild(QtWidgets.QPushButton, 'SearchButton')
         self.SearchButton.clicked.connect(self.Search)
         self.SearchButton.setEnabled(False)
@@ -408,10 +410,6 @@ class Ui(QtWidgets.QMainWindow):
                 self.Logs = s.read()
                 self.Avatars = re.findall(pat, self.Logs)
             self.Avatars = sorted(self.Avatars, key=self.sortFunction, reverse=True)
-            if self.HTMLBox.isChecked():
-                if makehtmll:
-                    threading.Thread(target=makehtml, args={json.dumps(self.Avatars),}).start()
-
             self.MaxAvatar = len(self.Avatars)
             self.AvatarIndex = 0
             self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
@@ -422,6 +420,9 @@ class Ui(QtWidgets.QMainWindow):
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
             self.RawData.setPlainText("INVALID LOG FOLDER")
+
+    def browserview1(self):
+        threading.Thread(target=makehtml, args={json.dumps(self.Avatars), }).start()
 
     def Cleantext(self, data):
         try:
@@ -470,7 +471,7 @@ class Ui(QtWidgets.QMainWindow):
         kk = json.loads(response.text)
         #print(response.text)
         self.Avatars = kk
-        self.Avatars = sorted(self.Avatars, key=self.sortFunctionapi, reverse=True)
+        self.Avatars = sorted(self.Avatars, key=self.sortFunctionapi, reverse=False)
         #print(self.Avatars)
         self.filter()
 
@@ -562,8 +563,6 @@ class Ui(QtWidgets.QMainWindow):
             self.leftbox.hide()
             self.Status.hide()
             return
-        if self.HTMLBox.isChecked():
-            threading.Thread(target=makehtml, args={json.dumps(self.Avatars),}).start()
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
