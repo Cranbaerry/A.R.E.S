@@ -306,7 +306,10 @@ namespace AvatarLogger
             child.GetComponentInChildren<Text>().text = "Log Avatar";
             LPA.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
             LPA.GetComponent<Button>().onClick.AddListener((UnityAction)delegate ()
-            { OnAvatarDownloaded(LPA.transform.parent.FullFind("AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0); });
+            {
+                API.Fetch<ApiAvatar>(LPA.transform.parent.FullFind("AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id, onSuccess: new Action<ApiContainer>(container =>
+                { OnAvatarDownloaded(container.Model.Cast<ApiAvatar>()); }));
+            });
             LPA.SetActive(true);
         }
         private void RelogWorld()
