@@ -1429,7 +1429,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="text">
-          <string>MonkeyBoi(Boppr)</string>
+          <string>RealBoppr</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1480,7 +1480,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>831</width>
-     <height>19</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

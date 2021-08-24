@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-debugg = True
+debugg = False
 Lock = threading.Lock()
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 class Ui(QtWidgets.QMainWindow):
@@ -80,6 +80,7 @@ class Ui(QtWidgets.QMainWindow):
         self.BackButton.clicked.connect(self.Back)
         self.browserview = self.findChild(QtWidgets.QPushButton, 'browserview')
         self.browserview.clicked.connect(self.browserview1)
+        self.browserview.setEnabled(False)
         self.SearchButton = self.findChild(QtWidgets.QPushButton, 'SearchButton')
         self.SearchButton.clicked.connect(self.Search)
         self.SearchButton.setEnabled(False)
@@ -384,6 +385,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.setEnabled(True)
         self.VRCAExtractButton.setEnabled(True)
         self.HotswapButton.setEnabled(True)
+        self.browserview.setEnabled(True)
         self.AVIS = self.Avatars[AVIndex]
         if self.AVIS[9] == "private":
             self.Status.setStyleSheet("background-color: red; border: 3px solid black;")
@@ -402,6 +404,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.setEnabled(True)
         self.VRCAExtractButton.setEnabled(True)
         self.HotswapButton.setEnabled(True)
+        self.browserview.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
         pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
