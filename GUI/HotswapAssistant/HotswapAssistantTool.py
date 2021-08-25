@@ -34,17 +34,30 @@ class Ui(QtWidgets.QMainWindow):
         self.SwapIDB.setEnabled(True)
     def SwapIds(self):
         self.NewIDBox = self.findChild(QtWidgets.QLineEdit, 'NewIDBox')
+        print("Declared new id box")
         self.NewID = self.NewIDBox.text()
-        with open("decompressedfile", "rb") as f:
+        print("Got text from new id box")
+        with open("decompressed.vrca", "rb") as f:
             DAF = f.read()
+        print("Opened and read decompressed")
         DAF = DAF.replace(bytes(self.oldavtrid, 'utf-8'), bytes(self.NewID, 'utf-8'))
+        print("Replaced Id's")
         with open("decompressedfile1", "wb") as f:
             f.write(DAF)
-        os.system('HOTSWAP.exe c')
-        os.remove("decompressedfile")
+        print("Opened and read decompressefile1")
+        os.system('HOTSWAP.exe c decompressedfile1')
+        print("Compressed")
+        os.remove("decompressed.vrca")
+        print("Removed decompressedfile")
         os.remove("decompressedfile1")
+        print("Removed decompressedfile1")
         if "vrcw" in self.lvrca:
-            os.rename("custom.vrca", "custom.vrcw")
+            os.rename("compressed.vrca", "custom.vrcw")
+            print("Renamed to custom.vrcw")
+        if "vrca" in self.lvrca:
+            os.rename("compressed.vrca", "custom.vrca")
+            print("Renamed to custom.vrca")
+        print("END")
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
