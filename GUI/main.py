@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-debugg = False
+debugg = True
 Lock = threading.Lock()
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 class Ui(QtWidgets.QMainWindow):
@@ -672,9 +672,9 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setEnabled(True)
             if self.Avatars[self.AvatarIndex][7] != "VRCA":
                 self.imgurl = self.Avatars[self.AvatarIndex][7]
-                self.DownVRCAT(self.imgurl, "Koh.jpg")
-                os.remove("HSB/Assets/Koh.jpg")
-                shutil.move("Koh.jpg", "HSB/Assets/Koh.jpg")
+                self.DownVRCAT(self.imgurl, "Logo.png")
+                os.remove("HSB/Assets/Logo.png")
+                shutil.move("Logo.png", "HSB/Assets/Logo.png")
             self.ProgBar.setValue(10)
             self.updateconsole("Hotswap Started...")
             self.ProjPath = tempfile.gettempdir()+"\\DefaultCompany\\HSB\\custom.vrca"

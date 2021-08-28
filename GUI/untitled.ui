@@ -1138,7 +1138,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>10</x>
         <y>170</y>
-        <width>201</width>
+        <width>211</width>
         <height>181</height>
        </rect>
       </property>
@@ -1157,7 +1157,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="text">
-          <string>Allow API Upload</string>
+          <string>API Enabled (RESTARTS)</string>
          </property>
         </widget>
        </item>
