@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
-debugg = True
+debugg = False
 Lock = threading.Lock()
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 class Ui(QtWidgets.QMainWindow):
@@ -16,7 +16,7 @@ class Ui(QtWidgets.QMainWindow):
         with open("latest.log", "w+", errors="ignore") as k:
             k.write("")
         self.show()  # Show the GUI
-        VERSION = "7.4"
+        VERSION = "7.5"
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         try:
             SPTX = requests.get("https://pastebin.com/raw/vayK7gC2", timeout=10).text
@@ -223,7 +223,6 @@ class Ui(QtWidgets.QMainWindow):
             os.rename("Ripped", self.pathname)
             if not self.keepvrca:
                 os.remove(self.filepath)
-            shutil.rmtree("temp")
             shutil.move(self.pathname, self.APSF)
             os.chdir("..")
         except:

@@ -64,11 +64,25 @@ class Ui(QtWidgets.QMainWindow):
                 self.ProgBar.setValue(18)
                 try:
                     self.ProgBar.setValue(24)
-                    with open(self.VRCPath + "/AvatarLog/Log.txt", "r+", errors="ignore") as l:
-                        self.OldLog = l.read()
-                    shutil.rmtree(self.VRCPath + "/AvatarLog")
-                    os.remove(self.VRCPath + "/Leaf.xNet.dll")
-                    os.remove(self.VRCPath + "/Mods/AvatarLogger.dll")
+                    try:
+                        with open(self.VRCPath + "/AvatarLog/Log.txt", "r+", errors="ignore") as l:
+                            self.OldLog = l.read()
+                        with open(self.VRCPath + "/OldLog.txt", "w+", errors="ignore") as l:
+                            l.write(self.OldLog)
+                    except:
+                        pass
+                    try:
+                        shutil.rmtree(self.VRCPath + "/AvatarLog")
+                    except:
+                        pass
+                    try:
+                        os.remove(self.VRCPath + "/Leaf.xNet.dll")
+                    except:
+                        pass
+                    try:
+                        os.remove(self.VRCPath + "/Mods/AvatarLogger.dll")
+                    except:
+                        pass
                 except:
                     pass
             if os.path.isdir(self.VRCPath + "/MOD"):
@@ -114,12 +128,6 @@ class Ui(QtWidgets.QMainWindow):
             shutil.move("MOD/Leaf.xNet.dll", self.VRCPath)
             shutil.move("MOD/AvatarLog", self.VRCPath)
             shutil.move("MOD/Mods/AvatarLogger.dll", self.VRCPath + "/Mods")
-            try:
-                with open(self.VRCPath + "/AvatarLog/Log.txt", "w+", errors="ignore") as l:
-                    l.write(self.OldLog)
-                self.ProgBar.setValue(78)
-            except:
-                pass
             self.ProgBar.setValue(84)
             if os.path.isdir("MOD"):
                 shutil.rmtree("MOD")
@@ -127,6 +135,10 @@ class Ui(QtWidgets.QMainWindow):
                 shutil.rmtree("GUI")
             os.remove("MOD.rar")
             os.remove("GUI.rar")
+            try:
+                shutil.move(self.VRCPath + "/OldLog.txt", self.VRCPath + "/AvatarLog/Log.txt")
+            except:
+                pass
             self.DT = winshell.desktop()
             self.path = os.path.join(self.DT, 'Avatar Logger GUI.lnk')
             self.target = self.VRCPath + "/GUI/Avatar Logger GUI.exe"
