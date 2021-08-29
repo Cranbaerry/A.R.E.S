@@ -25,6 +25,22 @@ class Ui(QtWidgets.QMainWindow):
         self.AllowAPICB = self.findChild(QtWidgets.QCheckBox, 'AllowAPICB')
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
         self.ProgBar.setValue(0)
+        try:
+            os.remove("MOD.rar")
+        except:
+            pass
+        try:
+            os.remove("GUI.rar")
+        except:
+            pass
+        try:
+            shutil.rmtree("MOD")
+        except:
+            pass
+        try:
+            shutil.rmtree("GUI")
+        except:
+            pass
     def senderrorlogs(self, log):
         possiblesol = "Not found"
         try:
