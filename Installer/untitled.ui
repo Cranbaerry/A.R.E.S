@@ -626,9 +626,10 @@ Select VRChat.exe
      <item>
       <widget class="QPushButton" name="SelUnity">
        <property name="text">
-        <string>Select
+        <string>
+Select
 Unity.exe
-(Optional)</string>
+</string>
        </property>
       </widget>
      </item>
