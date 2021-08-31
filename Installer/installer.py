@@ -60,13 +60,13 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(6)
             self.UPath = ""
             self.SelUnity.setEnabled(True)
-            self.Install.setEnabled(True)
         except:
             self.senderrorlogs(traceback.print_exc())
     def SelUnity1(self):
         try:
             self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
             self.ProgBar.setValue(12)
+            self.Install.setEnabled(True)
         except:
             self.senderrorlogs(traceback.print_exc())
     def Install1(self):
