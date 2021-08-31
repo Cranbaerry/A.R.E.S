@@ -1436,6 +1436,23 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sol*</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QLabel" name="label_10">
