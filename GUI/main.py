@@ -209,7 +209,7 @@ class Ui(QtWidgets.QMainWindow):
     #Calls thread to set user
     def SetUser(self):
         threading.Thread(target=self.SetUser1, args=()).start()
-    # Allows the user to identify themselves when connecting to the API
+    #Allows the user to identify themselves when connecting to the API
     def SetUser1(self):
         #Disables the button to avoid button spam
         self.SetUserButton.setEnabled(False)
@@ -522,7 +522,7 @@ class Ui(QtWidgets.QMainWindow):
     def Search(self):
         self.loadavatars()
         self.filter()
-   #Prepares to search
+    #Prepares to search
     def sortFunctionapi(self, value):
         kk = str(value[0])
         value[0] = kk
