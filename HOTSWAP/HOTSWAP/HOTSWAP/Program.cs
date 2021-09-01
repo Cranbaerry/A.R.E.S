@@ -20,6 +20,7 @@ namespace HOTSWAP
 {
     class Program
     {
+        //Creates funtion to decompress asset bundles
         public static AssetBundleFile DecompressBundle(string file, string decompFile)
         {
             var bun = new AssetBundleFile();
@@ -51,6 +52,7 @@ namespace HOTSWAP
 
             return bun;
         }
+        //Creates function to compress asset bundles
         public static void CompressBundle(string file, string compFile)
         {
             var bun = DecompressBundle(file, null);
@@ -58,7 +60,7 @@ namespace HOTSWAP
             using var writer = new AssetsFileWriter(fs);
             bun.Pack(bun.reader, writer, AssetsBundleCompressionType.LZMA);
         }
-
+        //creates areguments to call decompression and compression
         static void Main(string[] args)
         {
             string work = args[0];
@@ -72,6 +74,7 @@ namespace HOTSWAP
                 string dir = args[1];
                 CompressBundle(dir, "compressed.vrca");
             }
+            //(NOT IN USE) can be used to create new avtr id
             if (work == "mID")
             {
                 Console.WriteLine("avtr_" + Guid.NewGuid().ToString());

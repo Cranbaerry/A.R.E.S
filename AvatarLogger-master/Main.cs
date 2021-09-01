@@ -22,7 +22,7 @@ using VRC.UI;
 using VRC.Core;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3.3", "KeafyIsHere, LargestBoi, cassell1337, MonkeyBoi(Boppr)")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3.4", "KeafyIsHere, LargestBoi, cassell1337, RealBoppr")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
@@ -31,6 +31,7 @@ using VRC.Core;
 
 namespace AvatarLogger
 {
+    //Creates avatar class to hold infos
     internal class Avatar
     {
         public string TimeDetected { get; set; }
@@ -51,25 +52,31 @@ namespace AvatarLogger
     }
     public class Main : MelonMod
     {
+        //Log creation and reading
         private const string ConfigFile = "AvatarLog\\Config.json";
         private const string AvatarFile = "AvatarLog\\Log.txt";
         private const string ErrorLogFile = "AvatarLog\\ErrorLog.txt";
         private static List<string> AvatarIDs = new List<string>();
+        //Sets avatar id regex
         private static Regex AvatarRegex = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
         private static string tagsstr = "None";
+        //Uses the Comfy config helper (Thx Boppr)
         private static ConfigHelper<Config> Helper;
         private static Config Config;
         private static HarmonyMethod GetPatch<T>(string name) where T : class
          => new HarmonyMethod(typeof(T).GetMethod(name, BindingFlags.Static | BindingFlags.NonPublic));
         public override void OnApplicationStart()
         {
+            //Initiates buttons
             MelonCoroutines.Start(Buddon());
             Directory.CreateDirectory("AvatarLog");
             Helper = new ConfigHelper<Config>(ConfigFile);
             Config = Helper.Config;
+            //If config changes inform user in console
             Helper.OnConfigUpdated += new Action(delegate () { Config = Helper.Config; MelonLogger.Msg("[Config Updated]"); });
+            //Creation of the initial log file
             if (!File.Exists(AvatarFile))
-            { File.AppendAllText(AvatarFile, "Original Mod by KeafyIsHere and Maintained by LargestBoi, cassell1337 & MonkeyBoi(Boppr)\n"); }
+            { File.AppendAllText(AvatarFile, "Original Mod by KeafyIsHere and Maintained by LargestBoi, cassell1337 & RealBoppr\n"); }
             foreach (string line in File.ReadAllLines(AvatarFile)) { AvatarIDs.Add(AvatarRegex.Match(line).Value); }
             foreach (MethodInfo method in typeof(AssetBundleDownloadManager).GetMethods().Where(m =>
             m.GetParameters().Length == 1
@@ -80,6 +87,7 @@ namespace AvatarLogger
         }
         private static void UpdateUser()
         {
+            //Checkin to our API (If you have it enabled)
             try
             {
                 string HWID = Config.Username;
@@ -96,6 +104,7 @@ namespace AvatarLogger
         }
         private static void APICall(Avatar avatar)
         {
+            //Send logged avis to our API (If you have it enabled)
             try
             {
                 Leaf.xNet.HttpRequest request = new Leaf.xNet.HttpRequest();
@@ -111,6 +120,7 @@ namespace AvatarLogger
                 //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
             }
         }
+        //Whenever an avatr is loaded log the following parametres
         private static bool OnAvatarDownloaded(ApiAvatar __0)
         {
             ApiAvatar avatar = __0;
@@ -142,6 +152,7 @@ namespace AvatarLogger
                     $"API Version:{avatar.apiVersion}",
                     $"Version:{avatar.version}",
             });
+            //Converts tags to string to be logged
             if (avatar.tags.Count > 0)
             {
                 StringBuilder builder = new StringBuilder();
@@ -176,6 +187,7 @@ namespace AvatarLogger
                 new Thread(() => APICall(AvatarToSend)).Start();
             }
         }
+        //Creation and setup of all in-game UI buttons
         private IEnumerator Buddon()
         {
             while (VRCUiManager.prop_VRCUiManager_0 == null) { yield return null; }
@@ -303,7 +315,7 @@ namespace AvatarLogger
                 GameObject child0 = child.GetChild(i).gameObject;
                 if (child0.name != "FavoriteActionText") { GameObject.Destroy(child0); }
             }
-            child.GetComponentInChildren<Text>().text = "Log Avatar";
+            child.GetComponentInChildren<Text>().text = "Log Avatar (Public)";
             LPA.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
             LPA.GetComponent<Button>().onClick.AddListener((UnityAction)delegate ()
             {
