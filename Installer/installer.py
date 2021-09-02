@@ -134,6 +134,10 @@ class Ui(QtWidgets.QMainWindow):
                             self.OldConfig = l.read()
                         with open(self.VRCPath + "/OldConfig.json", "w+", errors="ignore") as l:
                             l.write(self.OldConfig)
+                        with open(self.VRCPath + "/GUI/uploaded.txt", "r+", errors="ignore") as l:
+                            self.OldConfig = l.read()
+                        with open(self.VRCPath + "/olduploaded.txt", "w+", errors="ignore") as l:
+                            l.write(self.OldConfig)
                     except:
                         pass
                     #Remove trace files
@@ -221,6 +225,10 @@ class Ui(QtWidgets.QMainWindow):
                 pass
             try:
                 shutil.move(self.VRCPath + "/OldConfig.json", self.VRCPath + "/AvatarLog/Config.json")
+            except:
+                pass
+            try:
+                shutil.move(self.VRCPath + "/olduploaded.txt", self.VRCPath + "/GUI/uploaded.txt")
             except:
                 pass
             #Creates shortcut on desktop
