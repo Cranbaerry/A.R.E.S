@@ -119,6 +119,7 @@ class Ui(QtWidgets.QMainWindow):
     # Runs installation of toolset
     def Install2(self):
         try:
+            self.Install.setEnabled(False)
             #Detcet if the mod/GUI is already installed
             if os.path.isdir(self.VRCPath + "/AvatarLog") or os.path.isdir(self.VRCPath + "/GUI"):
                 self.ProgBar.setValue(18)
