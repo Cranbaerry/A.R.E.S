@@ -249,6 +249,8 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(100)
             #Give time to view completion
             time.sleep(5)
+            #Enable to prevent crash
+            self.Install.setEnabled(True)
             #Quit the installer
             try:
                 os.system('taskkill /F /im "Avatar Logger GUI Installer.exe"')
