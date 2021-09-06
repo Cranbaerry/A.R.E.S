@@ -40,7 +40,7 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pass
         #Sets version number to later be checked with the pastebin
-        VERSION = "7.6"
+        VERSION = "7.7"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
