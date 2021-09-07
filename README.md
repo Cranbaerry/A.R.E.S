@@ -66,4 +66,6 @@ Issues? Open an issue in the "Issues" tab, We will do our best to resolve your i
 
 Licesnse:
 
+VRChat avatar SDK is included within our HSB package, this entirely belongs to VRChat and we do not own it.
+
 [GNU GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html)
