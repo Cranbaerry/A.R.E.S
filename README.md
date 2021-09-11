@@ -52,7 +52,7 @@ Features:
 
     -Ability to configure logging settings from within the game itself
 
-Installation/Usage: Videos can be found in the "Tutorials" folder!
+Installation/Usage:
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
