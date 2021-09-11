@@ -1,12 +1,31 @@
-3rtwrozcspjeuqjdxu32zhluh56ohxnzadj7yggmn2x5kurs5lpcpwyd.onion
-cd /var/www/html
-sudo nano /etc/rc.local
+If you have any issues or just want to be a part of our community feel free to join us in our discord server: https://discord.gg/gnqw5BKBuu 
 
-# Print the IP address
-_IP=$(hostname -I) || true
-if [ "$_IP" ]; then
-  printf "My IP address is %s\n" "$_IP"
-  ./boot.sh
-fi
+00:00-01:18 Download and install “Melon Loader” into your VRChat install
 
-exit 0
+01:19-1:45 Head into our releases tab and download the latest “Installer.rar” file
+
+01:46-03:32 Fully extract the installer files and run the “Avatar Logger GUI Installer.exe”, select your VRChat exe, VRC Unity 2019 exe and you can choose to “Allow API”, allowing API lets you access avatars logged by other users of the avatar logger in exchange avatars you log are available to other users of the avatar logger. You may now press install and wait for it to reach 100% then you may close it and continue. (Some anti-virus/VPN software may cause the download to fail, in those cases you can simply delete the following files if the installer made them: https://i.imgur.com/wjJjxuD.png as well as deleting the “AvatarLogger.dll” from the Mods folder before trying to re-install). All this will leave you with a shortcut to the avatar loggers GUI on your desktop.
+
+03:33-05:27 Then run VRC, from there it may take a bit longer to boot up, it will only take this long once as melon loader is setting up, every time after first run VRC will rut with normal speeds. You will see the avatar logger would have been loaded up and as you spawn in you will begin logging avatars.
+
+05:28-5:55 You can change the settings on what avatars get logged within the “Avatar Logger Settings” submenu that has appeared within your HUD. From here you can toggle the following options: Logging of own avatars, Logging of friends avatars, Logs being shown within the console, Logging of avatars and weather or not you want the avatars you log to be sent to our API.
+
+05:56-06:33 From now any room that is entered all avatars within the room will be logged, if they have been logged before they will not be re-logged.
+
+06:34-07:36 Demonstrates how if you disable avatar logging no avatars will be logged however our in-selection menu will allow you to log a particular avatar if you decide to. You can also force-quit the game by pressing Ctrl+C in the console window that appears with Melon Loader.
+
+07:37-08:14 Shows the “Load Avatars” button, this will load all avatars that you have locally logged.
+
+08:15-08:25 Shows the HTML feature (Now replaced with the browser view button https://i.imgur.com/HB0LAQL.png ) This simply displays all loaded avatars in a html page with their images and IDs.
+
+08:26-08:51 Displays searching of our API (The API has since been updated to only load the newest 500 logged avatars if there is no search term entered)
+
+08:52-09:19 Shows the usage of the “Download VRCA” button.
+
+09:27-10:40 Shows the usage of the “Extract VRCA” button.
+
+10:45-12:14 Shows the process of preparing for a HOTSWAP to occur by pressing the “Open Unity” button, this will open a project in Unity 2019 where you will be prompted to log into the VRC SDK, go under the “Builder” tab and press “Build & Publish for Windows”, this will prepare the project for a full Hotswap to occur. You may then assign the avatar a name, desc, tags and tick the bottom box to agree to T&C.
+
+12:15-15:02 Before pressing upload go back into the GUI and press “HOTSWAP”, do not spam click the button and just allow it to fully complete, once completed and the progress bar returns to 0% you may enter unity and press “Upload”. If you are concerned cause it went a bit fast just go to our “Settings” tab and check the console output to see if the Hotswap was completed. (The upload was cut out to shorten the vid)
+
+15:03-16:28 Run VRChat and see if the avatar you had just uploaded has made it onto your account all well, all shaders and animations will have been carried over. Enjoy! (Side note: If the avatar is an error bot just clear your in-game cache by going to your in-game settings>advanced settings>clear downloaded content cache and restart the game.)
