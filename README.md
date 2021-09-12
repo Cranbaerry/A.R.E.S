@@ -52,7 +52,7 @@ Features:
 
     -Ability to configure logging settings from within the game itself
 
-Installation/Usage:
+Installation/Usage: [YouTube Video](https://youtu.be/vP-amaE7tfE)
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
