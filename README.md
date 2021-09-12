@@ -10,9 +10,9 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V7.6 Virus Total](https://www.virustotal.com/gui/file/b2c6c22c16ccd3783864b5d920c8823c509c9042f4de443b9c4557eeaeb83442/summary)
+[V7.7 Virus Total](https://www.virustotal.com/gui/file/9454d4cea90a1ceebab591ab8f5ea29592cdb2b93122f87c74db487ad7c80117/summary)
 
-I have gone about validating the latest V7.6 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+I have gone about validating the latest V7.7 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
 Features:
 
