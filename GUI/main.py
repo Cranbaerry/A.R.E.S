@@ -1,6 +1,6 @@
 #Importing all reqirements for the GUI and its functionality
-import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback, pymsgbox
-import subprocess
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback, pymsgbox, subprocess
+from pathlib import Path
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -118,6 +118,7 @@ class Ui(QtWidgets.QMainWindow):
         self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
         self.BackButton.clicked.connect(self.Back)
+        self.BackButton.setEnabled(False)
         self.browserview = self.findChild(QtWidgets.QPushButton, 'browserview')
         self.browserview.clicked.connect(self.browserview1)
         self.browserview.setEnabled(False)
@@ -128,6 +129,7 @@ class Ui(QtWidgets.QMainWindow):
         self.CleanExitButton.clicked.connect(self.CleanExit)
         self.NextButton = self.findChild(QtWidgets.QPushButton, 'NextButton')
         self.NextButton.clicked.connect(self.Next)
+        self.NextButton.setEnabled(False)
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
         self.AvatarIDRB = self.findChild(QtWidgets.QRadioButton, 'AvatarIDRB')
@@ -279,7 +281,22 @@ class Ui(QtWidgets.QMainWindow):
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
             #Extract all assets
-            os.system(f'AssetRipperConsole.exe "{self.filepath}" -q')
+            os.system(f'AssetRipperConsole.exe "{self.filepath}" DLL -q')
+            os.chdir("Ripped/Assets")
+            #Remove redundant files
+            shutil.rmtree("Scripts")
+            #Disable shaders but retain names
+            os.chdir("Shader")
+            SF = Path(os.getcwd())
+            for f in SF.iterdir():
+                if f.is_file() and f.suffix in ['.meta']:
+                    f.rename(f.with_suffix('.meta.txt'))
+            for f in SF.iterdir():
+                if f.is_file() and f.suffix in ['.shader']:
+                    f.rename(f.with_suffix('.shader.txt'))
+            os.chdir("..")
+            os.chdir("..")
+            os.chdir("..")
             #Rename folder
             os.rename("Ripped", self.pathname)
             #If a vrca was loaded DON'T delete it
@@ -486,6 +503,8 @@ class Ui(QtWidgets.QMainWindow):
         self.VRCAExtractButton.setEnabled(True)
         self.HotswapButton.setEnabled(True)
         self.browserview.setEnabled(True)
+        self.BackButton.setEnabled(True)
+        self.NextButton.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
         #Sets json index
@@ -534,6 +553,9 @@ class Ui(QtWidgets.QMainWindow):
         self.DLVRCAButton.setEnabled(True)
         self.VRCAExtractButton.setEnabled(True)
         self.HotswapButton.setEnabled(True)
+        self.browserview.setEnabled(True)
+        self.BackButton.setEnabled(True)
+        self.NextButton.setEnabled(True)
         #Set what is being searched for
         seardata = {
             "author": False,
