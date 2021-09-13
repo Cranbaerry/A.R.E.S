@@ -4,6 +4,8 @@ Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar log
 
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited!
 
+Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs!
+
 And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap and the new GUI + API!
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
