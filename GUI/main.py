@@ -290,23 +290,24 @@ class Ui(QtWidgets.QMainWindow):
             os.system(f'AssetRipperConsole.exe "{self.filepath}" {ExtValue} -q')
             os.chdir("Ripped/Assets")
             #Remove redundant files
-            try:
+            if os.path.isdir("Scripts"):
                 shutil.rmtree("Scripts")
-            except:
-                pass
-            #Disable shaders but retain names
-            os.chdir("Shader")
             try:
-                SF = Path(os.getcwd())
-                for f in SF.iterdir():
-                    if f.is_file() and f.suffix in ['.meta']:
-                        f.rename(f.with_suffix('.meta.txt'))
-                for f in SF.iterdir():
-                    if f.is_file() and f.suffix in ['.shader']:
-                        f.rename(f.with_suffix('.shader.txt'))
+                #Disable shaders but retain names
+                os.chdir("Shader")
+                try:
+                    SF = Path(os.getcwd())
+                    for f in SF.iterdir():
+                        if f.is_file() and f.suffix in ['.meta']:
+                            f.rename(f.with_suffix('.meta.txt'))
+                    for f in SF.iterdir():
+                        if f.is_file() and f.suffix in ['.shader']:
+                            f.rename(f.with_suffix('.shader.txt'))
+                except:
+                    pass
+                os.chdir("..")
             except:
                 pass
-            os.chdir("..")
             os.chdir("..")
             os.chdir("..")
             #Rename folder
