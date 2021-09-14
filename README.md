@@ -12,7 +12,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V7.8 Virus Total](https://www.virustotal.com/gui/file/9454d4cea90a1ceebab591ab8f5ea29592cdb2b93122f87c74db487ad7c80117/summary)
+[V7.8 Virus Total](https://www.virustotal.com/gui/file/ed024962e8c76e0e62a511090f567e41f7d11a276bf094bd24fcd125f98fac08)
 
 I have gone about validating the latest V7.8 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
@@ -53,6 +53,8 @@ Features:
     -Ability to set usernames
 
     -Ability to configure logging settings from within the game itself
+
+    -Ability to almost perfectly extract vrca files
 
 Installation/Usage: [YouTube Video](https://youtu.be/vP-amaE7tfE)
 	
