@@ -18,7 +18,7 @@ class Ui(QtWidgets.QMainWindow):
         #Prepares for UI launch
         super(Ui, self).__init__()
         #Locks particualr window size
-        self.setFixedSize(836, 602)
+        self.setFixedSize(858, 590)
         #Load the .ui file
         uic.loadUi('GUI.ui', self)
         #Prepares to log what is done within the current user session
@@ -40,7 +40,7 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pass
         #Sets version number to later be checked with the pastebin
-        VERSION = "7.7"
+        VERSION = "7.8"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -133,6 +133,8 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
         self.AvatarIDRB = self.findChild(QtWidgets.QRadioButton, 'AvatarIDRB')
+        self.ExtM1 = self.findChild(QtWidgets.QRadioButton, 'ExtOne')
+        self.ExtM2 = self.findChild(QtWidgets.QRadioButton, 'ExtTwo')
         self.Status = self.findChild(QtWidgets.QLabel, 'Status')
         self.PrivateBox = self.findChild(QtWidgets.QCheckBox, 'PrivateBox')
         self.LCDPANEL = self.findChild(QtWidgets.QLCDNumber, 'lcdNumber')
@@ -280,6 +282,10 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
+            if self.ExtM1.isChecked():
+                ExtValue = "2019DLL"
+            if self.ExtM2.isChecked():
+                ExtValue = "2018DLL"
             #Extract all assets
             os.system(f'AssetRipperConsole.exe "{self.filepath}" {ExtValue} -q')
             os.chdir("Ripped/Assets")

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>831</width>
-    <height>575</height>
+    <width>858</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V7.7</string>
+   <string>Avatar Logger GUI V7.8</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -552,8 +552,8 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>811</width>
-      <height>521</height>
+      <width>831</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -600,7 +600,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      <widget class="QFrame" name="frame">
       <property name="geometry">
        <rect>
-        <x>650</x>
+        <x>580</x>
         <y>200</y>
         <width>141</width>
         <height>171</height>
@@ -672,7 +672,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        <rect>
         <x>20</x>
         <y>200</y>
-        <width>631</width>
+        <width>551</width>
         <height>171</height>
        </rect>
       </property>
@@ -1042,10 +1042,10 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="UPDATEBUTTON">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>90</y>
-        <width>691</width>
-        <height>281</height>
+        <x>40</x>
+        <y>100</y>
+        <width>741</width>
+        <height>321</height>
        </rect>
       </property>
       <property name="font">
@@ -1075,6 +1075,57 @@ p, li { white-space: pre-wrap; }
        <string>Clean Exit</string>
       </property>
      </widget>
+     <widget class="QFrame" name="frame_10">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>280</y>
+        <width>91</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QRadioButton" name="ExtOne">
+         <property name="text">
+          <string>1 (2019)
+ Optimised</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="ExtTwo">
+         <property name="text">
+          <string>2 (2018)
+ Optimised</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>250</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extraction
+Algorithim:</string>
+      </property>
+     </widget>
      <zorder>label_3</zorder>
      <zorder>frame</zorder>
      <zorder>RawData</zorder>
@@ -1092,6 +1143,8 @@ p, li { white-space: pre-wrap; }
      <zorder>frame_6</zorder>
      <zorder>PreviewImage</zorder>
      <zorder>CleanExitButton</zorder>
+     <zorder>frame_10</zorder>
+     <zorder>label_13</zorder>
      <zorder>UPDATEBUTTON</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -1492,7 +1545,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>831</width>
+     <width>858</width>
      <height>18</height>
     </rect>
    </property>
