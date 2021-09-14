@@ -281,7 +281,7 @@ class Ui(QtWidgets.QMainWindow):
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
             #Extract all assets
-            os.system(f'AssetRipperConsole.exe "{self.filepath}" DLL -q')
+            os.system(f'AssetRipperConsole.exe "{self.filepath}" {ExtValue} -q')
             os.chdir("Ripped/Assets")
             #Remove redundant files
             shutil.rmtree("Scripts")
@@ -435,22 +435,28 @@ class Ui(QtWidgets.QMainWindow):
             print("SERVER OFFLINE")
     #Sets preview image
     def updateimage(self, url):
-        #Locates image label
-        self.leftbox = self.findChild(QtWidgets.QLabel, 'PreviewImage')
-        #Creates empty payload
-        payload = ""
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Content-Type": "application/json",
-            "Bypass-Tunnel-Reminder": "bypass"
-        }
-        #Requests data and sets image
-        data = requests.request("GET", url, data=payload, headers=headers)
-        pixmap = QPixmap()
-        pixmap.loadFromData(data.content)
-        self.leftbox.setPixmap(pixmap)
-        self.NextButton.show()
-        self.BackButton.show()
+        try:
+            #Locates image label
+            self.leftbox = self.findChild(QtWidgets.QLabel, 'PreviewImage')
+            #Creates empty payload
+            payload = ""
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "Content-Type": "application/json",
+                "Bypass-Tunnel-Reminder": "bypass"
+            }
+            #Requests data and sets image
+            data = requests.request("GET", url, data=payload, headers=headers)
+            pixmap = QPixmap()
+            pixmap.loadFromData(data.content)
+            self.leftbox.setPixmap(pixmap)
+            self.NextButton.show()
+            self.BackButton.show()
+        except:
+            #If somthing breaks log it and alert us
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
     #Say 0 if allg
     def sortFunction(self, value):
         return value[0]
