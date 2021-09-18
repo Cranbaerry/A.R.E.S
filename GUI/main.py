@@ -26,19 +26,6 @@ class Ui(QtWidgets.QMainWindow):
             k.write("")
         #Show the GUI
         self.show()
-        #Close conflicting software
-        try:
-            os.system('taskkill /F /im "Unity Hub.exe"')
-        except:
-            pass
-        try:
-            os.system('taskkill /F /im "Unity.exe"')
-        except:
-            pass
-        try:
-            os.system('taskkill /F /im "VRChat.exe"')
-        except:
-            pass
         #Sets version number to later be checked with the pastebin
         VERSION = "7.8"
         #Prepare the "Special Thanks" mox to contain text
@@ -282,6 +269,8 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
+            if os.path.isdir("Ripped"):
+                shutil.rmtree("Ripped")
             if self.ExtM1.isChecked():
                 ExtValue = "2019DLL"
             if self.ExtM2.isChecked():
@@ -292,22 +281,6 @@ class Ui(QtWidgets.QMainWindow):
             #Remove redundant files
             if os.path.isdir("Scripts"):
                 shutil.rmtree("Scripts")
-            try:
-                #Disable shaders but retain names
-                os.chdir("Shader")
-                try:
-                    SF = Path(os.getcwd())
-                    for f in SF.iterdir():
-                        if f.is_file() and f.suffix in ['.meta']:
-                            f.rename(f.with_suffix('.meta.txt'))
-                    for f in SF.iterdir():
-                        if f.is_file() and f.suffix in ['.shader']:
-                            f.rename(f.with_suffix('.shader.txt'))
-                except:
-                    pass
-                os.chdir("..")
-            except:
-                pass
             os.chdir("..")
             os.chdir("..")
             #Rename folder
@@ -755,6 +728,15 @@ class Ui(QtWidgets.QMainWindow):
         self.UnityButton.setEnabled(True)
     #Prepares demo unity project
     def OpenUnity(self):
+        #Kills unity to avoid issues
+        try:
+            os.system('taskkill /F /im "Unity Hub.exe"')
+        except:
+            pass
+        try:
+            os.system('taskkill /F /im "Unity.exe"')
+        except:
+            pass
         #Disables button to avoid spam
         self.UnityButton.setEnabled(False)
         #Remove any traces of HSB if any are present
@@ -823,6 +805,10 @@ class Ui(QtWidgets.QMainWindow):
         self.AvatarUpdate(0)
     #Semi-Automates the hotswapping procedure
     def Hotswap(self):
+        try:
+            os.system('taskkill /F /im "VRChat.exe"')
+        except:
+            pass
         self.HotswapButton.setEnabled(True)
         try:
             #Enables progress bar
