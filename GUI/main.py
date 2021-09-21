@@ -276,8 +276,8 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
-            if os.path.isdir(self.pathname):
-                shutil.rmtree(self.pathname)
+            if os.path.isdir(f'{self.pathname}'):
+                shutil.rmtree(f'{self.pathname}')
             if os.path.isdir("Ripped"):
                 shutil.rmtree("Ripped")
             if self.ExtM1.isChecked():
@@ -295,12 +295,12 @@ class Ui(QtWidgets.QMainWindow):
             os.chdir("..")
             os.chdir("..")
             #Rename folder
-            os.rename("Ripped", self.pathname)
+            os.rename("Ripped", f'{self.pathname}')
             #If a vrca was loaded DON'T delete it
             if not self.keepvrca:
                 os.remove(self.filepath)
             #Move output files to desired directory
-            shutil.move(self.pathname, self.APSF)
+            shutil.move(f'{self.pathname}', self.APSF)
             #Exit asset ripper
             os.chdir("..")
         except:
