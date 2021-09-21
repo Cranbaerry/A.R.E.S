@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V7.8</string>
+   <string>Avatar Logger GUI V7.9</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -1237,17 +1237,17 @@ Algorithim:</string>
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>100</y>
+        <y>30</y>
         <width>401</width>
-        <height>391</height>
+        <height>461</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>80</y>
+        <x>400</x>
+        <y>10</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -1385,7 +1385,7 @@ Algorithim:</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>10</y>
         <width>301</width>
         <height>61</height>
        </rect>
