@@ -276,6 +276,8 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
+            if os.path.isdir(self.pathname):
+                shutil.rmtree(self.pathname)
             if os.path.isdir("Ripped"):
                 shutil.rmtree("Ripped")
             if self.ExtM1.isChecked():
