@@ -64,9 +64,6 @@ class Ui(QtWidgets.QMainWindow):
             self.Settings = json.loads(s.read())
             self.VRCDir = self.Settings["Avatar_Folder"]
             self.UDir = self.Settings["Unity_Exe"]
-        #Declares the LogDirectoy label and sets text
-        self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
-        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         #Loading the ModConfig file from the avatr logger mod
         self.LogFolder = self.Settings["Avatar_Folder"]+"\\AvatarLog"
         self.ModConfig = self.Settings["Avatar_Folder"]+"\\AvatarLog\\Config.json"
@@ -100,12 +97,13 @@ class Ui(QtWidgets.QMainWindow):
             if os.path.exists(self.LogFolder + "/Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         #Declares all other buttons, checkboxes toggles, textboxes and alot more!
-        self.DirLabel.setText("CurrentDirectory: " + self.Settings["Avatar_Folder"])
         self.LoadButton = self.findChild(QtWidgets.QPushButton, 'LoadButton')
         self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
         self.BackButton.clicked.connect(self.Back)
         self.BackButton.setEnabled(False)
+        self.ChangeUnityButton = self.findChild(QtWidgets.QPushButton, 'ChangeUnityButton')
+        self.ChangeUnityButton.clicked.connect(self.ChangeUnity)
         self.browserview = self.findChild(QtWidgets.QPushButton, 'browserview')
         self.browserview.clicked.connect(self.browserview1)
         self.browserview.setEnabled(False)
@@ -165,6 +163,16 @@ class Ui(QtWidgets.QMainWindow):
         try:
             kk = requests.get(url="https://api.avataruploader.tk/user/" + self.ModSettings["Username"]).text
             self.UsrTotal.display(int(kk))
+        except:
+            pass
+    def ChangeUnity(self):
+        try:
+            self.UnityPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
+            if self.UnityPath == "":
+                return
+            self.Settings["Unity_Exe"] = self.UnityPath
+            with open("Settings.json", "w+") as s:
+                s.write(json.dumps(self.Settings, indent=4))
         except:
             pass
     #Allows the program to commit die
@@ -229,10 +237,9 @@ class Ui(QtWidgets.QMainWindow):
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
-    #Links url to discord server to outdated button
+    #Links url to GitHub to outdated button
     def UPDATEPUSHED(self):
-        #So uh... while your here JOIN THE DISCORD
-        os.startfile("https://discord.gg/dhSdMsfgWe")
+        os.startfile("https://github.com/LargestBoi/AvatarLogger-GUI/releases")
     #Indentifies all tags and functions to work within search
     def tagstogs(self):
         if self.Tagscheckbox.isChecked():
@@ -281,6 +288,8 @@ class Ui(QtWidgets.QMainWindow):
             #Remove redundant files
             if os.path.isdir("Scripts"):
                 shutil.rmtree("Scripts")
+            if os.path.isdir("Shader"):
+                shutil.rmtree("Shader")
             os.chdir("..")
             os.chdir("..")
             #Rename folder
@@ -490,13 +499,6 @@ class Ui(QtWidgets.QMainWindow):
     #Loads avatr log file
     def loadavatars(self, makehtmll=False):
         #Unhides particular buttons as an avi has now been loaded
-        self.SearchButton.setEnabled(True)
-        self.DLVRCAButton.setEnabled(True)
-        self.VRCAExtractButton.setEnabled(True)
-        self.HotswapButton.setEnabled(True)
-        self.browserview.setEnabled(True)
-        self.BackButton.setEnabled(True)
-        self.NextButton.setEnabled(True)
         self.leftbox.show()
         self.Status.show()
         #Sets json index
@@ -514,11 +516,23 @@ class Ui(QtWidgets.QMainWindow):
             self.resultsbox.setText("LOADED: " + str(self.AvatarIndex + 1) + "/" + str(self.MaxAvatar))
             self.AvatarUpdate(0)
         except:
-            #If somthing breaks log it and let us know
-            self.senderrorlogs(traceback.format_exc())
-            with open("latest.log", "a+", errors="ignore") as k:
-                k.writelines(traceback.format_exc() + "\n\n")
-            self.RawData.setPlainText("INVALID LOG FOLDER")
+            #If somthing breaks yell at them
+            pymsgbox.alert("Failed to read log file! Try logging some avatars first!")
+            self.SearchButton.setEnabled(False)
+            self.DLVRCAButton.setEnabled(False)
+            self.VRCAExtractButton.setEnabled(False)
+            self.HotswapButton.setEnabled(False)
+            self.browserview.setEnabled(False)
+            self.BackButton.setEnabled(False)
+            self.NextButton.setEnabled(False)
+            return
+        self.SearchButton.setEnabled(True)
+        self.DLVRCAButton.setEnabled(True)
+        self.VRCAExtractButton.setEnabled(True)
+        self.HotswapButton.setEnabled(True)
+        self.browserview.setEnabled(True)
+        self.BackButton.setEnabled(True)
+        self.NextButton.setEnabled(True)
     #Threads creation and display of the browser view
     def browserview1(self):
         threading.Thread(target=makehtml, args={json.dumps(self.Avatars), }).start()
@@ -668,6 +682,12 @@ class Ui(QtWidgets.QMainWindow):
             self.resultsbox.setText("LOADED: " + str(self.AvatarIndex) + "/" + str(self.MaxAvatar))
             self.leftbox.hide()
             self.Status.hide()
+            self.DLVRCAButton.setEnabled(False)
+            self.VRCAExtractButton.setEnabled(False)
+            self.HotswapButton.setEnabled(False)
+            self.browserview.setEnabled(False)
+            self.BackButton.setEnabled(False)
+            self.NextButton.setEnabled(False)
             return
         self.AvatarUpdate(self.AvatarIndex)
         self.resultsbox = self.findChild(QtWidgets.QLabel, 'resultsbox')
@@ -684,12 +704,15 @@ class Ui(QtWidgets.QMainWindow):
                     possiblesol = x[1]
         except:
             pass
-        #Display error message
-        pymsgbox.alert(log+"\nPossible Fix: "+possiblesol, 'ID10T')
-        dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
-        #Encode in base64 before sending
-        okk = b64encode(str(log+"\nPossible Fix: "+possiblesol+"\nUsername: "+dtag).encode()).decode()
-        requests.get("https://api.avataruploader.tk/errors/" + okk)
+        try:
+            #Display error message
+            pymsgbox.alert(log+"\nPossible Fix: "+possiblesol, 'ID10T')
+            dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
+            #Encode in base64 before sending
+            okk = b64encode(str(log+"\nPossible Fix: "+possiblesol+"\nUsername: "+dtag).encode()).decode()
+            requests.get("https://api.avataruploader.tk/errors/" + okk)
+        except:
+            pass
     #Donloads vrca files
     def DownVRCAT(self, url, dir1):
         payload = ""
@@ -759,50 +782,54 @@ class Ui(QtWidgets.QMainWindow):
         threading.Thread(target=self.UnityLauncher, args={}).start()
     #Loads 3rd party vrca
     def LoadVRCA(self):
-        #Prompts user to select their vrca file
-        self.lvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
-        #If they fail to pick a file just cancel
-        if self.lvrca == "":
+        try:
+            #Prompts user to select their vrca file
+            self.lvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
+            #If they fail to pick a file just cancel
+            if self.lvrca == "":
+                return
+            #Enter hotswap
+            os.chdir("HOTSWAP")
+            #Decompress file
+            os.system(rf'HOTSWAP.exe d "{self.lvrca}"')
+            #Read decompressed file
+            with open("decompressed.vrca", "rb") as f:
+                f = f.read()
+            #Find new avatr ID
+            self.oldid = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
+            #Remove decompressed file
+            if os.path.exists("decompressed.vrca"):
+                os.remove("decompressed.vrca")
+            #Exit hotswap
+            os.chdir("..")
+            #Set values in avatr index
+            self.Avatars = []
+            self.Avatars1 = [
+                "VRCA",
+                "AvtrID",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "AssetURL",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA",
+                "VRCA"
+            ]
+            self.Avatars1[1] = self.oldid
+            self.Avatars1[6] = self.lvrca
+            self.Avatars1[7] = "https://i.ibb.co/3pHS4wB/Default-Placeholder.png"
+            self.Avatars.append(self.Avatars1)
+            self.AvatarIndex = 0
+            self.AvatarUpdate(0)
+        except:
+            pymsgbox("Load VRCA failed! Invalid or courrupted file!")
             return
-        #Enter hotswap
-        os.chdir("HOTSWAP")
-        #Decompress file
-        os.system(rf'HOTSWAP.exe d "{self.lvrca}"')
-        #Read decompressed file
-        with open("decompressed.vrca", "rb") as f:
-            f = f.read()
-        #Find new avatr ID
-        self.oldid = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
-        #Remove decompressed file
-        if os.path.exists("decompressed.vrca"):
-            os.remove("decompressed.vrca")
-        #Exit hotswap
-        os.chdir("..")
-        #Set values in avatr index
-        self.Avatars = []
-        self.Avatars1 = [
-            "VRCA",
-            "AvtrID",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "AssetURL",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA",
-            "VRCA"
-        ]
-        self.Avatars1[1] = self.oldid
-        self.Avatars1[6] = self.lvrca
-        self.Avatars1[7] = "https://i.ibb.co/3pHS4wB/Default-Placeholder.png"
-        self.Avatars.append(self.Avatars1)
-        self.AvatarIndex = 0
-        self.AvatarUpdate(0)
     #Semi-Automates the hotswapping procedure
     def Hotswap(self):
         try:

@@ -1151,24 +1151,6 @@ Algorithim:</string>
      <attribute name="title">
       <string>Settings</string>
      </attribute>
-     <widget class="QLabel" name="DirLabel">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>781</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Log Folder:</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="DeleteLogButton">
       <property name="geometry">
        <rect>
@@ -1249,6 +1231,9 @@ Algorithim:</string>
       </layout>
      </widget>
      <widget class="QPlainTextEdit" name="Instructions">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>400</x>
@@ -1396,6 +1381,24 @@ Algorithim:</string>
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="ChangeUnityButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>301</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Change Unity Directory</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1528,6 +1531,9 @@ Algorithim:</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="SpecialThanks">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>320</x>

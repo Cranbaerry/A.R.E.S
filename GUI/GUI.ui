@@ -1249,6 +1249,9 @@ Algorithim:</string>
       </layout>
      </widget>
      <widget class="QPlainTextEdit" name="Instructions">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>400</x>
@@ -1528,6 +1531,9 @@ Algorithim:</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="SpecialThanks">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>320</x>
