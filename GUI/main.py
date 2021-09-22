@@ -729,16 +729,8 @@ class Ui(QtWidgets.QMainWindow):
             v.write(data.content)
     #Initiates download of avatars
     def DownVRCA(self):
-        #Gets desired save directory
-        self.fileName = QFileDialog.getSaveFileName(self, 'Save VRCA', f'{self.Avatars[self.AvatarIndex][2]}', ".vrca")
-        #Gets asset url
-        self.DLLink = self.Avatars[self.AvatarIndex][6]
-        #Joins directories
-        self.SaveDir = "".join(self.fileName)
-        #Begins download
-        self.DownVRCAT(self.DLLink, self.SaveDir)
-        #Informs user of completeion
-        pymsgbox("Download Complete!")
+        #Begins downloading avatar in browser
+        os.startfile(self.Avatars[self.AvatarIndex][6])
     #Repace of avtr ids in file
     def ReplaceID(self, oldid, newid):
         #Read decompiled file
