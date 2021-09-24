@@ -138,6 +138,10 @@ class Ui(QtWidgets.QMainWindow):
             c.write(json.dumps(self.GUISettings, indent=4))
         self.ProgBar.setValue(64)
         shutil.move("GUI", self.VRCPath)
+        try:
+            os.remove(self.VRCPath + "/Leaf.xNet.dll")
+        except:
+            pass
         shutil.move("MOD/Leaf.xNet.dll", self.VRCPath)
         shutil.move("MOD/AvatarLog", self.VRCPath)
         shutil.move("MOD/Mods/AvatarLogger.dll", self.VRCPath + "/Mods")
