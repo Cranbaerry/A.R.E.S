@@ -22,7 +22,7 @@ using VRC.UI;
 using VRC.Core;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "V3.4", "KeafyIsHere, LargestBoi, cassell1337, RealBoppr")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "Avatar Logger", "3.4", "KeafyIsHere, LargestBoi, cassell1337, RealBoppr")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
