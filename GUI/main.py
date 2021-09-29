@@ -287,11 +287,12 @@ class Ui(QtWidgets.QMainWindow):
             #Extract all assets
             os.system(f'AssetRipperConsole.exe "{self.filepath}" {ExtValue} -q')
             os.chdir("Ripped/Assets")
-            #Remove redundant files
+            #Remove redundant scripts
             if os.path.isdir("Scripts"):
                 shutil.rmtree("Scripts")
+            #Rename shaders so it wont effect files within the unity project itself
             if os.path.isdir("Shader"):
-                shutil.rmtree("Shader")
+                os.rename("Shader", ".Shader")
             os.chdir("..")
             os.chdir("..")
             #Rename folder
