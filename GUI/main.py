@@ -8,7 +8,7 @@ from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = False
+debugg = True
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "7.9"
+        VERSION = "8.0"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -260,8 +260,6 @@ class Ui(QtWidgets.QMainWindow):
     def VRCAExtract(self):
         #All in try statemnt incase I or the user fucks this up
         try:
-            #Select folder to save extracted files
-            self.APSF = QFileDialog.getExistingDirectory(self, "Select Directory")
             #If its a loaded vrca do the correct preperation
             if self.Avatars[self.AvatarIndex][2] == "VRCA":
                 self.filepath = self.Avatars[self.AvatarIndex][6]
@@ -276,8 +274,6 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
-            if os.path.isdir(f'{self.pathname}'):
-                shutil.rmtree(f'{self.pathname}')
             if os.path.isdir("Ripped"):
                 shutil.rmtree("Ripped")
             if self.ExtM1.isChecked():
@@ -295,15 +291,14 @@ class Ui(QtWidgets.QMainWindow):
                 os.rename("Shader", ".Shader")
             os.chdir("..")
             os.chdir("..")
-            #Rename folder
-            os.rename("Ripped", f'{self.pathname}')
             #If a vrca was loaded DON'T delete it
             if not self.keepvrca:
                 os.remove(self.filepath)
-            #Move output files to desired directory
-            shutil.move(f'{self.pathname}', self.APSF)
+            #Opens output files
+            subprocess.Popen(f'explorer Ripped')
             #Exit asset ripper
             os.chdir("..")
+            pymsgbox.alert("Extract complete!")
         except:
             #If it fails let us know and log it
             self.senderrorlogs(traceback.format_exc())
@@ -825,7 +820,7 @@ class Ui(QtWidgets.QMainWindow):
             self.AvatarIndex = 0
             self.AvatarUpdate(0)
         except:
-            pymsgbox("Load VRCA failed! Invalid or courrupted file!")
+            pymsgbox.alert("Load VRCA failed! Invalid or courrupted file!")
             return
     #Semi-Automates the hotswapping procedure
     def Hotswap(self):
@@ -925,6 +920,7 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(0)
             #Re-enable button
             self.HotswapButton.setEnabled(True)
+            pymsgbox.alert("Hotswap complete!")
         except:
             #If somthing breaks log it and send it to us
             self.senderrorlogs(traceback.format_exc())
