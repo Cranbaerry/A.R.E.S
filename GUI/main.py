@@ -7,8 +7,9 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from generatehtml import makehtml
 from base64 import b64encode
+
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = True
+debugg = False
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -27,7 +28,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "8.0"
+        VERSION = "8.1"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -57,8 +58,20 @@ class Ui(QtWidgets.QMainWindow):
         #Set default image preview
         self.updateimage("https://i.ibb.co/3pHS4wB/Default-Placeholder.png")
         #Initiate "Settings.json" file
-        with open("Settings.json", "r+") as s:
-            self.Settings = json.loads(s.read())
+        try:
+            with open("Settings.json", "r+") as s:
+                self.Settings = json.loads(s.read())
+        except:
+            pymsgbox.alert("Select Vrchat Exe")
+            self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat', "EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
+            pymsgbox.alert("Select Unity Exe")
+            self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
+            with open("Settings.json", "a+") as s:
+                dd = {
+                    "Avatar_Folder": self.VRCPath,
+                    "Unity_Exe": self.UPath
+                }
+                s.write(json.dumps(dd, indent=4))
         #Read from "Settings.json" file
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
@@ -71,10 +84,47 @@ class Ui(QtWidgets.QMainWindow):
             with open(self.ModConfig, "r+") as s:
                 self.ModSettings = json.loads(s.read())
         except:
-            self.senderrorlogs(traceback.format_exc())
-            with open("latest.log", "a+", errors="ignore") as k:
-                k.writelines(traceback.format_exc() + "\n\n")
-            pass
+            with open(self.ModConfig, "a+") as s:
+                configsettings = {
+                    "LogAvatars": True,
+                    "LogOwnAvatars": True,
+                    "LogFriendsAvatars": True,
+                    "LogToConsole": True,
+                    "Username": "Default",
+                    "SendToAPI": True
+                }
+                LogAvatars = pymsgbox.confirm(text='LogAvatars', title='', buttons=['Yes', 'No'])
+                if str(LogAvatars) == "Yes":
+                    configsettings["LogAvatars"] = True
+                else:
+                    configsettings["LogAvatars"] = False
+                LogOwnAvatars = pymsgbox.confirm(text='LogOwnAvatars', title='', buttons=['Yes', 'No'])
+                if str(LogOwnAvatars) == "Yes":
+                    configsettings["LogOwnAvatars"] = True
+                else:
+                    configsettings["LogOwnAvatars"] = False
+                LogFriendsAvatars = pymsgbox.confirm(text='LogFriendsAvatars', title='', buttons=['Yes', 'No'])
+                if str(LogFriendsAvatars) == "Yes":
+                    configsettings["LogFriendsAvatars"] = True
+                else:
+                    configsettings["LogFriendsAvatars"] = False
+                LogToConsole = pymsgbox.confirm(text='LogToConsole', title='', buttons=['Yes', 'No'])
+                if str(LogToConsole) == "Yes":
+                    configsettings["LogToConsole"] = True
+                else:
+                    configsettings["LogToConsole"] = False
+                SendToAPI = pymsgbox.confirm(text='SendToAPI', title='', buttons=['Yes', 'No'])
+                if str(SendToAPI) == "Yes":
+                    configsettings["SendToAPI"] = True
+                    print("FUCK")
+                    username = pymsgbox.prompt('what username to use to log with?')
+                    configsettings["Username"] = username
+                else:
+                    configsettings["SendToAPI"] = False
+
+                s.write(json.dumps(configsettings, indent=4))
+                self.ModSettings = configsettings
+
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         # Declares the API label and sets text
         self.APIL = self.findChild(QtWidgets.QLabel, 'APILabel')
@@ -161,7 +211,7 @@ class Ui(QtWidgets.QMainWindow):
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
         #Fetch user statistics from API
         try:
-            kk = requests.get(url="https://api.avataruploader.tk/user/" + self.ModSettings["Username"]).text
+            kk = requests.get(url="https://api.avataruploader.tk/user/" + self.ModSettings["Username"], timeout=5).text
             self.UsrTotal.display(int(kk))
         except:
             pass
@@ -234,7 +284,6 @@ class Ui(QtWidgets.QMainWindow):
             response = requests.get(f'https://{self.domain}/checkin/'+self.HHWID, headers=headers, timeout=5)
             self.updateconsole("SENT USERID :"+str(datetime.now()))
         except Exception as E:
-            self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
     #Links url to GitHub to outdated button
@@ -274,8 +323,6 @@ class Ui(QtWidgets.QMainWindow):
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
             os.chdir("AssetRipperConsole_win64(ds5678)")
-            if os.path.isdir("Ripped"):
-                shutil.rmtree("Ripped")
             if self.ExtM1.isChecked():
                 ExtValue = "2019DLL"
             if self.ExtM2.isChecked():
@@ -347,7 +394,8 @@ class Ui(QtWidgets.QMainWindow):
             ho = re.findall(pat, kk)
             for x in ho:
                 q.put(x)
-    #Creates json to upload to our API
+    # Creates json to upload to our API
+
     def upload(self, data):
         #Set data var
         x = data
@@ -395,8 +443,16 @@ class Ui(QtWidgets.QMainWindow):
             except:
                 pass
             Lock.release()
-    #Begins avi uploading
+    # Begins avi uploading
+
     def startuploads(self):
+        # Checks if api is allowing uploads
+        try:
+            kk = requests.get(url="https://pastebin.com/raw/1022jnvn").text
+            if str(kk) == "0":
+                return
+        except:
+            pass
         #Update the console
         self.updateconsole("Starting Upload")
         #Prepare headers
@@ -419,13 +475,14 @@ class Ui(QtWidgets.QMainWindow):
                 while threading.activeCount() <= 0:
                     pass
             else:
-                print("SERVER OFFLINE")
+                pass
+                #print("SERVER OFFLINE")
         except:
             #If error log it and send it to us
             self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
-            print("SERVER OFFLINE")
+            #print("SERVER OFFLINE")
     #Sets preview image
     def updateimage(self, url):
         try:
@@ -824,10 +881,6 @@ class Ui(QtWidgets.QMainWindow):
             return
     #Semi-Automates the hotswapping procedure
     def Hotswap(self):
-        try:
-            os.system('taskkill /F /im "VRChat.exe"')
-        except:
-            pass
         self.HotswapButton.setEnabled(True)
         try:
             #Enables progress bar
@@ -931,9 +984,10 @@ class Ui(QtWidgets.QMainWindow):
         #If there is a log file delete it
         if os.path.exists(self.LogFolder + "/Log.txt"):
             os.remove(self.LogFolder + "/Log.txt")
-app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
+
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
 #app.setStyleSheet(qdarkstyle.load_stylesheet())
 window = Ui()  # Create an instance of our class
 app.exec_()  # Start the application
