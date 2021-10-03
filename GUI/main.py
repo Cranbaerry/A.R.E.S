@@ -1,7 +1,6 @@
 #Importing all reqirements for the GUI and its functionality
-import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, hashlib, traceback, pymsgbox, subprocess
-from pathlib import Path
-from PyQt5 import QtWidgets, uic, QtCore, QtGui
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, traceback, pymsgbox, subprocess
+from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import datetime
@@ -64,7 +63,7 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pymsgbox.alert("Select Vrchat Exe")
             self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat', "EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
-            pymsgbox.alert("Select Unity Exe")
+            pymsgbox.alert("Select Unity 2019.4.31f1 Exe")
             self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
             with open("Settings.json", "a+") as s:
                 dd = {
