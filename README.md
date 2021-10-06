@@ -2,7 +2,7 @@
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
-Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited!
+Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file packed into HOTSWAP!
 
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs!
 
@@ -60,7 +60,13 @@ Installation/Usage: [YouTube Video](https://youtu.be/vP-amaE7tfE)
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
-    2. Use the latest installer from our releases page!
+    2. Extract all the contents of the rar into your VRC folder
+	
+	3. Run the exe and complete first time setup
+	
+	4. Run VRC once to log some avis
+	
+	5. Installed!
 
 Extras:
 
