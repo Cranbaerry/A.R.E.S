@@ -21,44 +21,41 @@ namespace HOTSWAP
     class Program
     {
         //Creates funtion to decompress asset bundles
-        public static AssetBundleFile DecompressBundle(string file, string decompFile)
+        public static  void DecompressToFile(BundleFileInstance bundleInst, string savePath)
         {
-            var bun = new AssetBundleFile();
+            AssetBundleFile bundle = bundleInst.file;
 
-            var fs = (Stream)File.OpenRead(file);
-            var reader = new AssetsFileReader(fs);
+            FileStream bundleStream = File.Open(savePath, FileMode.Create);
 
-            bun.Read(reader, true);
-            if (bun.bundleHeader6.GetCompressionType() != 0)
-            {
-                Stream nfs = decompFile switch
-                {
-                    null => new MemoryStream(),
-                    _ => File.Open(decompFile, FileMode.Create, FileAccess.ReadWrite)
-                };
-                var writer = new AssetsFileWriter(nfs);
-                bun.Unpack(reader, writer);
+            bundle.Unpack(bundle.reader, new AssetsFileWriter(bundleStream));
 
-                nfs.Position = 0;
-                fs.Close();
+            bundleStream.Position = 0;
 
-                fs = nfs;
-                reader = new AssetsFileReader(fs);
+            AssetBundleFile newBundle = new AssetBundleFile();
+            newBundle.Read(new AssetsFileReader(bundleStream), false);
 
-                bun = new AssetBundleFile();
-                bun.Read(reader);
-                bun.Close();
-            }
-
-            return bun;
+            bundle.reader.Close();
+            bundleInst.file = newBundle;
         }
+        //Creates function allowing it to be used with string imputs
+        public static void DecompressToFileStr(string bundlePath, string unpackedBundlePath)
+        {
+            var am = new AssetsManager();
+            DecompressToFile(am.LoadBundleFile(bundlePath), unpackedBundlePath);
+        }
+
+
+
         //Creates function to compress asset bundles
         public static void CompressBundle(string file, string compFile)
         {
-            var bun = DecompressBundle(file, null);
-            var fs = File.OpenWrite(compFile);
-            using var writer = new AssetsFileWriter(fs);
-            bun.Pack(bun.reader, writer, AssetsBundleCompressionType.LZMA);
+            var am = new AssetsManager();
+            var bun = am.LoadBundleFile(file);
+            using (var stream = File.OpenWrite(compFile))
+            using (var writer = new AssetsFileWriter(stream))
+            {
+                bun.file.Pack(bun.file.reader, writer, AssetBundleCompressionType.LZMA);
+            }
         }
         //creates areguments to call decompression and compression
         static void Main(string[] args)
@@ -66,18 +63,29 @@ namespace HOTSWAP
             string work = args[0];
             if (work == "d")
             {
-                string dir = args[1];
-                DecompressBundle(dir, "decompressed.vrca");
+                Console.WriteLine("Decompression prtocall launched!");
+                string ABF = args[1];
+                Console.WriteLine("File located! Decompressing...");
+                Console.WriteLine("DevNote: On larger avatars this may take a while");
+                Console.WriteLine("While you wait here are some credits:");
+                Console.WriteLine("LargestBoi (HOTSWAP.exe)");
+                Console.WriteLine("nesrak1 for AssetsTools.NET v2");
+                DecompressToFileStr(ABF, "decompressed.vrca");
+                Console.WriteLine("File decompressed!");
+                Console.WriteLine("Decompression prtocall quitting...");
             }
             if (work == "c")
             {
+                Console.WriteLine("Compression prtocall launched!");
                 string dir = args[1];
+                Console.WriteLine("File located! Compressing...");
+                Console.WriteLine("DevNote: On larger avatars this may take a while");
+                Console.WriteLine("While you wait here are some credits:");
+                Console.WriteLine("LargestBoi (HOTSWAP.exe)");
+                Console.WriteLine("nesrak1 for AssetsTools.NET v2");
                 CompressBundle(dir, "compressed.vrca");
-            }
-            //(NOT IN USE) can be used to create new avtr id
-            if (work == "mID")
-            {
-                Console.WriteLine("avtr_" + Guid.NewGuid().ToString());
+                Console.WriteLine("File compressed!");
+                Console.WriteLine("Compression prtocall quitting...");
             }
         }
     }

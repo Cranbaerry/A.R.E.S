@@ -45,8 +45,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLLs\AssetsAdvancedEditor.dll</HintPath>
     </Reference>
-    <Reference Include="AssetsTools.NET, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AssetsTools.NET">
       <HintPath>..\DLLs\AssetsTools.NET.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
