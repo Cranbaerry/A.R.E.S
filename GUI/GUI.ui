@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Avatar Logger GUI V8.1</string>
+   <string>Avatar Logger GUI V8.2</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -743,9 +743,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>150</y>
+        <y>142</y>
         <width>571</width>
-        <height>43</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -776,6 +776,14 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="HotswapButton">
          <property name="text">
           <string>Hotswap</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RCVButton">
+         <property name="text">
+          <string>Repair
+Cache VRCA</string>
          </property>
         </widget>
        </item>

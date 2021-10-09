@@ -12,11 +12,13 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V7.8 Virus Total](https://www.virustotal.com/gui/file/ed024962e8c76e0e62a511090f567e41f7d11a276bf094bd24fcd125f98fac08)
+[V8.2 Virus Total](https://www.virustotal.com/gui/file/e406884100da99b461eb2506b0a61ef033eb86d44e40e82e22b29015833d9d48)
 
-I have gone about validating the latest V7.8 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+I have gone about validating the latest V8.2 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
 
 Features:
+
+    -Repair avatars retreived from the cache
 
 	-Logs ALL avatars seen in game regardless of them being private or public
 
@@ -38,7 +40,7 @@ Features:
 	
 	-Browse the logs with image previews of avatars
 	
-	-Mostly-Automatic Hotswaping
+	-Mostly-Automatic HotswapingV2 + Set images on upload
 	
 	-HTML Viewer for easy browsing of larger logs
 	
@@ -56,7 +58,7 @@ Features:
 
     -Ability to almost perfectly extract vrca files
 
-Installation/Usage: [YouTube Video](https://youtu.be/vP-amaE7tfE)
+Installation/Usage {Slighty Outdated}: [YouTube Video](https://youtu.be/vP-amaE7tfE)
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 

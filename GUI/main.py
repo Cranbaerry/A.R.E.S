@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "8.1"
+        VERSION = "8.2"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -184,6 +184,8 @@ class Ui(QtWidgets.QMainWindow):
         self.LoadVRCAButton.clicked.connect(self.LoadVRCA)
         self.DeleteLogButton = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
         self.DeleteLogButton.clicked.connect(self.DeleteLogs)
+        self.RCVButton = self.findChild(QtWidgets.QPushButton, 'RCVButton')
+        self.RCVButton.clicked.connect(self.RepairVRCA)
         self.SetUserButton = self.findChild(QtWidgets.QPushButton, 'SetUserButton')
         self.SetUserButton.clicked.connect(self.SetUser)
         self.VRCAExtractButton = self.findChild(QtWidgets.QPushButton, 'VRCAExtractButton')
@@ -304,6 +306,37 @@ class Ui(QtWidgets.QMainWindow):
             self.Violencecheckbox.hide()
             self.Gorecheckbox.hide()
             self.Othernsfwcheckbox.hide()
+    def RepairVRCA(self):
+        try:
+            #Prompts user to select their vrca file
+            self.rvrca = QFileDialog.getOpenFileName(self, 'Open file', '',"VRCA Files (*.vrca)")[0]
+            #If they fail to pick a file just cancel
+            if self.rvrca == "":
+                return
+            #Enter hotswap
+            os.chdir("HOTSWAP")
+            #Decompress file
+            os.system(rf'HOTSWAP.exe d "{self.rvrca}"')
+            #Rename file/remove old variants
+            if os.path.exists("Repaired.vrca"):
+                os.remove("Repaired.vrca")
+            os.rename("decompressed.vrca", "Repaired.vrca")
+            if not os.path.exists("Repaired"):
+                os.mkdir("Repaired")
+            os.chdir("Repaired")
+            if os.path.exists("Repaired.vrca"):
+                os.remove("Repaired.vrca")
+            os.chdir("..")
+            shutil.move("Repaired.vrca", "Repaired/Repaired.vrca")
+            subprocess.Popen(f'explorer Repaired')
+            os.chdir("..")
+            pymsgbox.alert("VRCA Repaired!")
+        except:
+            #If it fails let us know and log it
+            self.senderrorlogs(traceback.format_exc())
+            with open("latest.log", "a+", errors="ignore") as k:
+                k.writelines(traceback.format_exc() + "\n\n")
+            pymsgbox.alert("Invalid VRCA or error in repair algorithim!")
     #Function for extraction of a VRCA via asset ripper
     def VRCAExtract(self):
         #All in try statemnt incase I or the user fucks this up
@@ -784,15 +817,20 @@ class Ui(QtWidgets.QMainWindow):
         #Begins downloading avatar in browser
         os.startfile(self.Avatars[self.AvatarIndex][6])
     #Repace of avtr ids in file
-    def ReplaceID(self, oldid, newid):
-        #Read decompiled file
+    def ReplaceID(self, oldid, newid, newCAB):
+        #Read decompiled file (bytes)
         with open("decompressed.vrca", "rb") as f:
-            kok = f.read()
+            vrcbytes = f.read()
+        #Locate old CAB
+        self.oldCAB = re.search("(CAB-[\w\d]{32})", str(vrcbytes)).group(1)
+        self.updateconsole(f'Old CAB: {self.oldCAB}')
         #Replace strings
-        kok = kok.replace(bytes(oldid, 'utf-8'), bytes(newid, 'utf-8'))
+        vrcbytes = vrcbytes.replace(bytes(oldid, 'utf-8'), bytes(newid, 'utf-8'))
+        vrcbytes = vrcbytes.replace(bytes(self.oldCAB, 'utf-8'), bytes(newCAB, 'utf-8'))
         #Write to new file
         with open("decompressed1.vrca", "wb") as f:
-            f.write(kok)
+            f.write(vrcbytes)
+
     #Opens unity project
     def UnityLauncher(self):
         os.system(rf'"{self.UDir}" -ProjectPath HSB')
@@ -911,6 +949,9 @@ class Ui(QtWidgets.QMainWindow):
                 f = f.read()
             #Get new avtr id
             self.NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(f)).group(1)
+            #Get new CAB
+            self.newCAB = re.search("(CAB-[\w\d]{32})", str(f)).group(1)
+            self.updateconsole(f'New CAB: {self.newCAB}')
             self.ProgBar.setValue(30)
             self.updateconsole("New ID Located...")
             #Clean up temp files
@@ -939,7 +980,7 @@ class Ui(QtWidgets.QMainWindow):
             self.updateconsole("New Avatar Decompressed...")
             #Replaces avtr ids
             self.oldid = self.Avatars[self.AvatarIndex][1]
-            self.ReplaceID(self.oldid, self.NewID)
+            self.ReplaceID(self.oldid, self.NewID, self.newCAB)
             self.ProgBar.setValue(70)
             self.updateconsole("ID's Swapped...")
             self.updateconsole("New Avatar Compression Started...")
