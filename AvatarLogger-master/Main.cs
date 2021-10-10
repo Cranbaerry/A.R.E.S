@@ -120,7 +120,7 @@ namespace AvatarLogger
                 //MelonLogger.Msg("Failed To Connect To API | " + ex.Message + "\n");
             }
         }
-        //Whenever an avatr is loaded log the following parametres
+        //Whenever an avatar is loaded log the following parametres
         private static bool OnAvatarDownloaded(ApiAvatar __0)
         {
             ApiAvatar avatar = __0;
@@ -147,6 +147,7 @@ namespace AvatarLogger
                     $"Image URL:{avatar.imageUrl}",
                     $"Thumbnail URL:{avatar.thumbnailImageUrl}",
                     $"Release Status:{avatar.releaseStatus}",
+                    $"test:{avatar.unityPackageUrl}",
                     $"Unity Version:{avatar.unityVersion}",
                     $"Platform:{avatar.platform}",
                     $"API Version:{avatar.apiVersion}",
