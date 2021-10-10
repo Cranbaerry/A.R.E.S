@@ -66,7 +66,7 @@ namespace HOTSWAP
                 Console.WriteLine("Decompression prtocall launched!");
                 string ABF = args[1];
                 Console.WriteLine("File located! Decompressing...");
-                Console.WriteLine("DevNote: On larger avatars this may take a while");
+                Console.WriteLine("DevNote: On larger avatars this may take a while, there is no progress bar");
                 Console.WriteLine("While you wait here are some credits:");
                 Console.WriteLine("LargestBoi (HOTSWAP.exe)");
                 Console.WriteLine("nesrak1 for AssetsTools.NET v2");
@@ -79,7 +79,7 @@ namespace HOTSWAP
                 Console.WriteLine("Compression prtocall launched!");
                 string dir = args[1];
                 Console.WriteLine("File located! Compressing...");
-                Console.WriteLine("DevNote: On larger avatars this may take a while");
+                Console.WriteLine("DevNote: On larger avatars this may take a while, there is no progress bar");
                 Console.WriteLine("While you wait here are some credits:");
                 Console.WriteLine("LargestBoi (HOTSWAP.exe)");
                 Console.WriteLine("nesrak1 for AssetsTools.NET v2");

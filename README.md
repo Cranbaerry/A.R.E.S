@@ -58,7 +58,7 @@ Features:
 
     -Ability to almost perfectly extract vrca files
 
-Installation/Usage {Slighty Outdated}: [YouTube Video](https://youtu.be/vP-amaE7tfE)
+Installation/Usage: [YouTube Video](https://youtu.be/COTfWnM39PE)
 	
     1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
 
