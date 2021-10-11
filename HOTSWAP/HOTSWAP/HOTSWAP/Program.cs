@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Net.Http;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using UnhollowerRuntimeLib;
-using UnityEngine;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using AssetsTools.NET;
 using AssetsTools.NET.Extra;
-using System.Text.RegularExpressions;
-using System.Diagnostics;
-using VRC.Core;
-using librsync.net;
 
 namespace HOTSWAP
 {
