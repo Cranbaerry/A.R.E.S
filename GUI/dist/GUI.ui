@@ -6,548 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>858</width>
-    <height>590</height>
+    <width>840</width>
+    <height>550</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>840</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Avatar Logger GUI V8.2</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
-   <string notr="true">/*
-ManjaroMix Style Sheet for QT Applications
-Author: Jaime A. Quiroga P.
-Company: GTRONICK
-Last updated: 25/02/2020, 15:42.
-Available at: https://github.com/GTRONICK/QSS/blob/master/ManjaroMix.qss
-*/
-QMainWindow {
-	background-color:#151a1e;
-}
-QCalendar {
-	background-color: #151a1e;
-}
-QTextEdit {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-	background-color: #222b2e;
-	color: #d3dae3;
-}
-QPlainTextEdit {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-	background-color: #222b2e;
-	color: #d3dae3;
-}
-QToolButton {
-	border-style: solid;
-	border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(217, 217, 217), stop:1 rgb(227, 227, 227));
-	border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(217, 217, 217));
-	border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-width: 1px;
-	border-radius: 5px;
-	color: #d3dae3;
-	padding: 2px;
-	background-color: rgb(255,255,255);
-}
-QToolButton:hover{
-	border-style: solid;
-	border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(195, 195, 195), stop:1 rgb(222, 222, 222));
-	border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(197, 197, 197), stop:1 rgb(227, 227, 227));
-	border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(197, 197, 197));
-	border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(195, 195, 195), stop:1 rgb(222, 222, 222));
-	border-width: 1px;
-	border-radius: 5px;
-	color: rgb(0,0,0);
-	padding: 2px;
-	background-color: rgb(255,255,255);
-}
-QToolButton:pressed{
-	border-style: solid;
-	border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(217, 217, 217), stop:1 rgb(227, 227, 227));
-	border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(217, 217, 217));
-	border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-width: 1px;
-	border-radius: 5px;
-	color: rgb(0,0,0);
-	padding: 2px;
-	background-color: rgb(142,142,142);
-}
-QPushButton{
-	border-style: solid;
-	border-color: #050a0e;
-	border-width: 1px;
-	border-radius: 5px;
-	color: #d3dae3;
-	padding: 2px;
-	background-color: #151a1e;
-}
-QPushButton::default{
-	border-style: solid;
-	border-color: #050a0e;
-	border-width: 1px;
-	border-radius: 5px;
-	color: #FFFFFF;
-	padding: 2px;
-	background-color: #151a1e;;
-}
-QPushButton:hover{
-	border-style: solid;
-	border-color: #050a0e;
-	border-width: 1px;
-	border-radius: 5px;
-	color: #d3dae3;
-	padding: 2px;
-	background-color: #1c1f1f;
-}
-QPushButton:pressed{
-	border-style: solid;
-	border-color: #050a0e;
-	border-width: 1px;
-	border-radius: 5px;
-	color: #d3dae3;
-	padding: 2px;
-	background-color: #2c2f2f;
-}
-QPushButton:disabled{
-	border-style: solid;
-	border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(217, 217, 217), stop:1 rgb(227, 227, 227));
-	border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(217, 217, 217));
-	border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
-	border-width: 1px;
-	border-radius: 5px;
-	color: #808086;
-	padding: 2px;
-	background-color: rgb(142,142,142);
-}
-QLineEdit {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-	background-color: #222b2e;
-	color: #d3dae3;
-}
-QLabel {
-	color: #d3dae3;
-}
-QLCDNumber {
-	color: #4d9b87;
-}
-QProgressBar {
-	text-align: center;
-	color: #d3dae3;
-	border-radius: 10px;
-	border-color: transparent;
-	border-style: solid;
-	background-color: #52595d;
-}
-QProgressBar::chunk {
-	background-color: #214037	;
-	border-radius: 10px;
-}
-QMenuBar {
-	background-color: #151a1e;
-}
-QMenuBar::item {
-	color: #d3dae3;
-  	spacing: 3px;
-  	padding: 1px 4px;
-	background-color: #151a1e;
-}
-
-QMenuBar::item:selected {
-  	background-color: #252a2e;
-	color: #FFFFFF;
-}
-QMenu {
-	background-color: #151a1e;
-}
-QMenu::item:selected {
-	background-color: #252a2e;
-	color: #FFFFFF;
-}
-QMenu::item {
-	color: #d3dae3;
-	background-color: #151a1e;
-}
-QTabWidget {
-	color:rgb(0,0,0);
-	background-color:#000000;
-}
-QTabWidget::pane {
-		border-color: #050a0e;
-		background-color: #1e282c;
-		border-style: solid;
-		border-width: 1px;
-    	border-bottom-left-radius: 4px;
-		border-bottom-right-radius: 4px;
-}
-QTabBar::tab:first {
-	border-style: solid;
-	border-left-width:1px;
-	border-right-width:0px;
-	border-top-width:1px;
-	border-bottom-width:0px;
-	border-top-color: #050a0e;
-	border-left-color: #050a0e;
-	border-bottom-color: #050a0e;
-	border-top-left-radius: 4px;
-	color: #d3dae3;
-	padding: 3px;
-	margin-left:0px;
-	background-color: #151a1e;
-}
-QTabBar::tab:last {
-	border-style: solid;
-	border-top-width:1px;
-	border-left-width:1px;
-	border-right-width:1px;
-	border-bottom-width:0px;
-	border-color: #050a0e;
-	border-top-right-radius: 4px;
-	color: #d3dae3;
-	padding: 3px;
-	margin-left:0px;
-	background-color: #151a1e;
-}
-QTabBar::tab {
-	border-style: solid;
-	border-top-width:1px;
-	border-bottom-width:0px;
-	border-left-width:1px;
-	border-top-color: #050a0e;
-	border-left-color: #050a0e;
-	border-bottom-color: #050a0e;
-	color: #d3dae3;
-	padding: 3px;
-	margin-left:0px;
-	background-color: #151a1e;
-}
-QTabBar::tab:selected, QTabBar::tab:last:selected, QTabBar::tab:hover {
-  	border-style: solid;
-  	border-left-width:1px;
-	border-bottom-width:0px;
-	border-right-color: transparent;
-	border-top-color: #050a0e;
-	border-left-color: #050a0e;
-	border-bottom-color: #050a0e;
-	color: #FFFFFF;
-	padding: 3px;
-	margin-left:0px;
-	background-color: #1e282c;
-}
-
-QTabBar::tab:selected, QTabBar::tab:first:selected, QTabBar::tab:hover {
-  	border-style: solid;
-  	border-left-width:1px;
-  	border-bottom-width:0px;
-  	border-top-width:1px;
-	border-right-color: transparent;
-	border-top-color: #050a0e;
-	border-left-color: #050a0e;
-	border-bottom-color: #050a0e;
-	color: #FFFFFF;
-	padding: 3px;
-	margin-left:0px;
-	background-color: #1e282c;
-}
-
-QCheckBox {
-	color: #d3dae3;
-	padding: 2px;
-}
-QCheckBox:disabled {
-	color: #808086;
-	padding: 2px;
-}
-
-QCheckBox:hover {
-	border-radius:4px;
-	border-style:solid;
-	padding-left: 1px;
-	padding-right: 1px;
-	padding-bottom: 1px;
-	padding-top: 1px;
-	border-width:1px;
-	border-color: transparent;
-}
-QCheckBox::indicator:checked {
-
-	height: 10px;
-	width: 10px;
-	border-style:solid;
-	border-width: 1px;
-	border-color: #d90d0d;
-	color: #000000;
-	background-color: qradialgradient(cx:0.4, cy:0.4, radius: 1.5,fx:0, fy:0, stop:0 #1e282c, stop:0.3 #1e282c, stop:0.4 #d90d0d, stop:0.5 #1e282c, stop:1 #1e282c);
-}
-QCheckBox::indicator:unchecked {
-
-	height: 10px;
-	width: 10px;
-	border-style:solid;
-	border-width: 1px;
-	border-color: #d90d0d;
-	color: #000000;
-}
-QRadioButton {
-	color: #d3dae3;
-	padding: 1px;
-}
-QRadioButton::indicator:checked {
-	height: 10px;
-	width: 10px;
-	border-style:solid;
-	border-radius:5px;
-	border-width: 1px;
-	border-color: #d90d0d;
-	color: #a9b7c6;
-	background-color: qradialgradient(cx:0.5, cy:0.5, radius:0.4,fx:0.5, fy:0.5, stop:0 #d90d0d, stop:1 #1e282c);
-}
-QRadioButton::indicator:!checked {
-	height: 10px;
-	width: 10px;
-	border-style:solid;
-	border-radius:5px;
-	border-width: 1px;
-	border-color: #d90d0d;
-	color: #a9b7c6;
-	background-color: transparent;
-}
-QStatusBar {
-	color:#027f7f;
-}
-QSpinBox {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QDoubleSpinBox {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QTimeEdit {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QDateTimeEdit {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QDateEdit {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QFontComboBox {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-QComboBox {
-	color: #d3dae3;
-	background-color: #222b2e;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d90d0d;
-}
-
-QDial {
-	background: #16a085;
-}
-
-QToolBox {
-	color: #a9b7c6;
-	background-color: #222b2e;
-}
-QToolBox::tab {
-	color: #a9b7c6;
-	background-color:#222b2e;
-}
-QToolBox::tab:selected {
-	color: #FFFFFF;
-	background-color:#222b2e;
-}
-QScrollArea {
-	color: #FFFFFF;
-	background-color:#222b2e;
-}
-QSlider::groove:horizontal {
-	height: 5px;
-	background-color: #52595d;
-}
-QSlider::groove:vertical {
-	width: 5px;
-	background-color: #52595d;
-}
-QSlider::handle:horizontal {
-	background: #1a2224;
-	border-style: solid;
-	border-width: 1px;
-	border-color: rgb(207,207,207);
-	width: 12px;
-	margin: -5px 0;
-	border-radius: 7px;
-}
-QSlider::handle:vertical {
-	background: #1a2224;
-	border-style: solid;
-	border-width: 1px;
-	border-color: rgb(207,207,207);
-	height: 12px;
-	margin: 0 -5px;
-	border-radius: 7px;
-}
-QSlider::add-page:horizontal {
-    background: #52595d;
-}
-QSlider::add-page:vertical {
-    background: #52595d;
-}
-QSlider::sub-page:horizontal {
-    background-color: #15433a;
-}
-QSlider::sub-page:vertical {
-    background-color: #15433a;
-}
-QScrollBar:horizontal {
-	max-height: 10px;
-	border: 1px transparent grey;
-	margin: 0px 20px 0px 20px;
-	background: transparent;
-}
-QScrollBar:vertical {
-	max-width: 10px;
-	border: 1px transparent grey;
-	margin: 20px 0px 20px 0px;
-	background: transparent;
-}
-QScrollBar::handle:horizontal {
-	background: #52595d;
-	border-style: transparent;
-	border-radius: 4px;
-	min-width: 25px;
-}
-QScrollBar::handle:horizontal:hover {
-	background: #58a492;
-	border-style: transparent;
-	border-radius: 4px;
-	min-width: 25px;
-}
-QScrollBar::handle:vertical {
-	background: #52595d;
-	border-style: transparent;
-	border-radius: 4px;
-	min-height: 25px;
-}
-QScrollBar::handle:vertical:hover {
-	background: #58a492;
-	border-style: transparent;
-	border-radius: 4px;
-	min-height: 25px;
-}
-QScrollBar::add-line:horizontal {
-   border: 2px transparent grey;
-   border-top-right-radius: 4px;
-   border-bottom-right-radius: 4px;
-   background: #15433a;
-   width: 20px;
-   subcontrol-position: right;
-   subcontrol-origin: margin;
-}
-QScrollBar::add-line:horizontal:pressed {
-   border: 2px transparent grey;
-   border-top-right-radius: 4px;
-   border-bottom-right-radius: 4px;
-   background: rgb(181,181,181);
-   width: 20px;
-   subcontrol-position: right;
-   subcontrol-origin: margin;
-}
-QScrollBar::add-line:vertical {
-   border: 2px transparent grey;
-   border-bottom-left-radius: 4px;
-   border-bottom-right-radius: 4px;
-   background: #15433a;
-   height: 20px;
-   subcontrol-position: bottom;
-   subcontrol-origin: margin;
-}
-QScrollBar::add-line:vertical:pressed {
-   border: 2px transparent grey;
-   border-bottom-left-radius: 4px;
-   border-bottom-right-radius: 4px;
-   background: rgb(181,181,181);
-   height: 20px;
-   subcontrol-position: bottom;
-   subcontrol-origin: margin;
-}
-QScrollBar::sub-line:horizontal {
-   border: 2px transparent grey;
-   border-top-left-radius: 4px;
-   border-bottom-left-radius: 4px;
-   background: #15433a;
-   width: 20px;
-   subcontrol-position: left;
-   subcontrol-origin: margin;
-}
-QScrollBar::sub-line:horizontal:pressed {
-   border: 2px transparent grey;
-   border-top-left-radius: 4px;
-   border-bottom-left-radius: 4px;
-   background: rgb(181,181,181);
-   width: 20px;
-   subcontrol-position: left;
-   subcontrol-origin: margin;
-}
-QScrollBar::sub-line:vertical {
-   border: 2px transparent grey;
-   border-top-left-radius: 4px;
-   border-top-right-radius: 4px;
-   background: #15433a;
-   height: 20px;
-   subcontrol-position: top;
-   subcontrol-origin: margin;
-}
-QScrollBar::sub-line:vertical:pressed {
-   border: 2px transparent grey;
-   border-top-left-radius: 4px;
-   border-top-right-radius: 4px;
-   background: rgb(181,181,181);
-   height: 20px;
-   subcontrol-position: top;
-   subcontrol-origin: margin;
-}
-
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
-   background: none;
-}
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-   background: none;
-}</string>
+   <string notr="true">color: rgb(0, 0, 0);
+border-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -556,45 +53,72 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <height>531</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
+    <property name="elideMode">
+     <enum>Qt::ElideNone</enum>
+    </property>
+    <property name="usesScrollButtons">
+     <bool>true</bool>
+    </property>
+    <property name="documentMode">
+     <bool>true</bool>
+    </property>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="movable">
+     <bool>false</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>true</bool>
+    </property>
     <widget class="QWidget" name="tab">
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <attribute name="title">
       <string>Search</string>
      </attribute>
      <widget class="QLabel" name="PreviewImage">
       <property name="geometry">
        <rect>
-        <x>610</x>
-        <y>0</y>
+        <x>620</x>
+        <y>10</y>
         <width>181</width>
         <height>151</height>
        </rect>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>380</y>
-        <width>251</width>
-        <height>35</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>GUI By LargestBoi &amp; cassell1337</string>
       </property>
      </widget>
      <widget class="QFrame" name="frame">
@@ -606,15 +130,28 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <height>171</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QPushButton" name="LoadButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <stylestrategy>PreferAntialias</stylestrategy>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Load Avatars</string>
          </property>
@@ -622,8 +159,17 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        </item>
        <item>
         <widget class="QPushButton" name="SearchButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
-          <string>Search[local]</string>
+          <string>Search [local]</string>
          </property>
         </widget>
        </item>
@@ -632,13 +178,31 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
-          <string>Search[API]</string>
+          <string>Search [API]</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="DLVRCAButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Download VRCA</string>
          </property>
@@ -646,6 +210,15 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        </item>
        <item>
         <widget class="QPushButton" name="LoadVRCAButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Load VRCA</string>
          </property>
@@ -653,6 +226,15 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        </item>
        <item>
         <widget class="QPushButton" name="VRCAExtractButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Extract VRCA</string>
          </property>
@@ -660,6 +242,15 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        </item>
        <item>
         <widget class="QPushButton" name="browserview">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Browser view</string>
          </property>
@@ -675,6 +266,16 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
         <width>551</width>
         <height>171</height>
        </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 150);
+color: rgb(180, 180, 180);</string>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -693,15 +294,27 @@ p, li { white-space: pre-wrap; }
         <height>41</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="BackButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Previous</string>
          </property>
@@ -709,6 +322,15 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <widget class="QPushButton" name="NextButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Next</string>
          </property>
@@ -732,6 +354,9 @@ p, li { white-space: pre-wrap; }
         <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(180, 180, 180);</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -748,6 +373,12 @@ p, li { white-space: pre-wrap; }
         <height>51</height>
        </rect>
       </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -760,13 +391,46 @@ p, li { white-space: pre-wrap; }
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 200);
+;
+color: rgb(194, 194, 194);</string>
+         </property>
          <property name="value">
           <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="UnityButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Open Unity</string>
          </property>
@@ -774,6 +438,16 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <widget class="QPushButton" name="HotswapButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Hotswap</string>
          </property>
@@ -781,6 +455,16 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <widget class="QPushButton" name="RCVButton">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Repair
 Cache VRCA</string>
@@ -793,51 +477,23 @@ Cache VRCA</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>420</y>
-        <width>231</width>
+        <y>390</y>
+        <width>181</width>
         <height>61</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
       <property name="text">
        <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>96</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Search Term:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>60</y>
-        <width>313</width>
-        <height>31</height>
-       </rect>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -852,15 +508,28 @@ Cache VRCA</string>
         <height>111</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QRadioButton" name="AvatarNameRB">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Avatar Name</string>
          </property>
@@ -871,6 +540,16 @@ Cache VRCA</string>
        </item>
        <item>
         <widget class="QRadioButton" name="AvatarAuthorRB">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Avatar Author</string>
          </property>
@@ -878,6 +557,19 @@ Cache VRCA</string>
        </item>
        <item>
         <widget class="QRadioButton" name="AvatarIDRB">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Avatar ID</string>
          </property>
@@ -885,107 +577,23 @@ Cache VRCA</string>
        </item>
       </layout>
      </widget>
-     <widget class="QCheckBox" name="TagSettings_2">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>20</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Other NSFW</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="PrivateBox_2">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>20</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>NSFW</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="HTMLBox_2">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>20</y>
-        <width>61</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Gore</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="PublicBox_2">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>20</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Violence</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
      <widget class="QFrame" name="frame_6">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>100</y>
+        <y>80</y>
         <width>421</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -993,7 +601,13 @@ Cache VRCA</string>
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
           <string>Show:</string>
@@ -1005,7 +619,13 @@ Cache VRCA</string>
          <property name="font">
           <font>
            <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
           <string>Private</string>
@@ -1020,7 +640,13 @@ Cache VRCA</string>
          <property name="font">
           <font>
            <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
           <string>Public</string>
@@ -1035,7 +661,16 @@ Cache VRCA</string>
          <property name="font">
           <font>
            <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
           <string>Tags</string>
@@ -1046,24 +681,6 @@ Cache VRCA</string>
         </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QPushButton" name="UPDATEBUTTON">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>100</y>
-        <width>741</width>
-        <height>321</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>28</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>OUTDATED CLICK TO UPDATE!!!</string>
-      </property>
      </widget>
      <widget class="QPushButton" name="CleanExitButton">
       <property name="geometry">
@@ -1077,7 +694,16 @@ Cache VRCA</string>
       <property name="font">
        <font>
         <pointsize>17</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
       </property>
       <property name="text">
        <string>Clean Exit</string>
@@ -1086,21 +712,53 @@ Cache VRCA</string>
      <widget class="QFrame" name="frame_10">
       <property name="geometry">
        <rect>
-        <x>710</x>
-        <y>280</y>
+        <x>730</x>
+        <y>240</y>
         <width>91</width>
-        <height>91</height>
+        <height>121</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
+        <widget class="QLabel" name="label_13">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Extraction
+Algorithim:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QRadioButton" name="ExtOne">
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>1 (2019)
  Optimised</string>
@@ -1112,6 +770,17 @@ Cache VRCA</string>
        </item>
        <item>
         <widget class="QRadioButton" name="ExtTwo">
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>2 (2018)
  Optimised</string>
@@ -1120,39 +789,277 @@ Cache VRCA</string>
        </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="label_13">
+     <widget class="QPushButton" name="UPDATEBUTTON">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>250</y>
-        <width>51</width>
-        <height>41</height>
+        <x>20</x>
+        <y>0</y>
+        <width>781</width>
+        <height>491</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 200);
+color: rgb(180, 180, 180);</string>
+      </property>
       <property name="text">
-       <string>Extraction
-Algorithim:</string>
+       <string>OUTDATED CLICK TO UPDATE!!!</string>
       </property>
      </widget>
-     <zorder>label_3</zorder>
+     <widget class="QLabel" name="backgroundimage">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>-20</x>
+        <y>-40</y>
+        <width>891</width>
+        <height>601</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>UiMain.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="tagframe">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>430</y>
+        <width>341</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QCheckBox" name="PrivateBox_2">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>NSFW</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="PublicBox_2">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Violence</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="HTMLBox_2">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Gore</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="TagSettings_2">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Other NSFW</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>251</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 200);
+color: rgb(180, 180, 180);</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string notr="true">CLICK TO SEARCH</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_11">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>460</y>
+        <width>231</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 255, 213);
+background-color: rgba(54, 54, 54, 170);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);
+background-color: rgba(54, 54, 54, 0);</string>
+         </property>
+         <property name="text">
+          <string>GUI By LargestBoi &amp; cassell1337
+ Theme By Cloudys#7350</string>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <zorder>backgroundimage</zorder>
      <zorder>frame</zorder>
      <zorder>RawData</zorder>
      <zorder>frame_4</zorder>
      <zorder>resultsbox</zorder>
      <zorder>frame_5</zorder>
      <zorder>Status</zorder>
-     <zorder>label_2</zorder>
-     <zorder>lineEdit</zorder>
      <zorder>frame_2</zorder>
-     <zorder>TagSettings_2</zorder>
-     <zorder>PrivateBox_2</zorder>
-     <zorder>HTMLBox_2</zorder>
-     <zorder>PublicBox_2</zorder>
      <zorder>frame_6</zorder>
      <zorder>PreviewImage</zorder>
-     <zorder>CleanExitButton</zorder>
      <zorder>frame_10</zorder>
-     <zorder>label_13</zorder>
+     <zorder>tagframe</zorder>
+     <zorder>lineEdit</zorder>
+     <zorder>frame_11</zorder>
+     <zorder>CleanExitButton</zorder>
      <zorder>UPDATEBUTTON</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -1164,7 +1071,7 @@ Algorithim:</string>
        <rect>
         <x>10</x>
         <y>90</y>
-        <width>221</width>
+        <width>201</width>
         <height>61</height>
        </rect>
       </property>
@@ -1173,6 +1080,10 @@ Algorithim:</string>
         <pointsize>20</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+      </property>
       <property name="text">
        <string>Delete Logs</string>
       </property>
@@ -1180,7 +1091,7 @@ Algorithim:</string>
      <widget class="QLabel" name="LogSize">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>230</x>
         <y>90</y>
         <width>141</width>
         <height>61</height>
@@ -1191,17 +1102,23 @@ Algorithim:</string>
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(180, 180, 180);</string>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;LogSize&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#5500ff;&quot;&gt;LogSize&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QFrame" name="frame_3">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>170</y>
+        <x>0</x>
+        <y>150</y>
         <width>211</width>
-        <height>181</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1218,21 +1135,13 @@ Algorithim:</string>
            <pointsize>14</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>Toggle API
 (Quits Application)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="APILabel">
-         <property name="font">
-          <font>
-           <pointsize>23</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>API Disabled</string>
          </property>
         </widget>
        </item>
@@ -1250,6 +1159,10 @@ Algorithim:</string>
         <height>461</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+      </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
@@ -1264,6 +1177,9 @@ Algorithim:</string>
        <font>
         <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(180, 180, 180);</string>
       </property>
       <property name="text">
        <string>Console Output:</string>
@@ -1298,6 +1214,9 @@ Algorithim:</string>
            <pointsize>10</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(180, 180, 180);</string>
+         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -1314,6 +1233,10 @@ Algorithim:</string>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -1323,6 +1246,16 @@ Algorithim:</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180)</string>
          </property>
          <property name="text">
           <string>Set User</string>
@@ -1356,8 +1289,14 @@ Algorithim:</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
-          <string>UPLOADED</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#5500ff;&quot;&gt;UPLOADED&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1365,7 +1304,18 @@ Algorithim:</string>
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="lcdNumber"/>
+        <widget class="QLCDNumber" name="lcdNumber">
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_11">
@@ -1376,8 +1326,11 @@ Algorithim:</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
-          <string>User Total</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#5500ff;&quot;&gt;User Total&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1385,7 +1338,12 @@ Algorithim:</string>
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="UsrTotal"/>
+        <widget class="QLCDNumber" name="UsrTotal">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180)</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1403,10 +1361,112 @@ Algorithim:</string>
         <pointsize>20</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+      </property>
       <property name="text">
        <string>Change Unity Directory</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>-20</x>
+        <y>-40</y>
+        <width>891</width>
+        <height>601</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>UiMain.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <property name="indent">
+       <number>-1</number>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_12">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>369</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_13">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>201</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <widget class="QLabel" name="APILabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-10</y>
+         <width>201</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>23</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(180, 180, 180);</string>
+       </property>
+       <property name="text">
+        <string>API Disabled</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <zorder>label_14</zorder>
+     <zorder>DeleteLogButton</zorder>
+     <zorder>LogSize</zorder>
+     <zorder>frame_3</zorder>
+     <zorder>Instructions</zorder>
+     <zorder>label_5</zorder>
+     <zorder>frame_7</zorder>
+     <zorder>frame_9</zorder>
+     <zorder>ChangeUnityButton</zorder>
+     <zorder>frame_13</zorder>
+     <zorder>frame_12</zorder>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1437,6 +1497,13 @@ Algorithim:</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
          <property name="text">
           <string>Developers:</string>
          </property>
@@ -1453,6 +1520,13 @@ Algorithim:</string>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
           <string>LargestBoi</string>
@@ -1471,6 +1545,13 @@ Algorithim:</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
          <property name="text">
           <string>Cassell1337</string>
          </property>
@@ -1488,6 +1569,13 @@ Algorithim:</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
          <property name="text">
           <string>RealBoppr</string>
          </property>
@@ -1504,6 +1592,13 @@ Algorithim:</string>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
           <string>Sol*</string>
@@ -1531,6 +1626,13 @@ Algorithim:</string>
         <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
       <property name="text">
        <string>Special Thanks To:</string>
       </property>
@@ -1550,21 +1652,64 @@ Algorithim:</string>
         <height>411</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 170);
+color: rgb(180, 180, 180);</string>
+      </property>
      </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>-20</x>
+        <y>-40</y>
+        <width>891</width>
+        <height>601</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>UiMain.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <property name="indent">
+       <number>-1</number>
+      </property>
+     </widget>
+     <zorder>label_15</zorder>
+     <zorder>frame_8</zorder>
+     <zorder>label_10</zorder>
+     <zorder>SpecialThanks</zorder>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>-8</y>
+      <width>891</width>
+      <height>601</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>UiMain.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>label_2</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>858</width>
-     <height>18</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
