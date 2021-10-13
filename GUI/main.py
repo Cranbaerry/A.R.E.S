@@ -498,7 +498,7 @@ class Ui(QtWidgets.QMainWindow):
             response = requests.get(f'https://{self.domain}/status', headers=headers, timeout=5)
             if "ONLINE" in response.text:
                 self.upload1()
-                tt = 15
+                tt = 5
                 while True:
                     if threading.activeCount() <= tt:
                         threading.Thread(target=self.upload, args={q.get(), }).start()
