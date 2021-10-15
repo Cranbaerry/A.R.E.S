@@ -230,7 +230,7 @@ class Ui(QtWidgets.QMainWindow):
     def CleanExit(self):
         #Attempts to kill all ARIES gui instances and any other conflicting apps
         try:
-            os.system('taskkill /F /im "ARIES.exe"')
+            os.system('taskkill /F /im "ARES.exe"')
         except:
             pass
         try:
