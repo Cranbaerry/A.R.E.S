@@ -55,8 +55,8 @@ class Ui(QtWidgets.QMainWindow):
             pass
         try:
             self.statusL.setText("Status: Old 'custom.vrca' found!")
-            os.remove('HotswapReady.vrca')
-            self.statusL.setText("Status: Old 'HotswapReady.vrca' deleted!")
+            os.remove('custom.vrca')
+            self.statusL.setText("Status: Old 'custom.vrca' deleted!")
         except:
             pass
         self.statusL.setText("Status: Idle")
@@ -135,7 +135,7 @@ class Ui(QtWidgets.QMainWindow):
         os.system('HOTSWAP.exe c DecompHS.vrca')
         self.statusL.setText("Status: Compressed!")
         self.statusL.setText("Status: Renaming files...")
-        os.rename('compressed.vrca', 'HotswapReady.vrca')
+        os.rename('compressed.vrca', 'custom.vrca')
         self.statusL.setText("Status: Renamed!")
         self.statusL.setText("Status: Cleaning...")
         try:
@@ -169,9 +169,10 @@ class Ui(QtWidgets.QMainWindow):
         except:
             pass
         self.statusL.setText("Status: Clean!")
-        self.statusL.setText("You can find your VRCA in my folder! 'HotswapReady.vrca'")
+        self.statusL.setText("You can find your VRCA in my folder! 'custom.vrca'")
 app = QtWidgets.QApplication(sys.argv)  # Create an instance of QtWidgets.QApplication
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+#app.setStyleSheet(qdarkstyle.load_stylesheet())
 window = Ui()  # Create an instance of our class
 app.exec_()  # Start the application
