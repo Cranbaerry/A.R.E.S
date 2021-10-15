@@ -104,6 +104,8 @@ namespace HOTSWAP
             if (work == "d")
             {
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("A.R.E.S");
+                Console.WriteLine("Avatar Ripping/Extraction System");
                 Console.WriteLine("Decompression protocol launched!");
                 string ABF = args[1];
                 Console.WriteLine("File located! Decompressing...");
@@ -125,6 +127,8 @@ namespace HOTSWAP
             if (work == "c")
             {
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("A.R.E.S");
+                Console.WriteLine("Avatar Ripping/Extraction System");
                 Console.WriteLine("Compression protocol launched!");
                 string dir = args[1];
                 Console.WriteLine("File located! Compressing...");
