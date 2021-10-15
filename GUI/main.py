@@ -127,7 +127,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         # Declares the API label and sets text
         self.APIL = self.findChild(QtWidgets.QLabel, 'APILabel')
-        #Gets and sets LogSize of avatar logger
+        #Gets and sets LogSize of avatar log
         self.LogSize = self.findChild(QtWidgets.QLabel, 'LogSize')
         if os.path.exists(self.LogFolder + "/Log.txt"):
             self.LSize = os.path.getsize(self.LogFolder + "/Log.txt")
@@ -228,9 +228,9 @@ class Ui(QtWidgets.QMainWindow):
             pass
     #Allows the program to commit die
     def CleanExit(self):
-        #Attempts to kill all avatar logger gui instances and any other conflicting apps
+        #Attempts to kill all ARIES gui instances and any other conflicting apps
         try:
-            os.system('taskkill /F /im "Avatar Logger GUI.exe"')
+            os.system('taskkill /F /im "ARIES.exe"')
         except:
             pass
         try:
@@ -391,7 +391,7 @@ class Ui(QtWidgets.QMainWindow):
             with open(self.ModConfig, "w+") as s:
                 s.write(json.dumps(self.ModSettings, indent=4))
             try:
-               os.system('taskkill /F /im "Avatar Logger GUI.exe"')
+               os.system('taskkill /F /im "ARES.exe"')
             except:
                pass
         #If the API was off turn it on and quit the app
@@ -399,7 +399,7 @@ class Ui(QtWidgets.QMainWindow):
         with open(self.ModConfig, "w+") as s:
             s.write(json.dumps(self.ModSettings, indent=4))
         try:
-            os.system('taskkill /F /im "Avatar Logger GUI.exe"')
+            os.system('taskkill /F /im "ARES.exe"')
         except:
             pass
     #Uploads avis to the API

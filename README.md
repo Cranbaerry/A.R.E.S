@@ -1,4 +1,4 @@
-# Avatar Logger GUI
+# A.R.E.S
 
 Thx to [KeafyIsHere](https://github.com/KeafyIsHere) for the original avatar logging script!
 
