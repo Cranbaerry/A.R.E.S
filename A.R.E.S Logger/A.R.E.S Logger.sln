@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A.R.E.S Logger", "A.R.E.S Logger\A.R.E.S Logger.csproj", "{78D849B8-7022-4D69-B0D1-2ED6007566EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78D849B8-7022-4D69-B0D1-2ED6007566EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D849B8-7022-4D69-B0D1-2ED6007566EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D849B8-7022-4D69-B0D1-2ED6007566EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D849B8-7022-4D69-B0D1-2ED6007566EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52B6889D-0EBD-4B61-BDB8-60C133E4CDA1}
+	EndGlobalSection
+EndGlobal
