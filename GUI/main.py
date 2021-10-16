@@ -76,8 +76,10 @@ class Ui(QtWidgets.QMainWindow):
             self.Settings = json.loads(s.read())
             self.VRCDir = self.Settings["Avatar_Folder"]
             self.UDir = self.Settings["Unity_Exe"]
-        #Loading the ModConfig file from the avatr logger mod
-        self.LogFolder = self.Settings["Avatar_Folder"]+"\\AvatarLog"
+        #Loading the ModConfig file from the avatar logger mod
+        self.LogFolder = self.Settings["Avatar_Folder"] + "\\AvatarLog"
+        if not os.path.isdir(self.LogFolder):
+            os.mkdir(self.LogFolder)
         self.ModConfig = self.Settings["Avatar_Folder"]+"\\AvatarLog\\Config.json"
         try:
             with open(self.ModConfig, "r+") as s:
@@ -583,7 +585,7 @@ class Ui(QtWidgets.QMainWindow):
     #Sets load value
     def loadavatar0(self):
         self.loadavatars(True)
-    #Loads avatr log file
+    #Loads avatar log file
     def loadavatars(self, makehtmll=False):
         #Unhides particular buttons as an avi has now been loaded
         self.leftbox.show()
