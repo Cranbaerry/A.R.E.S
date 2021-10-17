@@ -1032,8 +1032,7 @@ background-color: rgba(54, 54, 54, 170);</string>
 background-color: rgba(54, 54, 54, 0);</string>
          </property>
          <property name="text">
-          <string>GUI By LargestBoi &amp; cassell1337
- Theme By Cloudys#7350</string>
+          <string>GUI By LargestBoi &amp; cassell1337</string>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
