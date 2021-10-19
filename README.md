@@ -20,9 +20,9 @@ Features:
 
     -Repair avatars retreived from the cache
 
-	-Logs ALL avatars seen in game regardless of them being private or public
+	-Logs ALL avatars seen in game regardless of them being private or public (PC only, currently)
 
-    -Log avatars manually via the preview frame(Public)
+    -Log avatars manually via the preview frame(Public)(brokie)
 	
 	-An easy to navigate and in my opinion extremely sexy GUI
 	
@@ -68,7 +68,7 @@ Installation/Usage: [YouTube Video](https://youtu.be/WFuB8ycALhA)
 	
 	4. Run VRC once to log some avis
 	
-	5. Installed!
+	5. Your all set!
 
 Extras:
 
