@@ -8,7 +8,7 @@ from generatehtml import makehtml
 from base64 import b64encode
 
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = False
+debugg = True
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "8.2"
+        VERSION = "8.4"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
