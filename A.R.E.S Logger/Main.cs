@@ -31,7 +31,6 @@ namespace AvatarLogger
         public string AuthorID { get; set; }
         public string AuthorName { get; set; }
         public string AssetURL { get; set; }
-        public string QuestAsstURL { get; set; }
         public string ImageURL { get; set; }
         public string ThumbnailURL { get; set; }
         public string ReleaseStatus { get; set; }
@@ -45,7 +44,7 @@ namespace AvatarLogger
     {
         //Log creation and reading
         private const string ConfigFile = "AvatarLog\\Config.json";
-        private const string AvatarFile = "AvatarLog\\Log.txt";
+        private const string AvatarFile = "AvatarLog\\Log.json";
         private static List<string> AvatarIDs = new List<string>();
         //Sets avatar id regex
         private static Regex AvatarRegex = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
@@ -95,8 +94,7 @@ namespace AvatarLogger
                     $"Avatar Description:{avatar.description}",
                     $"Author ID:{avatar.authorId}",
                     $"Author Name:{avatar.authorName}",
-                    $"PC Asset URL:{avatar.assetUrl}",
-
+                    $"Asset URL:{avatar.assetUrl}",
                     $"Image URL:{avatar.imageUrl}",
                     $"Thumbnail URL:{avatar.thumbnailImageUrl}",
                     $"Release Status:{avatar.releaseStatus}",
