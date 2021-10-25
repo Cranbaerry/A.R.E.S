@@ -1,5 +1,7 @@
 #Importing all reqirements for the GUI and its functionality
 import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, traceback, pymsgbox, subprocess
+import textwrap
+
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -497,7 +499,7 @@ class Ui(QtWidgets.QMainWindow):
         }
         #Try to upload while threaded
         try:
-            response = requests.get(f'https://{self.domain}/status', headers=headers, timeout=5)
+            response = requests.get(f'https://{self.domain}/status', headers=headers, timeout=10)
             if "ONLINE" in response.text:
                 self.upload1()
                 tt = 5
@@ -955,7 +957,7 @@ class Ui(QtWidgets.QMainWindow):
             self.newCAB = re.search("(CAB-[\w\d]{32})", str(f)).group(1)
             self.updateconsole(f'New CAB: {self.newCAB}')
             self.ProgBar.setValue(30)
-            self.updateconsole("New ID Located...")
+            self.updateconsole("New ID's Located...")
             #Clean up temp files
             if os.path.exists("decompressed.vrca"):
                 os.remove("decompressed.vrca")
@@ -990,6 +992,9 @@ class Ui(QtWidgets.QMainWindow):
             os.system("HOTSWAP.exe c decompressed1.vrca")
             self.updateconsole("New Avatar Compressed...")
             self.ProgBar.setValue(80)
+            #Info gathering
+            compsize = textwrap.shorten(str(os.path.getsize("Avatar.vrca")/(1024*1024)), width=5, placeholder="")
+            decompsize = textwrap.shorten(str(os.path.getsize("decompressed.vrca")/(1024*1024)),width=5, placeholder="")
             #Cleans temp files
             if os.path.exists("Avatar.vrca"):
                 os.remove("Avatar.vrca")
@@ -1015,7 +1020,7 @@ class Ui(QtWidgets.QMainWindow):
             self.ProgBar.setValue(0)
             #Re-enable button
             self.HotswapButton.setEnabled(True)
-            pymsgbox.alert("Hotswap complete!")
+            pymsgbox.alert(f'Hotswap complete!\nSizes:\nCompressed:{compsize}MB|Decompressed:{decompsize}MB')
         except:
             #If somthing breaks log it and send it to us
             self.senderrorlogs(traceback.format_exc())

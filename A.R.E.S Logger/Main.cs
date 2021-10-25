@@ -10,6 +10,7 @@ using HarmonyLib;
 using ComfyUtils;
 using VRC.Core;
 using UnityEngine;
+using System.Net.Http;
 
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S", "0.2B", "LargestBoi")]
@@ -84,9 +85,6 @@ namespace AvatarLogger
         private static void LogAvatar(ApiAvatar avatar)
         {
             AvatarIDs.Add(avatar.id);
-
-
-
             string UT = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString();
             string tagstr = string.Join(",", avatar.tags);
             File.AppendAllLines(AvatarFile, new string[]
@@ -98,6 +96,7 @@ namespace AvatarLogger
                     $"Author ID:{avatar.authorId}",
                     $"Author Name:{avatar.authorName}",
                     $"PC Asset URL:{avatar.assetUrl}",
+
                     $"Image URL:{avatar.imageUrl}",
                     $"Thumbnail URL:{avatar.thumbnailImageUrl}",
                     $"Release Status:{avatar.releaseStatus}",
