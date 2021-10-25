@@ -44,7 +44,7 @@ namespace AvatarLogger
     {
         //Log creation and reading
         private const string ConfigFile = "AvatarLog\\Config.json";
-        private const string AvatarFile = "AvatarLog\\Log.json";
+        private const string AvatarFile = "AvatarLog\\Log.txt";
         private static List<string> AvatarIDs = new List<string>();
         //Sets avatar id regex
         private static Regex AvatarRegex = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
