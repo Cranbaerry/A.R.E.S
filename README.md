@@ -18,7 +18,7 @@ I have gone about validating the latest V8.2 package with Microsoft, if a false 
 
 Features:
 
-    -Repair avatars retreived from the cache
+    -Repair avatar VRCAs retreived from the cache
 
 	-Logs ALL avatars seen in game regardless of them being private or public (PC only, currently)
 
@@ -35,8 +35,6 @@ Features:
 		-Avatar Author
 		
 		-Uploader Tags
-		
-	-Ability to delete logs and parses from within the GUI
 	
 	-Browse the logs with image previews of avatars
 	
@@ -50,13 +48,13 @@ Features:
 
     -API support! If you are willing to share your logs with us in return you will gain access to a database containing avatars logged by other users
 
-    -Ability to hotswap from a VRCA file downloaded elsewhere
+    -Ability to hotswap from a vaid VRCA file downloaded elsewhere
 
     -Ability to set usernames
 
     -Ability to configure logging settings from within the game itself
 
-    -Ability to almost perfectly extract vrca files
+    -Ability to almost perfectly extract vrca files for repairs with FACS and Pumpkin
 
 Installation/Usage: [YouTube Video](https://youtu.be/WFuB8ycALhA)
 	
@@ -78,7 +76,7 @@ Issues? Open an issue in the "Issues" tab, We will do our best to resolve your i
 
 License:
 
-For other software utalised within the project please refer to the LICENCE folder in our relase binaries and GitHub repos.
+For other software ysed within the project please refer to the LICENCE folder in our release binaries and GitHub repos.
 
 VRChat avatar SDK is included within our HSB package, this entirely belongs to VRChat and we do not own it.
 
