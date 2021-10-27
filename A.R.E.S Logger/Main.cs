@@ -99,7 +99,7 @@ namespace AvatarLogger
                     $"Thumbnail URL:{avatar.thumbnailImageUrl}",
                     $"Release Status:{avatar.releaseStatus}",
                     $"Unity Version:{avatar.unityVersion}",
-                    $"Platforms:{avatar.supportedPlatforms}",
+                    $"Platform:{avatar.platform}",
                     $"API Version:{avatar.apiVersion}",
                     $"Version:{avatar.version}",
             });
