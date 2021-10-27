@@ -1,120 +1,246 @@
 import os, json
 def makehtml(aci):
     avatars = json.loads(aci)
-    html = """<!DOCTYPE html>
+    html = """
+<!DOCTYPE html>
 <html>
-<head>
-<style>
-figure {
-margin:2px;
-display:inline-block;
-vertical-align:top;
-border:solid gray;
-text-align:center;
-position:relative;
-padding-bottom:2.8em;
+   <head>
+   <meta charset="UTF-8">
+   <style>
+        html{
+    background-color: black;
 }
-figure img {
-display:block;
-border:solid white
+
+div{
+    display: inline-table;
+    position: relative;
+    text-align: center;
+    padding: 5px;
+    margin-inline-start: auto;
+
+
+  }
+
+.avatar-name{
+  left: 15%;
+  color: whitesmoke;
+
+  opacity: 100%;
+  text-align: center;
+  font-size: 15px;
+  font: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-weight:bold;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  	text-shadow: -1px 1px 0 #000,
+				  1px 1px 0 #000,
+				 1px -1px 0 #000,
+				-1px -1px 0 #000;
+
+
 }
-figcaption{
-background:blue;
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-padding:0.2em 2px;
-min-height:2.4em;
-opacity:1;
-transition:0.5s;
-color:white;
+.avatar-id
+{
+  left: 15%;
+  color: whitesmoke;
+
+  opacity: 100%;
+  text-align: center;
+  font-size: 10px;
+  font: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-weight:bold;
+  position: absolute;
+  bottom: 15px;
+  right: center;
+  	text-shadow: -1px 1px 0 #000,
+				  1px 1px 0 #000,
+				 1px -1px 0 #000,
+				-1px -1px 0 #000;
+
+
 }
-figcaption p {
-margin:0;
+.avatar-releasestatus{
+  right: 15%;
+  font-size: 15px;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+
+
 }
-#gridimg, #gridimg2 {
-min-width:560px;
-max-width:840px;
-margin:auto;
+a:link {
+  color: whitesmoke;
+  text-decoration: none;
+
 }
-#gridimg:first-line {
-position:absolute;
-color:green;
+
+/* visited link */
+a:visited {
+  color: whitesmoke;
 }
-figure:nth-child(odd) figcaption {
-color:white;
+.avatar-download-link{
+
+  right: 15%;
+  color: whitesmoke;
+  opacity: 100%;
+  text-align: right;
+  font-size: 10px;
+  font: bold;
+  font-family: 'Arial Narrow Bold', sans-serif;
+  font-weight:bold;
+
+  position: absolute;
+  bottom: -4px;
+  right: 10px;
 }
-#gridimg2 figure {
-padding:0;
+.title-header{
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 25px;
+  color: whitesmoke;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+
 }
-#gridimg2 figure:hover figcaption {
-opacity:0;
+
+html {
+    overflow-y: scroll;
+  }
+.avatar-image{
+  border-radius: 5px;
 }
-figcaptionpriv{
-background:red;
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-padding:0.2em 2px;
-min-height:2.4em;
-opacity:1;
-transition:0.5s;
-color:white;
+
+.hotbar-div{
+  display: inline-table;
 }
-figcaptionpriv p {
-margin:0;
+.hotbar-div2{
+
+  display: inline-table;
+
 }
-#gridimg, #gridimg2 {
-min-width:560px;
-max-width:840px;
-margin:auto;
+
+.hotbar-search{
+  display: inline-table;
 }
-#gridimg:first-line {
-position:absolute;
-color:green;
+
+.search-button{
+  border: none;
+  background-color: none;
+  background: none;
+  color:rgba(74,252,44,255);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+
 }
-figure:nth-child(odd) figcaptionpriv {
-color:white;
+.search-button:hover{
+  cursor:pointer;
 }
-#gridimg2 figure {
-padding:0;
+input{
+  width: 100px;
+  border: none;
+  background-color: whitesmoke;
 }
-#gridimg2 figure:hover figcaptionpriv {
-opacity:0;
+
+        html{
+    background-color: black;
 }
-body {
-text-align:center;
-background-color:black;
+p{
+    color: whitesmoke;
+    font-family: 'Open Sans', sans-serif;
+    font-size:initial;
+    padding: 0;
+    margin: 8.5px;
+
+
+
 }
-</style>
-</head>
-<body>
-<h1>AVATAR SEARCH</h1>
-<div id="gridimg">\n"""
+html {
+    overflow-y: scroll;
+  }
+.title-header .getmainpage{
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 25px;
+    color: whitesmoke;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+
+
+}
+a:visited{
+    text-decoration: none;
+
+}
+a:link{
+    text-decoration: none;
+
+}
+
+.specialcolumn{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+
+.centereddiv{
+    margin-left: 25%;
+}
+.backbutton{
+    border: none;
+    background: none;
+    color:rgba(74,252,44,255);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+.downloadlink{
+    font-size: initial;
+    border: none;
+    background: none;
+    color:rgba(74,252,44,255);
+    font-family: 'Open Sans', sans-serif;
+    cursor:pointer;
+
+
+
+}
+
+.backbutton:hover{
+
+    border: none;
+    background: none;
+    color:rgba(74,252,44,255);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    cursor:pointer;
+
+}
+    </style>
+      <title class="maintitle">A.R.E.S Ripper</title>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,800&display=swap" rel="stylesheet">
+   </head>
+   <body>
+   <a href="pp" class='title-header' class='getmainpage'><h1 class='getmainpage'>A.R.E.S Ripper<h1></a>
+
+
+   </section>
+
+"""
     for x in avatars:
-        #input(x)
         if x[9] == "private":
-            html += f"""<figure>
-    <img src="{x[7]}" width="250" 
-     height="250" />
-    <figcaptionpriv>
-      <p>{x[1]}</p>
-    </figcaptionpriv>
-    </figure>"""
+          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[7]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🔴</p><a  loading='lazy' class='avatar-name' href='{x[6]}' >{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
         else:
-            html += f"""<figure>
-                <img src="{x[7]}" width="250" 
-                 height="250" />
-                <figcaption>
-                  <p>{x[1]}</p>
-                </figcaption>
-              </figure>"""
-    html += """\n</div>
-</div>
-</body>
+          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[7]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🟢</p><a  loading='lazy' class='avatar-name' href='{x[6]}' >{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
+
+
+    html += """\n      </body>
 </html>"""
-    with open("avatars.html", "w+") as kl:
+    with open("avatars.html", "w+", encoding="utf-8") as kl:
             kl.write(html)
     os.system("avatars.html")
