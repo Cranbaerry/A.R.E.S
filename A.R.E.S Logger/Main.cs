@@ -13,7 +13,7 @@ using UnityEngine;
 using System.Net.Http;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S", "0.2B", "LargestBoi")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S", "0.5Beta", "LargestBoi")]
 
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
