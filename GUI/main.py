@@ -120,7 +120,7 @@ class Ui(QtWidgets.QMainWindow):
                 if str(SendToAPI) == "Yes":
                     configsettings["SendToAPI"] = True
                     print("FUCK")
-                    username = pymsgbox.prompt('what username to use to log with?')
+                    username = pymsgbox.prompt('Enter API key from Discord bot (Command: !key):')
                     configsettings["Username"] = username
                 else:
                     configsettings["SendToAPI"] = False

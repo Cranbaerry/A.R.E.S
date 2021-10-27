@@ -75,7 +75,7 @@ alternate-background-color: rgb(0, 0, 0);
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -1217,7 +1217,7 @@ color: rgb(180, 180, 180);</string>
           <string notr="true">color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Key:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1393,25 +1393,6 @@ color: rgb(180, 180, 180);</string>
        <number>-1</number>
       </property>
      </widget>
-     <widget class="QFrame" name="frame_12">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>369</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-     </widget>
      <widget class="QFrame" name="frame_13">
       <property name="geometry">
        <rect>
@@ -1465,7 +1446,6 @@ color: rgb(180, 180, 180);</string>
      <zorder>frame_9</zorder>
      <zorder>ChangeUnityButton</zorder>
      <zorder>frame_13</zorder>
-     <zorder>frame_12</zorder>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
