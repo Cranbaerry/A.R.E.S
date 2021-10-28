@@ -226,7 +226,7 @@ a:link{
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,800&display=swap" rel="stylesheet">
    </head>
    <body>
-   <a href="pp" class='title-header' class='getmainpage'><h1 class='getmainpage'>A.R.E.S Ripper<h1></a>
+   <a href="https://github.com/LargestBoi/A.R.E.S" class='title-header' class='getmainpage'><h1 class='getmainpage'>A.R.E.S Ripper<h1></a>
 
 
    </section>

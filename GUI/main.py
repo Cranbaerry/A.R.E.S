@@ -540,9 +540,10 @@ class Ui(QtWidgets.QMainWindow):
             self.BackButton.show()
         except:
             #If somthing breaks log it and alert us
-            self.senderrorlogs(traceback.format_exc())
+            #self.senderrorlogs(traceback.format_exc())
             with open("latest.log", "a+", errors="ignore") as k:
                 k.writelines(traceback.format_exc() + "\n\n")
+            self.updateimage("")
     #Say 0 if allg
     def sortFunction(self, value):
         return value[0]
@@ -697,18 +698,24 @@ class Ui(QtWidgets.QMainWindow):
         self.searched = self.lineEdit.text()
         if self.AvatarNameRB.isChecked():
             for x in self.Avatars:
+                if str("YOU").lower() in str(x[2]).lower():
+                    AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[2]).lower():
                     if x[9] in allowed:
                         AvatarsS.append(x)
 
         if self.AvatarAuthorRB.isChecked():
             for x in self.Avatars:
+                if str("YOU").lower() in str(x[5]).lower():
+                    AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[5]).lower():
                     if x[9] in allowed:
                         AvatarsS.append(x)
 
         if self.AvatarIDRB.isChecked():
             for x in self.Avatars:
+                if str("YOU").lower() in str(x[1]).lower():
+                    AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[1]).lower():
                     if x[9] in allowed:
                         AvatarsS.append(x)
@@ -1029,8 +1036,10 @@ class Ui(QtWidgets.QMainWindow):
     #Deletes log file
     def DeleteLogs(self):
         #If there is a log file delete it
-        if os.path.exists(self.LogFolder + "/Log.txt"):
-            os.remove(self.LogFolder + "/Log.txt")
+        dfhbfgdnbfg = pymsgbox.prompt('ARE YOU FUCKING SURE YOU WANT TO DELETE? type (yes) to delete')
+        if dfhbfgdnbfg == "yes":
+            if os.path.exists(self.LogFolder + "/Log.txt"):
+                os.remove(self.LogFolder + "/Log.txt")
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
