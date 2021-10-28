@@ -273,9 +273,9 @@ class Ui(QtWidgets.QMainWindow):
         self.ModSettings["Username"] = self.UserText
         with open(self.ModConfig, "w+") as s:
             s.write(json.dumps(self.ModSettings, indent=4))
-        self.SetUserBox.setText("Username Set!")
+        self.SetUserBox.setText("Key Set!")
         #Updates console
-        self.updateconsole("Username Set")
+        self.updateconsole("Key Set")
         time.sleep(3)
         self.SetUserBox.setText(self.UserText)
         self.SetUserButton.setEnabled(True)

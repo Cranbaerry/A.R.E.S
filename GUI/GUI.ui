@@ -75,7 +75,7 @@ alternate-background-color: rgb(0, 0, 0);
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -1257,7 +1257,7 @@ color: rgb(180, 180, 180);</string>
 color: rgb(180, 180, 180)</string>
          </property>
          <property name="text">
-          <string>Set User</string>
+          <string>Set Key</string>
          </property>
         </widget>
        </item>
