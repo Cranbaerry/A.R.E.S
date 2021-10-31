@@ -1,7 +1,5 @@
 #Importing all reqirements for the GUI and its functionality
-import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, traceback, pymsgbox, subprocess
-import textwrap
-
+import os, sys, requests, json, re, threading, queue, tempfile, shutil, time, traceback, pymsgbox, subprocess, textwrap
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -823,10 +821,29 @@ class Ui(QtWidgets.QMainWindow):
         #Writes content to file
         with open(dir1, "wb") as v:
             v.write(data.content)
+    def VerSelect(self, url):
+        base = "/".join(url.split('/')[:7])
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "bypass"
+        }
+        versions = requests.get(url=base, headers=headers).json()
+        MaxVer = str(len(versions["versions"]) - 1)
+        selection = pymsgbox.confirm(text="Do you want to download the latest or custom version?", title="VRCA Version Select", buttons=["Latest","Custom"])
+        if selection == "Latest":
+            return f'{base}/{MaxVer}/file'
+        if selection == "Custom":
+            while True:
+                SelVer = pymsgbox.prompt(f'What version would you like to use?(Between 1-{MaxVer})')
+                MainList = range(1,int(MaxVer))
+                if int(SelVer) in MainList:
+                    break
+            return f'{base}/{SelVer}/file'
     #Initiates download of avatars
     def DownVRCA(self):
         #Begins downloading avatar in browser
-        os.startfile(self.Avatars[self.AvatarIndex][6])
+        os.startfile(self.VerSelect(self.Avatars[self.AvatarIndex][6]))
     #Repace of avtr ids in file
     def ReplaceID(self, oldid, newid, newCAB):
         #Read decompiled file (bytes)
@@ -974,7 +991,7 @@ class Ui(QtWidgets.QMainWindow):
             self.updateconsole("Cleaned Temp FIles...")
             #If its an loaded vrca accomodate it
             if self.Avatars[0][0] != "VRCA":
-                self.DownVRCAT(self.Avatars[self.AvatarIndex][6], "HOTSWAP/Avatar.vrca")
+                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][6]), "HOTSWAP/Avatar.vrca")
             else:
                 shutil.copy(self.lvrca, "HOTSWAP/Avatar.vrca")
             #Re-enter hotswap
