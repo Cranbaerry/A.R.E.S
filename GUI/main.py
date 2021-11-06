@@ -355,7 +355,8 @@ class Ui(QtWidgets.QMainWindow):
             #If it aint download the vrca in question
             else:
                 self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
-                self.DownVRCAT(self.Avatars[self.AvatarIndex][6], f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
+                self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
+                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][6]), f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
                 self.keepvrca = False
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
