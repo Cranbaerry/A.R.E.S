@@ -66,18 +66,17 @@ namespace AvatarLogger
                         });
                         try
                         {
-                            string quest = playerHashtable["251"]["avatarDict"]["unityPackages"][1]["assetUrl"];
-                            File.AppendAllText(AvatarFile, $"Quest Asset URL:{quest}\n");
+                            File.AppendAllText(AvatarFile, $"Quest Asset URL:{playerHashtable["251"]["avatarDict"]["unityPackages"][1]["assetUrl"]}\n");
                         }
                         catch
                         {
-                            string quest = "None";
-                            File.AppendAllText(AvatarFile, $"Quest Asset URL:{quest}\n");
+                            File.AppendAllText(AvatarFile, $"Quest Asset URL:None\n");
                         }
                         File.AppendAllLines(AvatarFile, new string[]
                         {
                         $"Image URL:{playerHashtable["251"]["avatarDict"]["imageUrl"]}",
                         $"Thumbnail URL:{playerHashtable["251"]["avatarDict"]["thumbnailImageUrl"]}",
+                        $"Unity Version:{playerHashtable["251"]["avatarDict"]["unityPackages"][0]["unityVersion"]}",
                         $"Release Status:{playerHashtable["251"]["avatarDict"]["releaseStatus"]}",
                         });
                         if (playerHashtable["251"]["avatarDict"]["tags"].Count > 0)
