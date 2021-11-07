@@ -3,16 +3,12 @@ using MelonLoader;
 using Newtonsoft.Json;
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using UnhollowerBaseLib;
 using VRC.Core;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "Avatar Logger", "Beta_0.5", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "Avatar Logger", "Beta_0.7", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 
 namespace AvatarLogger
@@ -35,70 +31,88 @@ namespace AvatarLogger
             {
                 MelonLogger.Msg("Hook failed :(");
             }
+            MelonCoroutines.Start(OnNetworkManagerInit());
             base.OnApplicationStart();
         }
+        //for logging on player joined
+        internal static System.Collections.IEnumerator OnNetworkManagerInit()
+        {
+            while (NetworkManager.field_Internal_Static_NetworkManager_0 == null) yield return new UnityEngine.WaitForSecondsRealtime(2f);
+            if (NetworkManager.field_Internal_Static_NetworkManager_0 != null) new Action(() =>
+            {
+                NetworkManager.field_Internal_Static_NetworkManager_0.field_Internal_VRCEventDelegate_1_Player_0.field_Private_HashSet_1_UnityAction_1_T_0.Add(new Action<VRC.Player>((obj) =>
+                {
+                    if (obj.field_Private_APIUser_0.id != APIUser.CurrentUser.id)
+                    {
+                        var ht = obj.field_Private_Player_0.field_Private_Hashtable_0;
+                        dynamic playerHashtable = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(ht)));
+                        ExecuteLog(playerHashtable);
+                    }
+                }));
+            })();
+        }
+        //for logging on avatar changed
         private static bool Detour(ref EventData __0)
         {
             try
             {
-                string AvatarFile = "AvatarLog\\Log.txt";
-                if (!File.Exists(AvatarFile))
-                { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
                 if (__0.Code == 253)
                 {
                     string customProps = JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(__0.Parameters));
-                    ///MelonLogger.Msg(customProps);
                     dynamic playerHashtable = JsonConvert.DeserializeObject(customProps);
-                    string contents = File.ReadAllText(AvatarFile);
-
-                    if (!contents.Contains(playerHashtable["251"]["avatarDict"]["id"].ToString()))
-                    {
-
-                        File.AppendAllLines(AvatarFile, new string[]
-                        {
-                        $"Time Detected:{((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString()}",
-                        $"Avatar ID:{playerHashtable["251"]["avatarDict"]["id"]}",
-                        $"Avatar Name:{playerHashtable["251"]["avatarDict"]["name"]}",
-                        $"Avatar Description:{playerHashtable["251"]["avatarDict"]["description"]}",
-                        $"Author ID:{playerHashtable["251"]["avatarDict"]["authorId"]}",
-                        $"Author Name:{playerHashtable["251"]["avatarDict"]["authorName"]}",
-                        $"PC Asset URL:{playerHashtable["251"]["avatarDict"]["unityPackages"][0]["assetUrl"]}",
-                        });
-                        try
-                        {
-                            File.AppendAllText(AvatarFile, $"Quest Asset URL:{playerHashtable["251"]["avatarDict"]["unityPackages"][1]["assetUrl"]}\n");
-                        }
-                        catch
-                        {
-                            File.AppendAllText(AvatarFile, $"Quest Asset URL:None\n");
-                        }
-                        File.AppendAllLines(AvatarFile, new string[]
-                        {
-                        $"Image URL:{playerHashtable["251"]["avatarDict"]["imageUrl"]}",
-                        $"Thumbnail URL:{playerHashtable["251"]["avatarDict"]["thumbnailImageUrl"]}",
-                        $"Unity Version:{playerHashtable["251"]["avatarDict"]["unityPackages"][0]["unityVersion"]}",
-                        $"Release Status:{playerHashtable["251"]["avatarDict"]["releaseStatus"]}",
-                        });
-                        if (playerHashtable["251"]["avatarDict"]["tags"].Count > 0)
-                        {
-                            StringBuilder builder = new StringBuilder();
-                            builder.Append("Tags: ");
-                            foreach (string tag in playerHashtable["251"]["avatarDict"]["tags"]) { builder.Append($"{tag},"); }
-                            string tagsstr = builder.ToString().Remove(builder.ToString().LastIndexOf(","));
-                            File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
-                        }
-                        else { File.AppendAllText(AvatarFile, "Tags: None"); }
-                        MelonLogger.Msg($"Logged: {playerHashtable["251"]["avatarDict"]["name"]}|{playerHashtable["251"]["avatarDict"]["releaseStatus"]}");
-                        File.AppendAllText(AvatarFile, "\n\n");
-                    }
+                    ExecuteLog(playerHashtable["251"]);
                 }
-
             }
-            catch
+            catch { }
+            return true;
+        }
+        //log method
+        private static void ExecuteLog(dynamic playerHashtable)
+        {
+            string AvatarFile = "AvatarLog\\Log.txt";
+            if (!File.Exists(AvatarFile))
+            { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
+            string contents = File.ReadAllText(AvatarFile);
+            if (!contents.Contains(playerHashtable["avatarDict"]["id"].ToString()))
             {
 
+                File.AppendAllLines(AvatarFile, new string[]
+                {
+                        $"Time Detected:{((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString()}",
+                        $"Avatar ID:{playerHashtable["avatarDict"]["id"]}",
+                        $"Avatar Name:{playerHashtable["avatarDict"]["name"]}",
+                        $"Avatar Description:{playerHashtable["avatarDict"]["description"]}",
+                        $"Author ID:{playerHashtable["avatarDict"]["authorId"]}",
+                        $"Author Name:{playerHashtable["avatarDict"]["authorName"]}",
+                        $"PC Asset URL:{playerHashtable["avatarDict"]["unityPackages"][0]["assetUrl"]}",
+                });
+                try
+                {
+                    File.AppendAllText(AvatarFile, $"Quest Asset URL:{playerHashtable["avatarDict"]["unityPackages"][1]["assetUrl"]}\n");
+                }
+                catch
+                {
+                    File.AppendAllText(AvatarFile, $"Quest Asset URL:None\n");
+                }
+                File.AppendAllLines(AvatarFile, new string[]
+                {
+                        $"Image URL:{playerHashtable["avatarDict"]["imageUrl"]}",
+                        $"Thumbnail URL:{playerHashtable["avatarDict"]["thumbnailImageUrl"]}",
+                        $"Unity Version:{playerHashtable["avatarDict"]["unityPackages"][0]["unityVersion"]}",
+                        $"Release Status:{playerHashtable["avatarDict"]["releaseStatus"]}",
+                });
+                if (playerHashtable["avatarDict"]["tags"].Count > 0)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.Append("Tags: ");
+                    foreach (string tag in playerHashtable["avatarDict"]["tags"]) { builder.Append($"{tag},"); }
+                    string tagsstr = builder.ToString().Remove(builder.ToString().LastIndexOf(","));
+                    File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                }
+                else { File.AppendAllText(AvatarFile, "Tags: None"); }
+                MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}");
+                File.AppendAllText(AvatarFile, "\n\n");
             }
-            return true;
         }
     }
 }

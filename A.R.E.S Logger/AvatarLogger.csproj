@@ -40,6 +40,9 @@
     <Reference Include="Il2Cppmscorlib">
       <HintPath>DLLS\Il2Cppmscorlib.dll</HintPath>
     </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>DLLS\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>DLLS\MelonLoader.dll</HintPath>
     </Reference>
@@ -67,14 +70,21 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>DLLS\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="VRCCore-Standalone">
+    <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\VRCCore-Standalone.dll</HintPath>
+    </Reference>
+    <Reference Include="VRCSDKBase">
+      <HintPath>DLLS\VRCSDKBase.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AvatarLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
