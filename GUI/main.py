@@ -825,24 +825,44 @@ class Ui(QtWidgets.QMainWindow):
         #Writes content to file
         with open(dir1, "wb") as v:
             v.write(data.content)
+    #Pretty self explanatory innit
     def VerSelect(self, url):
+        #Creates variables to home template for base avatar url
         base = "/".join(url.split('/')[:7])
+        #Lets vrc think me browser
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
             "Content-Type": "application/json",
             "Bypass-Tunnel-Reminder": "bypass"
         }
+        #Returns json of all avatar versions
         versions = requests.get(url=base, headers=headers).json()
+        #Gets the highest possible version
         MaxVer = str(len(versions["versions"]) - 1)
+        #Allows user to select what version of the avatar they want
         selection = pymsgbox.confirm(text="Do you want to download the latest or custom version?", title="VRCA Version Select", buttons=["Latest","Custom"])
+        #Takes action depending on what was selected
         if selection == "Latest":
             return f'{base}/{MaxVer}/file'
         if selection == "Custom":
+            #In a loop to allow multiple attempts
             while True:
-                SelVer = pymsgbox.prompt(f'What version would you like to use?(Between 1-{MaxVer})')
-                MainList = range(1,int(MaxVer))
-                if int(SelVer) in MainList:
-                    break
+                #Try in while loop because ahhhhhhhhhhhhhhhhhh
+                try:
+                    #Prompts user for desired version of an avatrs
+                    SelVer = pymsgbox.prompt(f'What version would you like to use?(Between 1-{MaxVer}), cancel will auto to latest version!')
+                    #What the fuck are you even doing here trying to select nothing? WHo cares you get latest version
+                    if SelVer == None:
+                        SelVer = MaxVer
+                        break
+                    #Ensure the selected number is within a possible range of avatar version
+                    MainList = range(1,int(MaxVer))
+                    #If its a valid version break
+                    if int(SelVer) in MainList:
+                        break
+                except:
+                    pass
+            #Retruns end desired asset url
             return f'{base}/{SelVer}/file'
     #Initiates download of avatars
     def DownVRCA(self):
