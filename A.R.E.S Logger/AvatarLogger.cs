@@ -20,8 +20,6 @@ namespace AvatarLogger
         //Void to run on application start
         public override void OnApplicationStart()
         {
-            //Informs user that this is a beta build and not an offically supported release 
-            MelonLogger.Msg("Note: This is a beta version in heavy development!\nDon't use this as a main mod version\nit will only lead to your pain!");
             try
             {
                 //Attempts to use harmony to patch/hook into the VRChat networking client
