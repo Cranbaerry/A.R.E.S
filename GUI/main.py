@@ -531,7 +531,7 @@ class Ui(QtWidgets.QMainWindow):
         if self.AVIS[9] == "public":
             self.Status.setStyleSheet("background-color: blue; border: 3px solid black;")
             self.Status.setText("public")
-        threading.Thread(target=self.updateimage, args={self.AVIS[7], }).start()
+        threading.Thread(target=self.updateimage, args={self.AVIS[8], }).start()
         self.RawData = self.findChild(QtWidgets.QTextEdit, 'RawData')
         self.RawData.setPlainText(self.Cleantext(self.AVIS))
     #Sets load value
