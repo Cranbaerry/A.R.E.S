@@ -1483,9 +1483,9 @@ color: rgb(180, 180, 180);</string>
      <widget class="QFrame" name="frame_8">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>-10</x>
         <y>10</y>
-        <width>301</width>
+        <width>321</width>
         <height>471</height>
        </rect>
       </property>
@@ -1585,7 +1585,7 @@ color: rgb(180, 180, 180);</string>
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
-          <string>RealBoppr</string>
+          <string>RealBoppr(Retired)</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1609,7 +1609,7 @@ color: rgb(180, 180, 180);</string>
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
-          <string>Sol*</string>
+          <string>Sol*(Missing)</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

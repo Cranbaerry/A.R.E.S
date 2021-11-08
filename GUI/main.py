@@ -525,10 +525,10 @@ class Ui(QtWidgets.QMainWindow):
         self.HotswapButton.setEnabled(True)
         self.browserview.setEnabled(True)
         self.AVIS = self.Avatars[AVIndex]
-        if self.AVIS[9] == "private":
+        if self.AVIS[11] == "private":
             self.Status.setStyleSheet("background-color: red; border: 3px solid black;")
             self.Status.setText("Private")
-        if self.AVIS[9] == "public":
+        if self.AVIS[11] == "public":
             self.Status.setStyleSheet("background-color: blue; border: 3px solid black;")
             self.Status.setText("public")
         threading.Thread(target=self.updateimage, args={self.AVIS[8], }).start()
