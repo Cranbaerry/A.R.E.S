@@ -388,18 +388,18 @@ class Ui(QtWidgets.QMainWindow):
         x = data
         #Get all necassacry information in json
         hooh = {
-            "Time Detected": x[0],
-            "Avatar ID": x[1],
-            "Avatar Name": x[2],
-            "Avatar Description": x[3],
-            "Author ID": x[4],
-            "Author Name": x[5],
-            "PC Asset URL": x[6],
-            "Quest Asset URL": x[7],
-            "Image URL": x[8],
-            "Thumbnail URL": x[9],
-            "Unity Version": x[10],
-            "Release Status": x[11],
+            "TimeDetected": x[0],
+            "AvatarID": x[1],
+            "AvatarName": x[2],
+            "AvatarDescription": x[3],
+            "AuthorID": x[4],
+            "AuthorName": x[5],
+            "PCAssetURL": x[6],
+            "QUESTAssetURL": x[7],
+            "ImageURL": x[8],
+            "ThumbnailURL": x[9],
+            "UnityVersion": x[10],
+            "Releasestatus": x[11],
             "Tags": x[12]
         }
         #Uploads to our domain
