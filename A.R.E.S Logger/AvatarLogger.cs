@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "Avatar Logger", "Beta_0.7", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "V1", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -80,7 +80,7 @@ namespace AvatarLogger
         private static void ExecuteLog(dynamic playerHashtable)
         {
             //Locate the log file
-            string AvatarFile = "AvatarLog\\Log.txt";
+            string AvatarFile = "GUI\\Log.txt";
             //If the log file does not exist create it and append the credits of the mod
             if (!File.Exists(AvatarFile))
             { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
@@ -101,8 +101,19 @@ namespace AvatarLogger
                     $"Avatar Description:{playerHashtable["avatarDict"]["description"]}",
                     $"Author ID:{playerHashtable["avatarDict"]["authorId"]}",
                     $"Author Name:{playerHashtable["avatarDict"]["authorName"]}",
-                    $"PC Asset URL:{playerHashtable["avatarDict"]["unityPackages"][0]["assetUrl"]}",
                 });
+                //If an avatar is not pc compatable the value on the hash table does not exist, if it an attempt to pull this information is made it will fail,
+                //We used a try/catch statement to detect the existance of an asset url
+                try
+                {
+                    //Will attempt to write the pc url to the log file, if it is present this will complete without error, logging the pc asset url
+                    File.AppendAllText(AvatarFile, $"PC Asset URL:{playerHashtable["avatarDict"]["unityPackages"][0]["assetUrl"]}\n");
+                }
+                catch
+                {
+                    //If it fails to retreive the pc asset url the default text "PC Asset URL:None" is written into the log and a new line is formed "\n"
+                    File.AppendAllText(AvatarFile, $"PC Asset URL:None\n");
+                }
                 //If an avatar is not quest compatable the value on the hash table does not exist, if it an attempt to pull this information is made it will fail,
                 //We used a try/catch statement to detect the existance of an asset url
                 try

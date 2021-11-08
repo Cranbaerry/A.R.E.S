@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "8.4"
+        VERSION = "9"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -61,91 +61,40 @@ class Ui(QtWidgets.QMainWindow):
             with open("Settings.json", "r+") as s:
                 self.Settings = json.loads(s.read())
         except:
-            pymsgbox.alert("Select Vrchat Exe")
-            self.VRCPath = QFileDialog.getOpenFileName(self, 'Select VRChat.exe', 'VRChat', "EXE Files (*.exe)")[0].replace("/VRChat.exe", "")
             pymsgbox.alert("Select Unity 2019.4.31f1 Exe")
             self.UPath = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
             with open("Settings.json", "a+") as s:
                 dd = {
-                    "Avatar_Folder": self.VRCPath,
-                    "Unity_Exe": self.UPath
+                    "Unity_Exe": self.UPath,
+                    "Username": "Default",
+                    "SendToAPI": False
                 }
                 s.write(json.dumps(dd, indent=4))
         #Read from "Settings.json" file
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
-            self.VRCDir = self.Settings["Avatar_Folder"]
             self.UDir = self.Settings["Unity_Exe"]
         #Loading the ModConfig file from the avatar logger mod
-        self.LogFolder = self.Settings["Avatar_Folder"] + "\\AvatarLog"
-        if not os.path.isdir(self.LogFolder):
-            os.mkdir(self.LogFolder)
-        self.ModConfig = self.Settings["Avatar_Folder"]+"\\AvatarLog\\Config.json"
-        try:
-            with open(self.ModConfig, "r+") as s:
-                self.ModSettings = json.loads(s.read())
-        except:
-            with open(self.ModConfig, "a+") as s:
-                configsettings = {
-                    "LogAvatars": True,
-                    "LogOwnAvatars": True,
-                    "LogFriendsAvatars": True,
-                    "LogToConsole": True,
-                    "Username": "Default",
-                    "SendToAPI": True
-                }
-                LogAvatars = pymsgbox.confirm(text='LogAvatars', title='', buttons=['Yes', 'No'])
-                if str(LogAvatars) == "Yes":
-                    configsettings["LogAvatars"] = True
-                else:
-                    configsettings["LogAvatars"] = False
-                LogOwnAvatars = pymsgbox.confirm(text='LogOwnAvatars', title='', buttons=['Yes', 'No'])
-                if str(LogOwnAvatars) == "Yes":
-                    configsettings["LogOwnAvatars"] = True
-                else:
-                    configsettings["LogOwnAvatars"] = False
-                LogFriendsAvatars = pymsgbox.confirm(text='LogFriendsAvatars', title='', buttons=['Yes', 'No'])
-                if str(LogFriendsAvatars) == "Yes":
-                    configsettings["LogFriendsAvatars"] = True
-                else:
-                    configsettings["LogFriendsAvatars"] = False
-                LogToConsole = pymsgbox.confirm(text='LogToConsole', title='', buttons=['Yes', 'No'])
-                if str(LogToConsole) == "Yes":
-                    configsettings["LogToConsole"] = True
-                else:
-                    configsettings["LogToConsole"] = False
-                SendToAPI = pymsgbox.confirm(text='SendToAPI', title='', buttons=['Yes', 'No'])
-                if str(SendToAPI) == "Yes":
-                    configsettings["SendToAPI"] = True
-                    print("FUCK")
-                    username = pymsgbox.prompt('Enter API key from Discord bot (Command: !key):')
-                    configsettings["Username"] = username
-                else:
-                    configsettings["SendToAPI"] = False
-
-                s.write(json.dumps(configsettings, indent=4))
-                self.ModSettings = configsettings
-
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         # Declares the API label and sets text
         self.APIL = self.findChild(QtWidgets.QLabel, 'APILabel')
         #Gets and sets LogSize of avatar log
         self.LogSize = self.findChild(QtWidgets.QLabel, 'LogSize')
-        if os.path.exists(self.LogFolder + "/Log.txt"):
-            self.LSize = os.path.getsize(self.LogFolder + "/Log.txt")
+        if os.path.exists("Log.txt"):
+            self.LSize = os.path.getsize("Log.txt")
             self.LogSize.setText(str(round(self.LSize/(1024*1024)))+"MB")
         #Declares search API button
         self.searchapibutton = self.findChild(QtWidgets.QPushButton, 'searchapibutton')
         self.searchapibutton.clicked.connect(self.callapiforavis)
         #Loads mod setting from VRC mod
-        if self.ModSettings["SendToAPI"]:
+        if self.Settings["SendToAPI"]:
             kk = requests.get(url="https://pastebin.com/raw/8DzGLek5").text
             self.domain = kk
             self.searchapibutton.setEnabled(True)
             threading.Thread(target=self.HWIDLaunch, args={}).start()
             #self.HWIDLaunch()
             self.APIL.setText("API Enabled")
-            if os.path.exists(self.LogFolder + "/Log.txt"):
+            if os.path.exists("Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         #Declares all other buttons, checkboxes toggles, textboxes and alot more!
         self.LoadButton = self.findChild(QtWidgets.QPushButton, 'LoadButton')
@@ -194,7 +143,7 @@ class Ui(QtWidgets.QMainWindow):
         self.VRCAExtractButton.clicked.connect(self.VRCAExtract)
         self.VRCAExtractButton.setEnabled(False)
         self.SetUserBox = self.findChild(QtWidgets.QLineEdit, 'SetUserBox')
-        self.SetUserBox.setText(self.ModSettings["Username"])
+        self.SetUserBox.setText(self.Settings["Username"])
         self.UnityButton = self.findChild(QtWidgets.QPushButton, 'UnityButton')
         self.UnityButton.clicked.connect(self.OpenUnity)
         self.ToggleAPIButton = self.findChild(QtWidgets.QPushButton, 'ToggleAPIButton')
@@ -214,7 +163,7 @@ class Ui(QtWidgets.QMainWindow):
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'progressBar')
         #Fetch user statistics from API
         try:
-            kk = requests.get(url="https://api.avataruploader.tk/user/" + self.ModSettings["Username"], timeout=5).text
+            kk = requests.get(url="https://api.avataruploader.tk/user/" + self.Settings["Username"], timeout=5).text
             self.UsrTotal.display(int(kk))
         except:
             pass
@@ -268,9 +217,9 @@ class Ui(QtWidgets.QMainWindow):
         #Gets text box contents and removes special chars
         self.UserText = self.SetUserBox.text().encode().decode("ascii", errors="ignore")
         #Writes to mod settings files
-        self.ModSettings["Username"] = self.UserText
-        with open(self.ModConfig, "w+") as s:
-            s.write(json.dumps(self.ModSettings, indent=4))
+        self.Settings["Username"] = self.UserText
+        with open("Settings.json", "w+") as s:
+            s.write(json.dumps(self.Settings, indent=4))
         self.SetUserBox.setText("Key Set!")
         #Updates console
         self.updateconsole("Key Set")
@@ -280,7 +229,7 @@ class Ui(QtWidgets.QMainWindow):
     #Creates user identifier for API
     def HWIDLaunch(self):
         #Gets username and sends to API via request
-        self.HHWID = self.ModSettings["Username"]
+        self.HHWID = self.Settings["Username"]
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass"}
         try:
@@ -392,18 +341,18 @@ class Ui(QtWidgets.QMainWindow):
     #If the API is toggled via the GUI
     def updateapi(self):
         #If the API is on disable it and quit the app
-        if self.ModSettings["SendToAPI"]:
-            self.ModSettings["SendToAPI"] = False
-            with open(self.ModConfig, "w+") as s:
-                s.write(json.dumps(self.ModSettings, indent=4))
+        if self.Settings["SendToAPI"]:
+            self.Settings["SendToAPI"] = False
+            with open("Settings.json", "w+") as s:
+                s.write(json.dumps(self.Settings, indent=4))
             try:
                os.system('taskkill /F /im "ARES.exe"')
             except:
                pass
         #If the API was off turn it on and quit the app
-        self.ModSettings["SendToAPI"] = True
-        with open(self.ModConfig, "w+") as s:
-            s.write(json.dumps(self.ModSettings, indent=4))
+        self.Settings["SendToAPI"] = True
+        with open("Settings.json", "w+") as s:
+            s.write(json.dumps(self.Settings, indent=4))
         try:
             os.system('taskkill /F /im "ARES.exe"')
         except:
@@ -420,12 +369,12 @@ class Ui(QtWidgets.QMainWindow):
             with open("uploaded.txt", "a") as p:
                 pass
         #Get log file
-        pubpath = self.LogFolder + "/Log.txt"
+        pubpath = "Log.txt"
         #read what has already been uploaded
         with open("uploaded.txt", "r+", errors="ignore") as k:
             avis = k.read()
         #Create upload json
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nPC Asset URL:(.*)\nQuest Asset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nUnity Version:(.*)\nRelease Status:(.*)\nTags:(.*)"
         #Create array to upload
         with open(pubpath, "r+", errors="ignore") as g:
             kk = g.read()
@@ -439,27 +388,25 @@ class Ui(QtWidgets.QMainWindow):
         x = data
         #Get all necassacry information in json
         hooh = {
-            "TimeDetected": x[0],
-            "AvatarID": x[1],
-            "AvatarName": x[2],
-            "AvatarDescription": x[3],
-            "AuthorID": x[4],
-            "AuthorName": x[5],
-            "AssetURL": x[6],
-            "ImageURL": x[7],
-            "ThumbnailURL": x[8],
-            "ReleaseStatus": x[9],
-            "UnityVersion": x[10],
-            "Platform": x[11],
-            "APIVersion": x[12],
-            "Version": x[13],
-            "Tags": x[14]
+            "Time Detected": x[0],
+            "Avatar ID": x[1],
+            "Avatar Name": x[2],
+            "Avatar Description": x[3],
+            "Author ID": x[4],
+            "Author Name": x[5],
+            "PC Asset URL": x[6],
+            "Quest Asset URL": x[7],
+            "Image URL": x[8],
+            "Thumbnail URL": x[9],
+            "Unity Version": x[10],
+            "Release Status": x[11],
+            "Tags": x[12]
         }
         #Uploads to our domain
         url = "http://" + self.domain + "/upload"
         headers = {"Content-Type": "application/json",
                    "Bypass-Tunnel-Reminder": "bypass",
-                   "User-Agent" : self.ModSettings["Username"]}
+                   "User-Agent" : self.Settings["Username"]}
         if str(x[1]) not in avis:
             try:
                 response = requests.request("POST", url, json=hooh, headers=headers)
@@ -596,10 +543,10 @@ class Ui(QtWidgets.QMainWindow):
         self.leftbox.show()
         self.Status.show()
         #Sets json index
-        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nAsset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nRelease Status:(.*)\nUnity Version:(.*)\nPlatform:(.*)\nAPI Version:(.*)\nVersion:(.*)\nTags: (.*)"
+        pat = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nPC Asset URL:(.*)\nQuest Asset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nUnity Version:(.*)\nRelease Status:(.*)\nTags:(.*)"
         try:
             #Setup logs to be read
-            with open(self.LogFolder + "\Log.txt", "r+", errors="ignore") as s:
+            with open("Log.txt", "r+", errors="ignore") as s:
                 self.Logs = s.read()
                 self.Avatars = re.findall(pat, self.Logs)
             #Parses log files
@@ -633,9 +580,9 @@ class Ui(QtWidgets.QMainWindow):
     #Cleans text for preview
     def Cleantext(self, data):
         try:
-            Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nUnity Version:{data[10]}\nPlatform:{data[11]}\nAPI Version:{data[12]}\nVersion:{data[13]}\nTags:{data[14]}"""
+            Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
         except:
-            Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nAsset URL:{data[6]}\nImage URL:{data[7]}\nThumbnail URL:{data[8]}\nRelease Status:{data[9]}\nUnity Version:{data[10]}\nPlatform:{data[11]}\nAPI Version:{data[12]}\nVersion:{data[13]}\nTags:{data[14]}"""
+            Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
         return Klean
     #Some search reqirements
     def Search(self):
@@ -674,7 +621,7 @@ class Ui(QtWidgets.QMainWindow):
             seardata["avatarid"] = True
         headers = {
             'accept': 'application/json',
-            'User-Agent': self.ModSettings["Username"],
+            'User-Agent': self.Settings["Username"],
             'Content-Type': 'application/json',
             "Bypass-Tunnel-Reminder": "bypass"
         }
@@ -703,7 +650,7 @@ class Ui(QtWidgets.QMainWindow):
                 if str("YOU").lower() in str(x[2]).lower():
                     AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[2]).lower():
-                    if x[9] in allowed:
+                    if x[11] in allowed:
                         AvatarsS.append(x)
 
         if self.AvatarAuthorRB.isChecked():
@@ -711,7 +658,7 @@ class Ui(QtWidgets.QMainWindow):
                 if str("YOU").lower() in str(x[5]).lower():
                     AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[5]).lower():
-                    if x[9] in allowed:
+                    if x[11] in allowed:
                         AvatarsS.append(x)
 
         if self.AvatarIDRB.isChecked():
@@ -719,7 +666,7 @@ class Ui(QtWidgets.QMainWindow):
                 if str("YOU").lower() in str(x[1]).lower():
                     AvatarsS.append(x)
                 if str(self.searched).lower() in str(x[1]).lower():
-                    if x[9] in allowed:
+                    if x[11] in allowed:
                         AvatarsS.append(x)
         try:
             #raise ValueError("TEST ERROR")
@@ -729,7 +676,7 @@ class Ui(QtWidgets.QMainWindow):
                     if self.NSFWcheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_sex").lower() in str(x[14]).lower():
+                                if str("content_sex").lower() in str(x[12]).lower():
                                     newavis.append(x)
                             except:
                                 self.senderrorlogs(traceback.format_exc())
@@ -738,7 +685,7 @@ class Ui(QtWidgets.QMainWindow):
                     if self.Violencecheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_violence").lower() in str(x[14]).lower():
+                                if str("content_violence").lower() in str(x[12]).lower():
                                     newavis.append(x)
                             except:
                                 self.senderrorlogs(traceback.format_exc())
@@ -747,7 +694,7 @@ class Ui(QtWidgets.QMainWindow):
                     if self.Gorecheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_gore").lower() in str(x[14]).lower():
+                                if str("content_gore").lower() in str(x[12]).lower():
                                     newavis.append(x)
                             except:
                                 self.senderrorlogs(traceback.format_exc())
@@ -756,7 +703,7 @@ class Ui(QtWidgets.QMainWindow):
                     if self.Othernsfwcheckbox.isChecked():
                         for x in AvatarsS:
                             try:
-                                if str("content_other").lower() in str(x[14]).lower():
+                                if str("content_other").lower() in str(x[12]).lower():
                                     newavis.append(x)
                             except:
                                 self.senderrorlogs(traceback.format_exc())
@@ -864,11 +811,38 @@ class Ui(QtWidgets.QMainWindow):
                     pass
             #Retruns end desired asset url
             return f'{base}/{SelVer}/file'
+    #Function allowing an individual to select the platform of their action
+    def PlatCheck(self, PC, Q):
+        #Turn inputs into meaningful values
+        if "None" in PC:
+            PC = False
+        else:
+            PC = True
+        if "None" in Q:
+            Q = False
+        else:
+            Q = True
+        #If both quest and PC options are valid ask the user what platform they want the action to involve
+        if PC is True and Q is True:
+            selection = pymsgbox.confirm(text="Would you like to hotswap the Quest or PC version of the avatar?", title="VRCA Platform Select", buttons=["PC", "Quest"])
+            if selection == "PC":
+                return int(6)
+            if selection == "Quest":
+                return int(7)
+        #If only quest is available default to quest
+        if PC is False and Q is True:
+            return int(7)
+        #If only PC is available default to PC
+        if PC is True and Q is False:
+            return int(6)
     #Initiates download of avatars
     def DownVRCA(self):
+        print(self.Avatars[self.AvatarIndex][6] + "" + self.Avatars[self.AvatarIndex][7])
+        #Allows user to select platform
+        SelectedPlatform = self.PlatCheck(self.Avatars[self.AvatarIndex][6],self.Avatars[self.AvatarIndex][7])
         #Begins downloading avatar in browser
-        os.startfile(self.VerSelect(self.Avatars[self.AvatarIndex][6]))
-    #Repace of avtr ids in file
+        os.startfile(self.VerSelect(self.Avatars[self.AvatarIndex][SelectedPlatform]))
+    #Repace of avtar ids in file
     def ReplaceID(self, oldid, newid, newCAB):
         #Read decompiled file (bytes)
         with open("decompressed.vrca", "rb") as f:
@@ -956,12 +930,10 @@ class Ui(QtWidgets.QMainWindow):
                 "VRCA",
                 "VRCA",
                 "VRCA",
-                "VRCA",
-                "VRCA"
             ]
             self.Avatars1[1] = self.oldid
             self.Avatars1[6] = self.lvrca
-            self.Avatars1[7] = "https://i.ibb.co/3pHS4wB/Default-Placeholder.png"
+            self.Avatars1[8] = "https://i.ibb.co/3pHS4wB/Default-Placeholder.png"
             self.Avatars.append(self.Avatars1)
             self.AvatarIndex = 0
             self.AvatarUpdate(0)
@@ -975,9 +947,9 @@ class Ui(QtWidgets.QMainWindow):
             #Enables progress bar
             self.ProgBar.setEnabled(True)
             #Checks if vrca has been loaded from eslewhere
-            if self.Avatars[self.AvatarIndex][7] != "VRCA":
+            if self.Avatars[self.AvatarIndex][0] != "VRCA":
                 #If it has declare a demo image
-                self.imgurl = self.Avatars[self.AvatarIndex][7]
+                self.imgurl = self.Avatars[self.AvatarIndex][8]
                 self.DownVRCAT(self.imgurl, "Logo.png")
                 os.remove("HSB/Assets/Logo.png")
                 shutil.move("Logo.png", "HSB/Assets/Logo.png")
@@ -1015,7 +987,9 @@ class Ui(QtWidgets.QMainWindow):
             self.updateconsole("Cleaned Temp FIles...")
             #If its an loaded vrca accomodate it
             if self.Avatars[0][0] != "VRCA":
-                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][6]), "HOTSWAP/Avatar.vrca")
+                # Allows user to select platform
+                SelectedPlatform = self.PlatCheck(self.Avatars[self.AvatarIndex][6], self.Avatars[self.AvatarIndex][7])
+                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][SelectedPlatform]), "HOTSWAP/Avatar.vrca")
             else:
                 shutil.copy(self.lvrca, "HOTSWAP/Avatar.vrca")
             #Re-enter hotswap
@@ -1077,10 +1051,10 @@ class Ui(QtWidgets.QMainWindow):
     #Deletes log file
     def DeleteLogs(self):
         #If there is a log file delete it
-        dfhbfgdnbfg = pymsgbox.prompt('ARE YOU FUCKING SURE YOU WANT TO DELETE? type (yes) to delete')
-        if dfhbfgdnbfg == "yes":
-            if os.path.exists(self.LogFolder + "/Log.txt"):
-                os.remove(self.LogFolder + "/Log.txt")
+        ays = pymsgbox.prompt('Are you sure you want to delete your log file? type (yes) to delete')
+        if ays == "yes":
+            if os.path.exists("Log.txt"):
+                os.remove("Log.txt")
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons

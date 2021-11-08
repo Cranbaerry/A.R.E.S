@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>A.R.E.S V8.4</string>
+   <string>A.R.E.S V9</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -52,7 +52,7 @@ QPushButton:disabled{
     border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(255, 0, 0), stop:1 rgb(255, 0, 0));
     border-width: 1px;
     border-radius: 5px;
-    color: #808086;
+	color: #808086;
     padding: 2px;
 	background-color:rgb(255,0,0)
 }
@@ -214,7 +214,7 @@ QPushButton:enabled{
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(180, 180, 180);</string>
+          <string notr="true">color: rgb(180,180,180);</string>
          </property>
          <property name="text">
           <string>Search [API]</string>

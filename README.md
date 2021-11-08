@@ -20,9 +20,7 @@ Features:
 
     -Repair avatar VRCAs retreived from the cache
 
-	-Logs ALL avatars seen in game regardless of them being private or public (PC only, currently)
-
-    -Log avatars manually via the preview frame(Public)(brokie)
+	-Logs ALL avatars seen in game regardless of them being private or public(Including Quest Versions)
 	
 	-An easy to navigate and in my opinion extremely sexy GUI
 	
@@ -49,10 +47,6 @@ Features:
     -API support! If you are willing to share your logs with us in return you will gain access to a database containing avatars logged by other users
 
     -Ability to hotswap from a vaid VRCA file downloaded elsewhere
-
-    -Ability to set usernames
-
-    -Ability to configure logging settings from within the game itself
 
     -Ability to almost perfectly extract vrca files for repairs with FACS and Pumpkin
 

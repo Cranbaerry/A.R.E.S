@@ -233,10 +233,10 @@ a:link{
 
 """
     for x in avatars:
-        if x[9] == "private":
-          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[7]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🔴</p><a  loading='lazy' class='avatar-name' href='{x[6]}' >{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
+        if x[11] == "private":
+          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[8]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🔴</p><a  loading='lazy' class='avatar-name'>{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
         else:
-          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[7]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🟢</p><a  loading='lazy' class='avatar-name' href='{x[6]}' >{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
+          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[8]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' >🟢</p><a  loading='lazy' class='avatar-name'>{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
 
 
     html += """\n      </body>
