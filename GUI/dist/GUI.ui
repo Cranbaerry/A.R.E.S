@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>550</height>
+    <width>858</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>840</width>
-    <height>550</height>
+    <width>858</width>
+    <height>590</height>
    </size>
   </property>
   <property name="baseSize">
@@ -824,10 +824,10 @@ color: rgb(180, 180, 180);</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>0</y>
-        <width>781</width>
-        <height>491</height>
+        <x>0</x>
+        <y>-30</y>
+        <width>841</width>
+        <height>581</height>
        </rect>
       </property>
       <property name="font">
@@ -1073,7 +1073,6 @@ background-color: rgba(54, 54, 54, 0);</string>
        </item>
       </layout>
      </widget>
-     <zorder>UPDATEBUTTON</zorder>
      <zorder>backgroundimage</zorder>
      <zorder>frame</zorder>
      <zorder>RawData</zorder>
@@ -1089,6 +1088,7 @@ background-color: rgba(54, 54, 54, 0);</string>
      <zorder>lineEdit</zorder>
      <zorder>frame_11</zorder>
      <zorder>CleanExitButton</zorder>
+     <zorder>UPDATEBUTTON</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">

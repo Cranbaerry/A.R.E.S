@@ -8,7 +8,7 @@ from generatehtml import makehtml
 from base64 import b64encode
 
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = True
+debugg = False
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -305,7 +305,9 @@ class Ui(QtWidgets.QMainWindow):
             else:
                 self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
                 self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
-                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][6]), f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
+                # Allows user to select platform
+                SelectedPlatform = self.PlatCheck(self.Avatars[self.AvatarIndex][6], self.Avatars[self.AvatarIndex][7])
+                self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][SelectedPlatform]), f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
                 self.keepvrca = False
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
@@ -837,7 +839,6 @@ class Ui(QtWidgets.QMainWindow):
             return int(6)
     #Initiates download of avatars
     def DownVRCA(self):
-        print(self.Avatars[self.AvatarIndex][6] + "" + self.Avatars[self.AvatarIndex][7])
         #Allows user to select platform
         SelectedPlatform = self.PlatCheck(self.Avatars[self.AvatarIndex][6],self.Avatars[self.AvatarIndex][7])
         #Begins downloading avatar in browser

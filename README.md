@@ -12,9 +12,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V8.2 Virus Total](https://www.virustotal.com/gui/file/e406884100da99b461eb2506b0a61ef033eb86d44e40e82e22b29015833d9d48)
-
-I have gone about validating the latest V8.2 package with Microsoft, if a false positive is detected please follow the insructions within the "Submission" folder <<This also works as proof that all files are safe as they were manually reviewed by a Microsoft employee!
+[V9 Virus Total](https://www.virustotal.com/gui/file/f3a3928c298d67fd4c831d7496425cd782f8ee4b0bb0383215d6d23646ed09c8?nocache=1)
 
 Features:
 
