@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "V1", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.2", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -17,6 +17,11 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
+        //Sets static counter values to monitor logging statistics
+        public static int PC = 0;
+        public static int Q = 0;
+        public static int Pub = 0;
+        public static int Pri = 0;
         //Void to run on application start
         public override void OnApplicationStart()
         {
@@ -106,6 +111,8 @@ namespace AvatarLogger
                 {
                     //Will attempt to write the pc url to the log file, if it is present this will complete without error, logging the pc asset url
                     File.AppendAllText(AvatarFile, $"PC Asset URL:{playerHashtable["avatarDict"]["unityPackages"][0]["assetUrl"]}\n");
+                    //If a pc asset URL is logged add a value to the counter
+                    PC = PC + 1;
                 }
                 catch
                 {
@@ -118,6 +125,8 @@ namespace AvatarLogger
                 {
                     //Will attempt to write the quest url to the log file, if it is present this will complete without error, logging the quest asset url
                     File.AppendAllText(AvatarFile, $"Quest Asset URL:{playerHashtable["avatarDict"]["unityPackages"][1]["assetUrl"]}\n");
+                    //If a quest asset URL is logged add a a value to the counter
+                    Q = Q + 1;
                 }
                 catch
                 {
@@ -133,9 +142,13 @@ namespace AvatarLogger
                     $"Unity Version:{playerHashtable["avatarDict"]["unityPackages"][0]["unityVersion"]}",
                     $"Release Status:{playerHashtable["avatarDict"]["releaseStatus"]}",
                 });
+                //Adjust counter values to whatever the avatrs relese status is
+                string rs = playerHashtable["avatarDict"]["releaseStatus"].ToString();
+                if (rs == "public") { Pub = Pub + 1; };
+                if (rs == "private") { Pri = Pri + 1; };
                 //The last variables extracted are the tags of the avatar, these are added by the avatar uploader or by VRChat administrators/developers,
                 //they are initally stored as an array, if no tags are set the if statemnt will just continue with its else
-                if (playerHashtable["avatarDict"]["tags"].Count > 0)
+                    if (playerHashtable["avatarDict"]["tags"].Count > 0)
                 {
                     //Prepares to create a string from the array of tags
                     StringBuilder builder = new StringBuilder();
@@ -150,6 +163,9 @@ namespace AvatarLogger
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Inform the user of the successful log
                 MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}");
+                //Displays user statistics
+                MelonLogger.Msg("Session Statistics:");
+                MelonLogger.Msg($"Total Logged:{Pub + Pri}|PC:{PC}|Quest:{Q}|Publics:{Pub}|Privates:{Pri}");
                 //Append two new lines to the log file in preperation for another entry
                 File.AppendAllText(AvatarFile, "\n\n");
             }
