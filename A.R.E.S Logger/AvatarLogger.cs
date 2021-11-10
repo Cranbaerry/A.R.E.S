@@ -38,10 +38,6 @@ namespace AvatarLogger
             var LOA = category.CreateEntry("LogOwnAvatars", "", is_hidden: true);
             //Read and report values shown
             var CSV = CS.Value;
-            LFAV = LFA.Value;
-            MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
-            LOAV = LOA.Value;
-            MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
             //If CS (CleanStart) is empty begin first time setup
             if (CSV.Length != 1)
             {
@@ -55,6 +51,11 @@ namespace AvatarLogger
                 //Displays info pane about the settings and how they can be changed
                 MelonLogger.Msg("Default settings created!\nBy default avatars uploaded by you\nor your friends will not be logged!\nWant to change these settings? Then\nQuit the game and goto '/VRChat/UserData/MelonPreferences.cfg'\nHere you can change your logging settings!\nSide note: Setting CS to empty will reset everything\nto default settings on next boot!");
             }
+            else 
+                LFAV = LFA.Value;
+                MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
+                LOAV = LOA.Value;
+                MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
             try
             {
                 //Attempts to use harmony to patch/hook into the VRChat networking client
@@ -137,7 +138,7 @@ namespace AvatarLogger
                 if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
                 {
                     //If the user is a friend inform the user the log has not occurred and why so
-                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!");
+                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()}\nwas not logged, they are a friend!");
                     return; 
                 }
             }
@@ -148,7 +149,7 @@ namespace AvatarLogger
                 if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
                 {
                     //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!");
+                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged,\nyou have log own avatars disabled!");
                     return; 
                 }
             }
