@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.2", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.5", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -17,6 +17,11 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
+        //Making strings to contain logging settings and allowences
+        public static string LFAV = "False";
+        public static string LOAV = "False";
+        //Make string to contain friend avatars
+        public static string FriendIDs = null;
         //Sets static counter values to monitor logging statistics
         public static int PC = 0;
         public static int Q = 0;
@@ -25,6 +30,31 @@ namespace AvatarLogger
         //Void to run on application start
         public override void OnApplicationStart()
         {
+            //Create a melon loader settings category
+            var category = MelonPreferences.CreateCategory("ARES", "ARES");
+            //Create values to be in settings
+            var CS = category.CreateEntry("CS", "", is_hidden: true);
+            var LFA = category.CreateEntry("LogFriendsAvatars", "", is_hidden: true);
+            var LOA = category.CreateEntry("LogOwnAvatars", "", is_hidden: true);
+            //Read and report values shown
+            var CSV = CS.Value;
+            LFAV = LFA.Value;
+            MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
+            LOAV = LOA.Value;
+            MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
+            //If CS (CleanStart) is empty begin first time setup
+            if (CSV.Length != 1)
+            {
+                //Set CS to one to not have this occur from this point onwards
+                CS.Value = "1";
+                //Disable self logging and friend logging by default
+                LFA.Value = "False";
+                LOA.Value = "False";
+                //Saves current state of the settings
+                category.SaveToFile(true);
+                //Displays info pane about the settings and how they can be changed
+                MelonLogger.Msg("Default settings created!\nBy default avatars uploaded by you\nor your friends will not be logged!\nWant to change these settings? Then\nQuit the game and goto '/VRChat/UserData/MelonPreferences.cfg'\nHere you can change your logging settings!\nSide note: Setting CS to empty will reset everything\nto default settings on next boot!");
+            }
             try
             {
                 //Attempts to use harmony to patch/hook into the VRChat networking client
@@ -79,9 +109,49 @@ namespace AvatarLogger
             catch { }
             return true;
         }
+        //Wait till scene loads
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        {
+            //When scene loads fetch friends
+            if (buildIndex == -1) { MelonCoroutines.Start(FetchFriends()); }
+        }
+        private static System.Collections.IEnumerator FetchFriends()
+        {
+            //Wait till world loads
+            while(RoomManager.field_Internal_Static_ApiWorld_0 == null)
+            {
+                yield return null;
+            }
+            //Get friend IDs to array
+            string[] pals = APIUser.CurrentUser.friendIDs.ToArray();
+            //For every ID add ID to string
+            foreach(string pal in pals) { FriendIDs+=$"{pal},"; }
+        }
         //Method responsible for extracting data from a hast table and logging particular variables
         private static void ExecuteLog(dynamic playerHashtable)
         {
+            //If logging of friends avatars is disabled
+            if (LFAV == "False")
+            {
+                //Check if the avatar about to be logged is uploaded by a friend
+                if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
+                {
+                    //If the user is a friend inform the user the log has not occurred and why so
+                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!");
+                    return; 
+                }
+            }
+            //If logging own avatars is disabled
+            if (LOAV == "False")
+            {
+                //Check if the avatar about to be uploaded belongs to the user and was uploaded from their account
+                if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
+                {
+                    //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
+                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!");
+                    return; 
+                }
+            }
             //Locate the log file
             string AvatarFile = "GUI\\Log.txt";
             //If the log file does not exist create it and append the credits of the mod
@@ -163,10 +233,11 @@ namespace AvatarLogger
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Inform the user of the successful log
                 MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}");
-                //Displays user statistics
-                MelonLogger.Msg("Session Statistics:");
-                MelonLogger.Msg($"Total Logged:{Pub + Pri}|PC:{PC}|Quest:{Q}|Publics:{Pub}|Privates:{Pri}");
-                //Append two new lines to the log file in preperation for another entry
+                //Displays user statistics on every 10 logs
+                int total = Pub + Pri;
+                bool isMultiple = total % 10 == 0;
+                if (isMultiple) { MelonLogger.Msg("Session Statistics:"); }
+                if (isMultiple) { MelonLogger.Msg($"Total Logged:{total}|PC:{PC}|Quest:{Q}|Publics:{Pub}|Privates:{Pri}"); }
                 File.AppendAllText(AvatarFile, "\n\n");
             }
         }

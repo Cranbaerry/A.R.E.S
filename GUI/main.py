@@ -826,7 +826,7 @@ class Ui(QtWidgets.QMainWindow):
             Q = True
         #If both quest and PC options are valid ask the user what platform they want the action to involve
         if PC is True and Q is True:
-            selection = pymsgbox.confirm(text="Would you like to hotswap the Quest or PC version of the avatar?", title="VRCA Platform Select", buttons=["PC", "Quest"])
+            selection = pymsgbox.confirm(text="Would you like to use the Quest or PC version of the avatar?", title="VRCA Platform Select", buttons=["PC", "Quest"])
             if selection == "PC":
                 return int(6)
             if selection == "Quest":
