@@ -268,7 +268,7 @@ class Ui(QtWidgets.QMainWindow):
             os.chdir("HOTSWAP")
             #Decompress file
             os.system(rf'HOTSWAP.exe d "{self.rvrca}"')
-            os.system('HOTSWAP.exe d decompressed.vrca')
+            os.system('HOTSWAP.exe c decompressed.vrca')
             #Rename file/remove old variants
             if os.path.exists("Repaired.vrca"):
                 os.remove("Repaired.vrca")
