@@ -8,7 +8,7 @@ from generatehtml import makehtml
 from base64 import b64encode
 
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = False
+debugg = True
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -18,7 +18,7 @@ class Ui(QtWidgets.QMainWindow):
         #Prepares for UI launch
         super(Ui, self).__init__()
         #Locks particualr window size
-        self.setFixedSize(858, 590)
+        self.setFixedSize(879, 591)
         #Load the .ui file
         uic.loadUi('GUI.ui', self)
         #Prepares to log what is done within the current user session
@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "9"
+        VERSION = "9.4"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -215,7 +215,9 @@ class Ui(QtWidgets.QMainWindow):
         #Disables the button to avoid button spam
         self.SetUserButton.setEnabled(False)
         #Gets text box contents and removes special chars
-        self.UserText = self.SetUserBox.text().encode().decode("ascii", errors="ignore")
+        self.UserText = str(self.SetUserBox.text().encode().decode("ascii", errors="ignore"))
+        self.UserText = self.UserText.replace("\n","")
+        self.UserText = self.UserText.replace("\\n", "")
         #Writes to mod settings files
         self.Settings["Username"] = self.UserText
         with open("Settings.json", "w+") as s:
