@@ -14,7 +14,7 @@ using VRChatUtilityKit.Ui;
 using LoadSprite;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.5", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.7", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -28,8 +28,12 @@ namespace AvatarLogger
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
         public static string LOAV = "False";
+        public static string LTCV = "True";
+        public static string CEV = "False";
         public static bool LFAVB = false;
         public static bool LOAVB = false;
+        public static bool LTCVB = false;
+        public static bool CEVB = false;
         //Make string to contain friend avatars
         public static string FriendIDs = null;
         //Sets static counter values to monitor logging statistics
@@ -51,6 +55,8 @@ namespace AvatarLogger
             var CS = category.CreateEntry("CS", "", is_hidden: true);
             var LFA = category.CreateEntry("LogFriendsAvatars", "", is_hidden: true);
             var LOA = category.CreateEntry("LogOwnAvatars", "", is_hidden: true);
+            var LTC = category.CreateEntry("LogToConsole", "", is_hidden: true);
+            var CE = category.CreateEntry("ConsoleError", "", is_hidden: true);
             //Read and report values shown
             var CSV = CS.Value;
             //If CS (CleanStart) is empty begin first time setup
@@ -60,11 +66,21 @@ namespace AvatarLogger
                 CS.Value = "1";
                 //Disable self logging and friend logging by default
                 LFA.Value = "False";
+                LFAVB = false;
                 LOA.Value = "False";
+                LOAVB = false;
+                LTC.Value = "True";
+                LTCVB = true;
+                CE.Value = "False";
+                CEVB = false;
+                MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
+                MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
+                MelonLogger.Msg($"LogToConsole:{LTCV}");
+                MelonLogger.Msg($"LogErrorToConsole:{CEV}");
                 //Saves current state of the settings
                 category.SaveToFile(true);
                 //Displays info pane about the settings and how they can be changed
-                MelonLogger.Msg("Default settings created! By default avatars uploaded by you\nor your friends will not be logged! Want to change these settings? Then Quit the game and goto '/VRChat/UserData/MelonPreferences.cfg' Here you can change your logging settings!\nSide note: Setting CS to empty will reset everything to default settings on next boot!");
+                MelonLogger.Msg("Default settings created!");
             }
             //Loads values into strings and bools, then reporting them to the user
             else
@@ -77,6 +93,14 @@ namespace AvatarLogger
                 if (LOAV == "True"){LOAVB = true;}
                 if (LOAV == "False"){LOAVB = false;}
                 MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
+                LTCV = LTC.Value;
+                if (LTCV == "True") { LTCVB = true; }
+                if (LTCV == "False") { LTCVB = false; }
+                MelonLogger.Msg($"LogToConsole:{LTCV}");
+                CEV = CE.Value;
+                if (CEV == "True") { CEVB = true; }
+                if (CEV == "False") { CEVB = false; }
+                MelonLogger.Msg($"LogErrorToConsole:{CEV}");
             }
             try
             {
@@ -120,16 +144,68 @@ namespace AvatarLogger
                 //Creation of buttons and functions
                 new ToggleButton((state) => 
                 {
-                    if (state == true){MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "True"); }
-                    if (state == false){MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "False"); }
+                    if (state == true)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "True");
+                        LOAVB = true;
+                        MelonLogger.Msg("Logging of own avatars enabled!");
+                    }
+                    if (state == false)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "False");
+                        LOAVB = false;
+                        MelonLogger.Msg("Logging of own avatars disabled!");
+                    }
                     MelonPreferences.Save();
                 }, ButtonImage, CrossImage, "Log Own Avatars", "LOAT","","",(button) => button.ToggleComponent.isOn = LOAVB),
                 new ToggleButton((state) =>
                 {
-                    if (state == true){MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "True"); }
-                    if (state == false){MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "False"); }
+                    if (state == true)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "True");
+                        LFAVB = true;
+                        MelonLogger.Msg("Logging of friends avatars enabled!");
+                    }
+                    if (state == false)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "False");
+                        LFAVB = false;
+                        MelonLogger.Msg("Logging of friends avatars disabled!");
+                    }
                     MelonPreferences.Save();
-                }, ButtonImage, CrossImage, "Log Friends Avatars", "LFAT","","",(button) => button.ToggleComponent.isOn = LFAVB)
+                }, ButtonImage, CrossImage, "Log Friends Avatars", "LFAT","","",(button) => button.ToggleComponent.isOn = LFAVB),
+                new ToggleButton((state) =>
+                {
+                    if (state == true)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogToConsole", "True");
+                        LTCVB = true;
+                        MelonLogger.Msg("Logging to console enabled!");
+                    }
+                    if (state == false)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","LogToConsole", "False");
+                        LTCVB = false;
+                        MelonLogger.Msg("Logging to console disabled!");
+                    }
+                    MelonPreferences.Save();
+                }, ButtonImage, CrossImage, "Log To Console", "LTC","","",(button) => button.ToggleComponent.isOn = LTCVB),
+                new ToggleButton((state) =>
+                {
+                    if (state == true)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","ConsoleError", "True");
+                        CEVB = true;
+                        MelonLogger.Msg("Log errors to console enabled!");
+                    }
+                    if (state == false)
+                    {
+                        MelonPreferences.SetEntryValue("ARES","ConsoleError", "False");
+                        CEVB = false;
+                        MelonLogger.Msg("Log errors to console disabled!");
+                    }
+                    MelonPreferences.Save();
+                }, ButtonImage, CrossImage, "Log Errors To Console", "LETC","","",(button) => button.ToggleComponent.isOn = CEVB)
             }));
             //Creates Session Stats header/group
             int total = Pub + Pri;
@@ -203,7 +279,7 @@ namespace AvatarLogger
                 if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
                 {
                     //If the user is a friend inform the user the log has not occurred and why so
-                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!");
+                    if (CEVB == true) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
                     return; 
                 }
             }
@@ -214,7 +290,7 @@ namespace AvatarLogger
                 if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
                 {
                     //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!");
+                    if (CEVB == true) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
                     return; 
                 }
             }
@@ -305,7 +381,7 @@ namespace AvatarLogger
                 PublicLabel.Text = Pub.ToString();
                 PrivateLabel.Text = Pri.ToString();
                 //Inform the user of the successful log
-                MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}");
+                if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}"); }
                 File.AppendAllText(AvatarFile, "\n\n");
             }
         }
