@@ -7,6 +7,11 @@ using System.Reflection;
 using VRC.Core;
 using System.IO;
 using System.Text;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using VRChatUtilityKit.Ui;
+using LoadSprite;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.5", "By LargestBoi & Yui")]
@@ -17,9 +22,14 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
+        //Creates varaible for button images
+        internal static Sprite ButtonImage = null;
+        internal static Sprite CrossImage = null;
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
         public static string LOAV = "False";
+        public static bool LFAVB = false;
+        public static bool LOAVB = false;
         //Make string to contain friend avatars
         public static string FriendIDs = null;
         //Sets static counter values to monitor logging statistics
@@ -27,6 +37,11 @@ namespace AvatarLogger
         public static int Q = 0;
         public static int Pub = 0;
         public static int Pri = 0;
+        public static VRChatUtilityKit.Ui.Label totalLabel;
+        public static VRChatUtilityKit.Ui.Label PCLabel;
+        public static VRChatUtilityKit.Ui.Label QuestLabel;
+        public static VRChatUtilityKit.Ui.Label PublicLabel;
+        public static VRChatUtilityKit.Ui.Label PrivateLabel;
         //Void to run on application start
         public override void OnApplicationStart()
         {
@@ -49,13 +64,32 @@ namespace AvatarLogger
                 //Saves current state of the settings
                 category.SaveToFile(true);
                 //Displays info pane about the settings and how they can be changed
-                MelonLogger.Msg("Default settings created!\nBy default avatars uploaded by you\nor your friends will not be logged!\nWant to change these settings? Then\nQuit the game and goto '/VRChat/UserData/MelonPreferences.cfg'\nHere you can change your logging settings!\nSide note: Setting CS to empty will reset everything\nto default settings on next boot!");
+                MelonLogger.Msg("Default settings created! By default avatars uploaded by you\nor your friends will not be logged! Want to change these settings? Then Quit the game and goto '/VRChat/UserData/MelonPreferences.cfg' Here you can change your logging settings!\nSide note: Setting CS to empty will reset everything to default settings on next boot!");
             }
-            else 
+            //Loads values into strings and bools, then reporting them to the user
+            else
+            {
                 LFAV = LFA.Value;
+                if (LFAV == "True")
+                {
+                    LFAVB = true;
+                }
+                if (LFAV == "False")
+                {
+                    LFAVB = false;
+                }
                 MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
                 LOAV = LOA.Value;
+                if (LOAV == "True")
+                {
+                    LOAVB = true;
+                }
+                if (LOAV == "False")
+                {
+                    LOAVB = false;
+                }
                 MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
+            }
             try
             {
                 //Attempts to use harmony to patch/hook into the VRChat networking client
@@ -74,7 +108,53 @@ namespace AvatarLogger
             }
             //Begins attachment to network manager
             MelonCoroutines.Start(OnNetworkManagerInit());
+            //Creates system to create buttons
+            MelonCoroutines.Start(WaitForUiManagerInit());
+            VRChatUtilityKit.Utilities.VRCUtils.OnUiManagerInit += OnUiManagerInit;
+            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
+            CrossImage = (Environment.CurrentDirectory + "\\GUI\\ARESNogo.png").LoadSpriteFromDisk();
             base.OnApplicationStart();
+        }
+        //Waits for Ui to be opened to edit it
+        private System.Collections.IEnumerator WaitForUiManagerInit()
+        {
+            while (VRCUiManager.field_Private_Static_VRCUiManager_0 == null) yield return null;
+            while (UnityEngine.Object.FindObjectOfType<QuickMenu>() == null) yield return null;
+        }
+        //When Ui is opened edit the Ui to create ARES options
+        private void OnUiManagerInit()
+        {
+            //Creates tab
+            TabButton myTabButton = new TabButton(ButtonImage, "Page Name", "ARESTab", "ARES Settings", "Allows for the configuration of ARES");
+            //Creates Logging Options header/group
+            myTabButton.SubMenu.AddButtonGroup(new ButtonGroup("Group Name", "Logging Options", new System.Collections.Generic.List<IButtonGroupElement>()
+            {
+                //Creation of buttons and functions
+                new ToggleButton((state) => 
+                {
+                    if (state == true){MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "True"); }
+                    if (state == false){MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "False"); }
+                    MelonPreferences.Save();
+                }, ButtonImage, CrossImage, "Log Own Avatars", "LOAT","","",(button) => button.ToggleComponent.isOn = LOAVB),
+                new ToggleButton((state) =>
+                {
+                    if (state == true){MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "True"); }
+                    if (state == false){MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "False"); }
+                    MelonPreferences.Save();
+                }, ButtonImage, CrossImage, "Log Friends Avatars", "LFAT","","",(button) => button.ToggleComponent.isOn = LFAVB)
+            }));
+            //Creates Session Stats header/group
+            int total = Pub + Pri;
+            totalLabel = new VRChatUtilityKit.Ui.Label(total.ToString(), "Total Logged", "TotalLogged");
+            PCLabel = new VRChatUtilityKit.Ui.Label(PC.ToString(), "PC", "PCLogged");
+            QuestLabel = new VRChatUtilityKit.Ui.Label(Q.ToString(), "Quest", "QuestLogged");
+            PublicLabel = new VRChatUtilityKit.Ui.Label(Pub.ToString(), "Public", "PublicLogged");
+            PrivateLabel = new VRChatUtilityKit.Ui.Label(Pri.ToString(), "Private", "PrivateLogged");
+            myTabButton.SubMenu.AddButtonGroup(new ButtonGroup("Group Name", "Session Stats", new System.Collections.Generic.List<IButtonGroupElement>()
+            {
+                //Creates labels containing data of session stats
+                totalLabel, PCLabel, QuestLabel, PublicLabel, PrivateLabel
+            })) ;
         }
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
@@ -138,7 +218,7 @@ namespace AvatarLogger
                 if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
                 {
                     //If the user is a friend inform the user the log has not occurred and why so
-                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()}\nwas not logged, they are a friend!");
+                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!");
                     return; 
                 }
             }
@@ -149,7 +229,7 @@ namespace AvatarLogger
                 if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
                 {
                     //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged,\nyou have log own avatars disabled!");
+                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!");
                     return; 
                 }
             }
@@ -232,13 +312,15 @@ namespace AvatarLogger
                 }
                 //If there are no tags present the default text "Tags: None" is written into the log file
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
+                //Update in-game session statistic menu!
+                int total = Pub + Pri;
+                totalLabel.Text = total.ToString();
+                PCLabel.Text = PC.ToString();
+                QuestLabel.Text = Q.ToString();
+                PublicLabel.Text = Pub.ToString();
+                PrivateLabel.Text = Pri.ToString();
                 //Inform the user of the successful log
                 MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}");
-                //Displays user statistics on every 10 logs
-                int total = Pub + Pri;
-                bool isMultiple = total % 10 == 0;
-                if (isMultiple) { MelonLogger.Msg("Session Statistics:"); }
-                if (isMultiple) { MelonLogger.Msg($"Total Logged:{total}|PC:{PC}|Quest:{Q}|Publics:{Pub}|Privates:{Pri}"); }
                 File.AppendAllText(AvatarFile, "\n\n");
             }
         }

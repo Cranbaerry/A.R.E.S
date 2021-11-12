@@ -4,6 +4,8 @@ Thx to Yui, they have chosen not to be marked as a developer on the project when
 
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file packed into HOTSWAP!
 
+Thx [loukylor](https://github.com/loukylor) for the [VRChatUtilityKit](https://github.com/loukylor/VRC-Mods/tree/main/VRChatUtilityKit)!
+
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs!
 
 And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap and the new GUI + API!
