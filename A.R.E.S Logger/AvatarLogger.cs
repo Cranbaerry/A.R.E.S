@@ -70,24 +70,12 @@ namespace AvatarLogger
             else
             {
                 LFAV = LFA.Value;
-                if (LFAV == "True")
-                {
-                    LFAVB = true;
-                }
-                if (LFAV == "False")
-                {
-                    LFAVB = false;
-                }
+                if (LFAV == "True"){LFAVB = true;}
+                if (LFAV == "False"){LFAVB = false;}
                 MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
                 LOAV = LOA.Value;
-                if (LOAV == "True")
-                {
-                    LOAVB = true;
-                }
-                if (LOAV == "False")
-                {
-                    LOAVB = false;
-                }
+                if (LOAV == "True"){LOAVB = true;}
+                if (LOAV == "False"){LOAVB = false;}
                 MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
             }
             try
@@ -199,10 +187,7 @@ namespace AvatarLogger
         private static System.Collections.IEnumerator FetchFriends()
         {
             //Wait till world loads
-            while(RoomManager.field_Internal_Static_ApiWorld_0 == null)
-            {
-                yield return null;
-            }
+            while(RoomManager.field_Internal_Static_ApiWorld_0 == null){yield return null;}
             //Get friend IDs to array
             string[] pals = APIUser.CurrentUser.friendIDs.ToArray();
             //For every ID add ID to string
