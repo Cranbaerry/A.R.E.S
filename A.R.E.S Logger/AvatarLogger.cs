@@ -317,38 +317,32 @@ namespace AvatarLogger
                     $"Author ID:{playerHashtable["avatarDict"]["authorId"]}",
                     $"Author Name:{playerHashtable["avatarDict"]["authorName"]}",
                 });
-                //If an avatar is not pc compatable the value on the hash table does not exist, if it an attempt to pull this information is made it will fail,
-                //We used a try/catch statement to detect the existance of an asset url
-                try
+                //New optimised Quest/PC asset URL logging 
+                string pcasset = "None";
+                string qasset = "None";
+                foreach(dynamic unitypackage in playerHashtable["avatarDict"]["unityPackages"])
                 {
-                    //Will attempt to write the pc url to the log file, if it is present this will complete without error, logging the pc asset url
-                    File.AppendAllText(AvatarFile, $"PC Asset URL:{playerHashtable["avatarDict"]["unityPackages"][0]["assetUrl"]}\n");
-                    //If a pc asset URL is logged add a value to the counter
-                    PC = PC + 1;
-                }
-                catch
-                {
-                    //If it fails to retreive the pc asset url the default text "PC Asset URL:None" is written into the log and a new line is formed "\n"
-                    File.AppendAllText(AvatarFile, $"PC Asset URL:None\n");
-                }
-                //If an avatar is not quest compatable the value on the hash table does not exist, if it an attempt to pull this information is made it will fail,
-                //We used a try/catch statement to detect the existance of an asset url
-                try
-                {
-                    //Will attempt to write the quest url to the log file, if it is present this will complete without error, logging the quest asset url
-                    File.AppendAllText(AvatarFile, $"Quest Asset URL:{playerHashtable["avatarDict"]["unityPackages"][1]["assetUrl"]}\n");
-                    //If a quest asset URL is logged add a a value to the counter
-                    Q = Q + 1;
-                }
-                catch
-                {
-                    //If it fails to retreive the quest asset url the default text "Quest Asset URL:None" is written into the log and a new line is formed "\n"
-                    File.AppendAllText(AvatarFile, $"Quest Asset URL:None\n");
+                    try
+                    {
+                        switch (unitypackage["platform"].ToString())
+                        {
+                            //Checks for avi version and logs accordingly for Quest and PC
+                            case "standalonewindows":
+                                pcasset = unitypackage["assetUrl"].ToString();
+                                PC = PC + 1;
+                                break;
+                            case "android":
+                                qasset = unitypackage["assetUrl"].ToString();
+                                Q = Q + 1;
+                                break;
+                        }
+                    }
+                    catch { }
                 }
                 File.AppendAllLines(AvatarFile, new string[]
                 {
-                    //Continues to extract more data from the hash table and write it to the log file such as:
-                    //Image URL, Thumbnail URL, Unity Version and the Release Status of the avatar (Public or Private)
+                    $"PC Asset URL:{pcasset}",
+                    $"Quest Asset URL:{qasset}",
                     $"Image URL:{playerHashtable["avatarDict"]["imageUrl"]}",
                     $"Thumbnail URL:{playerHashtable["avatarDict"]["thumbnailImageUrl"]}",
                     $"Unity Version:{playerHashtable["avatarDict"]["unityPackages"][0]["unityVersion"]}",
