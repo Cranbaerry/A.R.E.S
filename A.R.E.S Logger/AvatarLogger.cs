@@ -86,12 +86,12 @@ namespace AvatarLogger
             else
             {
                 LFAV = LFA.Value;
-                if (LFAV == "True"){LFAVB = true;}
-                if (LFAV == "False"){LFAVB = false;}
+                if (LFAV == "True") { LFAVB = true; }
+                if (LFAV == "False") { LFAVB = false; }
                 MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
                 LOAV = LOA.Value;
-                if (LOAV == "True"){LOAVB = true;}
-                if (LOAV == "False"){LOAVB = false;}
+                if (LOAV == "True") { LOAVB = true; }
+                if (LOAV == "False") { LOAVB = false; }
                 MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
                 LTCV = LTC.Value;
                 if (LTCV == "True") { LTCVB = true; }
@@ -142,7 +142,7 @@ namespace AvatarLogger
             myTabButton.SubMenu.AddButtonGroup(new ButtonGroup("Group Name", "Logging Options", new System.Collections.Generic.List<IButtonGroupElement>()
             {
                 //Creation of buttons and functions
-                new ToggleButton((state) => 
+                new ToggleButton((state) =>
                 {
                     if (state == true)
                     {
@@ -218,7 +218,7 @@ namespace AvatarLogger
             {
                 //Creates labels containing data of session stats
                 totalLabel, PCLabel, QuestLabel, PublicLabel, PrivateLabel
-            })) ;
+            }));
         }
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
@@ -263,11 +263,11 @@ namespace AvatarLogger
         private static System.Collections.IEnumerator FetchFriends()
         {
             //Wait till world loads
-            while(RoomManager.field_Internal_Static_ApiWorld_0 == null){yield return null;}
+            while (RoomManager.field_Internal_Static_ApiWorld_0 == null) { yield return null; }
             //Get friend IDs to array
             string[] pals = APIUser.CurrentUser.friendIDs.ToArray();
             //For every ID add ID to string
-            foreach(string pal in pals) { FriendIDs+=$"{pal},"; }
+            foreach (string pal in pals) { FriendIDs += $"{pal},"; }
         }
         //Method responsible for extracting data from a hast table and logging particular variables
         private static void ExecuteLog(dynamic playerHashtable)
@@ -276,11 +276,11 @@ namespace AvatarLogger
             if (LFAV == "False")
             {
                 //Check if the avatar about to be logged is uploaded by a friend
-                if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
+                if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString()))
                 {
                     //If the user is a friend inform the user the log has not occurred and why so
                     if (CEVB == true) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
-                    return; 
+                    return;
                 }
             }
             //If logging own avatars is disabled
@@ -291,7 +291,7 @@ namespace AvatarLogger
                 {
                     //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
                     if (CEVB == true) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
-                    return; 
+                    return;
                 }
             }
             //Locate the log file
@@ -360,7 +360,7 @@ namespace AvatarLogger
                 if (rs == "private") { Pri = Pri + 1; };
                 //The last variables extracted are the tags of the avatar, these are added by the avatar uploader or by VRChat administrators/developers,
                 //they are initally stored as an array, if no tags are set the if statemnt will just continue with its else
-                    if (playerHashtable["avatarDict"]["tags"].Count > 0)
+                if (playerHashtable["avatarDict"]["tags"].Count > 0)
                 {
                     //Prepares to create a string from the array of tags
                     StringBuilder builder = new StringBuilder();
