@@ -215,9 +215,7 @@ class Ui(QtWidgets.QMainWindow):
         #Disables the button to avoid button spam
         self.SetUserButton.setEnabled(False)
         #Gets text box contents and removes special chars
-        self.UserText = str(self.SetUserBox.text().encode().decode("ascii", errors="ignore"))
-        self.UserText = self.UserText.replace("\n","")
-        self.UserText = self.UserText.replace("\\n", "")
+        self.UserText = str(self.SetUserBox.text().encode().decode("ascii", errors="ignore")).replace("\n","").replace("\\n", "")
         #Writes to mod settings files
         self.Settings["Username"] = self.UserText
         with open("Settings.json", "w+") as s:
