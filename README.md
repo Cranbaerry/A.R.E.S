@@ -14,7 +14,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V9 Virus Total](https://www.virustotal.com/gui/file/385c19b10ec49337fd161eb01fa4157045f730bd6e67f037b8d524dc2b44ca59?nocache=1)
+[V9.4 Virus Total](https://www.virustotal.com/gui/file/ec721f88ee59e9624368a973cdee56b186fafdde81f38920869a3e8f7d41b910?nocache=1)
 
 Features:
 

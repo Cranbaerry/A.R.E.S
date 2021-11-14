@@ -8,7 +8,7 @@ from generatehtml import makehtml
 from base64 import b64encode
 
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = True
+debugg = False
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
