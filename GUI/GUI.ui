@@ -1521,7 +1521,7 @@ color: rgb(180, 180, 180);</string>
        <rect>
         <x>-10</x>
         <y>10</y>
-        <width>321</width>
+        <width>331</width>
         <height>471</height>
        </rect>
       </property>
@@ -1645,7 +1645,7 @@ color: rgb(180, 180, 180);</string>
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
-          <string>Sol*(Missing)</string>
+          <string>Sol*(LeftTheProject)</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
