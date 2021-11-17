@@ -8,8 +8,6 @@ using VRC.Core;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using VRChatUtilityKit.Ui;
 using LoadSprite;
 //Declaring the assembly/melon mod information
@@ -320,7 +318,7 @@ namespace AvatarLogger
                 //New optimised Quest/PC asset URL logging 
                 string pcasset = "None";
                 string qasset = "None";
-                foreach(dynamic unitypackage in playerHashtable["avatarDict"]["unityPackages"])
+                foreach (dynamic unitypackage in playerHashtable["avatarDict"]["unityPackages"])
                 {
                     try
                     {

@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\DataModel.dll</HintPath>
     </Reference>
+    <Reference Include="emmVRC">
+      <HintPath>DLLS\emmVRC.dll</HintPath>
+    </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>DLLS\Il2Cppmscorlib.dll</HintPath>
     </Reference>
@@ -98,6 +101,9 @@
     </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>DLLS\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>DLLS\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="VRC.UI.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
