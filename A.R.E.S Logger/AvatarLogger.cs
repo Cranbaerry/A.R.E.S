@@ -8,7 +8,7 @@ using VRC.Core;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using VRChatUtilityKit.Ui;
+//using VRChatUtilityKit.Ui;
 using LoadSprite;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
@@ -39,11 +39,11 @@ namespace AvatarLogger
         public static int Q = 0;
         public static int Pub = 0;
         public static int Pri = 0;
-        public static VRChatUtilityKit.Ui.Label totalLabel;
+/*        public static VRChatUtilityKit.Ui.Label totalLabel;
         public static VRChatUtilityKit.Ui.Label PCLabel;
         public static VRChatUtilityKit.Ui.Label QuestLabel;
         public static VRChatUtilityKit.Ui.Label PublicLabel;
-        public static VRChatUtilityKit.Ui.Label PrivateLabel;
+        public static VRChatUtilityKit.Ui.Label PrivateLabel;*/
         //Void to run on application start
         public override void OnApplicationStart()
         {
@@ -119,20 +119,20 @@ namespace AvatarLogger
             //Begins attachment to network manager
             MelonCoroutines.Start(OnNetworkManagerInit());
             //Creates system to create buttons
-            MelonCoroutines.Start(WaitForUiManagerInit());
-            VRChatUtilityKit.Utilities.VRCUtils.OnUiManagerInit += OnUiManagerInit;
-            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
-            CrossImage = (Environment.CurrentDirectory + "\\GUI\\ARESNogo.png").LoadSpriteFromDisk();
+            //MelonCoroutines.Start(WaitForUiManagerInit());
+            //VRChatUtilityKit.Utilities.VRCUtils.OnUiManagerInit += OnUiManagerInit;
+/*            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
+            CrossImage = (Environment.CurrentDirectory + "\\GUI\\ARESNogo.png").LoadSpriteFromDisk();*/
             base.OnApplicationStart();
         }
         //Waits for Ui to be opened to edit it
-        private System.Collections.IEnumerator WaitForUiManagerInit()
+        /*private System.Collections.IEnumerator WaitForUiManagerInit()
         {
             while (VRCUiManager.field_Private_Static_VRCUiManager_0 == null) yield return null;
             while (UnityEngine.Object.FindObjectOfType<QuickMenu>() == null) yield return null;
-        }
+        }*/
         //When Ui is opened edit the Ui to create ARES options
-        private void OnUiManagerInit()
+/*        private void OnUiManagerInit()
         {
             //Creates tab
             TabButton myTabButton = new TabButton(ButtonImage, "Page Name", "ARESTab", "ARES Settings", "Allows for the configuration of ARES");
@@ -217,7 +217,7 @@ namespace AvatarLogger
                 //Creates labels containing data of session stats
                 totalLabel, PCLabel, QuestLabel, PublicLabel, PrivateLabel
             }));
-        }
+        }*/
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
         {
@@ -367,11 +367,11 @@ namespace AvatarLogger
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Update in-game session statistic menu!
                 int total = Pub + Pri;
-                totalLabel.Text = total.ToString();
+/*                totalLabel.Text = total.ToString();
                 PCLabel.Text = PC.ToString();
                 QuestLabel.Text = Q.ToString();
                 PublicLabel.Text = Pub.ToString();
-                PrivateLabel.Text = Pri.ToString();
+                PrivateLabel.Text = Pri.ToString();*/
                 //Inform the user of the successful log
                 if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}"); }
                 File.AppendAllText(AvatarFile, "\n\n");
