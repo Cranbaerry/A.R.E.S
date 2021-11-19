@@ -8,7 +8,10 @@ using VRC.Core;
 using System.IO;
 using System.Text;
 using UnityEngine;
-//using VRChatUtilityKit.Ui;
+using PlagueButtonAPI;
+using PlagueButtonAPI.Controls;
+using PlagueButtonAPI.Controls.Grouping;
+using PlagueButtonAPI.Pages;
 using LoadSprite;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
@@ -20,9 +23,12 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
-        //Creates varaible for button images
+        //Creates varaible for buttons
         internal static Sprite ButtonImage = null;
-        internal static Sprite CrossImage = null;
+        public static Label TotalLabel = null;
+        public static Label PCLabel = null;
+        public static Label QLabel = null;
+        public static Label PrivateRatioLabel = null;
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
         public static string LOAV = "False";
@@ -39,11 +45,6 @@ namespace AvatarLogger
         public static int Q = 0;
         public static int Pub = 0;
         public static int Pri = 0;
-/*        public static VRChatUtilityKit.Ui.Label totalLabel;
-        public static VRChatUtilityKit.Ui.Label PCLabel;
-        public static VRChatUtilityKit.Ui.Label QuestLabel;
-        public static VRChatUtilityKit.Ui.Label PublicLabel;
-        public static VRChatUtilityKit.Ui.Label PrivateLabel;*/
         //Void to run on application start
         public override void OnApplicationStart()
         {
@@ -118,106 +119,100 @@ namespace AvatarLogger
             }
             //Begins attachment to network manager
             MelonCoroutines.Start(OnNetworkManagerInit());
-            //Creates system to create buttons
-            //MelonCoroutines.Start(WaitForUiManagerInit());
-            //VRChatUtilityKit.Utilities.VRCUtils.OnUiManagerInit += OnUiManagerInit;
-/*            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
-            CrossImage = (Environment.CurrentDirectory + "\\GUI\\ARESNogo.png").LoadSpriteFromDisk();*/
+            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
             base.OnApplicationStart();
         }
-        //Waits for Ui to be opened to edit it
-        /*private System.Collections.IEnumerator WaitForUiManagerInit()
+        //Plague button API code
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            while (VRCUiManager.field_Private_Static_VRCUiManager_0 == null) yield return null;
-            while (UnityEngine.Object.FindObjectOfType<QuickMenu>() == null) yield return null;
-        }*/
-        //When Ui is opened edit the Ui to create ARES options
-/*        private void OnUiManagerInit()
-        {
-            //Creates tab
-            TabButton myTabButton = new TabButton(ButtonImage, "Page Name", "ARESTab", "ARES Settings", "Allows for the configuration of ARES");
-            //Creates Logging Options header/group
-            myTabButton.SubMenu.AddButtonGroup(new ButtonGroup("Group Name", "Logging Options", new System.Collections.Generic.List<IButtonGroupElement>()
+            if (sceneName == "ui")
             {
-                //Creation of buttons and functions
-                new ToggleButton((state) =>
+                ButtonAPI.OnInit += () =>
                 {
-                    if (state == true)
+                    var Page = new MenuPage("ARES Page", "ARES Menu");
+                    new Tab(Page, "ARES Settings", ButtonImage);
+                    var LoggingSettings = new ButtonGroup(Page, "Logging Settings");
+                    new ToggleButton(LoggingSettings, "Log Own Avatars", "Own avatars are not being logged!", "Own avatars are being logged", (val) =>
                     {
-                        MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "True");
-                        LOAVB = true;
-                        MelonLogger.Msg("Logging of own avatars enabled!");
-                    }
-                    if (state == false)
+                        if (val == true)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogOwnAvatars", "True");
+                            LOAVB = true;
+                            MelonLogger.Msg("Logging of own avatars enabled!");
+                        }
+                        if (val == false)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogOwnAvatars", "False");
+                            LOAVB = false;
+                            MelonLogger.Msg("Logging of own avatars disabled!");
+                        }
+                        MelonPreferences.Save();
+                    }).SetToggleState(LOAVB, true);
+                    new ToggleButton(LoggingSettings, "Log Friends Avatars", "Friends avatars are not being logged!", "Friends avatars are being logged!", (val) =>
                     {
-                        MelonPreferences.SetEntryValue("ARES","LogOwnAvatars", "False");
-                        LOAVB = false;
-                        MelonLogger.Msg("Logging of own avatars disabled!");
-                    }
-                    MelonPreferences.Save();
-                }, ButtonImage, CrossImage, "Log Own Avatars", "LOAT","","",(button) => button.ToggleComponent.isOn = LOAVB),
-                new ToggleButton((state) =>
-                {
-                    if (state == true)
+                        if (val == true)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogFriendsAvatars", "True");
+                            LFAVB = true;
+                            MelonLogger.Msg("Logging of friends avatars enabled!");
+                        }
+                        if (val == false)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogFriendsAvatars", "False");
+                            LFAVB = false;
+                            MelonLogger.Msg("Logging of friends avatars disabled!");
+                        }
+                        MelonPreferences.Save();
+                    }).SetToggleState(LFAVB, true);
+                    new ToggleButton(LoggingSettings, "Log To Console", "Logs won't be pushed to console!", "Logs will be pushed to console!", (val) =>
                     {
-                        MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "True");
-                        LFAVB = true;
-                        MelonLogger.Msg("Logging of friends avatars enabled!");
-                    }
-                    if (state == false)
+                        if (val == true)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogToConsole", "True");
+                            LTCVB = true;
+                            MelonLogger.Msg("Logging to console enabled!");
+                        }
+                        if (val == false)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "LogToConsole", "False");
+                            LTCVB = false;
+                            MelonLogger.Msg("Logging to console disabled!");
+                        }
+                        MelonPreferences.Save();
+                    }).SetToggleState(LTCVB, true);
+                    new ToggleButton(LoggingSettings, "Log Errors To Console", "Log errors won't be pushed to console!", "Log errors will be pushed to console!", (val) =>
                     {
-                        MelonPreferences.SetEntryValue("ARES","LogFriendsAvatars", "False");
-                        LFAVB = false;
-                        MelonLogger.Msg("Logging of friends avatars disabled!");
-                    }
-                    MelonPreferences.Save();
-                }, ButtonImage, CrossImage, "Log Friends Avatars", "LFAT","","",(button) => button.ToggleComponent.isOn = LFAVB),
-                new ToggleButton((state) =>
-                {
-                    if (state == true)
+                        if (val == true)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "ConsoleError", "True");
+                            CEVB = true;
+                            MelonLogger.Msg("Log errors to console enabled!");
+                        }
+                        if (val == false)
+                        {
+                            MelonPreferences.SetEntryValue("ARES", "ConsoleError", "False");
+                            CEVB = false;
+                            MelonLogger.Msg("Log errors to console disabled!");
+                        }
+                        MelonPreferences.Save();
+                    }).SetToggleState(CEVB, true);
+                    var SessionStatistics = new ButtonGroup(Page, "Session Statistics");
+                    int totallogged = Pub + Pri;
+                    TotalLabel = new Label(SessionStatistics, $"Logged Avatars:{totallogged.ToString()}","");
+                    PCLabel = new Label(SessionStatistics, $"PC Compatible Avatars:{PC.ToString()}", "");
+                    QLabel = new Label(SessionStatistics, $"Quest Compatible Avatars:{Q.ToString()}", "");
+                    int privatepercentage = 0;
+                    if (Pri>0)
                     {
-                        MelonPreferences.SetEntryValue("ARES","LogToConsole", "True");
-                        LTCVB = true;
-                        MelonLogger.Msg("Logging to console enabled!");
+                        if (totallogged > 0)
+                        {
+                            privatepercentage = Pri / totallogged * 100;
+                        }
                     }
-                    if (state == false)
-                    {
-                        MelonPreferences.SetEntryValue("ARES","LogToConsole", "False");
-                        LTCVB = false;
-                        MelonLogger.Msg("Logging to console disabled!");
-                    }
-                    MelonPreferences.Save();
-                }, ButtonImage, CrossImage, "Log To Console", "LTC","","",(button) => button.ToggleComponent.isOn = LTCVB),
-                new ToggleButton((state) =>
-                {
-                    if (state == true)
-                    {
-                        MelonPreferences.SetEntryValue("ARES","ConsoleError", "True");
-                        CEVB = true;
-                        MelonLogger.Msg("Log errors to console enabled!");
-                    }
-                    if (state == false)
-                    {
-                        MelonPreferences.SetEntryValue("ARES","ConsoleError", "False");
-                        CEVB = false;
-                        MelonLogger.Msg("Log errors to console disabled!");
-                    }
-                    MelonPreferences.Save();
-                }, ButtonImage, CrossImage, "Log Errors To Console", "LETC","","",(button) => button.ToggleComponent.isOn = CEVB)
-            }));
-            //Creates Session Stats header/group
-            int total = Pub + Pri;
-            totalLabel = new VRChatUtilityKit.Ui.Label(total.ToString(), "Total Logged", "TotalLogged");
-            PCLabel = new VRChatUtilityKit.Ui.Label(PC.ToString(), "PC", "PCLogged");
-            QuestLabel = new VRChatUtilityKit.Ui.Label(Q.ToString(), "Quest", "QuestLogged");
-            PublicLabel = new VRChatUtilityKit.Ui.Label(Pub.ToString(), "Public", "PublicLogged");
-            PrivateLabel = new VRChatUtilityKit.Ui.Label(Pri.ToString(), "Private", "PrivateLogged");
-            myTabButton.SubMenu.AddButtonGroup(new ButtonGroup("Group Name", "Session Stats", new System.Collections.Generic.List<IButtonGroupElement>()
-            {
-                //Creates labels containing data of session stats
-                totalLabel, PCLabel, QuestLabel, PublicLabel, PrivateLabel
-            }));
-        }*/
+                    PrivateRatioLabel =  new Label(SessionStatistics, $"Private Logged Percentage:{privatepercentage.ToString()}%", "");
+                };
+            };
+        }
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
         {
@@ -366,12 +361,19 @@ namespace AvatarLogger
                 //If there are no tags present the default text "Tags: None" is written into the log file
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Update in-game session statistic menu!
-                int total = Pub + Pri;
-/*                totalLabel.Text = total.ToString();
-                PCLabel.Text = PC.ToString();
-                QuestLabel.Text = Q.ToString();
-                PublicLabel.Text = Pub.ToString();
-                PrivateLabel.Text = Pri.ToString();*/
+                int totallogged = Pub + Pri;
+                TotalLabel.LabelButton.SetText($"Logged Avatars:{totallogged.ToString()}");
+                PCLabel.LabelButton.SetText($"PC Compatible Avatars:{PC.ToString()}");
+                QLabel.LabelButton.SetText($"Quest Compatible Avatars:{Q.ToString()}");
+                int privatepercentage = 0;
+                if (Pri > 0)
+                {
+                    if (totallogged > 0)
+                    {
+                        privatepercentage = Pri / totallogged * 100;
+                    }
+                }
+                PrivateRatioLabel.LabelButton.SetText($"Private Logged Percentage:{privatepercentage.ToString()}%");
                 //Inform the user of the successful log
                 if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}"); }
                 File.AppendAllText(AvatarFile, "\n\n");

@@ -42,9 +42,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\DataModel.dll</HintPath>
     </Reference>
-    <Reference Include="emmVRC">
-      <HintPath>DLLS\emmVRC.dll</HintPath>
-    </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>DLLS\Il2Cppmscorlib.dll</HintPath>
     </Reference>
@@ -59,6 +56,10 @@
     </Reference>
     <Reference Include="Photon-DotNet">
       <HintPath>DLLS\Photon-DotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="PlagueButtonAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLS\PlagueButtonAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -118,10 +119,6 @@
     <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\VRCCore-Standalone.dll</HintPath>
-    </Reference>
-    <Reference Include="VRChatUtilityKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLS\VRChatUtilityKit.dll</HintPath>
     </Reference>
     <Reference Include="VRCSDKBase">
       <HintPath>DLLS\VRCSDKBase.dll</HintPath>
