@@ -4,7 +4,7 @@ Thx to Yui, they have chosen not to be marked as a developer on the project when
 
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file packed into HOTSWAP!
 
-Thx [loukylor](https://github.com/loukylor) for the [VRChatUtilityKit](https://github.com/loukylor/VRC-Mods/tree/main/VRChatUtilityKit)!
+Thx [Plague](https://github.com/PlagueVRC/) for the [PlagueButtonAPI](https://github.com/PlagueVRC/PlagueButtonAPI)!
 
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs!
 
@@ -14,7 +14,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V9.4 Virus Total](https://www.virustotal.com/gui/file/ec721f88ee59e9624368a973cdee56b186fafdde81f38920869a3e8f7d41b910?nocache=1)
+[V9.4 Virus Total](https://www.virustotal.com/gui/file/909bf2429c6617e6d41ff40133760f52a6857178aa38a0c5ef39cc053f81ae17?nocache=1)
 
 Features:
 

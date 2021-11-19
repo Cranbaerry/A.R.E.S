@@ -201,12 +201,12 @@ namespace AvatarLogger
                     TotalLabel = new Label(SessionStatistics, $"Logged Avatars:{totallogged.ToString()}","");
                     PCLabel = new Label(SessionStatistics, $"PC Compatible Avatars:{PC.ToString()}", "");
                     QLabel = new Label(SessionStatistics, $"Quest Compatible Avatars:{Q.ToString()}", "");
-                    int privatepercentage = 0;
-                    if (Pri>0)
+                    float privatepercentage = 0;
+                    if (Pri > 0)
                     {
                         if (totallogged > 0)
                         {
-                            privatepercentage = Pri / totallogged * 100;
+                            privatepercentage = ((float)Pri / totallogged) * 100;
                         }
                     }
                     PrivateRatioLabel =  new Label(SessionStatistics, $"Private Logged Percentage:{privatepercentage.ToString()}%", "");
@@ -362,18 +362,18 @@ namespace AvatarLogger
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Update in-game session statistic menu!
                 int totallogged = Pub + Pri;
-                TotalLabel.LabelButton.SetText($"Logged Avatars:{totallogged.ToString()}");
-                PCLabel.LabelButton.SetText($"PC Compatible Avatars:{PC.ToString()}");
-                QLabel.LabelButton.SetText($"Quest Compatible Avatars:{Q.ToString()}");
-                int privatepercentage = 0;
+                TotalLabel.LabelButton.SetText($"Logged Avatars:{totallogged}");
+                PCLabel.LabelButton.SetText($"PC Compatible Avatars:{PC}");
+                QLabel.LabelButton.SetText($"Quest Compatible Avatars:{Q}");
+                float privatepercentage = 0;
                 if (Pri > 0)
                 {
-                    if (totallogged > 0)
+                    if (totallogged>0)
                     {
-                        privatepercentage = Pri / totallogged * 100;
+                        privatepercentage = ((float)Pri / totallogged) * 100;
                     }
                 }
-                PrivateRatioLabel.LabelButton.SetText($"Private Logged Percentage:{privatepercentage.ToString()}%");
+                PrivateRatioLabel.LabelButton.SetText($"Private Logged Percentage:{privatepercentage}%");
                 //Inform the user of the successful log
                 if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}"); }
                 File.AppendAllText(AvatarFile, "\n\n");
