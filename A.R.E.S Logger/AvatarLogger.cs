@@ -15,7 +15,7 @@ using PlagueButtonAPI.Pages;
 using LoadSprite;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "2", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "2.2", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -29,6 +29,7 @@ namespace AvatarLogger
         public static Label PCLabel = null;
         public static Label QLabel = null;
         public static Label PrivateRatioLabel = null;
+        public static ButtonGroup Logged = null;
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
         public static string LOAV = "False";
@@ -210,6 +211,7 @@ namespace AvatarLogger
                         }
                     }
                     PrivateRatioLabel =  new Label(SessionStatistics, $"Private Logged Percentage:{privatepercentage.ToString()}%", "");
+                    Logged = new ButtonGroup(Page, "Logged!");
                 };
             };
         }
@@ -375,7 +377,8 @@ namespace AvatarLogger
                 }
                 PrivateRatioLabel.LabelButton.SetText($"Private Logged Percentage:{privatepercentage}%");
                 //Inform the user of the successful log
-                if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}"); }
+                Logged.SetText($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!");
+                if (LTCVB == true) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
                 File.AppendAllText(AvatarFile, "\n\n");
             }
         }
