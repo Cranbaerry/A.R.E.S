@@ -2,7 +2,7 @@
 
 Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon. If you see him around thank him for me!
 
-Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file packed into HOTSWAP!
+Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP!
 
 Thx [Plague](https://github.com/PlagueVRC/) for the [PlagueButtonAPI](https://github.com/PlagueVRC/PlagueButtonAPI)!
 
