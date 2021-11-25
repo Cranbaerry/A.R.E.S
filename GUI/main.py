@@ -8,7 +8,7 @@ from generatehtml import makehtml
 from base64 import b64encode
 
 #Toggle for debug mode, this will hide the large "OUTDATED" button
-debugg = False
+debugg = True
 Lock = threading.Lock()
 #Prep for multiple resolution support
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -27,7 +27,7 @@ class Ui(QtWidgets.QMainWindow):
         #Show the GUI
         self.show()
         #Sets version number to later be checked with the pastebin
-        VERSION = "9.4"
+        VERSION = "9.6"
         #Prepare the "Special Thanks" mox to contain text
         self.ST = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanks')
         #Attempt to get latest "Special Thanks" from pastebin and populate box with a 10 second timeout
@@ -97,6 +97,8 @@ class Ui(QtWidgets.QMainWindow):
             if os.path.exists("Log.txt"):
                 threading.Thread(target=self.startuploads, args={}).start()
         #Declares all other buttons, checkboxes toggles, textboxes and alot more!
+        self.PEMMB = self.findChild(QtWidgets.QPushButton, 'InstallPatchedEMMButton')
+        self.PEMMB.clicked.connect(self.PatchEMM)
         self.LoadButton = self.findChild(QtWidgets.QPushButton, 'LoadButton')
         self.LoadButton.clicked.connect(self.loadavatar0)
         self.BackButton = self.findChild(QtWidgets.QPushButton, 'BackButton')
@@ -383,8 +385,52 @@ class Ui(QtWidgets.QMainWindow):
             ho = re.findall(pat, kk)
             for x in ho:
                 q.put(x)
-    # Creates json to upload to our API
+    #Patches your EMM install
+    def PatchEMM(self):
+        #In a try function so shit don't get fucky
+        try:
+            #Gets latest URLs for my patched EMM distros
+            EMMURLS = requests.get("https://pastebin.com/raw/ahNAhVFB", timeout=10).text
+            #Split patsebin into two URLs
+            loaderurl = EMMURLS.split("|")[0]
+            emmurl = EMMURLS.split("|")[1]
+            #Enters the "Mods" folder
+            os.chdir("..")
+            os.chdir("Mods")
+            #If the stock EMM loader exists then remove it
+            if os.path.exists("emmVRCLoader.dll"):
+                os.remove("emmVRCLoader.dll")
+            #Sets up networking information to download DLLs
+            payload = ""
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "Content-Type": "application/json",
+                "Bypass-Tunnel-Reminder": "bypass"
+            }
+            #Downloads the patched EMM loader
+            data = requests.request("GET", loaderurl, data=payload, headers=headers, stream=True)
+            with open("emmVRCLoader.dll", "wb") as v:
+                v.write(data.content)
+            #Opens the dependencies folder
+            os.chdir("..")
+            os.chdir("Dependencies")
+            #If the EMM dll exists then remove it
+            if os.path.exists("emmVRC.dll"):
+                os.remove("emmVRC.dll")
+            #Downloads the EMM dll to the correct folder
+            data = requests.request("GET", emmurl, data=payload, headers=headers, stream=True)
+            with open("emmVRC.dll", "wb") as v:
+                v.write(data.content)
+            #Resets the current working directory
+            os.chdir("..")
+            os.chdir("GUI")
+            #Informs the user that the patch has completed without error
+            pymsgbox.alert("Patched EMM has been installed!")
+        except:
+            #If shit breaks tell the user
+            pymsgbox.alert("An error occured whilst installing largest's patched EMM")
 
+    # Creates json to upload to our API
     def upload(self, data):
         #Set data var
         x = data

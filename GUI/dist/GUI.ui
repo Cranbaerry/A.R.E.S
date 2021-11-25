@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>A.R.E.S V9.4</string>
+   <string>A.R.E.S V9.6</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -1406,6 +1406,22 @@ color: rgb(180, 180, 180)</string>
          <property name="styleSheet">
           <string notr="true">background-color: rgba(54, 54, 54, 170);
 color: rgb(180, 180, 180)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="InstallPatchedEMMButton">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Install Patched EMM!</string>
          </property>
         </widget>
        </item>
