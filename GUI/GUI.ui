@@ -300,8 +300,8 @@ QPushButton:enabled{
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 150);
-color: rgb(180, 180, 180);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);
+color: rgb(255, 255, 255);</string>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Sunken</enum>
