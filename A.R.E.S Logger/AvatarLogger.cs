@@ -214,8 +214,12 @@ namespace AvatarLogger
                     JoinByIDButton = new SimpleSingleButton(InstanceStuffs, "Join instance from clipboard ID", "Allows you to join the instance currently within your clipboard!", () =>
                     {
                         string[] ID = Clipboard.GetText().Split(':');
-                        JoinInstance(ID[0], ID[1]);
-                        MelonLogger.Msg($"Instance joined: {Clipboard.GetText()}");
+                        if (Clipboard.GetText().Contains("wrld"))
+                        {
+                            JoinInstance(ID[0], ID[1]);
+                            MelonLogger.Msg($"Instance joined: {Clipboard.GetText()}");
+                        }
+                        else { MelonLogger.Msg($"Invalid instance ID!"); }
                     });
                     var SessionStatistics = new ButtonGroup(Page, "Session Statistics");
                     int totallogged = Pub + Pri;
