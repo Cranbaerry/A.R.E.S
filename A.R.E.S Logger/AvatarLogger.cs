@@ -13,6 +13,7 @@ using PlagueButtonAPI.Controls;
 using PlagueButtonAPI.Controls.Grouping;
 using PlagueButtonAPI.Pages;
 using LoadSprite;
+using System.Windows.Forms;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "2.2", "By LargestBoi & Yui")]
@@ -25,11 +26,14 @@ namespace AvatarLogger
     {
         //Creates varaible for buttons
         internal static Sprite ButtonImage = null;
-        public static Label TotalLabel = null;
-        public static Label PCLabel = null;
-        public static Label QLabel = null;
-        public static Label PrivateRatioLabel = null;
+        public static PlagueButtonAPI.Controls.Label TotalLabel = null;
+        public static PlagueButtonAPI.Controls.Label PCLabel = null;
+        public static PlagueButtonAPI.Controls.Label QLabel = null;
+        public static PlagueButtonAPI.Controls.Label PrivateRatioLabel = null;
         public static ButtonGroup Logged = null;
+        public static SimpleSingleButton CopyIDButton = null;
+        public static SimpleSingleButton JoinByIDButton = null;
+        public static string WorldInstanceID => $"{RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}";
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
         public static string LOAV = "False";
@@ -123,6 +127,10 @@ namespace AvatarLogger
             ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
             base.OnApplicationStart();
         }
+        //Code to force join a world provided an instance and world ID
+        public static void JoinInstance(string worldID, string instanceID)
+        => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
+
         //Plague button API code
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
@@ -197,11 +205,23 @@ namespace AvatarLogger
                         }
                         MelonPreferences.Save();
                     }).SetToggleState(CEVB, true);
+                    var InstanceStuffs = new ButtonGroup(Page, "Instance Stuffs");
+                    CopyIDButton = new SimpleSingleButton(InstanceStuffs, "Copy instance ID to clipboard", "Copies the current instance ID to the PC clipboard!", () =>
+                     {
+                         Clipboard.SetText(WorldInstanceID);
+                         MelonLogger.Msg($"Copied instance ID to clipboard: {WorldInstanceID}");
+                     });
+                    JoinByIDButton = new SimpleSingleButton(InstanceStuffs, "Join instance from clipboard ID", "Allows you to join the instance currently within your clipboard!", () =>
+                    {
+                        string[] ID = Clipboard.GetText().Split(':');
+                        JoinInstance(ID[0], ID[1]);
+                        MelonLogger.Msg($"Instance joined: {Clipboard.GetText()}");
+                    });
                     var SessionStatistics = new ButtonGroup(Page, "Session Statistics");
                     int totallogged = Pub + Pri;
-                    TotalLabel = new Label(SessionStatistics, $"Logged Avatars:{totallogged.ToString()}","");
-                    PCLabel = new Label(SessionStatistics, $"PC Compatible Avatars:{PC.ToString()}", "");
-                    QLabel = new Label(SessionStatistics, $"Quest Compatible Avatars:{Q.ToString()}", "");
+                    TotalLabel = new PlagueButtonAPI.Controls.Label(SessionStatistics, $"Logged Avatars:{totallogged.ToString()}","");
+                    PCLabel = new PlagueButtonAPI.Controls.Label(SessionStatistics, $"PC Compatible Avatars:{PC.ToString()}", "");
+                    QLabel = new PlagueButtonAPI.Controls.Label(SessionStatistics, $"Quest Compatible Avatars:{Q.ToString()}", "");
                     float privatepercentage = 0;
                     if (Pri > 0)
                     {
@@ -210,7 +230,7 @@ namespace AvatarLogger
                             privatepercentage = ((float)Pri / totallogged) * 100;
                         }
                     }
-                    PrivateRatioLabel =  new Label(SessionStatistics, $"Private Logged Percentage:{privatepercentage.ToString()}%", "");
+                    PrivateRatioLabel =  new PlagueButtonAPI.Controls.Label(SessionStatistics, $"Private Logged Percentage:{privatepercentage.ToString()}%", "");
                     Logged = new ButtonGroup(Page, "Logged!");
                 };
             };
