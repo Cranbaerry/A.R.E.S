@@ -160,7 +160,7 @@ QPushButton:enabled{
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -324,7 +324,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -538,7 +538,7 @@ Cache VRCA</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -616,7 +616,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -748,7 +748,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -887,7 +887,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -1002,7 +1002,7 @@ color: rgb(180, 180, 180);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 255, 213);
-background-color: rgba(54, 54, 54, 170);</string>
+background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -1152,30 +1152,6 @@ color: rgb(180, 180, 180);</string>
        <string>Delete Logs</string>
       </property>
      </widget>
-     <widget class="QLabel" name="LogSize">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>90</y>
-        <width>141</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(180, 180, 180);</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#5500ff;&quot;&gt;LogSize&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QFrame" name="frame_3">
       <property name="geometry">
        <rect>
@@ -1224,7 +1200,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);
+       <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
       </property>
      </widget>
@@ -1337,6 +1313,9 @@ color: rgb(180, 180, 180)</string>
         <height>281</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(54, 54, 54, 150);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -1345,25 +1324,17 @@ color: rgb(180, 180, 180)</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="UL">
          <property name="font">
           <font>
            <pointsize>16</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#5500ff;&quot;&gt;UPLOADED&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>Uploaded:</string>
          </property>
         </widget>
        </item>
@@ -1382,22 +1353,17 @@ color: rgb(180, 180, 180)</string>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_11">
+        <widget class="QLabel" name="UTL">
          <property name="font">
           <font>
            <pointsize>16</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#5500ff;&quot;&gt;User Total&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>User Total:</string>
          </property>
         </widget>
        </item>
@@ -1484,7 +1450,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -1517,9 +1483,29 @@ color: rgb(180, 180, 180);</string>
        </property>
       </widget>
      </widget>
+     <widget class="QLabel" name="LogSize">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>80</y>
+        <width>121</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(180, 180, 180);</string>
+      </property>
+      <property name="text">
+       <string>LogSize</string>
+      </property>
+     </widget>
      <zorder>label_14</zorder>
      <zorder>DeleteLogButton</zorder>
-     <zorder>LogSize</zorder>
      <zorder>frame_3</zorder>
      <zorder>Instructions</zorder>
      <zorder>label_5</zorder>
@@ -1527,6 +1513,7 @@ color: rgb(180, 180, 180);</string>
      <zorder>frame_9</zorder>
      <zorder>ChangeUnityButton</zorder>
      <zorder>frame_13</zorder>
+     <zorder>LogSize</zorder>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1558,7 +1545,7 @@ color: rgb(180, 180, 180);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
+          <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="frameShape">
@@ -1582,7 +1569,7 @@ color: rgb(180, 180, 180);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
+          <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="frameShape">
@@ -1606,7 +1593,7 @@ color: rgb(180, 180, 180);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
+          <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="frameShape">
@@ -1630,7 +1617,7 @@ color: rgb(180, 180, 180);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
+          <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="frameShape">
@@ -1654,7 +1641,7 @@ color: rgb(180, 180, 180);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
+          <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="frameShape">
@@ -1687,7 +1674,7 @@ color: rgb(180, 180, 180);</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);
+       <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
       </property>
       <property name="frameShape">
@@ -1713,7 +1700,7 @@ color: rgb(180, 180, 180);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 170);
+       <string notr="true">background-color: rgba(54, 54, 54, 225);
 color: rgb(180, 180, 180);</string>
       </property>
      </widget>
