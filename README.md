@@ -18,7 +18,7 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 Features:
 
-    -Copy instance ids and join by them by clipboard
+    -Copy instance IDs and join by them by clipboard
 
     -Repair avatar VRCAs retreived from the cache
 
