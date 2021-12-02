@@ -111,7 +111,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\VRC.UI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="VRC.UI.Elements">
+    <Reference Include="VRC.UI.Elements, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\VRC.UI.Elements.dll</HintPath>
     </Reference>
     <Reference Include="VRC.UI.Shared">
