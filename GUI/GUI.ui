@@ -384,7 +384,8 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(180, 180, 180);</string>
+       <string notr="true">background-color: rgba(54, 54, 54, 225);
+color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string/>
