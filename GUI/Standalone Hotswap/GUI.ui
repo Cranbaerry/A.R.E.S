@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
+    <width>533</width>
     <height>256</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Standalone Hotswap V1 (LargestBoi)</string>
+   <string>Standalone Hotswap V2 (LargestBoi)</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/*
@@ -547,7 +547,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="LoadVRCAB">
+   <widget class="QPushButton" name="LoadBB">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -557,7 +557,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      </rect>
     </property>
     <property name="text">
-     <string>Load VRCA</string>
+     <string>Load Bundle</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -579,7 +579,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      <item>
       <widget class="QLabel" name="OldIDLabel">
        <property name="text">
-        <string>Old Avatar ID</string>
+        <string>OldID</string>
        </property>
       </widget>
      </item>
@@ -592,7 +592,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="LoadDVRCAB">
+   <widget class="QPushButton" name="LoadDBB">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -603,7 +603,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     </property>
     <property name="text">
      <string>Load Dummy
-VRCA</string>
+Bundle</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame_2">
@@ -625,7 +625,7 @@ VRCA</string>
      <item>
       <widget class="QLabel" name="NewIDLabel">
        <property name="text">
-        <string>New Avatar ID</string>
+        <string>NewID</string>
        </property>
       </widget>
      </item>
@@ -638,7 +638,7 @@ VRCA</string>
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="HotswapB">
+   <widget class="QPushButton" name="BuildB">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -648,7 +648,7 @@ VRCA</string>
      </rect>
     </property>
     <property name="text">
-     <string>Hotswap</string>
+     <string>Build</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame_3">
@@ -676,13 +676,61 @@ VRCA</string>
      </item>
     </layout>
    </widget>
+   <widget class="QFrame" name="frame_4">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>30</y>
+      <width>91</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QRadioButton" name="AVRB">
+       <property name="text">
+        <string>Avatar</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="WRB">
+       <property name="text">
+        <string>World</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>10</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>VRC Bundle Mode:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>434</width>
+     <width>533</width>
      <height>18</height>
     </rect>
    </property>

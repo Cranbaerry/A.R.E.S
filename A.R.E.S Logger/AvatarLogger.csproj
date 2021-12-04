@@ -48,7 +48,8 @@
     <Reference Include="Il2CppSystem.Core">
       <HintPath>DLLS\Il2CppSystem.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MelonLoader">
+    <Reference Include="MelonLoader, Version=0.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>DLLS\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
