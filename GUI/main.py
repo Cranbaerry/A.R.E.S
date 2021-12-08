@@ -73,7 +73,7 @@ class Ui(QtWidgets.QMainWindow):
         #Read from "Settings.json" file
         with open("Settings.json", "r+") as s:
             self.Settings = json.loads(s.read())
-            self.UDir = self.Settings["Unity_Exe"]
+            self.self.Settings["Unity_Exe"] = self.Settings["Unity_Exe"]
         #Loading the ModConfig file from the avatar logger mod
         self.DirLabel = self.findChild(QtWidgets.QLabel, 'DirLabel')
         # Declares the API label and sets text
