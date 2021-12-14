@@ -306,14 +306,13 @@ class Ui(QtWidgets.QMainWindow):
             #If it aint download the vrca in question
             else:
                 self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
-                self.filepath = f'{self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")}.vrca'
                 # Allows user to select platform
                 SelectedPlatform = self.PlatCheck(self.Avatars[self.AvatarIndex][6], self.Avatars[self.AvatarIndex][7])
                 self.DownVRCAT(self.VerSelect(self.Avatars[self.AvatarIndex][SelectedPlatform]), f'AssetRipperConsole_win64(ds5678)/{self.filepath}')
                 self.keepvrca = False
                 self.pathname = self.Avatars[self.AvatarIndex][2].encode().decode("ascii", errors="ignore")
             #Enter the asset ripper
-            os.chdir("AssetRipperConsole_win64(ds5678)")
+            os.chdir("")
             if self.ExtM1.isChecked():
                 ExtValue = "2019DLL"
             if self.ExtM2.isChecked():

@@ -1,0 +1,127 @@
+#A file containing all the modules allowing the GUI to read from/interact with the log
+
+#Importing reqired modules
+import os, pymsgbox, requests, datetime
+#Allows the log sice to be retrieved and returned
+def LogSize():
+    if os.path.exists("Log.txt"):
+        return (str(round(os.path.getsize("Log.txt") / (1024 * 1024))) + "MB")
+    else:
+        return "No Log!"
+#Function to delete the logged avis
+def DeleteLog():
+    Answer = pymsgbox.prompt('Are you sure you want to delete your log file? type (yes) to delete')
+    if Answer == "yes":
+        if os.path.exists("Log.txt"):
+            os.remove("Log.txt")
+#Takes raw data and allows the user to decide what to do with the asset URLs
+def DecideAssetURL(PC,Q):
+    if "None" in PC:
+        PCV = False
+    else:
+        PCV = True
+    if "None" in Q:
+        QV = False
+    else:
+        QV = True
+    # If both quest and PC options are valid ask the user what platform they want the action to involve
+    if PCV is True and QV is True:
+        selection = pymsgbox.confirm(text="Would you like to use the Quest or PC version of the avatar?",title="VRCA Platform Select", buttons=["PC", "Quest"])
+        if selection == "PC":
+            url = PC
+        if selection == "Quest":
+            url = Q
+    # If only quest is available default to quest
+    if PCV is False and QV is True:
+        url = Q
+    # If only PC is available default to PC
+    if PCV is True and QV is False:
+        url = PC
+    # Creates variables to home template for base avatar url
+    base = "/".join(url.split('/')[:7])
+    # Lets vrc think me browser
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Content-Type": "application/json",
+        "Bypass-Tunnel-Reminder": "bypass"
+    }
+    # Returns json of all avatar versions
+    versions = requests.get(url=base, headers=headers).json()
+    # Gets the highest possible version
+    MaxVer = str(len(versions["versions"]) - 1)
+    # Allows user to select what version of the avatar they want
+    selection = pymsgbox.confirm(text="Do you want to download the latest or custom version?",title="VRCA Version Select", buttons=["Latest", "Custom"])
+    # Takes action depending on what was selected
+    if selection == "Latest":
+        return f'{base}/{MaxVer}/file'
+    if selection == "Custom":
+        # In a loop to allow multiple attempts
+        while True:
+            # Try in while loop because ahhhhhhhhhhhhhhhhhh
+            try:
+                # Prompts user for desired version of an avatrs
+                SelVer = pymsgbox.prompt(
+                    f'What version would you like to use?(Between 1-{MaxVer}), cancel will auto to latest version!')
+                # What the fuck are you even doing here trying to select nothing? WHo cares you get latest version
+                if SelVer == None:
+                    SelVer = MaxVer
+                    break
+                # Ensure the selected number is within a possible range of avatar version
+                MainList = range(1, int(MaxVer))
+                # If its a valid version break
+                if int(SelVer) in MainList:
+                    break
+            except:
+                pass
+        # Retruns end desired asset url
+        return f'{base}/{SelVer}/file'
+#Cleans text to appear in the RawData preview
+def CleanText(data):
+    try:
+        Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
+    except:
+        Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
+    return Klean
+#Gets data from SelectedAvi in a simpler way
+def GetData(SelAvi,param):
+    if param == "TimeDetected":
+        return SelAvi[0]
+    if param == "AvatarID":
+        return SelAvi[1]
+    if param == "AvatarName":
+        return SelAvi[2]
+    if param == "AvatarDescription":
+        return SelAvi[3]
+    if param == "AuthorID":
+        return SelAvi[4]
+    if param == "AuthorName":
+        return SelAvi[5]
+    if param == "PCAsset":
+        return SelAvi[6]
+    if param == "QAsset":
+        return SelAvi[7]
+    if param == "IMGURL":
+        return SelAvi[8]
+    if param == "ThumbURL":
+        return SelAvi[9]
+    if param == "UnityVer":
+        return SelAvi[10]
+    if param == "ReleaseStatus":
+        return SelAvi[11]
+    if param == "Tags":
+        return SelAvi[12]
+#Gets image of SelectedAvi in a simpler way
+def GetImage(url):
+    try:
+        #Creates empty payload
+        payload = ""
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Content-Type": "application/json",
+            "Bypass-Tunnel-Reminder": "bypass"
+        }
+        # Requests data and sets image
+        data = requests.request("GET", url, data=payload, headers=headers)
+        return data
+    except:
+        return ""
