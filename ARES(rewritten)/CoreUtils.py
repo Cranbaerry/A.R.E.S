@@ -6,6 +6,7 @@ from base64 import b64encode
 #Importing custom ARES modules
 from LogUtils import DecideAssetURL
 #Returns weather or not ARES is up to date
+# will be removed in the future
 def VersionCheck(ver):
     ss = requests.get("https://pastebin.com/raw/w3f0jC9P", timeout=10).text
     if ver != ss:
@@ -13,6 +14,7 @@ def VersionCheck(ver):
     else:
         return True
 #Pushes the user to the update portal on our GitHub and close any app that may conflit with the update about to occur
+# will be removed in the future
 def UpdatePushed():
     os.startfile("https://github.com/LargestBoi/A.R.E.S/releases")
     try:

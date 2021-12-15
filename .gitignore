@@ -255,3 +255,11 @@ GUI/Settings.json
 GUI/AssetRipperConsole_win64(ds5678)/2019DLL/desktop.ini
 GUI/dist/AssetRipperConsole_win64(ds5678)/2019DLL/desktop.ini
 A.R.E.S Logger/DLLS/PlagueButtonAPI.dll
+ARES(rewritten)/Log.txt
+ARES(rewritten)/__pycache__/CoreUtils.cpython-38.pyc
+ARES(rewritten)/__pycache__/ExternalFunctions.cpython-38.pyc
+ARES(rewritten)/__pycache__/LogUtils.cpython-38.pyc
+ARES(rewritten)/__pycache__/Search.cpython-38.pyc
+ARES(rewritten)/__pycache__/LogUtils.cpython-38.pyc
+ARES(rewritten)/__pycache__/ExternalFunctions.cpython-38.pyc
+ARES(rewritten)/__pycache__/CoreUtils.cpython-38.pyc

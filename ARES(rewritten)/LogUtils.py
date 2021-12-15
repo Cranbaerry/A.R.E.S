@@ -110,6 +110,7 @@ def GetData(SelAvi,param):
         return SelAvi[11]
     if param == "Tags":
         return SelAvi[12]
+
 #Gets image of SelectedAvi in a simpler way
 def GetImage(url):
     try:

@@ -7,9 +7,10 @@ from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 #Importing custom ARES modules
-from CoreUtils import VersionCheck, UpdatePushed, GetSpecialThanks, CleanExit, IsSetup, GetSettings, SaveSettings, SendErrorLogs, EventLog, DownloadVRCA, DownloadVRCAFL
-from LogUtils import LogSize, DeleteLog, CleanText, GetData, GetImage
-from ExternalFunctions import OpenUnity, PatchEMM, Hotswap, RepairVRCA, ExtractVRCA
+from CoreUtils import *
+from LogUtils import *
+from ExternalFunctions import *
+import Search
 #Enable/Disable debug mode
 DebugMode = True
 class Ui(QtWidgets.QMainWindow):
@@ -59,6 +60,8 @@ class Ui(QtWidgets.QMainWindow):
         self.ExtVRCA.clicked.connect(self.ExtractVRCAWrapper)
         self.SearchL = self.findChild(QtWidgets.QPushButton, 'SearchLocalButton')
         self.SearchL.clicked.connect(self.SearchLocalWrapper)
+        self.SearchA = self.findChild(QtWidgets.QPushButton, 'SearchAPIButton')
+        self.SearchA.clicked.connect(self.SearchApiWrapper)
         #Prepares text boxes
         self.SpecialThanks = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanksBox')
         self.Console = self.findChild(QtWidgets.QPlainTextEdit, 'ConsoleBox')
@@ -139,6 +142,7 @@ class Ui(QtWidgets.QMainWindow):
     def LogWrapper(self, Data):
         self.Console.appendPlainText(EventLog(self.BaseDir, Data))
     #Allows the API to be enabled and disabled, then quits the application
+    # add this: make it start function upload avatars instead of starting
     def ToggleAPIF(self):
         if self.Settings["SendToAPI"] == True:
             self.Settings["SendToAPI"] = False
@@ -184,7 +188,6 @@ class Ui(QtWidgets.QMainWindow):
             self.OpenUnity.setEnabled(True)
             self.Hotswap.setEnabled(False)
     #Wrapper to correctly preform a hotswap
-    #NEEDS WORK
     def HotswapWrapper(self,vrca):
         try:
             self.LogWrapper("Started hotswap process...")
@@ -344,10 +347,9 @@ class Ui(QtWidgets.QMainWindow):
             self.ExtVRCA.setEnabled(True)
             self.LogWrapper(f"An error occured while extracting a VRCA: {traceback.format_exc()}")
     def SearchLocalWrapper(self):
-        try:
-            pass
-        except:
-            pass
+        self.searchavis(Localss=True)
+    def SearchApiWrapper(self):
+        self.searchavis(Localss=False)
     #Wrapper to regulate downloading of avatars via the download VRCA button
     def DownloadVRCAWrapper(self):
         try:
@@ -394,6 +396,43 @@ class Ui(QtWidgets.QMainWindow):
         self.PrevB.setEnabled(value)
         self.SearchL.setEnabled(value)
         self.ExtVRCA.setEnabled(value)
+    def searchavis(self, Localss=True):
+        filterss = {
+            "private": self.PrivateCB.isChecked(),
+            "public": self.PublicCB.isChecked(),
+            "PCasseturl": self.PCCB.isChecked(),
+            "Questasseturl": self.QCB.isChecked(),
+            "NSFW": self.NSFWCB.isChecked(),
+            "Violonce": self.VioCB.isChecked(),
+            "Gore": self.GoreCB.isChecked(),
+            "Othernsfw": self.ONSFWCB.isChecked(),
+            "Avatar name": self.AvatarNameRB.isChecked(),
+            "Avatar author": self.AvatarAuthorRB.isChecked(),
+            "Avatar id": self.AvatarIDRB.isChecked()
+        }
+        if Localss:
+            quary = self.SearchTerm.text()
+            filtered = Search.search(query=quary, api=False, Localavatars=self.Avatars, filters=filterss)
+            self.Avatars = filtered
+            if len(filtered) == 0:
+                self.LogWrapper("No avatars found!")
+                self.SearchTerm.setText("No avatars found!")
+                self.Data.setPlainText("No avatars found!\ntry something else!")
+                data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
+                pixmap = QPixmap()
+                pixmap.loadFromData(data.content)
+                self.PrevIMG.setPixmap(pixmap)
+            else:
+                self.LogWrapper(f"{len(filtered)} avatars found!")
+                self.MaxAvatar = len(filtered) - 1
+                self.AvatarIndex = 0
+                self.SelectedAvi = self.Avatars[self.AvatarIndex]
+                self.UpdateAvi()
+        if not Localss:
+            quary = self.SearchTerm.text()
+            filtered = Search.search(query=quary, api=True, Localavatars=None, filters=filterss)
+
+
 #Extra GUI stuffs
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
