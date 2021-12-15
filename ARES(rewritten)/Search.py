@@ -92,20 +92,21 @@ def filter(query, filters={}, avatars=[]):
         new_list = check_pc_asset(new_list)
     elif filters["PCasseturl"] == False and filters["Questasseturl"] == True:
         new_list = check_quest_assets(new_list)
-    tgs = []
-    if filters["NSFW"] == True:
-        tgs.append("content_sex")
-    if filters["Violonce"] == True:
-        tgs.append("content_violence")
-    if filters["Gore"] == True:
-        tgs.append("content_gore")
-    if filters["Othernsfw"] == True:
-        tgs.append("content_other")
-    new_list = check_tags(tgs, new_list)
+    if filters["NSFW"] == True or filters["Violonce"] == True or filters["Gore"] == True or filters["Othernsfw"] == True:
+        tgs = []
+        if filters["NSFW"] == True:
+            tgs.append("content_sex")
+        if filters["Violonce"] == True:
+            tgs.append("content_violence")
+        if filters["Gore"] == True:
+            tgs.append("content_gore")
+        if filters["Othernsfw"] == True:
+            tgs.append("content_other")
+        new_list = check_tags(tgs, new_list)
     return new_list
 
-    
-    
+
+
 
 
 
