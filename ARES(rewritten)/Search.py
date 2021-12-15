@@ -92,8 +92,10 @@ def filter(query, filters={}, avatars=[]):
         new_list = check_pc_asset(new_list)
     elif filters["PCasseturl"] == False and filters["Questasseturl"] == True:
         new_list = check_quest_assets(new_list)
-    if filters["NSFW"] == True or filters["Violonce"] == True or filters["Gore"] == True or filters["Othernsfw"] == True:
+    if filters["NSFW"] or filters["Violonce"] or filters["Gore"] or filters["Othernsfw"]:
         tgs = []
+        if filters["NSFW"] and filters["Violonce"] and filters["Gore"] and filters["Othernsfw"]:
+            tgs.append("None")
         if filters["NSFW"] == True:
             tgs.append("content_sex")
         if filters["Violonce"] == True:
@@ -112,7 +114,30 @@ def filter(query, filters={}, avatars=[]):
 
 
 def get_avatars_list_api(query, filters={}):
-    pass
+    print("Searching for: " + query)
+    print("using key: " + str(filters["key"]))
+    headers = {
+    'authority': 'api.avataruploader.tk',
+    'accept': 'application/json',
+    'user-agent': filters["key"],
+    'content-type': 'application/json',
+    'sec-gpc': '1',
+    'origin': 'https://api.avataruploader.tk',
+    'sec-fetch-site': 'same-origin',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-dest': 'empty',
+    'referer': 'https://api.avataruploader.tk/docs',
+    'accept-language': 'en-US,en;q=0.9',
+    }
+    data = {
+        "author": filters["Avatar author"],
+        "avatarid": filters["Avatar id"],
+        "name": filters["Avatar name"],
+        "searchterm": query
+        }
+    response = requests.post('https://api.avataruploader.tk/search', headers=headers, json=data)
+    print(response.text)
+    return response.json()
 
 def search(query, filters={}, api=False, Localavatars=None):
     # print("Searching for: " + query)
@@ -121,5 +146,9 @@ def search(query, filters={}, api=False, Localavatars=None):
     # print("Localavatars: " + str(Localavatars))
     if not api:
         avis = filter(query, filters, Localavatars)
+        print("avis: "+str(len(avis)))
+        return avis
+    if api:
+        avis = get_avatars_list_api(query, filters)
         print("avis: "+str(len(avis)))
         return avis

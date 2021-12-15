@@ -119,6 +119,7 @@ class Ui(QtWidgets.QMainWindow):
         #Sets API status label and logs its status to the console
         if self.Settings["SendToAPI"] == True:
             self.APIStatus.setText("API Enabled!")
+            self.SearchA.setEnabled(True)
             self.LogWrapper("API is enabled on startup!")
         else:
             self.APIStatus.setText("API Disabled!")
@@ -136,7 +137,7 @@ class Ui(QtWidgets.QMainWindow):
         key = str(self.KeyBox.text().encode().decode("ascii", errors="ignore")).replace("\n","").replace("\\n", "")
         self.Settings["Username"] = key
         SaveSettings(self.Settings)
-        self.SetUserBox.setText("Key Set!")
+        self.KeyBox.setText("Key Set!")
         self.LogWrapper(f"Key set: {key}")
     #Second logging function for ease of logging
     def LogWrapper(self, Data):
@@ -408,7 +409,8 @@ class Ui(QtWidgets.QMainWindow):
             "Othernsfw": self.ONSFWCB.isChecked(),
             "Avatar name": self.AvatarNameRB.isChecked(),
             "Avatar author": self.AvatarAuthorRB.isChecked(),
-            "Avatar id": self.AvatarIDRB.isChecked()
+            "Avatar id": self.AvatarIDRB.isChecked(),
+            "key": self.KeyBox.text()
         }
         if Localss:
             quary = self.SearchTerm.text()
@@ -416,7 +418,6 @@ class Ui(QtWidgets.QMainWindow):
             self.Avatars = filtered
             if len(filtered) == 0:
                 self.LogWrapper("No avatars found!")
-                self.SearchTerm.setText("No avatars found!")
                 self.Data.setPlainText("No avatars found!\ntry something else!")
                 data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
                 pixmap = QPixmap()
@@ -431,6 +432,19 @@ class Ui(QtWidgets.QMainWindow):
         if not Localss:
             quary = self.SearchTerm.text()
             filtered = Search.search(query=quary, api=True, Localavatars=None, filters=filterss)
+            if len(filtered) == 0:
+                self.LogWrapper("No avatars found!")
+                self.Data.setPlainText("No avatars found!\ntry something else!")
+                data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
+                pixmap = QPixmap()
+                pixmap.loadFromData(data.content)
+                self.PrevIMG.setPixmap(pixmap)
+            else:
+                self.LogWrapper(f"{len(filtered)} avatars found!")
+                self.MaxAvatar = len(filtered) - 1
+                self.AvatarIndex = 0
+                self.SelectedAvi = self.Avatars[self.AvatarIndex]
+                self.UpdateAvi()
 
 
 #Extra GUI stuffs
