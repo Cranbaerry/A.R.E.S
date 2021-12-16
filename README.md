@@ -1,16 +1,16 @@
 # A.R.E.S
 
-ARES is an avatar recovery tool! It is only for educational uses!
+ARES is an avatar recovery tool! It is only for educational uses! We do not condone theft of avatars, the tool soley exists to recover avatars from within VRChat back onto new accounts and into their unity packages keeping as much of the avatar in-tact as possible!
 
-Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon. If you see him around thank him for me!
+Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon and it is an important part of the project as a whole. If you see him around thank him for me!
 
-Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP!
+Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
-Thx [Plague](https://github.com/PlagueVRC/) for the [PlagueButtonAPI](https://github.com/PlagueVRC/PlagueButtonAPI)!
+Thx [Plague](https://github.com/PlagueVRC/) for the [PlagueButtonAPI](https://github.com/PlagueVRC/PlagueButtonAPI) allowing us to add in-game buttons to VRChat!
 
-Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs!
+Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES!
 
-And special thanks to [cassell1337](https://github.com/cassell1337) for willingly being mindfucked with me while making the semi-auto hotswap and the new GUI + API!
+And special thanks to [cassell1337](https://github.com/cassell1337) for development assisted development of the GUI and total development of the API!
 
 If you have any feedback for us or would like to suggest a feature please use our [FeedbackForm](https://forms.gle/QifnS6ZSa8fse9yF7).
 
@@ -54,17 +54,9 @@ Features:
 
     -Ability to almost perfectly extract vrca files for repairs with FACS and Pumpkin
 
-Installation/Usage: [YouTube Video](https://youtu.be/WFuB8ycALhA)
+Installation/Usage:
 	
-    1. Install melon loader from here: (https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe)
-
-    2. Extract all the contents of the rar into your VRC folder
-	
-	3. Run the exe and complete first time setup
-	
-	4. Run VRC once to log some avis
-	
-	5. Your all set!
+	-WIP-
 
 Extras:
 
