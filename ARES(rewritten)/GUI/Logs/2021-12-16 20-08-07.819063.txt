@@ -1,0 +1,2 @@
+2021-12-16 20:07:36.596541 | API is disabled on startup
+2021-12-16 20:07:36.597542 | Settings loaded!

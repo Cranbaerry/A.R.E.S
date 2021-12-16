@@ -1,0 +1,11 @@
+2021-12-16 19:55:00.813551 | API is disabled on startup
+2021-12-16 19:55:00.814553 | Settings loaded!
+2021-12-16 19:55:02.201066 | Started repair process...
+2021-12-16 19:55:02.202067 | Propting user to select VRCA...
+2021-12-16 19:55:04.724670 | VRCA selected: C:/Users/adamc/Downloads/Avatar-Pandas-Demon-Compendium-.file_e3f724e6-61fd-4aec-8ec5-a0e47e5e27c7.2_1.vrca
+2021-12-16 19:55:04.725671 | Starting repair on new thread...
+2021-12-16 19:55:04.727673 | An error occured during repair: Traceback (most recent call last):
+  File "C:\Users\adamc\Documents\GitHub\A.R.E.S\ARES(rewritten)\ExternalFunctions.py", line 190, in RepairVRCA
+    progbar.setValue(0)
+AttributeError: 'QPushButton' object has no attribute 'setValue'
+

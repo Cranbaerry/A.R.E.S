@@ -1,0 +1,11 @@
+2021-12-16 19:55:11.602271 | API is disabled on startup
+2021-12-16 19:55:11.603272 | Settings loaded!
+2021-12-16 19:55:13.833545 | Started repair process...
+2021-12-16 19:55:13.835548 | Propting user to select VRCA...
+2021-12-16 19:55:15.746804 | VRCA selected: C:/Users/adamc/Downloads/Avatar-Pandas-Demon-Compendium-.file_e3f724e6-61fd-4aec-8ec5-a0e47e5e27c7.2_1.vrca
+2021-12-16 19:55:15.747805 | Starting repair on new thread...
+2021-12-16 19:55:17.934748 | An error occured during repair: Traceback (most recent call last):
+  File "C:\Users\adamc\Documents\GitHub\A.R.E.S\ARES(rewritten)\ExternalFunctions.py", line 197, in RepairVRCA
+    os.chdir("HOTSWAP")
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'HOTSWAP'
+

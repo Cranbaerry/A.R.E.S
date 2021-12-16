@@ -1,0 +1,12 @@
+2021-12-16 20:03:23.784225 | API is disabled on startup
+2021-12-16 20:03:23.785225 | Settings loaded!
+2021-12-16 20:03:24.490238 | Started repair process...
+2021-12-16 20:03:24.491239 | Propting user to select VRCA...
+2021-12-16 20:03:26.809062 | VRCA selected: C:/Users/adamc/Downloads/Avatar-Pandas-Demon-Compendium-.file_e3f724e6-61fd-4aec-8ec5-a0e47e5e27c7.2_1.vrca
+2021-12-16 20:03:26.810063 | Starting repair on new thread...
+2021-12-16 20:03:26.811063 | Error occured during repair process!
+Traceback (most recent call last):
+  File "C:\Users\adamc\Documents\GitHub\A.R.E.S\ARES(rewritten)\GUI.py", line 229, in RepairVRCAWrapper
+    threading.Thread(target=RepairVRCAt, args={}).start()
+NameError: name 'RepairVRCAt' is not defined
+

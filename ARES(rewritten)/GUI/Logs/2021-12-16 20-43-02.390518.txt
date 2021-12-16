@@ -1,0 +1,20 @@
+2021-12-16 20:41:07.048090 | API is disabled on startup
+2021-12-16 20:41:07.048090 | Settings loaded!
+2021-12-16 20:41:09.732537 | HSB preperation has begun...
+2021-12-16 20:41:09.733539 | Unity opening on new thread...
+2021-12-16 20:41:09.794594 | Killed UnityHub!
+2021-12-16 20:41:09.850645 | Killed Unity!
+2021-12-16 20:41:09.851646 | Deleted TMP HSB
+2021-12-16 20:41:11.107789 | Deleted HSB project!
+2021-12-16 20:41:18.157312 | Extracted HSB
+2021-12-16 20:41:18.159315 | HSB opened!
+2021-12-16 20:41:18.160314 | Thread closed and unity opened!
+2021-12-16 20:41:45.484194 | HSB preperation has begun...
+2021-12-16 20:41:45.485195 | Unity opening on new thread...
+2021-12-16 20:41:45.546251 | Killed UnityHub!
+2021-12-16 20:41:45.604304 | Killed Unity!
+2021-12-16 20:41:45.605305 | Deleted TMP HSB
+2021-12-16 20:41:46.835635 | Deleted HSB project!
+2021-12-16 20:41:53.557544 | Extracted HSB
+2021-12-16 20:41:53.560545 | HSB opened!
+2021-12-16 20:41:53.561546 | Thread closed and unity opened!
