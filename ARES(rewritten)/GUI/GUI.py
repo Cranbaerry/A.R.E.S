@@ -23,7 +23,6 @@ class Ui(QtWidgets.QMainWindow):
         os.chdir(self.BaseDir)
         self.show()
         #Prepares push buttons
-        self.Outdated.hide()
         self.CleanExit = self.findChild(QtWidgets.QPushButton, 'CleanExitButton')
         self.CleanExit.clicked.connect(CleanExit)
         self.DeleteLog = self.findChild(QtWidgets.QPushButton, 'DeleteLogButton')
