@@ -297,9 +297,6 @@
     <Compile Include="ButtonAPI\QM\TextButton.cs" />
     <Compile Include="ButtonAPI\QM\TextLabel.cs" />
     <Compile Include="ButtonAPI\QM\ToggleButton.cs" />
-    <Compile Include="ButtonAPI\SM\SMButton.cs" />
-    <Compile Include="ButtonAPI\SM\SMList.cs" />
-    <Compile Include="ButtonAPI\SM\SMText.cs" />
     <Compile Include="ButtonAPI\Wings\BaseWing.cs" />
     <Compile Include="ButtonAPI\Wings\WingButton.cs" />
     <Compile Include="ButtonAPI\Wings\WingPage.cs" />

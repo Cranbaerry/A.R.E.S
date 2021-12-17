@@ -10,12 +10,13 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using ARES.Utils.API.QM;
+using ARES.Utils.API.Wings;
 using ARES.Utils.API;
 using LoadSprite;
 using System.Windows.Forms;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "2.2", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "3", "By LargestBoi & Yui")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
