@@ -932,30 +932,6 @@ color: rgb(180, 180, 180);</string>
 Exit</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="OutdatedButton">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>0</y>
-        <width>771</width>
-        <height>411</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>40</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgba(54, 54, 54, 225);</string>
-      </property>
-      <property name="text">
-       <string>OUTDATED CLICK TO UPDATE</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="SettingsTab">
      <attribute name="title">
