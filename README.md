@@ -2,11 +2,10 @@
 
 ARES is an avatar recovery tool! It is only for educational uses! We do not condone theft of avatars, the tool soley exists to recover avatars from within VRChat back onto new accounts and into their unity packages keeping as much of the avatar in-tact as possible!
 
-Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon and it is an important part of the project as a whole. If you see him around thank him for me!
+Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon and it is an important part of the project as a whole. If you see him around thank him for me! The same thanks go out to Blaze for showing me a better/more stable way to create buttons ingame!
 
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
-Thx [Plague](https://github.com/PlagueVRC/) for the [PlagueButtonAPI](https://github.com/PlagueVRC/PlagueButtonAPI) allowing us to add in-game buttons to VRChat!
 
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES!
 

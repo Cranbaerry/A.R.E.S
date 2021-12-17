@@ -15,7 +15,6 @@ namespace ARESPlugin
     {
         private WebClient client = new WebClient();
         public static bool AvatarLogger = false;
-        public static bool ButtonAPI = false;
 
         public override void OnApplicationStart()
         {
@@ -33,29 +32,12 @@ namespace ARESPlugin
                         MelonLogger.Msg($"Updated: AvatarLogger.dll!");
                     }
                 }
-                if (Mod.ToString().Contains("PlagueButtonAPI.dll"))
-                {
-                    ButtonAPI = true;
-                    var OldHash = SHA256CheckSum(Mod);
-                    MelonLogger.Msg($"Plague Button API Found: {OldHash}");
-                    client.DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/PlagueButtonAPI.dll", Mod);
-                    if (SHA256CheckSum(Mod) != OldHash)
-                    {
-                        MelonLogger.Msg($"Updated: PlagueButtonAPI.dll!");
-                    }
-                }
             }
             if (!AvatarLogger)
             {
                 MelonLogger.Msg($"Avatar Logger Not Found! Downloading...");
                 client.DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll", Environment.CurrentDirectory + "\\Mods\\AvatarLogger.dll");
                 MelonLogger.Msg($"Avatar Logger Installed!");
-            }
-            if (!ButtonAPI)
-            {
-                MelonLogger.Msg($"ButtonAPI Not Found! Downloading...");
-                client.DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/PlagueButtonAPI.dll", Environment.CurrentDirectory + "\\Mods\\PlagueButtonAPI.dll");
-                MelonLogger.Msg($"ButtonAPI Installed!");
             }
         }
 
