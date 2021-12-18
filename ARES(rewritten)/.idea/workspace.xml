@@ -21,7 +21,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.Launcher">
+  <component name="RunManager" selected="Python.GUI">
     <configuration name="GUI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ARES(rewritten)" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -66,8 +66,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Launcher" />
         <item itemvalue="Python.GUI" />
+        <item itemvalue="Python.Launcher" />
       </list>
     </recent_temporary>
   </component>

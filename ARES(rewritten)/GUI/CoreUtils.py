@@ -5,30 +5,6 @@ import requests, os, json, pymsgbox, datetime, shutil
 from base64 import b64encode
 #Importing custom ARES modules
 from LogUtils import DecideAssetURL
-#Pushes the user to the update portal on our GitHub and close any app that may conflit with the update about to occur
-# will be removed in the future
-def UpdatePushed():
-    os.startfile("https://github.com/LargestBoi/A.R.E.S/releases")
-    try:
-        os.system('taskkill /F /im "ARES.exe"')
-    except:
-        pass
-    try:
-        os.system('taskkill /F /im "HOTSWAP.exe"')
-    except:
-        pass
-    try:
-        os.system('taskkill /F /im "Unity Hub.exe"')
-    except:
-        pass
-    try:
-        os.system('taskkill /F /im "Unity.exe"')
-    except:
-        pass
-    try:
-        os.system('taskkill /F /im "VRChat.exe"')
-    except:
-        pass
 #Fetches special thanks from our pastebin
 def GetSpecialThanks():
     try:
@@ -111,9 +87,5 @@ def CleanExit():
         pass
     try:
         os.system('taskkill /F /im "Unity.exe"')
-    except:
-        pass
-    try:
-        os.system('taskkill /F /im "VRChat.exe"')
     except:
         pass

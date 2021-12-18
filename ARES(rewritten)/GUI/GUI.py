@@ -12,7 +12,6 @@ from LogUtils import *
 from ExternalFunctions import *
 import Search
 #Enable/Disable debug mode
-DebugMode = True
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         #Initialising GUI
