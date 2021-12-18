@@ -89,3 +89,7 @@ def CleanExit():
         os.system('taskkill /F /im "Unity.exe"')
     except:
         pass
+    try:
+        os.system('taskkill /F /im "AssetRipperConsole.exe"')
+    except:
+        pass
