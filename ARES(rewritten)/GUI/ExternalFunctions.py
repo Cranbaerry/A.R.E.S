@@ -37,7 +37,7 @@ def OpenUnity(UnityPath,cla):
         os.system("UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q]")
         EventLog(Base, "Extracted HSB")
         #Launches unity
-        subprocess.Popen(rf'"{UnityPath}" -ProjectPath HSB')
+        subprocess.Popen(f'"{UnityPath}" -ProjectPath HSB')
         EventLog(Base, "HSB opened!")
         EventLog(Base,"Thread closed and unity opened!")
         # Enables button again
