@@ -386,7 +386,7 @@ class Ui(QtWidgets.QMainWindow):
             "Avatar name": self.AvatarNameRB.isChecked(),
             "Avatar author": self.AvatarAuthorRB.isChecked(),
             "Avatar id": self.AvatarIDRB.isChecked(),
-            "key": self.KeyBox.text()
+            "key": self.Settings["Username"]
         }
         if Localss:
             quary = self.SearchTerm.text()

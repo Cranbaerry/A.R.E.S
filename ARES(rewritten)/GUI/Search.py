@@ -1,5 +1,4 @@
-import requests
-import re
+import requests, re
 from LogUtils import *
 
 def check_quary_avatar_name(term, avatars):
@@ -107,12 +106,6 @@ def filter(query, filters={}, avatars=[]):
         new_list = check_tags(tgs, new_list)
     return new_list
 
-
-
-
-
-
-
 def get_avatars_list_api(query, filters={}):
     print("Searching for: " + query)
     print("using key: " + str(filters["key"]))
@@ -136,8 +129,12 @@ def get_avatars_list_api(query, filters={}):
         "searchterm": query
         }
     response = requests.post('https://api.avataruploader.tk/search', headers=headers, json=data)
-    print(response.text)
-    return response.json()
+    newarr = []
+    for x in response.json():
+        newarr1 = ()
+        for k in x:
+            newarr1.append(k)
+    return newarr
 
 def search(query, filters={}, api=False, Localavatars=None):
     # print("Searching for: " + query)
@@ -147,8 +144,10 @@ def search(query, filters={}, api=False, Localavatars=None):
     if not api:
         avis = filter(query, filters, Localavatars)
         print("avis: "+str(len(avis)))
+        print(f'NotApi: {str(avis)}')
         return avis
     if api:
         avis = get_avatars_list_api(query, filters)
         print("avis: "+str(len(avis)))
+        print(f'Api: {str(avis)}')
         return avis
