@@ -286,6 +286,7 @@
   <ItemGroup>
     <Compile Include="AvatarLogger.cs" />
     <Compile Include="ButtonAPI\APIStuff.cs" />
+    <Compile Include="ButtonAPI\AW\ActionWheelAPI.cs" />
     <Compile Include="ButtonAPI\QM\ButtonGroup.cs" />
     <Compile Include="ButtonAPI\QM\InfoPanel.cs" />
     <Compile Include="ButtonAPI\QM\MenuPage.cs" />

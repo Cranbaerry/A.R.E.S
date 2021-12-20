@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using ARES.Utils.API.QM;
+using ARES.Utils.API.AW;
 using ARES.Utils.API.Wings;
 using ARES.Utils.API;
 using LoadSprite;
@@ -27,6 +28,7 @@ namespace AvatarLogger
         //Creates varaible for buttons
         internal static Sprite ButtonImage = null;
         internal static MenuPage mainPage;
+        internal static ActionWheelAPI.ActionMenuBaseMenu mainMenu;
         public static string WorldInstanceID => $"{RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}";
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
@@ -153,6 +155,10 @@ namespace AvatarLogger
             var InstanceGroup = new ButtonGroup(mainPage.menuContents, "Instance Management");
             new SimpleSingleButton(InstanceGroup, "Copy Current Instance ID", delegate { Clipboard.SetText(WorldInstanceID); }, "Copies the current instance ID to your clipboard!");
             new SimpleSingleButton(InstanceGroup, "Join By Clipboard Instance", JoinInstanceByID, "Joins the instance currently within your clipboard!");
+            mainMenu = new ActionWheelAPI.ActionMenuBaseMenu();
+            new Tab(APIStuff.)
+            var AMPage = new ActionWheelAPI.ActionMenuPage(mainMenu, "ARES",ButtonImage);
+            new ActionWheelAPI.ActionMenuButton(mainMenu, "ARES",AMPage.OpenMenu,ButtonImage);
             MelonLogger.Msg("Ui ready!");
         }
         //Functions that run when a toggle is set or a button is pressed causing the settings to be changed, saved and take effect!
