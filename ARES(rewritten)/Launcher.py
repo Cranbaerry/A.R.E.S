@@ -51,6 +51,6 @@ else:
         v.write(data.content)
     os.mkdir(GUIP)
     os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q]")
-    pymsgbox.alert("ARES installed! Opening...")
     os.chdir(GUIP)
     subprocess.Popen("ARES.exe")
+    pymsgbox.alert("ARES installed! Opening...")
