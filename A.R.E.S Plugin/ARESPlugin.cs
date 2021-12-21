@@ -1,45 +1,40 @@
 ﻿using MelonLoader;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 
-[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Mod Updater", "1.0", "LargestBoi")]
-[assembly: MelonColor(System.ConsoleColor.Yellow)]
-[assembly: MelonGame]
+[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Mod Updater", "1.1", "LargestBoi")]
+[assembly: MelonColor(ConsoleColor.Yellow)]
+[assembly: MelonGame("VRChat", "VRChat")]
 
 namespace ARESPlugin
 {
     public class Updater : MelonPlugin
     {
-        private WebClient client = new WebClient();
-        public static bool AvatarLogger = false;
+        private string Mod => $"{MelonHandler.ModsDirectory}\\AvatarLogger.dll";
 
         public override void OnApplicationStart()
         {
-            var ModFiles = Directory.GetFiles(Environment.CurrentDirectory + "\\Mods", "*.dll").ToList();
-            foreach (var Mod in ModFiles)
+            if (File.Exists(Mod))
             {
-                if(Mod.ToString().Contains("AvatarLogger.dll"))
+                var OldHash = SHA256CheckSum(Mod);
+                MelonLogger.Msg($"Avatar Logger Found: {OldHash}");
+                DownloadMod();
+                if (SHA256CheckSum(Mod) != OldHash)
                 {
-                    AvatarLogger = true;
-                    var OldHash = SHA256CheckSum(Mod);
-                    MelonLogger.Msg($"Avatar Logger Found: {OldHash}");
-                    client.DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll", Mod);
-                    if (SHA256CheckSum(Mod) != OldHash)
-                    {
-                        MelonLogger.Msg($"Updated: AvatarLogger.dll!");
-                    }
+                    MelonLogger.Msg($"Updated: AvatarLogger.dll!");
                 }
             }
-            if (!AvatarLogger)
+            else
             {
                 MelonLogger.Msg($"Avatar Logger Not Found! Downloading...");
-                client.DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll", Environment.CurrentDirectory + "\\Mods\\AvatarLogger.dll");
+                DownloadMod();
                 MelonLogger.Msg($"Avatar Logger Installed!");
             }
         }
+
+        private void DownloadMod() => new WebClient().DownloadFile("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll", Mod);
 
         private string SHA256CheckSum(string filePath)
         {
