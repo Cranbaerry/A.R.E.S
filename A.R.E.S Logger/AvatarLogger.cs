@@ -11,6 +11,8 @@ using System.Text;
 using UnityEngine;
 using ReMod.Core.UI.QuickMenu;
 using ReMod.Core.UI.Wings;
+using System.Threading;
+using System.Diagnostics;
 using VRC.UI;
 using LoadSprite;
 using System.Windows.Forms;
@@ -156,6 +158,8 @@ namespace AvatarLogger
             FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
             FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
             FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
+            FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
+            FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             MelonLogger.Msg("Ui ready!");
         }
         //Functions that run when a toggle is set or a button is pressed causing the settings to be changed, saved and take effect!
@@ -259,6 +263,34 @@ namespace AvatarLogger
             {
                 MelonLogger.Msg($"Invalid Avatar ID!");
             }
+        }
+        //Restarts VRChat
+        private static void RVRC(bool persistence)
+        {
+            new Thread(() =>
+            {
+                //Kills VRChat
+                UnityEngine.Application.Quit();
+                Thread.Sleep(2500);
+                try
+                {
+                    //Opens VRChat
+                    string cl = Environment.CommandLine;
+                    if (cl.Contains("vrchat://launch"))
+                    {
+                        string launch = cl.Substring(cl.IndexOf("vrchat://launch"));
+                        cl = cl.Remove(cl.IndexOf("vrchat://launch"), launch.Contains(" ") ? launch.IndexOf(" ") : launch.Length);
+                    }
+                    if (persistence) { cl = $"{cl} vrchat://launch?id={RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}"; }
+                    Process.Start($"{Environment.CurrentDirectory}\\VRChat.exe", cl);
+                }
+                catch (Exception) { new Exception(); }
+                Process.GetCurrentProcess().Kill();
+            })
+            {
+                IsBackground = true,
+                Name = "RestartVRC Thread"
+            }.Start();
         }
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
