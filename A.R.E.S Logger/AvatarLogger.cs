@@ -9,12 +9,12 @@ using VRC.UI.Core;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using ARES.Utils.API.QM;
-using ARES.Utils.API.AW;
-using ARES.Utils.API.Wings;
-using ARES.Utils.API;
+using ReMod.Core.UI.QuickMenu;
+using ReMod.Core.UI.Wings;
+using VRC.UI;
 using LoadSprite;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "3", "By LargestBoi & Yui")]
@@ -25,10 +25,8 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
-        //Creates varaible for buttons
+        //Creates varaible for button image
         internal static Sprite ButtonImage = null;
-        internal static MenuPage mainPage;
-        internal static ActionWheelAPI.ActionMenuBaseMenu mainMenu;
         public static string WorldInstanceID => $"{RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}";
         //Making strings to contain logging settings and allowences
         public static string LFAV = "False";
@@ -104,14 +102,17 @@ namespace AvatarLogger
             }
             try
             {
-                //Attempts to use harmony to patch/hook into the VRChat networking client
+                //Attempts to use harmony to patch/hook into the VRChat networking client/enable force cloning
+                HarmonyInstance.Patch(
+                typeof(APIUser).GetProperty(nameof(APIUser.allowAvatarCopying)).GetSetMethod(),
+                new HarmonyLib.HarmonyMethod(typeof(AvatarLogger).GetMethod(nameof(AvatarLogger.FC), BindingFlags.NonPublic | BindingFlags.Static)));
                 HarmonyInstance.Patch(
                 typeof(VRCNetworkingClient)
                 .GetMethod("OnEvent")
                 , new HarmonyLib.HarmonyMethod(typeof(AvatarLogger)
                 .GetMethod(nameof(AvatarLogger.Detour), BindingFlags.NonPublic | BindingFlags.Static)), null, null, null, null);
                 //Informs the end user if the patch was successfully engaged
-                MelonLogger.Msg("Hook Successful :)");
+                MelonLogger.Msg("Hook Successful :) Force Clone Enabled!");
             }
             catch
             {
@@ -120,13 +121,14 @@ namespace AvatarLogger
             }
             //Begins attachment to network manager
             MelonCoroutines.Start(OnNetworkManagerInit());
-            ButtonImage = (Environment.CurrentDirectory + "\\GUI\\ARESLogo.png").LoadSpriteFromDisk();
+            ButtonImage = (Environment.CurrentDirectory + "\\ARESLogo.png").LoadSpriteFromDisk();
             MelonCoroutines.Start(FindUI());
             base.OnApplicationStart();
         }
-        //Code to force join a world provided an instance and world ID
+        //Code to force join a world provided an instance and world ID/set clone value true
         public static void JoinInstance(string worldID, string instanceID)
         => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
+        private static void FC(ref bool __0) => __0 = true;
 
         //Button API code waiting for the Ui to launch
         private static System.Collections.IEnumerator FindUI()
@@ -135,30 +137,25 @@ namespace AvatarLogger
             while (UnityEngine.Object.FindObjectOfType<VRC.UI.Elements.QuickMenu>() == null) yield return null;
             while (GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)") == null) yield return null;
             //Once the Ui has launched get variables and begin Ui creation
-            APIStuff.Left.Setup(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/Wing_Left").transform);
-            APIStuff.Right.Setup(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/Wing_Right").transform);
-            APIStuff.Left.WingOpen.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(new Action(() => APIStuff.Init_L()));
-            APIStuff.Right.WingOpen.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(new Action(() => APIStuff.Init_R()));
             OnUiManagerInit();
         }
         //Creation of buttons within the Ui
         private static void OnUiManagerInit()
         {
             MelonLogger.Msg("Ui initiating...");
-            mainPage = new MenuPage("ARES_MainMenu", "ARES", true, false, false, delegate { }, "Access ARES settings!", ButtonImage);
-            new Tab(APIStuff.GetMenuTabTemplate().transform.parent, "ARES_MainMenu", "ARES Logging Mod", ButtonImage);
-            var ToggleGroup = new ButtonGroup(mainPage.menuContents, "Toggles");
-            new ToggleButton(ToggleGroup, "Log Own Avatars", delegate { LOAC(true); }, delegate { LOAC(false); }, "Toggles the ability to log avatars uploaded to your account!", LOAVB);
-            new ToggleButton(ToggleGroup, "Log Friends Avatars", delegate { LFAC(true); }, delegate { LFAC(false); }, "Toggles the ability to log avatars uploaded to your friends accounts!", LFAVB);
-            new ToggleButton(ToggleGroup, "Log To Console", delegate { LTCC(true); }, delegate { LTCC(false); }, "Toggles the ability display logged avatars in console!", LTCVB);
-            new ToggleButton(ToggleGroup, "Log Errors To Console", delegate { LTCC(true); }, delegate { LTCC(false); }, "Toggles the ability display why particular avatars aren't logged in console!", CEVB);
-            var InstanceGroup = new ButtonGroup(mainPage.menuContents, "Instance Management");
-            new SimpleSingleButton(InstanceGroup, "Copy Current Instance ID", delegate { Clipboard.SetText(WorldInstanceID); }, "Copies the current instance ID to your clipboard!");
-            new SimpleSingleButton(InstanceGroup, "Join By Clipboard Instance", JoinInstanceByID, "Joins the instance currently within your clipboard!");
-            mainMenu = new ActionWheelAPI.ActionMenuBaseMenu();
-            new Tab(APIStuff.)
-            var AMPage = new ActionWheelAPI.ActionMenuPage(mainMenu, "ARES",ButtonImage);
-            new ActionWheelAPI.ActionMenuButton(mainMenu, "ARES",AMPage.OpenMenu,ButtonImage);
+            GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners"));
+            GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners"));
+            ReMenuPage TabPage = new ReMenuPage("ARES", true);
+            ReTabButton ARESTAB = ReTabButton.Create("ARES","Access ARES Menus", "ARES", ButtonImage);
+            ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
+            LSMP.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b){ LOAC(b); },LOAVB);
+            LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { LFAC(b); }, LFAVB);
+            LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { LTCC(b); }, LTCVB);
+            LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { CEC(b); }, CEVB);
+            ReMenuPage FPage = TabPage.AddMenuPage("ARES Functions", "Use the other features within ARES");
+            FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
+            FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
+            FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
             MelonLogger.Msg("Ui ready!");
         }
         //Functions that run when a toggle is set or a button is pressed causing the settings to be changed, saved and take effect!
@@ -240,7 +237,29 @@ namespace AvatarLogger
                 MelonLogger.Msg($"Invalid instance ID!");
             }
         }
-
+        //Changes into the avatar based on an avatar ID within the clipboard
+        public static void ChangeAvatar()
+        {
+            Regex Avatar = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
+            if (Avatar.IsMatch(Clipboard.GetText()))
+            {
+                try
+                {
+                    PageAvatar Changer = GameObject.Find("UserInterface/MenuContent/Screens/Avatar").GetComponent<PageAvatar>();
+                    Changer.field_Public_SimpleAvatarPedestal_0.field_Internal_ApiAvatar_0 = new ApiAvatar { id = Avatar.Matches(Clipboard.GetText())[0].Value };
+                    Changer.ChangeToSelectedAvatar();
+                    MelonLogger.Msg($"Avatar switched: {Avatar.Matches(Clipboard.GetText())[0].Value}");
+                }
+                catch
+                {
+                    MelonLogger.Msg($"Invalid Avatar ID!");
+                }
+            }
+            else
+            {
+                MelonLogger.Msg($"Invalid Avatar ID!");
+            }
+        }
         //Logs whenever a player joins
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
         {

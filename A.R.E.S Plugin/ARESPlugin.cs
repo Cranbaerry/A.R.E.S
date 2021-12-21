@@ -19,6 +19,7 @@ namespace ARESPlugin
         {
             Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll");
             Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReModCE/releases/latest/download/ReMod.Core.dll");
+            Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESLogo.png");
 
             foreach (KeyValuePair<string, string> pair in Files)
             {
@@ -26,7 +27,7 @@ namespace ARESPlugin
                 if (File.Exists(pair.Key))
                 {
                     var OldHash = SHA256CheckSum(pair.Key);
-                    MelonLogger.Msg($"Avatar Logger Found: {OldHash}");
+                    MelonLogger.Msg($"{name} Found: {OldHash}");
                     DownloadMod(pair);
                     if (SHA256CheckSum(pair.Key) != OldHash)
                     {
