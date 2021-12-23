@@ -10,7 +10,9 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using ReMod.Core.UI.QuickMenu;
-using ReMod.Core.UI.Wings;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Diagnostics;
 using VRC.UI;
@@ -27,6 +29,8 @@ namespace AvatarLogger
     //Class containing all code relevant to the mod and its functions
     public class AvatarLogger : MelonMod
     {
+        //Variable to keep plugin updated
+        private Dictionary<string, string> Files = new Dictionary<string, string>();
         //Creates varaible for button image
         internal static Sprite ButtonImage = null;
         public static string WorldInstanceID => $"{RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}";
@@ -125,13 +129,48 @@ namespace AvatarLogger
             MelonCoroutines.Start(OnNetworkManagerInit());
             ButtonImage = (Environment.CurrentDirectory + "\\ARESLogo.png").LoadSpriteFromDisk();
             MelonCoroutines.Start(FindUI());
+            //Code to keep the plugin up to date!
+            Files.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll");
+            foreach (KeyValuePair<string, string> pair in Files)
+            {
+                string name = pair.Key.Substring(pair.Key.LastIndexOf('\\') + 1);
+                if (File.Exists(pair.Key))
+                {
+                    var OldHash = SHA256CheckSum(pair.Key);
+                    MelonLogger.Msg($"{name} Found: {OldHash}");
+                    DownloadPlugin(pair);
+                    if (SHA256CheckSum(pair.Key) != OldHash)
+                    {
+                        MelonLogger.Msg($"Updated: {name}! Restarting VRC...");
+                        RVRC(false);
+                    }
+                }
+                else
+                {
+                    MelonLogger.Msg($"{name} Not Found! Downloading...");
+                    DownloadPlugin(pair);
+                    MelonLogger.Msg($"{name} Installed! Restarting VRC...");
+                }
+            }
             base.OnApplicationStart();
         }
         //Code to force join a world provided an instance and world ID/set clone value true
         public static void JoinInstance(string worldID, string instanceID)
         => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
         private static void FC(ref bool __0) => __0 = true;
-
+        //Function to get the SHA of a particular file to maintain the status of the plugin
+        private string SHA256CheckSum(string filePath)
+        {
+            using (var hash = SHA256.Create())
+            {
+                using (FileStream fileStream = File.OpenRead(filePath))
+                {
+                    return Convert.ToBase64String(hash.ComputeHash(fileStream));
+                }
+            }
+        }
+        //Function to download plugins to manage mod version control
+        private void DownloadPlugin(KeyValuePair<string, string> pair) => new WebClient().DownloadFile(pair.Value, pair.Key);
         //Button API code waiting for the Ui to launch
         private static System.Collections.IEnumerator FindUI()
         {
@@ -160,6 +199,7 @@ namespace AvatarLogger
             FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
             FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
+            FPage.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
             MelonLogger.Msg("Ui ready!");
         }
         //Functions that run when a toggle is set or a button is pressed causing the settings to be changed, saved and take effect!
@@ -226,6 +266,19 @@ namespace AvatarLogger
                 MelonLogger.Msg("Log errors to console disabled!");
             }
             MelonPreferences.Save();
+        }
+        //Shows current logging statistics within the console
+        private static void ShowSessionStats()
+        {
+            MelonLogger.Msg("-------------------------------------");
+            MelonLogger.Msg($"Current Logging Session Stats:");
+            MelonLogger.Msg("-------------------------------------");
+            MelonLogger.Msg($"Total Logged Avatars: {Pub+Pri}");
+            MelonLogger.Msg($"Logged PC Avatars: {PC}");
+            MelonLogger.Msg($"Logged Quest Avatars: {Q}");
+            MelonLogger.Msg($"Logged Private Avatars: {Pri}");
+            MelonLogger.Msg($"Logged Public Avatars: {Pub}");
+            MelonLogger.Msg("-------------------------------------");
         }
         //Takes the insatnce ID attached to the clipboard and joins the world!
         private static void JoinInstanceByID()
@@ -400,17 +453,17 @@ namespace AvatarLogger
                         {
                             //Checks for avi version and logs accordingly for Quest and PC
                             case "standalonewindows":
-                                if (pcasset != "None")
+                                if (pcasset == "None")
                                 {
                                     pcasset = unitypackage["assetUrl"].ToString();
-                                    PC = +1;
+                                    PC = PC + 1;
                                 }
                                 break;
                             case "android":
-                                if (qasset != "None")
+                                if (qasset == "None")
                                 {
                                     qasset = unitypackage["assetUrl"].ToString();
-                                    Q = +1;
+                                    Q = Q + 1;
                                 }
                                 break;
                         }
@@ -428,8 +481,8 @@ namespace AvatarLogger
                 });
                 //Adjust counter values to whatever the avatrs relese status is
                 string rs = playerHashtable["avatarDict"]["releaseStatus"].ToString();
-                if (rs == "public") { Pub =+1; };
-                if (rs == "private") { Pri =+1; };
+                if (rs == "public") { Pub = Pub + 1; };
+                if (rs == "private") { Pri = Pri = 1; };
                 //The last variables extracted are the tags of the avatar, these are added by the avatar uploader or by VRChat administrators/developers,
                 //they are initally stored as an array, if no tags are set the if statemnt will just continue with its else
                 if (playerHashtable["avatarDict"]["tags"].Count > 0)
@@ -445,16 +498,6 @@ namespace AvatarLogger
                 }
                 //If there are no tags present the default text "Tags: None" is written into the log file
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
-                //Update in-game session statistic menu!
-                int totallogged = Pub + Pri;
-                float privatepercentage = 0;
-                if (Pri > 0)
-                {
-                    if (totallogged>0)
-                    {
-                        privatepercentage = ((float)Pri / totallogged) * 100;
-                    }
-                }
                 //Inform the user of the successful log
                 if (LTCVB) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
                 File.AppendAllText(AvatarFile, "\n\n");
