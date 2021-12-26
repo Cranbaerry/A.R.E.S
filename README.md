@@ -6,6 +6,7 @@ Thx to Yui, they have chosen not to be marked as a developer on the project when
 
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
+Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/RequiDev/ReMod.Core), we use this as our button API within ARES!
 
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES!
 
