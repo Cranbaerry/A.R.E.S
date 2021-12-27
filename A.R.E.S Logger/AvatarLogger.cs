@@ -184,8 +184,8 @@ namespace AvatarLogger
         private static void OnUiManagerInit()
         {
             MelonLogger.Msg("Ui initiating...");
-            GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners"));
-            GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners"));
+            //GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners"));
+            //GameObject.Destroy(GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners"));
             ReMenuPage TabPage = new ReMenuPage("ARES", true);
             ReTabButton ARESTAB = ReTabButton.Create("ARES","Access ARES Menus", "ARES", ButtonImage);
             ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
