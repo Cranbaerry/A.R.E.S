@@ -100,21 +100,22 @@ namespace BaseFuncs
         //Funtion to create/prepare settings on startup
         public static void StarterSettings()
         {
+
             //Create a melon loader settings category
             var category = MelonPreferences.CreateCategory("ARES", "ARES");
             //Create values to be in settings
-            var CS = category.CreateEntry<bool>("CS", false, is_hidden: true);
+            var CV = category.CreateEntry<bool>("CV", false, is_hidden: true);
             var LFA = category.CreateEntry<bool>("LogFriendsAvatars", false, is_hidden: true);
             var LOA = category.CreateEntry<bool>("LogOwnAvatars", false, is_hidden: true);
             var LTC = category.CreateEntry<bool>("LogToConsole", true, is_hidden: true);
             var CE = category.CreateEntry<bool>("ConsoleError", true, is_hidden: true);
             //Read and report values shown
-            var CSV = CS.Value;
+            var CSV = CV.Value;
             //If CS (CleanStart) is empty begin first time setup
             if (CSV != true)
             {
                 //Set CS to one to not have this occur from this point onwards
-                CS.Value = true;
+                CV.Value = true;
                 //Disable self logging and friend logging by default
                 LFA.Value = false;
                 LFAV = false;
@@ -125,7 +126,7 @@ namespace BaseFuncs
                 CE.Value = true;
                 CEV = false;
                 //Saves current state of the settings
-                category.SaveToFile(true);
+                category.SaveToFile();
                 //Displays info pane about the settings and how they can be changed
                 MelonLogger.Msg("Default settings created!");
                 MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
