@@ -15,7 +15,7 @@ namespace ARESPlugin
     {
         private Dictionary<string, string> Files = new Dictionary<string, string>();
 
-        public override void OnApplicationStart()
+        public override void OnPreInitialization()
         {
             Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll");
             Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReModCE/releases/latest/download/ReMod.Core.dll");
