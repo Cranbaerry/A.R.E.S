@@ -135,7 +135,13 @@ namespace BaseFuncs
             }
         }
         //Downloads the files from the queue
-        public static void DownloadPlugin(KeyValuePair<string, string> pair) => new WebClient().DownloadFile(pair.Value, pair.Key);
+        public static void DownloadPlugin(KeyValuePair<string, string> pair)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(pair.Value, pair.Key);
+            }
+        }
         //If you are reading this don't mention it in the discord, tis a meme and I want it to be a suprise!
         public static void StartupPreperation()
         {

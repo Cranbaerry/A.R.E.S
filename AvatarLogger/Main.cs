@@ -11,6 +11,7 @@ using static Logging.Logging;
 using static BaseFuncs.BaseFuncs;
 using static Patches.Patches;
 using static Buttons.Buttons;
+using System.Threading;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "3.5", "By LargestBoi & Yui")]
@@ -39,7 +40,7 @@ namespace AvatarLogger
         {
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json");
             //Runs basic setup for the MelonLoader/modding system as a whole
-            StartupPreperation();
+            new Thread(() => StartupPreperation()).Start();
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll");
             HandleQueue(UpkeepFiles);

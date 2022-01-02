@@ -43,7 +43,13 @@ namespace ARESPlugin
             }
         }
 
-        private void DownloadMod(KeyValuePair<string, string> pair) => new WebClient().DownloadFile(pair.Value, pair.Key);
+        private void DownloadMod(KeyValuePair<string, string> pair)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(pair.Value, pair.Key);
+            }
+        }
 
         private string SHA256CheckSum(string filePath)
         {
