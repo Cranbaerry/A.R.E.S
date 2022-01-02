@@ -23,24 +23,24 @@ namespace Logging
         public static void ExecuteLog(dynamic playerHashtable)
         {
             //If logging own avatars is disabled
-            if (!LOAV)
+            if (!Config.LogOwnAvatars)
             {
                 //Check if the avatar about to be uploaded belongs to the user and was uploaded from their account
                 if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
                 {
                     //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                    if (CEV) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
+                    if (Config.ConsoleError) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
                     return;
                 }
             }
             //If logging of friends avatars is disabled
-            if (!LFAV)
+            if (!Config.LogFriendsAvatars)
             {
                 //Check if the avatar about to be logged is uploaded by a friend
                 if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString()))
                 {
                     //If the user is a friend inform the user the log has not occurred and why so
-                    if (CEV) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
+                    if (Config.ConsoleError) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
                     return;
                 }
             }
@@ -124,7 +124,7 @@ namespace Logging
                 //If there are no tags present the default text "Tags: None" is written into the log file
                 else { File.AppendAllText(AvatarFile, "Tags: None"); }
                 //Inform the user of the successful log
-                if (LTCV) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
+                if (Config.LogToConsole) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
                 File.AppendAllText(AvatarFile, "\n\n");
             }
         }

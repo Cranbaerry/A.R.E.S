@@ -25,10 +25,10 @@ namespace Buttons
             ReMenuPage TabPage = new ReMenuPage("ARES", true);
             ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
             ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
-            LSMP.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { SettingChange("LogOwnAvatars",b); }, LOAV);
-            LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { SettingChange("LogFriendsAvatars", b); }, LFAV);
-            LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { SettingChange("LogToConsole", b); }, LTCV);
-            LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { SettingChange("ConsoleError", b); }, CEV);
+            LSMP.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; }, Config.LogOwnAvatars);
+            LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
+            LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
+            LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
             ReMenuPage FPage = TabPage.AddMenuPage("ARES Functions", "Use the other features within ARES");
             FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
             FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });

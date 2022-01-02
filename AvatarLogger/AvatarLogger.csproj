@@ -89,6 +89,8 @@
   <ItemGroup>
     <Compile Include="BasicFunctions.cs" />
     <Compile Include="Buttons.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="ConfigHelper.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches.cs" />

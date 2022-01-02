@@ -97,58 +97,6 @@ namespace BaseFuncs
             sprite.hideFlags |= HideFlags.DontUnloadUnusedAsset;
             return sprite;
         }
-        //Funtion to create/prepare settings on startup
-        public static void StarterSettings()
-        {
-
-            //Create a melon loader settings category
-            var category = MelonPreferences.CreateCategory("ARES", "ARES");
-            //Create values to be in settings
-            var CV = category.CreateEntry<bool>("CV", false, is_hidden: true);
-            var LFA = category.CreateEntry<bool>("LogFriendsAvatars", false, is_hidden: true);
-            var LOA = category.CreateEntry<bool>("LogOwnAvatars", false, is_hidden: true);
-            var LTC = category.CreateEntry<bool>("LogToConsole", true, is_hidden: true);
-            var CE = category.CreateEntry<bool>("ConsoleError", true, is_hidden: true);
-            //Read and report values shown
-            var CSV = CV.Value;
-            //If CS (CleanStart) is empty begin first time setup
-            if (CSV != true)
-            {
-                //Set CS to one to not have this occur from this point onwards
-                CV.Value = true;
-                //Disable self logging and friend logging by default
-                LFA.Value = false;
-                LFAV = false;
-                LOA.Value = false;
-                LOAV = false;
-                LTC.Value = true;
-                LTCV = true;
-                CE.Value = true;
-                CEV = false;
-                //Saves current state of the settings
-                category.SaveToFile();
-                //Displays info pane about the settings and how they can be changed
-                MelonLogger.Msg("Default settings created!");
-                MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
-                MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
-                MelonLogger.Msg($"LogToConsole:{LTCV}");
-                MelonLogger.Msg($"LogErrorToConsole:{CEV}");
-            }
-            //Loads values into strings and bools, then reporting them to the user
-            else
-            {
-                MelonLogger.Msg("Loading saved settings...");
-                //Loads current settings from the melon prefrences file
-                LFAV = LFA.Value;
-                MelonLogger.Msg($"LogFriendsAvatars:{LFAV}");
-                LOAV = LOA.Value;
-                MelonLogger.Msg($"LogOwnAvatars:{LOAV}");
-                LTCV = LTC.Value;
-                MelonLogger.Msg($"LogToConsole:{LTCV}");
-                CEV = CE.Value;
-                MelonLogger.Msg($"LogErrorToConsole:{CEV}");
-            }
-        }
         //Function to get the SHA of a particular file
         public static string SHA256CheckSum(string filePath)
         {
@@ -188,28 +136,6 @@ namespace BaseFuncs
         }
         //Downloads the files from the queue
         public static void DownloadPlugin(KeyValuePair<string, string> pair) => new WebClient().DownloadFile(pair.Value, pair.Key);
-        //Change/saves a setting
-        public static void SettingChange(string entryname, bool value)
-        {
-            MelonPreferences.SetEntryValue("ARES", $"{entryname}", value);
-            if (entryname == "LogFriendsAvatars")
-            {
-                LFAV = value;
-            }
-            if (entryname == "LogOwnAvatars")
-            {
-                LOAV = value;
-            }
-            if (entryname == "LogToConsole")
-            {
-                LTCV = value;
-            }
-            if (entryname == "ConsoleError")
-            {
-                CEV = value;
-            }
-            MelonPreferences.Save();
-        }
         //If you are reading this don't mention it in the discord, tis a meme and I want it to be a suprise!
         public static void StartupPreperation()
         {

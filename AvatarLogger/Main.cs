@@ -6,6 +6,7 @@ using VRC.Core;
 using VRC.UI.Core;
 using Newtonsoft.Json;
 using UnityEngine;
+using ComfyUtils;
 using static Logging.Logging;
 using static BaseFuncs.BaseFuncs;
 using static Patches.Patches;
@@ -26,26 +27,22 @@ namespace AvatarLogger
         //Function that allows the world to be joined via an instanc ID
         public static void JoinInstance(string worldID, string instanceID)
         => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
-        //Making bools to contain logging settings and allowences
-        public static bool LFAV = false;
-        public static bool LOAV = false;
-        public static bool LTCV = true;
-        public static bool CEV = true;
         //Sets static counter values to monitor logging statistics
         public static int PC = 0;
         public static int Q = 0;
         public static int Pub = 0;
         public static int Pri = 0;
+        private static ConfigHelper<Config> Helper;
+        public static Config Config => Helper.Config;
         //Void to run on application start
         public override void OnApplicationStart()
         {
+            Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json");
             //Runs basic setup for the MelonLoader/modding system as a whole
             StartupPreperation();
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll");
             HandleQueue(UpkeepFiles);
-            //Runs startup settings manager
-            StarterSettings();
             try
             {
                 MelonLogger.Msg("Applying patches...");
