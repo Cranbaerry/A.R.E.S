@@ -38,7 +38,7 @@ namespace AvatarLogger
         //Void to run on application start
         public override void OnApplicationStart()
         {
-            Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json");
+            Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
             //Runs basic setup for the MelonLoader/modding system as a whole
             new Thread(() => StartupPreperation()).Start();
             //Ensures reqired upkeep files are installed and updated
