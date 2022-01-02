@@ -33,7 +33,7 @@ namespace AvatarLogger
         public static int Q = 0;
         public static int Pub = 0;
         public static int Pri = 0;
-        private static ConfigHelper<Config> Helper;
+        public static ConfigHelper<Config> Helper;
         public static Config Config => Helper.Config;
         //Void to run on application start
         public override void OnApplicationStart()
