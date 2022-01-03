@@ -8,6 +8,8 @@ Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "A
 
 Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/RequiDev/ReMod.Core), we use this as our button API within ARES!
 
+Thx ro Kirai for the code bhind our force clone patch!
+
 Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES!
 
 And special thanks to [cassell1337](https://github.com/cassell1337) for development assisted development of the GUI and total development of the API!
