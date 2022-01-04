@@ -11,6 +11,8 @@ namespace AvatarLogger
         public bool LogAvatars { get; set; } = true;
         public bool LogFriendsAvatars { get; set; } = false;
         public bool LogOwnAvatars { get; set; } = false;
+        public bool LogPublicAvatars { get; set; } = true;
+        public bool LogPrivateAvatars { get; set; } = true;
         public bool LogToConsole { get; set; } = true;
         public bool ConsoleError { get; set; } = true;
     }

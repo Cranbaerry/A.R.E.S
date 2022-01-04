@@ -28,6 +28,8 @@ namespace Buttons
             ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
             ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
             LSMP.AddToggle("Log Avatars", "Toggles the logging of avatars", delegate (bool b) { Config.LogAvatars = b; Helper.SaveConfig(); }, Config.LogAvatars);
+            LSMP.AddToggle("Log Public Avatars", "Toggles the logging of public avatars", delegate (bool b) { Config.LogPublicAvatars = b; Helper.SaveConfig(); }, Config.LogPublicAvatars);
+            LSMP.AddToggle("Log Private Avatars", "Toggles the logging of private avatars", delegate (bool b) { Config.LogPrivateAvatars = b; Helper.SaveConfig(); }, Config.LogPrivateAvatars);
             LSMP.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; Helper.SaveConfig(); }, Config.LogOwnAvatars);
             LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; Helper.SaveConfig(); }, Config.LogFriendsAvatars);
             LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; Helper.SaveConfig(); }, Config.LogToConsole);

@@ -22,8 +22,21 @@ namespace Logging
         //Executes logging of the avatar
         public static void ExecuteLog(dynamic playerHashtable)
         {
+            //If avatar loggin is enabled
             if (Config.LogAvatars)
             {
+                //If logging of public avatars is disabled
+                if (!Config.LogPublicAvatars)
+                {
+                    //Check to see if the avatar is public and refuse to log if so
+                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "public") { return; }
+                }
+                //If logging of private avatars is disabled
+                if (!Config.LogPrivateAvatars)
+                {
+                    //Check to see if the avatar is private and refuse to log if so
+                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "private") { return; }
+                }
                 //If logging own avatars is disabled
                 if (!Config.LogOwnAvatars)
                 {
