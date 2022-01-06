@@ -107,34 +107,27 @@ def filter(query, filters={}, avatars=[]):
     return new_list
 
 def get_avatars_list_api(query, filters={}):
-    print("Searching for: " + query)
-    print("using key: " + str(filters["key"]))
     headers = {
-    'authority': 'api.avataruploader.tk',
-    'accept': 'application/json',
-    'user-agent': filters["key"],
-    'content-type': 'application/json',
-    'sec-gpc': '1',
-    'origin': 'https://api.avataruploader.tk',
-    'sec-fetch-site': 'same-origin',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-dest': 'empty',
-    'referer': 'https://api.avataruploader.tk/docs',
-    'accept-language': 'en-US,en;q=0.9',
+        'Connection': 'keep-alive',
+        'Pragma': 'no-cache',
+        'Cache-Control': 'no-cache',
+        'accept': 'application/json',
+        'User-Agent': filters["key"],
+        'Content-Type': 'application/json',
+        'Sec-GPC': '1',
+        'Origin': 'http://127.0.0.1:8000',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Dest': 'empty',
+        'Referer': 'http://127.0.0.1:8000/docs',
+        'Accept-Language': 'en-US,en;q=0.9',
     }
-    data = {
-        "author": filters["Avatar author"],
-        "avatarid": filters["Avatar id"],
-        "name": filters["Avatar name"],
-        "searchterm": query
-        }
-    response = requests.post('https://api.avataruploader.tk/search', headers=headers, json=data)
-    newarr = []
-    for x in response.json():
-        newarr1 = ()
-        for k in x:
-            newarr1.append(k)
-    return newarr
+
+    data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
+
+    response = requests.post('http://api2.avataruploader.tk/search', headers=headers, json=data)
+    print(response.text)
+    return response.json()
 
 def search(query, filters={}, api=False, Localavatars=None):
     # print("Searching for: " + query)

@@ -389,38 +389,48 @@ class Ui(QtWidgets.QMainWindow):
             "key": self.Settings["Username"]
         }
         if Localss:
-            quary = self.SearchTerm.text()
-            filtered = Search.search(query=quary, api=False, Localavatars=self.Avatars, filters=filterss)
-            self.Avatars = filtered
-            if len(filtered) == 0:
-                self.LogWrapper("No avatars found!")
-                self.Data.setPlainText("No avatars found!\ntry something else!")
-                data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
-                pixmap = QPixmap()
-                pixmap.loadFromData(data.content)
-                self.PrevIMG.setPixmap(pixmap)
-            else:
-                self.LogWrapper(f"{len(filtered)} avatars found!")
-                self.MaxAvatar = len(filtered) - 1
-                self.AvatarIndex = 0
-                self.SelectedAvi = self.Avatars[self.AvatarIndex]
-                self.UpdateAvi()
+            try:
+                quary = self.SearchTerm.text()
+                filtered = Search.search(query=quary, api=False, Localavatars=self.Avatars, filters=filterss)
+                self.Avatars = filtered
+                if len(filtered) == 0:
+                    self.LogWrapper("No avatars found!")
+                    self.Data.setPlainText("No avatars found!\ntry something else!")
+                    data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
+                    pixmap = QPixmap()
+                    pixmap.loadFromData(data.content)
+                    self.PrevIMG.setPixmap(pixmap)
+                    self.UpdateBut(False)
+                else:
+                    self.LogWrapper(f"{len(filtered)} avatars found!")
+                    self.MaxAvatar = len(filtered) - 1
+                    self.AvatarIndex = 0
+                    self.SelectedAvi = self.Avatars[self.AvatarIndex]
+                    self.UpdateAvi()
+                    self.UpdateBut(True)
+            except:
+                self.LogWrapper(f"Error occured during search: {traceback.format_exc()}")
         if not Localss:
-            quary = self.SearchTerm.text()
-            filtered = Search.search(query=quary, api=True, Localavatars=None, filters=filterss)
-            if len(filtered) == 0:
-                self.LogWrapper("No avatars found!")
-                self.Data.setPlainText("No avatars found!\ntry something else!")
-                data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
-                pixmap = QPixmap()
-                pixmap.loadFromData(data.content)
-                self.PrevIMG.setPixmap(pixmap)
-            else:
-                self.LogWrapper(f"{len(filtered)} avatars found!")
-                self.MaxAvatar = len(filtered) - 1
-                self.AvatarIndex = 0
-                self.SelectedAvi = self.Avatars[self.AvatarIndex]
-                self.UpdateAvi()
+            try:
+                quary = self.SearchTerm.text()
+                self.Avatars = Search.search(query=quary, api=True, Localavatars=None, filters=filterss)
+                if len(self.Avatars) == 0:
+                    self.LogWrapper("No avatars found!")
+                    self.Data.setPlainText("No avatars found!\ntry something else!")
+                    data = GetImage("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg")
+                    pixmap = QPixmap()
+                    pixmap.loadFromData(data.content)
+                    self.PrevIMG.setPixmap(pixmap)
+                    self.UpdateBut(False)
+                else:
+                    self.LogWrapper(f"{len(self.Avatars)} avatars found!")
+                    self.MaxAvatar = len(self.Avatars) - 1
+                    self.AvatarIndex = 0
+                    self.SelectedAvi = self.Avatars[self.AvatarIndex]
+                    self.UpdateAvi()
+                    self.UpdateBut(True)
+            except:
+                self.LogWrapper(f"Error occured during search: {traceback.format_exc()}")
 
 
 #Extra GUI stuffs

@@ -1,7 +1,8 @@
 #A file containing all the modules allowing the GUI to read from/interact with the log
 
 #Importing reqired modules
-import os, pymsgbox, requests, datetime
+import os, pymsgbox, requests
+from datetime import datetime
 #Allows the log sice to be retrieved and returned
 def LogSize():
     if os.path.exists("Log.txt"):
