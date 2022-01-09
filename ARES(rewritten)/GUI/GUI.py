@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 #Importing custom ARES modules
 from CoreUtils import *
+from APIUpload import StartUploads
 from LogUtils import *
 from ExternalFunctions import *
 import Search
@@ -32,8 +33,6 @@ class Ui(QtWidgets.QMainWindow):
         self.ToggleAPI.clicked.connect(self.ToggleAPIF)
         self.SetKey = self.findChild(QtWidgets.QPushButton, 'SetKeyButton')
         self.SetKey.clicked.connect(self.SetKeyF)
-        self.PatchEMM = self.findChild(QtWidgets.QPushButton, 'InstallPatchedEMMButton')
-        self.PatchEMM.clicked.connect(self.PatchEMMWrapper)
         self.OpenUnity = self.findChild(QtWidgets.QPushButton, 'OpenUnityButton')
         self.OpenUnity.clicked.connect(self.OpenUnityWrapper)
         self.Hotswap = self.findChild(QtWidgets.QPushButton, 'HotswapButton')
@@ -64,11 +63,15 @@ class Ui(QtWidgets.QMainWindow):
         self.KeyBox = self.findChild(QtWidgets.QLineEdit, 'SetKeyBox')
         self.SearchTerm = self.findChild(QtWidgets.QLineEdit, 'SearchTermLineEdit')
         #Prepares labels
-        self.APIStatus = self.findChild(QtWidgets.QLabel, 'APILabel')
         self.LogWrapperSize = self.findChild(QtWidgets.QLabel, 'LogSizeLabel')
         self.ResultsCount = self.findChild(QtWidgets.QLabel, 'resultsbox')
         self.AviStat =self.findChild(QtWidgets.QLabel, 'Status')
         self.PrevIMG = self.findChild(QtWidgets.QLabel, 'PreviewImage')
+        self.APIStatus = self.findChild(QtWidgets.QLabel, 'APILabel')
+        self.GLabel = self.findChild(QtWidgets.QLabel, 'GraphLabel')
+        #Prepares LCDs
+        self.DBLCD = self.findChild(QtWidgets.QLCDNumber, 'DatabaseLCD')
+        self.UULCD = self.findChild(QtWidgets.QLCDNumber, 'UserUploadsLCD')
         #Prepares progress bar
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'ProgressBar')
         #Prepares radio buttons
@@ -89,6 +92,8 @@ class Ui(QtWidgets.QMainWindow):
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
         #Checks if the app is set up correctly, if not run first time setup
+        InitCore()
+        InitLogUtils()
         if IsSetup() == False:
             self.LogWrapper("GUI started!")
             self.LogWrapper("First time setup begun!")
@@ -102,13 +107,15 @@ class Ui(QtWidgets.QMainWindow):
                 }
                 self.LogWrapper(f"Unity selected: {self.UPath}")
                 s.write(json.dumps(dd, indent=4))
-            EventLog(self.BaseDir, "Settings saved!")
+            EventLog("Settings saved!")
         #Loads the settings into the application
         self.Settings = GetSettings()
         #Sets API status label and logs its status to the console
         if self.Settings["SendToAPI"] == True:
             self.APIStatus.setText("API Enabled!")
             self.SearchA.setEnabled(True)
+            threading.Thread(target=UpdateStats,args=(self.Settings["Username"], self)).start()
+            StartUploads(self.Settings["Username"])
             self.LogWrapper("API is enabled on startup!")
         else:
             self.APIStatus.setText("API Disabled!")
@@ -130,7 +137,7 @@ class Ui(QtWidgets.QMainWindow):
         self.LogWrapper(f"Key set: {key}")
     #Second logging function for ease of logging
     def LogWrapper(self, Data):
-        self.Console.appendPlainText(EventLog(self.BaseDir, Data))
+        self.Console.appendPlainText(EventLog(Data))
     #Allows the API to be enabled and disabled, then quits the application
     # add this: make it start function upload avatars instead of starting
     def ToggleAPIF(self):
@@ -143,19 +150,6 @@ class Ui(QtWidgets.QMainWindow):
             SaveSettings(self.Settings)
             self.LogWrapper("API toggled on")
         os.system('taskkill /F /im "ARES.exe"')
-    #Wrapper to patch EMM
-    def PatchEMMWrapper(self):
-        try:
-            self.LogWrapper("EMM patching has begun...")
-            # Disables button to avoid spam
-            self.PatchEMM.setEnabled(False)
-            self.LogWrapper("Patching EMM on new thread...")
-            threading.Thread(target=PatchEMM, args={self.ProgBar, self.PatchEMM}).start()
-        except:
-            self.LogWrapper(f"Error occured while patching EMM!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
-            os.chdir(self.BaseDir)
-            self.PatchEMM.setEnabled(True)
     #Wrapper to open unity
     def OpenUnityWrapper(self):
         try:
@@ -163,7 +157,7 @@ class Ui(QtWidgets.QMainWindow):
             #Disables button to avoid spam
             self.OpenUnity.setEnabled(False)
             self.LogWrapper("Unity opening on new thread...")
-            threading.Thread(target=OpenUnity, args={self.Settings["Unity_Exe"],self,}).start()
+            threading.Thread(target=OpenUnity, args=(self.Settings["Unity_Exe"],self,)).start()
         except:
             self.LogWrapper(f"Error occured during open unity process!\n{traceback.format_exc()}")
             SendErrorLogs(traceback.format_exc())
@@ -188,7 +182,10 @@ class Ui(QtWidgets.QMainWindow):
                 self.LogWrapper("VRCA downloaded, continuing hotswap...")
                 os.chdir(self.BaseDir)
             self.LogWrapper("Starting hotswap on new thread...")
-            threading.Thread(target=Hotswap, args={self,}).start()
+            try:
+                threading.Thread(target=Hotswap, args=(self,)).start()
+            except:
+                print(traceback.format_exc())
         except:
             self.LogWrapper(f"Error occured during hotswap process!\n{traceback.format_exc()}")
             SendErrorLogs(traceback.format_exc())
@@ -319,7 +316,7 @@ class Ui(QtWidgets.QMainWindow):
             if self.Algo2RB.isChecked():
                 ExtValue = "2018DLL"
             self.LogWrapper("Starting extract on new thread...")
-            threading.Thread(target=ExtractVRCA, args={ExtValue,self,}).start()
+            threading.Thread(target=ExtractVRCA, args=(ExtValue,self,)).start()
         except:
             self.ExtVRCA.setEnabled(True)
             self.LogWrapper(f"An error occured while extracting a VRCA: {traceback.format_exc()}")
@@ -373,6 +370,7 @@ class Ui(QtWidgets.QMainWindow):
         self.PrevB.setEnabled(value)
         self.SearchL.setEnabled(value)
         self.ExtVRCA.setEnabled(value)
+        self.Hotswap.setEnabled(value)
     def searchavis(self, Localss=True):
         filterss = {
             "private": self.PrivateCB.isChecked(),

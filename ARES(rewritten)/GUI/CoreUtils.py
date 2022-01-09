@@ -1,10 +1,15 @@
 #A file containing all the core modules in relation to the GUI itself
 
 #Importing reqired modules
-import requests, os, json, pymsgbox, datetime, shutil
+import traceback
+
+import requests, os, json, pymsgbox, datetime, shutil,re
 from base64 import b64encode
 #Importing custom ARES modules
 from LogUtils import DecideAssetURL
+def InitCore():
+    global BaseD
+    BaseD = os.getcwd()
 #Fetches special thanks from our pastebin
 def GetSpecialThanks():
     try:
@@ -47,13 +52,10 @@ def SendErrorLogs(error):
     except:
         pass
 #Logs events
-def EventLog(BaseDir, Data):
-    CurrentDir = os.getcwd()
-    os.chdir(BaseDir)
+def EventLog(Data):
     log = f'{str(datetime.datetime.now())} | {Data}'
-    with open("Latest.log", "a+") as l:
+    with open(f"{BaseD}\\Latest.log", "a+") as l:
         l.write(f'{log}\n')
-    os.chdir(CurrentDir)
     return log
 #Function to download VRCAs
 def DownloadVRCA(PC,Q):
@@ -70,7 +72,17 @@ def DownloadVRCAFL(PC,Q):
     # Writes content to file
     with open("HOTSWAP\\Avatar.vrca", "wb") as v:
         v.write(data.content)
-
+def LoadLog():
+    try:
+        Pattern = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nPC Asset URL:(.*)\nQuest Asset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nUnity Version:(.*)\nRelease Status:(.*)\nTags:(.*)"
+        # Setup logs to be read
+        with open("Log.txt", "r+", errors="ignore") as lf:
+            Logs = lf.read()
+            # Find all logs via pattern
+            Log = re.findall(Pattern, Logs)
+            return Log
+    except:
+        EventLog("Error executing load log to upload avatars:\n" + traceback.format_exc())
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
     try:

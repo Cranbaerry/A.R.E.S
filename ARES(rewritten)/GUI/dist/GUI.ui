@@ -1174,18 +1174,19 @@ background-color: rgba(54, 54, 54, 225);</string>
 color: rgb(180, 180, 180);</string>
       </property>
      </widget>
-     <widget class="QFrame" name="ValuesFrame">
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>API Statisics</string>
+     </attribute>
+     <widget class="QFrame" name="frame_4">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>150</y>
-        <width>161</width>
-        <height>261</height>
+        <x>400</x>
+        <y>0</y>
+        <width>381</width>
+        <height>411</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(180, 180, 180);
-background: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -1195,72 +1196,111 @@ background: transparent;</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QLabel" name="UploadedLabel">
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
+        <widget class="QFrame" name="frame_3">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(180, 180, 180);
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QFrame" name="frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QLabel" name="DatabaseSizeLabel">
+               <property name="font">
+                <font>
+                 <pointsize>23</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(180, 180, 180);
 background-color: rgba(54, 54, 54, 225);</string>
-         </property>
-         <property name="text">
-          <string>Uploaded:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLCDNumber" name="UploadedNumber">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
-color: rgb(180, 180, 180)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="UserTotalLabel">
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(180, 180, 180);
+               </property>
+               <property name="text">
+                <string>Database Size:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="UserUploadsLabel">
+               <property name="font">
+                <font>
+                 <pointsize>23</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(180, 180, 180);
 background-color: rgba(54, 54, 54, 225);</string>
-         </property>
-         <property name="text">
-          <string>User Total:</string>
-         </property>
+               </property>
+               <property name="text">
+                <string>User Uploads:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QLCDNumber" name="DatabaseLCD">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(8, 8, 8);
+color: rgb(255, 0, 0);</string>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLCDNumber" name="UserUploadsLCD">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(8, 8, 8);
+color: rgb(255, 0, 0);</string>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="UserTotalNumber">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 170);
-color: rgb(180, 180, 180)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="InstallPatchedEMMButton">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(62, 62, 60);
-color: rgb(180, 180, 180);</string>
-         </property>
+        <widget class="QLabel" name="GraphLabel">
          <property name="text">
-          <string>Install Patched EMM!</string>
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>Graph.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

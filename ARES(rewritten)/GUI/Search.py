@@ -48,14 +48,21 @@ def check_public(avatars):
 def check_pc_asset(avatars):
     new = []
     for avatar in avatars:
-        if avatar[6] != None:
+        if avatar[6] != "None":
             new.append(avatar)
     return new
 
 def check_quest_assets(avatars):
     new = []
     for avatar in avatars:
-        if avatar[7] == None:
+        if avatar[7] != "None":
+            new.append(avatar)
+    return new
+
+def check_both_assets(avatars):
+    new = []
+    for avatar in avatars:
+        if avatar[7] != "None" and avatar[6] != "None":
             new.append(avatar)
     return new
 
@@ -86,7 +93,7 @@ def filter(query, filters={}, avatars=[]):
         new_list = check_public(new_list)
     #checking for pc assets and quest assets
     if filters["PCasseturl"] == True and filters["Questasseturl"] == True:
-        new_list = new_list
+        new_list = check_both_assets(new_list)
     elif filters["PCasseturl"] == True and filters["Questasseturl"] == False:
         new_list = check_pc_asset(new_list)
     elif filters["PCasseturl"] == False and filters["Questasseturl"] == True:
@@ -125,22 +132,18 @@ def get_avatars_list_api(query, filters={}):
 
     data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
 
-    response = requests.post('http://api2.avataruploader.tk/search', headers=headers, json=data)
+    response = requests.post('http://api.avataruploader.tk/search', headers=headers, json=data)
     print(response.text)
     return response.json()
 
 def search(query, filters={}, api=False, Localavatars=None):
-    # print("Searching for: " + query)
-    # print("Filters: " + str(filters))
-    # print("API: " + str(api))
-    # print("Localavatars: " + str(Localavatars))
     if not api:
         avis = filter(query, filters, Localavatars)
         print("avis: "+str(len(avis)))
         print(f'NotApi: {str(avis)}')
         return avis
     if api:
-        avis = get_avatars_list_api(query, filters)
+        avis = filter(query, filters, get_avatars_list_api(query, filters))
         print("avis: "+str(len(avis)))
         print(f'Api: {str(avis)}')
         return avis
