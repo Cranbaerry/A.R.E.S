@@ -117,7 +117,6 @@ namespace BaseFuncs
                 if (File.Exists(pair.Key))
                 {
                     var OldHash = SHA256CheckSum(pair.Key);
-                    MelonLogger.Msg($"{name} Found: {OldHash}");
                     DownloadPlugin(pair);
                     if (SHA256CheckSum(pair.Key) != OldHash)
                     {
