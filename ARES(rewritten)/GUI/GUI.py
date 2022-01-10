@@ -62,6 +62,8 @@ class Ui(QtWidgets.QMainWindow):
         self.RefreshB.clicked.connect(lambda: CallUpdateStats(self.Settings["Username"], self))
         self.BrowserViewBut = self.findChild(QtWidgets.QPushButton, 'BrowserViewButton')
         self.BrowserViewBut.clicked.connect(lambda: BrowserViewLoad(self))
+        self.LTBB = self.findChild(QtWidgets.QPushButton, 'LoadToBrowserButton')
+        self.LTBB.clicked.connect(lambda: LoadToBrowser(self))
         #Prepares browser
         self.BrowserWindow = self.findChild(QWebEngineView, 'Browser')
         #Prepares text boxes
@@ -97,6 +99,12 @@ class Ui(QtWidgets.QMainWindow):
         self.VioCB = self.findChild(QtWidgets.QCheckBox, 'VioBox')
         self.GoreCB = self.findChild(QtWidgets.QCheckBox, 'GoreBox')
         self.ONSFWCB = self.findChild(QtWidgets.QCheckBox, 'ONSFWBox')
+        self.NSFWCB.hide()
+        self.VioCB.hide()
+        self.GoreCB.hide()
+        self.ONSFWCB.hide()
+        self.TagsShow = self.findChild(QtWidgets.QCheckBox, 'TagsBox')
+        self.TagsShow.clicked.connect(self.ShowTags)
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
         #Checks if the app is set up correctly, if not run first time setup
@@ -162,6 +170,17 @@ class Ui(QtWidgets.QMainWindow):
             SaveSettings(self.Settings)
             self.LogWrapper("API toggled on")
         os.system('taskkill /F /im "ARES.exe"')
+    def ShowTags(self):
+        if self.TagsShow.isChecked():
+            self.NSFWCB.show()
+            self.VioCB.show()
+            self.GoreCB.show()
+            self.ONSFWCB.show()
+        else:
+            self.NSFWCB.hide()
+            self.VioCB.hide()
+            self.GoreCB.hide()
+            self.ONSFWCB.hide()
     #Wrapper to open unity
     def OpenUnityWrapper(self):
         try:

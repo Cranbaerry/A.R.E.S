@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
+    <width>765</width>
     <height>440</height>
    </rect>
   </property>
@@ -239,7 +239,7 @@ color: rgb(180, 180, 180);</string>
 color: rgb(180, 180, 180);</string>
          </property>
          <property name="text">
-          <string>PC</string>
+          <string>Windows</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -716,9 +716,9 @@ color: rgb(255, 255, 255);</string>
      <widget class="QFrame" name="TagsFrame">
       <property name="geometry">
        <rect>
-        <x>80</x>
+        <x>20</x>
         <y>360</y>
-        <width>481</width>
+        <width>541</width>
         <height>41</height>
        </rect>
       </property>
@@ -750,10 +750,34 @@ color: rgb(255, 255, 255);</string>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="NSFWBox">
+        <widget class="QCheckBox" name="TagsBox">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(54, 54, 54, 0);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Show</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="NSFWBox">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -774,7 +798,7 @@ color: rgb(180, 180, 180);</string>
         <widget class="QCheckBox" name="VioBox">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -795,7 +819,7 @@ color: rgb(180, 180, 180);</string>
         <widget class="QCheckBox" name="GoreBox">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -816,7 +840,7 @@ color: rgb(180, 180, 180);</string>
         <widget class="QCheckBox" name="ONSFWBox">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -944,15 +968,32 @@ Exit</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>40</y>
         <width>761</width>
-        <height>401</height>
+        <height>371</height>
        </rect>
       </property>
       <property name="url">
        <url>
         <string>about:blank</string>
        </url>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="LoadToBrowserButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>761</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+      </property>
+      <property name="text">
+       <string>Load To Browser</string>
       </property>
      </widget>
     </widget>

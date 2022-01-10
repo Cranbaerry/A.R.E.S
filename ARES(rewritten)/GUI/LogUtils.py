@@ -32,7 +32,10 @@ def BrowserViewLoad(cls):
         cls.MainTab.setCurrentIndex(1)
     except:
         traceback.print_exc()
-
+def LoadToBrowser(cls):
+    os.system("start avatars.html")
+    cls.MainTab.setTabVisible(1, False)
+    cls.MainTab.setCurrentIndex(0)
 
 def CallUpdateStats(key,cls):
     threading.Thread(target=UpdateStats,args=(key,cls)).start()
