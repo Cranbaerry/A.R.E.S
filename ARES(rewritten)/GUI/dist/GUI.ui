@@ -72,6 +72,9 @@ QPushButton:enabled{
     </property>
    </widget>
    <widget class="QTabWidget" name="MainTabs">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -1182,9 +1185,9 @@ color: rgb(180, 180, 180);</string>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>340</x>
         <y>0</y>
-        <width>381</width>
+        <width>441</width>
         <height>411</height>
        </rect>
       </property>
@@ -1264,24 +1267,40 @@ background-color: rgba(54, 54, 54, 225);</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QLCDNumber" name="DatabaseLCD">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(8, 8, 8);
-color: rgb(255, 0, 0);</string>
+              <widget class="QLabel" name="DatabaseSizeL">
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                </font>
                </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(180, 180, 180);
+background-color: rgba(54, 54, 54, 225);</string>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLCDNumber" name="UserUploadsLCD">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(8, 8, 8);
-color: rgb(255, 0, 0);</string>
+              <widget class="QLabel" name="UserUploadsL">
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                </font>
                </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(180, 180, 180);
+background-color: rgba(54, 54, 54, 225);</string>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -1301,6 +1320,42 @@ color: rgb(255, 0, 0);</string>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="frame_5">
+      <property name="geometry">
+       <rect>
+        <x>16</x>
+        <y>0</y>
+        <width>321</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QPushButton" name="RefreshButton">
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(62, 62, 60);
+color: rgb(180, 180, 180);</string>
+         </property>
+         <property name="text">
+          <string>Refresh Statistics/Graph</string>
          </property>
         </widget>
        </item>

@@ -1,11 +1,12 @@
 import hashlib, requests, pymsgbox, subprocess, os
-GUIP = "GUIL"
+GUIP = "GUI"
 if os.path.isdir(GUIP):
     with open(f"{GUIP}\\ARES.exe", "rb") as f:
         ARESDATA = f.read()
         InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
     try:
-        LatestHash = requests.get("https://pastebin.com/raw/ZupUSf12", timeout=10).text
+        LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESGUI.txt", timeout=10).text
+        input(LatestHash)
     except:
         LatestHash = "Couldn't Connect!"
     if LatestHash == "Couldn't Connect!":

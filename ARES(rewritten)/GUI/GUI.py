@@ -8,10 +8,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 #Importing custom ARES modules
 from CoreUtils import *
+import Search
 from APIUpload import StartUploads
 from LogUtils import *
 from ExternalFunctions import *
-import Search
 #Enable/Disable debug mode
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
