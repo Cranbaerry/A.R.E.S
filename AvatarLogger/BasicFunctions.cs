@@ -127,7 +127,7 @@ namespace BaseFuncs
                 }
                 else
                 {
-                    MelonLogger.Msg($"{name} Not Found! Downloading...");
+                    MelonLogger.Msg($"{name} Not Found! Loading...");
                     DownloadPlugin(pair);
                     MelonLogger.Msg($"{name} Installed! Restarting VRC...");
                     RVRC(false);

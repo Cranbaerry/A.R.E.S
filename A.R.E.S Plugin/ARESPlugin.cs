@@ -27,7 +27,6 @@ namespace ARESPlugin
                 if (File.Exists(pair.Key))
                 {
                     var OldHash = SHA256CheckSum(pair.Key);
-                    MelonLogger.Msg($"{name} Found: {OldHash}");
                     DownloadMod(pair);
                     if (SHA256CheckSum(pair.Key) != OldHash)
                     {
@@ -36,9 +35,7 @@ namespace ARESPlugin
                 }
                 else
                 {
-                    MelonLogger.Msg($"{name} Not Found! Downloading...");
                     DownloadMod(pair);
-                    MelonLogger.Msg($"{name} Installed!");
                 }
             }
         }
