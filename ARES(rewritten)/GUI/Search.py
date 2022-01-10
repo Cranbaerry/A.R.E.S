@@ -4,10 +4,8 @@ from LogUtils import *
 def check_quary_avatar_name(term, avatars):
     new = []
     for avatar in avatars:
-        print("if term: "+term.lower()+" in avatar[2]: "+avatar[2].lower())
         if term.lower() in avatar[2].lower():
             new.append(avatar)
-            print("new: "+str(new)[:10])
     return new
 
 def check_quary_author_name(term, avatars):
@@ -133,17 +131,12 @@ def get_avatars_list_api(query, filters={}):
     data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
 
     response = requests.post('http://api.avataruploader.tk/search', headers=headers, json=data)
-    print(response.text)
     return response.json()
 
 def search(query, filters={}, api=False, Localavatars=None):
     if not api:
         avis = filter(query, filters, Localavatars)
-        print("avis: "+str(len(avis)))
-        print(f'NotApi: {str(avis)}')
         return avis
     if api:
         avis = filter(query, filters, get_avatars_list_api(query, filters))
-        print("avis: "+str(len(avis)))
-        print(f'Api: {str(avis)}')
         return avis

@@ -5,6 +5,7 @@
 import sys, pymsgbox, json, os, threading, traceback, shutil,re
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import *
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtGui import *
 #Importing custom ARES modules
 from CoreUtils import *
@@ -59,6 +60,10 @@ class Ui(QtWidgets.QMainWindow):
         self.SearchA.clicked.connect(self.SearchApiWrapper)
         self.RefreshB = self.findChild(QtWidgets.QPushButton, 'RefreshButton')
         self.RefreshB.clicked.connect(lambda: CallUpdateStats(self.Settings["Username"], self))
+        self.BrowserViewBut = self.findChild(QtWidgets.QPushButton, 'BrowserViewButton')
+        self.BrowserViewBut.clicked.connect(lambda: BrowserViewLoad(self))
+        #Prepares browser
+        self.BrowserWindow = self.findChild(QWebEngineView, 'Browser')
         #Prepares text boxes
         self.SpecialThanks = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanksBox')
         self.Console = self.findChild(QtWidgets.QPlainTextEdit, 'ConsoleBox')
@@ -111,6 +116,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.LogWrapper(f"Unity selected: {self.UPath}")
                 s.write(json.dumps(dd, indent=4))
             EventLog("Settings saved!")
+        self.MainTab.setTabVisible(1, False)
         #Loads the settings into the application
         self.Settings = GetSettings()
         #Sets API status label and logs its status to the console
@@ -166,7 +172,7 @@ class Ui(QtWidgets.QMainWindow):
             threading.Thread(target=OpenUnity, args=(self.Settings["Unity_Exe"],self,)).start()
         except:
             self.LogWrapper(f"Error occured during open unity process!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
+            ErrorLog(self.Settings["Username"],traceback.format_exc())
             os.chdir(self.BaseDir)
             self.OpenUnity.setEnabled(True)
             self.Hotswap.setEnabled(False)
@@ -194,7 +200,7 @@ class Ui(QtWidgets.QMainWindow):
                 print(traceback.format_exc())
         except:
             self.LogWrapper(f"Error occured during hotswap process!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
+            ErrorLog(self.Settings["Username"],traceback.format_exc())
             os.chdir(self.BaseDir)
             self.Hotswap.setEnabled(True)
             self.ProgBar.setEnabled(False)
@@ -221,7 +227,7 @@ class Ui(QtWidgets.QMainWindow):
             threading.Thread(target=RepairVRCA, args=(self,)).start()
         except:
             self.LogWrapper(f"Error occured during repair process!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
+            ErrorLog(self.Settings["Username"],traceback.format_exc())
             os.chdir(self.BaseDir)
             self.RepairVRCA.setEnabled(True)
             self.ProgBar.setEnabled(False)
@@ -268,13 +274,15 @@ class Ui(QtWidgets.QMainWindow):
             self.ExtVRCA.setEnabled(True)
         except:
             self.LogWrapper(f"Error occured during VRCA loading process!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
+            ErrorLog(self.Settings["Username"],traceback.format_exc())
             print(f'Error {traceback.format_exc()}')
             os.chdir(self.BaseDir)
             self.LoadVRCA.setEnabled(True)
     #Wrapper to load avatars
     def LoadAvatarsWrapper(self):
         try:
+            if not os.path.isdir(f"{self.BaseDir}\\Log.txt"):
+                pymsgbox.alert("No 'Log.txt' found, try logging some avatars first!")
             self.LogWrapper("Attempting to load avatars...")
             self.LoadAvatars.setEnabled(False)
             self.LogWrapper("Loading avatars...")
@@ -295,7 +303,7 @@ class Ui(QtWidgets.QMainWindow):
             self.LogWrapper("Avatars loaded!")
         except:
             self.LogWrapper(f"Error occured during the avatar loading process!\n{traceback.format_exc()}")
-            SendErrorLogs(traceback.format_exc())
+            ErrorLog(self.Settings["Username"],traceback.format_exc())
             self.LoadAvatars.setEnabled(True)
             self.UpdateBut(False)
     #Wrapper to extract VRCA files
@@ -343,7 +351,7 @@ class Ui(QtWidgets.QMainWindow):
             self.LogWrapper(f"An error occured while initiating the download of a VRCA: {traceback.format_exc()}")
     #Goes to the next avatar in a loaded list
     def NextAvi(self):
-        if self.AvatarIndex + 1 >= self.MaxAvatar:
+        if self.AvatarIndex + 1 > self.MaxAvatar:
             return
         self.AvatarIndex += 1
         self.SelectedAvi = self.Avatars[self.AvatarIndex]
@@ -377,6 +385,7 @@ class Ui(QtWidgets.QMainWindow):
         self.SearchL.setEnabled(value)
         self.ExtVRCA.setEnabled(value)
         self.Hotswap.setEnabled(value)
+        self.BrowserViewBut.setEnabled(value)
     def searchavis(self, Localss=True):
         filterss = {
             "private": self.PrivateCB.isChecked(),

@@ -1,9 +1,7 @@
 #A file containing all the core modules in relation to the GUI itself
 
 #Importing reqired modules
-import traceback
-
-import requests, os, json, pymsgbox, datetime, shutil,re
+import requests, os, json, pymsgbox, datetime, shutil,re,traceback
 from base64 import b64encode
 #Importing custom ARES modules
 from LogUtils import DecideAssetURL
@@ -34,29 +32,25 @@ def GetSettings():
 def SaveSettings(settings):
     with open("Settings.json", "w+") as s:
         s.write(json.dumps(settings, indent=4))
-#A simple error log handiling system
-def SendErrorLogs(error):
-    possiblesol = "Not found"
-    try:
-        kk = requests.get(url="https://pastebin.com/raw/1022jnvn").json()
-        for x in kk:
-            if x[0] in error:
-                possiblesol = x[1]
-    except:
-        pass
-    try:
-        pymsgbox.alert(error + "\nPossible Fix: " + possiblesol, 'ID10T')
-        dtag = pymsgbox.prompt('What is your Discord Tag for better support?')
-        okk = b64encode(str(error + "\nPossible Fix: " + possiblesol + "\nUsername: " + dtag).encode()).decode()
-        requests.get("https://api.avataruploader.tk/errors/" + okk)
-    except:
-        pass
 #Logs events
 def EventLog(Data):
     log = f'{str(datetime.datetime.now())} | {Data}'
     with open(f"{BaseD}\\Latest.log", "a+") as l:
         l.write(f'{log}\n')
     return log
+def ErrorLog(Key,Data):
+    try:
+        headers = {
+            'User-Agent': str(Key).replace(" ",""),
+            'Content-Type': 'application/json'
+        }
+
+        data = {"key": Key, "error": b64encode(Data.encode('utf-8')).decode('utf-8')}
+        response = requests.post('http://api.avataruploader.tk/submiterror', headers=headers, json=data)
+        if response.json()['status'] == "success":
+            EventLog("Error sent to API")
+    except:
+        pass
 #Function to download VRCAs
 def DownloadVRCA(PC,Q):
     os.startfile(DecideAssetURL(PC,Q))

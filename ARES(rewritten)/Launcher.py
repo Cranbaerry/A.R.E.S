@@ -1,24 +1,28 @@
-import hashlib, requests, pymsgbox, subprocess, os
+import hashlib, requests, subprocess, os, traceback
 GUIP = "GUI"
 if os.path.isdir(GUIP):
+    print("Getting installed hash...")
     with open(f"{GUIP}\\ARES.exe", "rb") as f:
         ARESDATA = f.read()
         InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
+        print(f"Installed hash: {InstalledHash}")
     try:
-        LatestHash = requests.get("https://github.com/LargestBoi/A.R.E.S/blob/main/VersionHashes/ARESGUI.txt", timeout=10).text
+        LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESGUI.txt", timeout=10).text
+        print(f"GitHub Hash: {LatestHash}")
     except:
         LatestHash = "Couldn't Connect!"
+        print(f"Failed to connect to GitHub: \n{traceback.format_exc()}")
     if LatestHash == "Couldn't Connect!":
         os.chdir(GUIP)
         subprocess.Popen("ARES.exe")
-        pymsgbox.alert(f"ARES is couldn't verify version! Launching...")
+        print(f"ARES is couldn't verify version! Launching...")
     else:
         if InstalledHash == LatestHash:
             os.chdir(GUIP)
             subprocess.Popen("ARES.exe")
-            pymsgbox.alert(f"ARES is up-to-date! Launching...")
+            print(f"ARES is up-to-date! Launching...")
         else:
-            pymsgbox.alert(f"ARES is out-of-date! Updating...")
+            print(f"ARES is out-of-date! Updating...")
             payload = ""
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -34,9 +38,9 @@ if os.path.isdir(GUIP):
             os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q] -O+")
             os.chdir(GUIP)
             subprocess.Popen("ARES.exe")
-            pymsgbox.alert("ARES updated! Opening...")
+            print("ARES updated! Opening...")
 else:
-    pymsgbox.alert("ARES not installed! Installing...")
+    print("ARES not installed! Installing...")
     payload = ""
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -53,4 +57,4 @@ else:
     os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q]")
     os.chdir(GUIP)
     subprocess.Popen("ARES.exe")
-    pymsgbox.alert("ARES installed! Opening...")
+    print("ARES installed! Opening...")
