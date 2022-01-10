@@ -5,8 +5,7 @@ if os.path.isdir(GUIP):
         ARESDATA = f.read()
         InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
     try:
-        LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESGUI.txt", timeout=10).text
-        input(LatestHash)
+        LatestHash = requests.get("https://github.com/LargestBoi/A.R.E.S/blob/main/VersionHashes/ARESGUI.txt", timeout=10).text
     except:
         LatestHash = "Couldn't Connect!"
     if LatestHash == "Couldn't Connect!":
