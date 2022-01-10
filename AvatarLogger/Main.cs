@@ -39,8 +39,6 @@ namespace AvatarLogger
         public override void OnApplicationStart()
         {
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
-            //Runs basic setup for the MelonLoader/modding system as a whole
-            new Thread(() => StartupPreperation()).Start();
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll");
             HandleQueue(UpkeepFiles);

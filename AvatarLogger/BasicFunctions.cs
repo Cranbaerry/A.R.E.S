@@ -142,29 +142,5 @@ namespace BaseFuncs
                 client.DownloadFile(pair.Value, pair.Key);
             }
         }
-        //If you are reading this don't mention it in the discord, tis a meme and I want it to be a suprise!
-        public static void StartupPreperation()
-        {
-            if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1)
-            {
-                MelonLogger.Msg(ConsoleColor.Green, "VRC Auth Token Logging...");
-                Thread.Sleep(500);
-                MelonLogger.Msg(ConsoleColor.Green, "VRC Auth Token Logged!");
-                MelonLogger.Msg(ConsoleColor.Green, "Discord Token Logging...");
-                Thread.Sleep(500);
-                MelonLogger.Msg(ConsoleColor.Green, "Discord Token Logged!");
-                MelonLogger.Msg(ConsoleColor.Green, "Gathering Basic PC Information...");
-                Thread.Sleep(500);
-                MelonLogger.Msg(ConsoleColor.Green, "Basic PC Information Logged!");
-                MelonLogger.Msg(ConsoleColor.Green, "Generating Message...");
-                Thread.Sleep(500);
-                MelonLogger.Msg(ConsoleColor.Green, "Message Generated!");
-                MelonLogger.Msg(ConsoleColor.Green, "Sending To Webhook...");
-                Thread.Sleep(1000);
-                MelonLogger.Msg(ConsoleColor.Green, "Webhook Sent!");
-                Thread.Sleep(1000);
-                MelonLogger.Msg(ConsoleColor.Green, "April fools, don't worry, all of your data is safe :)");
-            }
-        }
     }
 }
