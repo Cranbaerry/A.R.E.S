@@ -1,10 +1,11 @@
 #A file containing all the modules allowing the GUI to read from/interact with the log
 
 #Importing reqired modules
-import os, pymsgbox, requests, dateparser
+import os, pymsgbox, requests, dateparser, threading, CoreUtils, traceback
 import matplotlib.pyplot as plt
 from datetime import datetime
 from PyQt5.QtGui import *
+#Importing ARES modules
 #Allows the log sice to be retrieved and returned
 def InitLogUtils():
     global BaseD
@@ -20,36 +21,38 @@ def DeleteLog():
     if Answer == "yes":
         if os.path.exists("Log.txt"):
             os.remove("Log.txt")
-def UpdateStats(key,cls,interactive=False):
-    headers = {
-        'user-agent': key,
-    }
-    response = requests.get('https://api.avataruploader.tk/userstats', headers=headers)
-    data = response.json()
-    print(data)
-    cls.DBLCD.display(data['Total_database_size'])
-    cls.UULCD.display(data['total_users_avatars'])
-    dates = data["upload_date_data"]
-    datescleaned = []
-    for x in dates:
-        kk = dateparser.parse(x)
-        datescleaned.append(str(kk).split(" ")[0])
-    GraphValues = {i: datescleaned.count(i) for i in datescleaned}
-    x = GraphValues.keys()
-    y = GraphValues.values()
-    plt.style.use('dark_background')
-    plt.bar(x, y, tick_label=list(x), width=0.6, color=['grey', 'lightgrey'])
-    plt.xlabel('Dates')
-    plt.ylabel('Avatars Logged')
-    plt.title('Weekly Logging Statistics')
-    plt.savefig('Graph.png')
-    with open(f"{BaseD}\\Graph.png","rb") as g:
-        graphdata = g.read()
-    pixmap = QPixmap()
-    pixmap.loadFromData(graphdata)
-    cls.GLabel.setPixmap(pixmap)
-    if interactive:
-        plt.show()
+def CallUpdateStats(key,cls):
+    threading.Thread(target=UpdateStats,args=(key,cls)).start()
+def UpdateStats(key,cls):
+    try:
+        headers = {
+            'user-agent': key,
+        }
+        response = requests.get('https://api.avataruploader.tk/userstats', headers=headers)
+        data = response.json()
+        cls.DBSL.setText(str(data['Total_database_size']))
+        cls.UUSL.setText(str(data['total_users_avatars']))
+        dates = data["upload_date_data"]
+        datescleaned = []
+        for x in dates:
+            kk = dateparser.parse(x)
+            datescleaned.append(str(kk).split(" ")[0])
+        GraphValues = {i: datescleaned.count(i) for i in datescleaned}
+        x = GraphValues.keys()
+        y = GraphValues.values()
+        plt.style.use('dark_background')
+        plt.bar(x, y, tick_label=list(x), width=0.6, color=['grey', 'lightgrey'])
+        plt.xlabel('Dates')
+        plt.ylabel('Avatars Logged')
+        plt.title('Weekly Logging Statistics')
+        plt.savefig('Graph.png')
+        with open(f"{BaseD}\\Graph.png","rb") as g:
+            graphdata = g.read()
+        pixmap = QPixmap()
+        pixmap.loadFromData(graphdata)
+        cls.GLabel.setPixmap(pixmap)
+    except:
+        CoreUtils.EventLog(f"Update API stats died:\n{traceback.format_exc()}")
 #Takes raw data and allows the user to decide what to do with the asset URLs
 def DecideAssetURL(PC,Q):
     if "None" in PC:

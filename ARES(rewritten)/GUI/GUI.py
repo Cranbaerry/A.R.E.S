@@ -22,6 +22,8 @@ class Ui(QtWidgets.QMainWindow):
         self.BaseDir = os.getcwd()
         os.chdir(self.BaseDir)
         self.show()
+        #Prepares Tabs
+        self.MainTab = self.findChild(QtWidgets.QTabWidget, 'MainTabs')
         #Prepares push buttons
         self.CleanExit = self.findChild(QtWidgets.QPushButton, 'CleanExitButton')
         self.CleanExit.clicked.connect(CleanExit)
@@ -55,6 +57,8 @@ class Ui(QtWidgets.QMainWindow):
         self.SearchL.clicked.connect(self.SearchLocalWrapper)
         self.SearchA = self.findChild(QtWidgets.QPushButton, 'SearchAPIButton')
         self.SearchA.clicked.connect(self.SearchApiWrapper)
+        self.RefreshB = self.findChild(QtWidgets.QPushButton, 'RefreshButton')
+        self.RefreshB.clicked.connect(lambda: CallUpdateStats(self.Settings["Username"], self))
         #Prepares text boxes
         self.SpecialThanks = self.findChild(QtWidgets.QPlainTextEdit, 'SpecialThanksBox')
         self.Console = self.findChild(QtWidgets.QPlainTextEdit, 'ConsoleBox')
@@ -69,9 +73,8 @@ class Ui(QtWidgets.QMainWindow):
         self.PrevIMG = self.findChild(QtWidgets.QLabel, 'PreviewImage')
         self.APIStatus = self.findChild(QtWidgets.QLabel, 'APILabel')
         self.GLabel = self.findChild(QtWidgets.QLabel, 'GraphLabel')
-        #Prepares LCDs
-        self.DBLCD = self.findChild(QtWidgets.QLCDNumber, 'DatabaseLCD')
-        self.UULCD = self.findChild(QtWidgets.QLCDNumber, 'UserUploadsLCD')
+        self.DBSL = self.findChild(QtWidgets.QLabel, 'DatabaseSizeL')
+        self.UUSL = self.findChild(QtWidgets.QLabel, 'UserUploadsL')
         #Prepares progress bar
         self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'ProgressBar')
         #Prepares radio buttons
@@ -115,11 +118,14 @@ class Ui(QtWidgets.QMainWindow):
             self.APIStatus.setText("API Enabled!")
             self.SearchA.setEnabled(True)
             threading.Thread(target=UpdateStats,args=(self.Settings["Username"], self)).start()
-            StartUploads(self.Settings["Username"])
+            if os.path.isdir("Log.txt"):
+                StartUploads(self.Settings["Username"])
             self.LogWrapper("API is enabled on startup!")
+
         else:
             self.APIStatus.setText("API Disabled!")
             self.LogWrapper("API is disabled on startup")
+            self.MainTab.setTabVisible(2, False)
         #Gets the log size and displays it within a label
         self.LogWrapperSize.setText(LogSize())
         self.LogWrapper("Settings loaded!")
