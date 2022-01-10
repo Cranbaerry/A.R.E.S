@@ -83,7 +83,7 @@ class Ui(QtWidgets.QMainWindow):
         self.DBSL = self.findChild(QtWidgets.QLabel, 'DatabaseSizeL')
         self.UUSL = self.findChild(QtWidgets.QLabel, 'UserUploadsL')
         #Prepares progress bar
-        self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'ProgressBar')
+        self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'ProgB')
         #Prepares radio buttons
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')

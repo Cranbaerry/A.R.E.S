@@ -54,8 +54,6 @@ def Hotswap(cla):
     Base = os.getcwd()
     try:
         #Enables progress bar
-        cla.ProgBar.setEnabled(True)
-        cla.ProgBar.setValue(0)
         base = os.getcwd()
         #Ensures hotswap enviroment is clean
         os.chdir("HOTSWAP")
@@ -63,7 +61,6 @@ def Hotswap(cla):
             os.remove("decompressed.vrca")
         if os.path.exists("decompressed1.vrca"):
             os.remove("decompressed1.vrca")
-        cla.ProgBar.setValue(9)
         dummyvrcapath = f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"
         os.system(f"HOTSWAP.exe d {dummyvrcapath}")
         EventLog("Decompressed dummy vrca!")
@@ -72,34 +69,27 @@ def Hotswap(cla):
         print("DIR: " + os.getcwd())
         with open("decompressed.vrca", "rb") as f:
             DummyData = f.read()
-        cla.ProgBar.setValue(18)
         #Extracts avatar ID and CAB
         NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(DummyData)).group(1)
         NewCAB = re.search("(CAB-[\w\d]{32})", str(DummyData)).group(1)
         EventLog("New Info: " + NewCAB + " | " + NewID)
-        cla.ProgBar.setValue(27)
         os.system("HOTSWAP.exe d Avatar.vrca")
         EventLog("Decompressed avatar!")
         os.chdir(base)
         os.chdir("HOTSWAP")
-        cla.ProgBar.setValue(36)
         with open("decompressed.vrca", "rb") as f:
             AviData = f.read()
-        cla.ProgBar.setValue(45)
         # Extracts avatar ID and CAB
         OldID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(AviData)).group(1)
         OldCAB = re.search("(CAB-[\w\d]{32})", str(AviData)).group(1)
         EventLog("Old Info: " + OldCAB + " | " + OldID)
-        cla.ProgBar.setValue(54)
         #Replaces old avatar ID and CAB
         AviData = AviData.replace(bytes(OldID, 'utf-8'), bytes(NewID, 'utf-8'))
         AviData = AviData.replace(bytes(OldCAB, 'utf-8'), bytes(NewCAB, 'utf-8'))
         EventLog("Data replaced!")
-        cla.ProgBar.setValue(63)
         #Write to new file
         with open("decompressed1.vrca", "wb") as f:
             f.write(AviData)
-        cla.ProgBar.setValue(72)
         #Compresses final avatar
         os.system("HOTSWAP.exe c decompressed1.vrca")
         EventLog("Final avatar compressed!")
@@ -107,7 +97,6 @@ def Hotswap(cla):
         os.chdir("HOTSWAP")
         compsize = textwrap.shorten(str(os.path.getsize("compressed.vrca") / (1024 * 1024)), width=5, placeholder="")
         decompsize = textwrap.shorten(str(os.path.getsize("decompressed1.vrca") / (1024 * 1024)), width=5,placeholder="")
-        cla.ProgBar.setValue(81)
         if os.path.exists("decompressed.vrca"):
             os.remove("decompressed.vrca")
         if os.path.exists("decompressed1.vrca"):
@@ -115,14 +104,10 @@ def Hotswap(cla):
         if os.path.exists("Avatar.vrca"):
             os.remove("Avatar.vrca")
         EventLog("Cleaned!")
-        cla.ProgBar.setValue(90)
         os.rename("compressed.vrca", "custom.vrca")
         shutil.move("custom.vrca", dummyvrcapath)
         os.chdir(base)
-        cla.ProgBar.setValue(100)
-        cla.ProgBar.setEnabled(False)
         pymsgbox.alert(f'Hotswap complete!\nSizes:\nCompressed:{compsize}MB|Decompressed:{decompsize}MB')
-        cla.ProgBar.setValue(0)
         EventLog("Thread closed and hotswap complete!")
         cla.Hotswap.setEnabled(True)
     except:
