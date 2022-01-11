@@ -82,7 +82,7 @@ def LoadLog():
     try:
         Pattern = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nPC Asset URL:(.*)\nQuest Asset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nUnity Version:(.*)\nRelease Status:(.*)\nTags:(.*)"
         # Setup logs to be read
-        with open("Log.txt", "r+", errors="ignore") as lf:
+        with open(f"{BaseD}\\Log.txt", "r+", errors="ignore") as lf:
             Logs = lf.read()
             # Find all logs via pattern
             Log = re.findall(Pattern, Logs)

@@ -51,7 +51,7 @@ def StartUploads(key):
     avatarlist4 = avatarlist[len(avatarlist) // 5 * 3:len(avatarlist) // 5 * 4]
     avatarlist5 = avatarlist[len(avatarlist) // 5 * 4:len(avatarlist)]
     bd = os.getcwd()
-    if not os.path.exists(f"{bd}\\Uploaded.txt"):
+    if not os.path.isfile(f"{bd}\\Uploaded.txt"):
         with open(f"{bd}\\Uploaded.txt", "a+"):
             pass
     with open(f"{bd}\\Uploaded.txt","r+", errors="ignore") as f:
