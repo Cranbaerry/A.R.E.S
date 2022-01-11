@@ -132,7 +132,7 @@ class Ui(QtWidgets.QMainWindow):
             self.APIStatus.setText("API Enabled!")
             self.SearchA.setEnabled(True)
             threading.Thread(target=UpdateStats,args=(self.Settings["Username"], self)).start()
-            if os.path.isdir("Log.txt"):
+            if os.path.isfile("Log.txt"):
                 StartUploads(self.Settings["Username"])
             self.LogWrapper("API is enabled on startup!")
 
