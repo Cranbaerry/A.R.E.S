@@ -81,7 +81,9 @@ class Ui(QtWidgets.QMainWindow):
         self.APIStatus = self.findChild(QtWidgets.QLabel, 'APILabel')
         self.GLabel = self.findChild(QtWidgets.QLabel, 'GraphLabel')
         self.DBSL = self.findChild(QtWidgets.QLabel, 'DatabaseSizeL')
+        self.DBSL.setScaledContents(True)
         self.UUSL = self.findChild(QtWidgets.QLabel, 'UserUploadsL')
+        self.UUSL.setScaledContents(True)
         self.StatusL = self.findChild(QtWidgets.QLabel, 'StatuLabel')
         self.StatusL.setScaledContents(True)
         #Prepares radio buttons
