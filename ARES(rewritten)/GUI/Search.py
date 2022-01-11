@@ -32,14 +32,14 @@ def check_quary_AuthorID_name(term, avatars):
 def check_private(avatars):
     new = []
     for avatar in avatars:
-        if avatar[11] == "Private":
+        if str(avatar[11]).lower() == "private":
             new.append(avatar)
     return new
 
 def check_public(avatars):
     new = []
     for avatar in avatars:
-        if avatar[11] == "Public":
+        if str(avatar[11]).lower() == "public":
             new.append(avatar)
     return new
 

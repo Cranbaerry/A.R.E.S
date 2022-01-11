@@ -53,15 +53,20 @@ def OpenUnity(UnityPath,cla):
 def Hotswap(cla):
     Base = os.getcwd()
     try:
+        print("Made it here")
         #Enables progress bar
         base = os.getcwd()
+        cla.StatusL.setText(f"Status: Hotswap started!")
+        print("Changed label once")
         #Ensures hotswap enviroment is clean
         os.chdir("HOTSWAP")
         if os.path.exists("decompressed.vrca"):
             os.remove("decompressed.vrca")
         if os.path.exists("decompressed1.vrca"):
             os.remove("decompressed1.vrca")
+        cla.StatusL.setText(f"Status: Cleaned working enviroment!")
         dummyvrcapath = f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"
+        cla.StatusL.setText(f"Status: Decompressing dummy VRCA...")
         os.system(f"HOTSWAP.exe d {dummyvrcapath}")
         EventLog("Decompressed dummy vrca!")
         os.chdir(base)
@@ -71,8 +76,11 @@ def Hotswap(cla):
             DummyData = f.read()
         #Extracts avatar ID and CAB
         NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(DummyData)).group(1)
+        cla.StatusL.setText(f"Status: New avatar ID ({NewID}) found!")
         NewCAB = re.search("(CAB-[\w\d]{32})", str(DummyData)).group(1)
+        cla.StatusL.setText(f"Status: New CAB ({NewCAB}) found!")
         EventLog("New Info: " + NewCAB + " | " + NewID)
+        cla.StatusL.setText(f"Status: Decompressing target avatar...")
         os.system("HOTSWAP.exe d Avatar.vrca")
         EventLog("Decompressed avatar!")
         os.chdir(base)
@@ -81,7 +89,9 @@ def Hotswap(cla):
             AviData = f.read()
         # Extracts avatar ID and CAB
         OldID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(AviData)).group(1)
+        cla.StatusL.setText(f"Status: Old avatar ID ({OldID}) found!")
         OldCAB = re.search("(CAB-[\w\d]{32})", str(AviData)).group(1)
+        cla.StatusL.setText(f"Status: Old CAB ({OldCAB}) found!")
         EventLog("Old Info: " + OldCAB + " | " + OldID)
         #Replaces old avatar ID and CAB
         AviData = AviData.replace(bytes(OldID, 'utf-8'), bytes(NewID, 'utf-8'))
@@ -90,13 +100,17 @@ def Hotswap(cla):
         #Write to new file
         with open("decompressed1.vrca", "wb") as f:
             f.write(AviData)
+        cla.StatusL.setText(f"Status: Data replaced and written!")
         #Compresses final avatar
+        cla.StatusL.setText(f"Status: Compressing final avatar...")
         os.system("HOTSWAP.exe c decompressed1.vrca")
         EventLog("Final avatar compressed!")
         os.chdir(base)
         os.chdir("HOTSWAP")
+        cla.StatusL.setText(f"Status: Getting file sizes...")
         compsize = textwrap.shorten(str(os.path.getsize("compressed.vrca") / (1024 * 1024)), width=5, placeholder="")
         decompsize = textwrap.shorten(str(os.path.getsize("decompressed1.vrca") / (1024 * 1024)), width=5,placeholder="")
+        cla.StatusL.setText(f"Status: Mopping the floor...")
         if os.path.exists("decompressed.vrca"):
             os.remove("decompressed.vrca")
         if os.path.exists("decompressed1.vrca"):
@@ -105,11 +119,13 @@ def Hotswap(cla):
             os.remove("Avatar.vrca")
         EventLog("Cleaned!")
         os.rename("compressed.vrca", "custom.vrca")
+        cla.StatusL.setText(f"Status: VRCA Renamed!")
         shutil.move("custom.vrca", dummyvrcapath)
         os.chdir(base)
         pymsgbox.alert(f'Hotswap complete!\nSizes:\nCompressed:{compsize}MB|Decompressed:{decompsize}MB')
         EventLog("Thread closed and hotswap complete!")
         cla.Hotswap.setEnabled(True)
+        cla.StatusL.setText(f"Status: Idle")
     except:
         os.chdir(Base)
         EventLog(f"An error occured during hotswaping {traceback.format_exc()}")
@@ -119,18 +135,18 @@ def Hotswap(cla):
 def RepairVRCA(cla):
     Base = os.getcwd()
     try:
-        cla.ProgBar.setEnabled(True)
-        cla.ProgBar.setValue(0)
+        cla.StatusL.setText(f"Status: Starting repair...")
         #Enters the HOTSWAP directory
         os.chdir("HOTSWAP")
         #Decompresses the VRCA fully
+        cla.StatusL.setText(f"Status: Decompressing VRCA...")
         os.system('HOTSWAP.exe d bad.vrca')
-        cla.ProgBar.setValue(33)
         os.chdir(Base)
         #Compresses the VRCA fully
         os.chdir("HOTSWAP")
+        cla.StatusL.setText(f"Status: Compressing VRCA...")
         os.system('HOTSWAP.exe c decompressed.vrca')
-        cla.ProgBar.setValue(66)
+        cla.StatusL.setText(f"Status: Cleaning files...")
         # Rename file/remove old variants
         if os.path.exists("bad.vrca"):
             os.remove("bad.vrca")
@@ -147,15 +163,12 @@ def RepairVRCA(cla):
         os.chdir("..")
         #Move the repaired file into the "Repaired" folder
         shutil.move("Repaired.vrca", "Repaired/Repaired.vrca")
-        cla.ProgBar.setValue(100)
         #Opens the "Repaired" folder
         os.system(f'explorer Repaired')
         #Returns to main file directory and informs the user their VRCA has been repaired
         os.chdir("..")
         pymsgbox.alert("VRCA Repaired!")
         time.sleep(10)
-        cla.ProgBar.setEnabled(False)
-        cla.ProgBar.setValue(0)
         EventLog("Thread closed and repair complete!")
         cla.RepairVRCA.setEnabled(True)
     except:

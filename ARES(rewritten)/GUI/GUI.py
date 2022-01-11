@@ -82,8 +82,8 @@ class Ui(QtWidgets.QMainWindow):
         self.GLabel = self.findChild(QtWidgets.QLabel, 'GraphLabel')
         self.DBSL = self.findChild(QtWidgets.QLabel, 'DatabaseSizeL')
         self.UUSL = self.findChild(QtWidgets.QLabel, 'UserUploadsL')
-        #Prepares progress bar
-        self.ProgBar = self.findChild(QtWidgets.QProgressBar, 'ProgB')
+        self.StatusL = self.findChild(QtWidgets.QLabel, 'StatuLabel')
+        self.StatusL.setScaledContents(True)
         #Prepares radio buttons
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
@@ -201,7 +201,6 @@ class Ui(QtWidgets.QMainWindow):
             self.LogWrapper("Started hotswap process...")
             #Disables button to avoid spam
             self.Hotswap.setEnabled(False)
-            self.ProgBar.setValue(0)
             self.LogWrapper("Deciding asset URL...")
             if GetData(self.SelectedAvi, "TimeDetected") == "VRCA":
                 self.LogWrapper("Hotswaping from loaded VRCA...")
@@ -210,27 +209,22 @@ class Ui(QtWidgets.QMainWindow):
             else:
                 self.LogWrapper("Hotswaping from log! Downloading avatar...")
                 DownloadVRCAFL(GetData(self.SelectedAvi,"PCAsset"),GetData(self.SelectedAvi,"QAsset"))
+                SetAviImage(GetData(self.SelectedAvi,"IMGURL"))
                 self.LogWrapper("VRCA downloaded, continuing hotswap...")
                 os.chdir(self.BaseDir)
             self.LogWrapper("Starting hotswap on new thread...")
-            try:
-                threading.Thread(target=Hotswap, args=(self,)).start()
-            except:
-                print(traceback.format_exc())
+            threading.Thread(target=Hotswap, args=(self,)).start()
         except:
             self.LogWrapper(f"Error occured during hotswap process!\n{traceback.format_exc()}")
             ErrorLog(self.Settings["Username"],traceback.format_exc())
             os.chdir(self.BaseDir)
             self.Hotswap.setEnabled(True)
-            self.ProgBar.setEnabled(False)
-            self.ProgBar.setValue(0)
     #Wrapper to correctly repair a VRCA
     def RepairVRCAWrapper(self):
         try:
             self.LogWrapper("Started repair process...")
             # Disables button to avoid spam
             self.RepairVRCA.setEnabled(False)
-            self.ProgBar.setValue(0)
             self.LogWrapper("Propting user to select VRCA...")
             vrca = QFileDialog.getOpenFileName(self, 'Open file', '', "VRCA Files (*.vrca)")[0]
             #If they fail to pick a file just cancel
@@ -249,8 +243,6 @@ class Ui(QtWidgets.QMainWindow):
             ErrorLog(self.Settings["Username"],traceback.format_exc())
             os.chdir(self.BaseDir)
             self.RepairVRCA.setEnabled(True)
-            self.ProgBar.setEnabled(False)
-            self.ProgBar.setValue(0)
     #Wrapper to load external VRCAs
     def LoadVRCAWrapper(self):
         try:
@@ -300,7 +292,7 @@ class Ui(QtWidgets.QMainWindow):
     #Wrapper to load avatars
     def LoadAvatarsWrapper(self):
         try:
-            if not os.path.isdir(f"{self.BaseDir}\\Log.txt"):
+            if not os.path.isfile(f"{self.BaseDir}\\Log.txt"):
                 pymsgbox.alert("No 'Log.txt' found, try logging some avatars first!")
             self.LogWrapper("Attempting to load avatars...")
             self.LoadAvatars.setEnabled(False)

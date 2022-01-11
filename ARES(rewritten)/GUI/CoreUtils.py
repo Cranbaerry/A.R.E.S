@@ -66,6 +66,18 @@ def DownloadVRCAFL(PC,Q):
     # Writes content to file
     with open("HOTSWAP\\Avatar.vrca", "wb") as v:
         v.write(data.content)
+
+def SetAviImage(ImageURL):
+    payload = ""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Content-Type": "application/json",
+        "Bypass-Tunnel-Reminder": "bypass"
+    }
+    data = requests.request("GET", ImageURL, data=payload, headers=headers, stream=True)
+    # Writes content to file
+    with open(f"{BaseD}\\HSB\\Assets\\Logo.png", "wb") as v:
+        v.write(data.content)
 def LoadLog():
     try:
         Pattern = "Time Detected:(.*)\nAvatar ID:(.*)\nAvatar Name:(.*)\nAvatar Description:(.*)\nAuthor ID:(.*)\nAuthor Name:(.*)\nPC Asset URL:(.*)\nQuest Asset URL:(.*)\nImage URL:(.*)\nThumbnail URL:(.*)\nUnity Version:(.*)\nRelease Status:(.*)\nTags:(.*)"

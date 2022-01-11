@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>765</width>
+    <width>780</width>
     <height>440</height>
    </rect>
   </property>
@@ -384,9 +384,9 @@ background: transparent;</string>
      <widget class="QFrame" name="MiscFrame">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>330</x>
         <y>90</y>
-        <width>591</width>
+        <width>221</width>
         <height>51</height>
        </rect>
       </property>
@@ -400,19 +400,6 @@ background: transparent;</string>
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QProgressBar" name="ProgB">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgba(54, 54, 54, 200);</string>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="OpenUnityButton">
          <property name="styleSheet">
@@ -939,6 +926,31 @@ color: rgb(180, 180, 180);</string>
       <property name="text">
        <string>Clean
 Exit</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="StatuLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>100</y>
+        <width>331</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(180, 180, 180);
+background-color: rgba(54, 54, 54, 225);</string>
+      </property>
+      <property name="text">
+       <string>Status: Idle</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
