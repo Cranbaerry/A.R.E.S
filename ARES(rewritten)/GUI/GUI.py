@@ -132,12 +132,19 @@ class Ui(QtWidgets.QMainWindow):
         #Sets API status label and logs its status to the console
         if self.Settings["SendToAPI"] == True:
             self.APIStatus.setText("API Enabled!")
+            KCV = KeyCheck(self.Settings["Username"])
+            if not KCV['allowed']:
+                if KCV['reason'] == "Not a user":
+                    self.Data.setPlainText(f"You are not currently a user!\nYou can get a key from ur discord server!\n{KCV['discord_invite']}")
+                    return
+                elif KCV['reason'] == "Banned":
+                    self.Data.setPlainText(f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
+                    return
             self.SearchA.setEnabled(True)
             threading.Thread(target=UpdateStats,args=(self.Settings["Username"], self)).start()
             if os.path.isfile("Log.txt"):
                 StartUploads(self.Settings["Username"])
             self.LogWrapper("API is enabled on startup!")
-
         else:
             self.APIStatus.setText("API Disabled!")
             self.LogWrapper("API is disabled on startup")

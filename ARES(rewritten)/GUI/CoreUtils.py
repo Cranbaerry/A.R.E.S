@@ -11,10 +11,23 @@ def InitCore():
 #Fetches special thanks from our pastebin
 def GetSpecialThanks():
     try:
-        SPTX = requests.get("https://pastebin.com/raw/vayK7gC2", timeout=10).text
+        SPTX = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/SpecialThanks.txt", timeout=10).text
     except:
         SPTX = "Couldn't Connect!"
     return SPTX
+#Verifys the validity of the key entered
+def KeyCheck(key):
+    try:
+        url = "https://api.avataruploader.tk/verifykey"
+        headers = {
+            'accept': 'application/json',
+            'user-agent': key,
+        }
+        response = requests.get(url, headers=headers)
+        return response.json()
+    except:
+        traceback.print_exc()
+        return "Error with key check!"
 #Retruns true if the application has completed its first time setup
 def IsSetup():
     if not os.path.exists("Logs"):
