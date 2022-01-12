@@ -288,10 +288,12 @@ class Ui(QtWidgets.QMainWindow):
             self.Data.setPlainText(CleanText(self.SelectedAvi))
             self.LogWrapper("Loaded!")
             #Enables button again
-            self.LoadVRCA.setEnabled(True)
+            self.UpdateBut(True)
             self.NextB.setEnabled(False)
             self.PrevB.setEnabled(False)
-            self.ExtVRCA.setEnabled(True)
+            self.DownloadVRCA.setEnabled(False)
+            self.SearchL.setEnabled(False)
+            self.BrowserViewBut.setEnabled(False)
         except:
             self.LogWrapper(f"Error occured during VRCA loading process!\n{traceback.format_exc()}")
             ErrorLog(self.Settings["Username"],traceback.format_exc())
