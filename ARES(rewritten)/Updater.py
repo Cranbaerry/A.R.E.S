@@ -1,4 +1,6 @@
 import hashlib, requests, subprocess, os, traceback
+from clint.textui import progress
+
 GUIP = "GUI"
 try:
     os.system('taskkill /F /im "ARES.exe"')
@@ -43,36 +45,44 @@ if os.path.isdir(GUIP):
             print(f"ARES is up-to-date! Launching...")
         else:
             print(f"ARES is out-of-date! Updating...")
-            payload = ""
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-                "Content-Type": "application/json",
-                "Bypass-Tunnel-Reminder": "bypass"
-            }
-            data = requests.request("GET", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe",data=payload, headers=headers, stream=True)
-            with open("UnRar.exe", "wb") as v:
-                v.write(data.content)
-            data = requests.request("GET", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar",data=payload, headers=headers, stream=True)
-            with open("GUI.rar", "wb") as v:
-                v.write(data.content)
+            print(f"Fetching UnRar.exe...")
+            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+            with open("UnRar.exe", 'wb') as f:
+                total_length = int(r.headers.get('content-length'))
+                for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+            print(f"Fetching GUI.rar...")
+            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
+            with open("GUI.rar", 'wb') as f:
+                total_length = int(r.headers.get('content-length'))
+                for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
             os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q] -O+")
             os.chdir(GUIP)
             subprocess.Popen("ARES.exe")
             print("ARES updated! Opening...")
 else:
     print("ARES not installed! Installing...")
-    payload = ""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "Content-Type": "application/json",
-        "Bypass-Tunnel-Reminder": "bypass"
-    }
-    data = requests.request("GET", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", data=payload, headers=headers, stream=True)
-    with open("UnRar.exe", "wb") as v:
-        v.write(data.content)
-    data = requests.request("GET", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", data=payload, headers=headers, stream=True)
-    with open("GUI.rar", "wb") as v:
-        v.write(data.content)
+    print(f"Fetching UnRar.exe...")
+    r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+    with open("UnRar.exe", 'wb') as f:
+        total_length = int(r.headers.get('content-length'))
+        for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+            if chunk:
+                f.write(chunk)
+                f.flush()
+    print(f"Fetching GUI.rar...")
+    r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
+    with open("GUI.rar", 'wb') as f:
+        total_length = int(r.headers.get('content-length'))
+        for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+            if chunk:
+                f.write(chunk)
+                f.flush()
     os.mkdir(GUIP)
     os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q]")
     os.chdir(GUIP)
