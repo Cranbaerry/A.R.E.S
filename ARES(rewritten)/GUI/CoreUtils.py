@@ -104,7 +104,7 @@ def LoadLog():
     except:
         EventLog("Error executing load log to upload avatars:\n" + traceback.format_exc())
 #Ensure the updater is up to date!
-def UpdaterCheck():
+def UpdaterCheck(dir):
     print("Getting installed hash...")
     os.chdir('..')
     print(os.getcwd())
@@ -117,10 +117,10 @@ def UpdaterCheck():
     except:
         LatestHash = "Couldn't Connect!"
         print(f"Failed to connect to GitHub: \n{traceback.format_exc()}")
-        os.chdir('GUI')
+        os.chdir(dir)
     if LatestHash == "Couldn't Connect!":
         print(f"ARES Updater couldn't verify version!")
-        os.chdir('GUI')
+        os.chdir(dir)
     else:
         if not InstalledHash == LatestHash:
             print(f"ARES Updater is out-of-date! Updating...")

@@ -126,8 +126,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.LogWrapper(f"Unity selected: {self.UPath}")
                 s.write(json.dumps(dd, indent=4))
             EventLog("Settings saved!")
-        UpdaterCheck()
-        os.chdir(self.BaseDir)
+        UpdaterCheck(self.BaseDir)
         self.MainTab.setTabVisible(1, False)
         #Loads the settings into the application
         self.Settings = GetSettings()
