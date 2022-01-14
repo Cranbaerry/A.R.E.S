@@ -103,38 +103,6 @@ def LoadLog():
             return Log
     except:
         EventLog("Error executing load log to upload avatars:\n" + traceback.format_exc())
-#Ensure the updater is up to date!
-def UpdaterCheck(dir):
-    print("Getting installed hash...")
-    os.chdir('..')
-    print(os.getcwd())
-    with open(f"ARES.Updater.exe", "rb") as f:
-        ARESDATA = f.read()
-        InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
-    try:
-        LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESUPDATER.txt", timeout=10).text
-        print(f"GitHub Hash: {LatestHash}")
-    except:
-        LatestHash = "Couldn't Connect!"
-        print(f"Failed to connect to GitHub: \n{traceback.format_exc()}")
-        os.chdir(dir)
-    if LatestHash == "Couldn't Connect!":
-        print(f"ARES Updater couldn't verify version!")
-        os.chdir(dir)
-    else:
-        if not InstalledHash == LatestHash:
-            print(f"ARES Updater is out-of-date! Updating...")
-            print(f"Fetching ARES.Updater.exe...")
-            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARES.Updater.exe", stream=True)
-            with open("ARES.Updater.exe", 'wb') as f:
-                total_length = int(r.headers.get('content-length'))
-                for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
-                    if chunk:
-                        f.write(chunk)
-                        f.flush()
-            print('Running updater...')
-            subprocess.Popen("ARES.Updater.exe")
-            os.chdir(dir)
 
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
