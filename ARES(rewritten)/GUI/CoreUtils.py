@@ -134,6 +134,7 @@ def UpdaterCheck(dir):
                         f.flush()
             print('Running updater...')
             subprocess.Popen("ARES.Updater.exe")
+            os.chdir(dir)
 
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
