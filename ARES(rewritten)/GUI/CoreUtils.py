@@ -107,6 +107,7 @@ def LoadLog():
 def UpdaterCheck():
     print("Getting installed hash...")
     os.chdir('..')
+    print(os.getcwd())
     with open(f"ARES.Updater.exe", "rb") as f:
         ARESDATA = f.read()
         InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
@@ -132,7 +133,7 @@ def UpdaterCheck():
                         f.write(chunk)
                         f.flush()
             print('Running updater...')
-            subprocess.Popen("ARES.exe")
+            subprocess.Popen("ARES.Updater.exe")
 
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():

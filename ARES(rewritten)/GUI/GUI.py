@@ -110,7 +110,6 @@ class Ui(QtWidgets.QMainWindow):
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
         #Checks if the app is set up correctly, if not run first time setup
-        UpdaterCheck()
         InitCore()
         InitLogUtils()
         if IsSetup() == False:
@@ -127,6 +126,7 @@ class Ui(QtWidgets.QMainWindow):
                 self.LogWrapper(f"Unity selected: {self.UPath}")
                 s.write(json.dumps(dd, indent=4))
             EventLog("Settings saved!")
+        UpdaterCheck()
         self.MainTab.setTabVisible(1, False)
         #Loads the settings into the application
         self.Settings = GetSettings()
