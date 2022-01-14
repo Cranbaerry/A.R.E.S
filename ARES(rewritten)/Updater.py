@@ -37,7 +37,7 @@ if os.path.isdir(GUIP):
     if LatestHash == "Couldn't Connect!":
         os.chdir(GUIP)
         subprocess.Popen("ARES.exe")
-        print(f"ARES is couldn't verify version! Launching...")
+        print(f"ARES couldn't verify version! Launching...")
     else:
         if InstalledHash == LatestHash:
             os.chdir(GUIP)

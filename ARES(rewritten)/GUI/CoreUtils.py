@@ -1,8 +1,9 @@
 #A file containing all the core modules in relation to the GUI itself
 
 #Importing reqired modules
-import requests, os, json, pymsgbox, datetime, shutil,re,traceback
+import requests, os, json, pymsgbox, datetime, shutil,re,traceback, hashlib, subprocess
 from base64 import b64encode
+from clint.textui import progress
 #Importing custom ARES modules
 from LogUtils import DecideAssetURL
 def InitCore():
@@ -102,6 +103,37 @@ def LoadLog():
             return Log
     except:
         EventLog("Error executing load log to upload avatars:\n" + traceback.format_exc())
+#Ensure the updater is up to date!
+def UpdaterCheck():
+    print("Getting installed hash...")
+    os.chdir('..')
+    with open(f"ARES.Updater.exe", "rb") as f:
+        ARESDATA = f.read()
+        InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
+    try:
+        LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESUPDATER.txt", timeout=10).text
+        print(f"GitHub Hash: {LatestHash}")
+    except:
+        LatestHash = "Couldn't Connect!"
+        print(f"Failed to connect to GitHub: \n{traceback.format_exc()}")
+        os.chdir('GUI')
+    if LatestHash == "Couldn't Connect!":
+        print(f"ARES Updater couldn't verify version!")
+        os.chdir('GUI')
+    else:
+        if not InstalledHash == LatestHash:
+            print(f"ARES Updater is out-of-date! Updating...")
+            print(f"Fetching ARES.Updater.exe...")
+            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARES.Updater.exe", stream=True)
+            with open("ARES.Updater.exe", 'wb') as f:
+                total_length = int(r.headers.get('content-length'))
+                for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+            print('Running updater...')
+            subprocess.Popen("ARES.exe")
+
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
     try:

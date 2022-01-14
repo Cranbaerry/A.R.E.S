@@ -110,6 +110,7 @@ class Ui(QtWidgets.QMainWindow):
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
         #Checks if the app is set up correctly, if not run first time setup
+        UpdaterCheck()
         InitCore()
         InitLogUtils()
         if IsSetup() == False:
