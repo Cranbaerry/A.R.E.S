@@ -69,23 +69,27 @@ def check_tags(tags, avatars):
     for avatar in avatars:
         for tag in tags:
             if tag.lower() in avatar[12].lower():
-                new.append(avatar)
+                if avatar not in new:
+                    new.append(avatar)
     return new
 
 
 def filter(query, filters={}, avatars=[]):
     new_list = avatars
+
     if query != "":
         if filters["Avatar name"]:
             new_list = check_quary_avatar_name(query, new_list)
         if filters["Avatar author"]:
-            usr = re.match("usr_........-....-....-....-............",query)
+            usr = re.match("usr_........-....-....-....-............",str(query).replace(" ",""))
             if usr:
-                new_list = check_quary_AuthorID_name(str(query).replace(" ",""), new_list)
+                query = str(query).replace(" ","")
+                new_list = check_quary_AuthorID_name(query, new_list)
             else:
                 new_list = check_quary_author_name(query, new_list)
         if filters["Avatar id"]:
-            new_list = check_quary_AvatarID_name(str(query).replace(" ",""), new_list)
+            query = str(query).replace(" ","")
+            new_list = check_quary_AvatarID_name(query, new_list)
     # checking if the filter is private or public
     if filters["private"] == True and filters["public"] == True:
         new_list = new_list
@@ -142,5 +146,11 @@ def search(query, filters={}, api=False, Localavatars=None):
         avis = filter(query, filters, Localavatars)
         return avis
     if api:
+        if filters["Avatar id"]:
+            query = str(query).replace(" ","")
+        if filters["Avatar author"]:
+            usr = re.match("usr_........-....-....-....-............",str(query).replace(" ",""))
+            if usr:
+                query = str(query).replace(" ","")
         avis = filter(query, filters, get_avatars_list_api(query, filters))
         return avis

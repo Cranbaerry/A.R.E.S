@@ -200,13 +200,15 @@ def ExtractVRCA(ExtValue,cla):
         os.chdir("AssetRipperConsole_win64(ds5678)")
         os.chdir("Ripped")
         os.chdir("Assets")
-        os.rename("Shader",".Shader")
+        if os.path.isdir('Shader'):
+            os.rename("Shader",".Shader")
         shutil.rmtree("Scripts")
         os.chdir(Base)
         os.chdir("AssetRipperConsole_win64(ds5678)")
         os.chdir("Ripped")
         os.chdir("AssetRipper")
-        shutil.rmtree("GameAssemblies", ignore_errors=True)
+        if os.path.isdir('GameAssemblies'):
+            shutil.rmtree("GameAssemblies", ignore_errors=True)
         os.chdir(Base)
         os.chdir("AssetRipperConsole_win64(ds5678)")
         EventLog("Cleaned! Opening now...")
