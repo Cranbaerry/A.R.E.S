@@ -45,14 +45,15 @@ if os.path.isfile("VRChat.exe"):
                 print(f"ARES is up-to-date! Launching...")
             else:
                 print(f"ARES is out-of-date! Updating...")
-                print(f"Fetching UnRar.exe...")
-                r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
-                with open("UnRar.exe", 'wb') as f:
-                    total_length = int(r.headers.get('content-length'))
-                    for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
-                        if chunk:
-                            f.write(chunk)
-                            f.flush()
+                if not os.path.isfile('UnRar.exe'):
+                    print(f"Fetching UnRar.exe...")
+                    r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+                    with open("UnRar.exe", 'wb') as f:
+                        total_length = int(r.headers.get('content-length'))
+                        for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+                            if chunk:
+                                f.write(chunk)
+                                f.flush()
                 print(f"Fetching GUI.rar...")
                 r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
                 with open("GUI.rar", 'wb') as f:
@@ -67,14 +68,15 @@ if os.path.isfile("VRChat.exe"):
                 print("ARES updated! Opening...")
     else:
         print("ARES not installed! Installing...")
-        print(f"Fetching UnRar.exe...")
-        r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
-        with open("UnRar.exe", 'wb') as f:
-            total_length = int(r.headers.get('content-length'))
-            for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
-                if chunk:
-                    f.write(chunk)
-                    f.flush()
+        if not os.path.isfile('UnRar.exe'):
+            print(f"Fetching UnRar.exe...")
+            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+            with open("UnRar.exe", 'wb') as f:
+                total_length = int(r.headers.get('content-length'))
+                for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
         print(f"Fetching GUI.rar...")
         r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
         with open("GUI.rar", 'wb') as f:
