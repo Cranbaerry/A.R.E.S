@@ -83,8 +83,9 @@ if os.path.isfile("VRChat.exe"):
                 if chunk:
                     f.write(chunk)
                     f.flush()
-        os.mkdir(GUIP)
-        os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q]")
+        if not os.path.isdir(GUIP):
+            os.mkdir(GUIP)
+        os.system(f"UnRAR.exe x GUI.rar {GUIP} -id[c,d,n,p,q] -O+")
         os.chdir(GUIP)
         subprocess.Popen("ARES.exe")
         print("ARES installed! Opening...")

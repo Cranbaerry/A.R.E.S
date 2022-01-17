@@ -79,9 +79,13 @@ def filter(query, filters={}, avatars=[]):
         if filters["Avatar name"]:
             new_list = check_quary_avatar_name(query, new_list)
         if filters["Avatar author"]:
-            new_list = check_quary_author_name(query, new_list)
+            usr = re.match("usr_........-....-....-....-............",query)
+            if usr:
+                new_list = check_quary_AuthorID_name(str(query).replace(" ",""), new_list)
+            else:
+                new_list = check_quary_author_name(query, new_list)
         if filters["Avatar id"]:
-            new_list = check_quary_AvatarID_name(query, new_list)
+            new_list = check_quary_AvatarID_name(str(query).replace(" ",""), new_list)
     # checking if the filter is private or public
     if filters["private"] == True and filters["public"] == True:
         new_list = new_list

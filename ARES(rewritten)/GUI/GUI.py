@@ -118,7 +118,7 @@ class Ui(QtWidgets.QMainWindow):
             pymsgbox.alert("Select Unity 2019.4.31f1 Exe")
             while True:
                 self.UPath = QFileDialog.getOpenFileName(self, 'Select 2019.4.31f1 Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
-                if self.UPath is not "":
+                if self.UPath != "":
                     break
             with open("Settings.json", "a+") as s:
                 dd = {
