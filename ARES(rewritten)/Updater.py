@@ -22,7 +22,7 @@ try:
     os.system('taskkill /F /im "AssetRipperConsole.exe"')
 except:
     pass
-if os.path.isdir(GUIP):
+if os.path.isfile(GUIP + "\\ARES.exe"):
     print("Getting installed hash...")
     with open(f"{GUIP}\\ARES.exe", "rb") as f:
         ARESDATA = f.read()
