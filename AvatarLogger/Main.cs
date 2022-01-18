@@ -14,7 +14,7 @@ using static Buttons.Buttons;
 using System.Threading;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "3.5", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "3.7", "By LargestBoi & Yui")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger

@@ -103,7 +103,18 @@ def LoadLog():
             return Log
     except:
         EventLog("Error executing load log to upload avatars:\n" + traceback.format_exc())
-
+def ModCheck():
+    VRCroot = BaseD.replace("GUI","")
+    if not os.path.isfile(VRCroot + "Plugins\\ARESPlugin.dll"):
+        ans = pymsgbox.confirm(text="Our API is a share to access system, you don't seem to have the ARES plugin installed, this means you cannot log avatars or contribute to our API! To gain API access you must have the ARES plugin installed, would you like to install the plugin?", title='ARES Plugin Check', buttons=['Yes', 'No'])
+        if ans == "Yes":
+             PluginData = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll")
+             with open(VRCroot + "Plugins\\ARESPlugin.dll", 'wb') as f:
+                 f.write(PluginData.content)
+        else:
+            return False
+    else:
+        return True
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
     try:

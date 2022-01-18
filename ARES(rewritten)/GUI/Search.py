@@ -139,7 +139,13 @@ def get_avatars_list_api(query, filters={}):
     data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
 
     response = requests.post('http://api.avataruploader.tk/search', headers=headers, json=data)
-    return response.json()
+    IDList = []
+    cleanarr = []
+    for x in response.json():
+        if x[1] not in IDList:
+            IDList.append(x[1])
+            cleanarr.append(x)
+    return cleanarr
 
 def search(query, filters={}, api=False, Localavatars=None):
     if not api:

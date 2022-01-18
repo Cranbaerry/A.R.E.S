@@ -5,7 +5,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Mod Updater", "1.2", "LargestBoi")]
+[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Manager", "1.5", "LargestBoi")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 [assembly: MelonGame("VRChat", "VRChat")]
 
