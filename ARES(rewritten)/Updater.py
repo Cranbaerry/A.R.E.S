@@ -2,6 +2,7 @@ import hashlib, requests, subprocess, os, traceback
 from clint.textui import progress
 GUIP = "GUI"
 if os.path.isfile("VRChat.exe"):
+    input("This updater is about to close any running instances of\nARES, Unity, Unity Hub, Hotswaps and AssetRipper sessions!\nPlease save your work in your unity projects if they are open before\npressing enter to continue")
     try:
         os.system('taskkill /F /im "ARES.exe"')
     except:
