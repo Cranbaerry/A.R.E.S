@@ -17,6 +17,16 @@ namespace Buttons
 {
     internal static class Buttons
     {
+        private static GameObject SocialMenuInstance;
+
+        public static GameObject GetSocialMenuInstance()
+        {
+            if (SocialMenuInstance == null)
+            {
+                SocialMenuInstance = GameObject.Find("UserInterface/MenuContent/Screens");
+            }
+            return SocialMenuInstance;
+        }
         public static Sprite ButtonImage = LoadSpriteFromDisk((Environment.CurrentDirectory + "\\ARESLogo.png"));
         private static ConfigHelper<AvatarLogger.Config> Helper => AvatarLogger.Main.Helper;
 
@@ -105,17 +115,14 @@ namespace Buttons
             Regex Avatar = new Regex("avtr_[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
             if (Avatar.IsMatch(Clipboard.GetText()))
             {
-                try
+                new ApiAvatar { id = Clipboard.GetText() }.Get(new Action<ApiContainer>(x =>
                 {
-                    PageAvatar Changer = GameObject.Find("UserInterface/MenuContent/Screens/Avatar").GetComponent<PageAvatar>();
-                    Changer.field_Public_SimpleAvatarPedestal_0.field_Internal_ApiAvatar_0 = new ApiAvatar { id = Avatar.Matches(Clipboard.GetText())[0].Value };
-                    Changer.ChangeToSelectedAvatar();
-                    MelonLogger.Msg($"Avatar switched: {Avatar.Matches(Clipboard.GetText())[0].Value}");
-                }
-                catch
+                    GetSocialMenuInstance().transform.Find("Avatar").GetComponent<PageAvatar>().field_Public_SimpleAvatarPedestal_0.field_Internal_ApiAvatar_0 = x.Model.Cast<ApiAvatar>();
+                    GetSocialMenuInstance().transform.Find("Avatar").GetComponent<PageAvatar>().ChangeToSelectedAvatar();
+                }), new Action<ApiContainer>(x =>
                 {
-                    MelonLogger.Msg($"Invalid Avatar ID!");
-                }
+                    MelonLogger.Msg($"Failed to change to avatar: {Clipboard.GetText()} | Error Message: {x.Error}");
+                }));
             }
             else
             {
