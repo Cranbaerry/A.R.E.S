@@ -53,11 +53,9 @@ def OpenUnity(UnityPath,cla):
 def Hotswap(cla):
     Base = os.getcwd()
     try:
-        print("Made it here")
         #Enables progress bar
         base = os.getcwd()
         cla.StatusL.setText(f"Status: Hotswap started!")
-        print("Changed label once")
         #Ensures hotswap enviroment is clean
         os.chdir("HOTSWAP")
         if os.path.exists("decompressed.vrca"):
@@ -71,14 +69,13 @@ def Hotswap(cla):
         EventLog("Decompressed dummy vrca!")
         os.chdir(base)
         os.chdir("HOTSWAP")
-        print("DIR: " + os.getcwd())
         with open("decompressed.vrca", "rb") as f:
             DummyData = f.read()
         #Extracts avatar ID and CAB
         NewID = re.search("(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})", str(DummyData)).group(1)
-        cla.StatusL.setText(f"Status: New avatar ID ({NewID}) found!")
+        cla.StatusL.setText(f"Status: New avatar ID found!")
         NewCAB = re.search("(CAB-[\w\d]{32})", str(DummyData)).group(1)
-        cla.StatusL.setText(f"Status: New CAB ({NewCAB}) found!")
+        cla.StatusL.setText(f"Status: New CAB found!")
         EventLog("New Info: " + NewCAB + " | " + NewID)
         cla.StatusL.setText(f"Status: Decompressing target avatar...")
         os.system("HOTSWAP.exe d Avatar.vrca")
@@ -129,7 +126,7 @@ def Hotswap(cla):
     except:
         os.chdir(Base)
         EventLog(f"An error occured during hotswaping {traceback.format_exc()}")
-        pymsgbox.alert(f"An error occured during hotswa[: {traceback.format_exc()}")
+        pymsgbox.alert(f"An error occured during hotswap: {traceback.format_exc()}")
         cla.Hotswap.setEnabled(True)
 #Function to repair a cached VRCA
 def RepairVRCA(cla):
