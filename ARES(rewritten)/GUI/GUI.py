@@ -303,6 +303,7 @@ class Ui(QtWidgets.QMainWindow):
             self.LogWrapper("Loaded!")
             #Enables button again
             self.UpdateBut(True)
+            self.LoadVRCA.setEnabled(True)
             self.NextB.setEnabled(False)
             self.PrevB.setEnabled(False)
             self.DownloadVRCA.setEnabled(False)
