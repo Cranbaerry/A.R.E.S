@@ -2,7 +2,7 @@
 #Unity.exe and 3rd party mods such as EMM
 
 #Imports reqired modules
-import os, shutil, tempfile, pymsgbox, requests, re, textwrap, time, traceback, getpass
+import os, shutil, tempfile, pymsgbox, requests, re, textwrap, time, traceback
 #Importing ARES modules
 from CoreUtils import *
 #Allows for the creation and execution of the HSB package
@@ -21,8 +21,8 @@ def OpenUnity(UnityPath,cla):
         except:
             pass
         # Remove any traces of HSB if any are present
-        if os.path.isdir(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB"):
-            shutil.rmtree(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB", ignore_errors=True)
+        if os.path.isdir(f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\DefaultCompany\\HSB"):
+            shutil.rmtree(f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\DefaultCompany\\HSB", ignore_errors=True)
             EventLog("Deleted TMP HSB")
         if os.path.isdir("HSB"):
             try:
@@ -65,8 +65,8 @@ def Hotswap(cla):
         if os.path.exists("dummy.vrca"):
             os.remove("dummy.vrca")
         cla.StatusL.setText(f"Status: Cleaned working enviroment!")
-        dummyvrcapath = f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"
-        shutil.copy(dummyvrcapath, "dummy.vrca")
+        dummyvrcapath = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"
+        shutil.copy(dummyvrcapath,"dummy.vrca")
         cla.StatusL.setText(f"Status: Decompressing dummy VRCA...")
         os.system(f"HOTSWAP.exe d dummy.vrca")
         EventLog("Decompressed dummy vrca!")

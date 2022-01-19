@@ -1,4 +1,5 @@
 import hashlib, os
+
 base = os.getcwd()
 os.chdir('..')
 with open(f"ARES(rewritten)\\dist\\ARES.Updater.exe", "rb") as f:
