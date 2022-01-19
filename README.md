@@ -18,7 +18,19 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-[V9.4 Virus Total](https://www.virustotal.com/gui/file/ebdeb9e9bc38fdf6e0f3339cf76f9c9d0d3bbe25ed249871f08e365bb04eac92/summary)
+Virus Totals:
+
+[ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
+
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/1c196ca1ad5fadd269544b83f9e2c2ac849b2adca7a7ca1ccc545fd244baeba6/summary)
+
+[UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
+
+[ARES.Updater.exe](https://www.virustotal.com/gui/file/22005073a5752a79faf0c687bfb81e1ec8d9504611e920f5332858aa041beeba/summary)
+
+[V10 GUI RAR](https://www.virustotal.com/gui/file/28905cb89dc993dbe4786e8439dcdfec42c805517f92037e1770aa7c59fc48f0/summary)
+
+[DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/01935efa6b145adaafc190249e122c8b01f89df805f301036099ea0e015425b9/summary)
 
 Features:
 
@@ -39,12 +51,16 @@ Features:
 		-Avatar Author
 		
 		-Uploader Tags
+
+            -Author ID
 	
 	-Browse the logs with image previews of avatars
 	
 	-Mostly-Automatic HotswapingV2 + Set images on upload
 	
 	-HTML Viewer for easy browsing of larger logs
+
+    -Search by release platforms: search for avatars that have PC or Quest compatability!
 	
 	-Search by tags: These are the tags given during the upload of the avatar
 	
@@ -54,16 +70,31 @@ Features:
 
     -Ability to hotswap from a vaid VRCA file downloaded elsewhere
 
-    -Ability to almost perfectly extract vrca files for repairs with FACS and Pumpkin
+    -Ability to almost perfectly extract vrca files for repairs with FACS
 
-Installation/Usage:
+Installation:
 	
-	-WIP-
+Step One: [DownloadMe](https://github.com/LargestBoi/A.R.E.S/releases/latest/download/DRAG.CONTENTS.INTO.VRChat.FOLDER.rar).
 
-Extras:
+Step Two: [Copy the files into your VRChat folder](https://i.imgur.com/izsyjz8.gif).
 
-    -If you enable API in the settings you will have all logged avatars sent to our database, in exchange you will gain access to an entire collection of avatars logged by others!
-    -You will need an API key that can be grabbed via our discord!
+Step Three: Run VRChat and allow the plugin to fully install the mod, you can now configure your settings by clicking [here](https://i.imgur.com/iXi8VXv.png) then [here](https://i.imgur.com/3y0XZeJ.png) brining you to the [settings screen](https://i.imgur.com/nyV5Sse.png).
+
+Step Four: [Run the "ARES.Updater.exe"](https://i.imgur.com/XfHDP2Z.gif), this will install the GUI and launch into it for a first time setup where you must select your Unity 2019.4.31f1 exe, follow the steps [here](https://rentry.org/LargestGithubSupportUnityInst) to ensure you have the correct unity installation!
+
+Step Five: After pressing okay [here](https://i.imgur.com/LgHbHJQ.png) find your exe and [select it](https://i.imgur.com/BydfbV8.png)!
+
+ARES is now setup, working and ready to use, however there are some extra steps to gain API access to see a databse of avatars logged by all ARES users!
+
+API Step One: Head to the [ARES GUI "Setings" tab](https://i.imgur.com/kLLdPzq.png).
+
+API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #bot-commands channel.
+
+API Step Three: Paste the [key](https://i.imgur.com/WsEMH0z.png) in your [key tab](https://i.imgur.com/qQEJKk2.png) and press ["Set Key"](https://i.imgur.com/DmSBggW.png).
+
+API Step Four: You may now press the [Toggle API](https://i.imgur.com/xAnJGrG.png) button to activate the API, this will quit ARES, just open it again!
+
+All done! Can now access [API Features](https://i.imgur.com/kklkouA.png)
 
 Issues? Open an issue in the "Issues" tab, We will do our best to resolve your issue!
 
