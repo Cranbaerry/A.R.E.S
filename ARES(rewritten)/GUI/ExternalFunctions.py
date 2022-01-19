@@ -62,10 +62,13 @@ def Hotswap(cla):
             os.remove("decompressed.vrca")
         if os.path.exists("decompressed1.vrca"):
             os.remove("decompressed1.vrca")
+        if os.path.exists("dummy.vrca"):
+            os.remove("dummy.vrca")
         cla.StatusL.setText(f"Status: Cleaned working enviroment!")
         dummyvrcapath = f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"
+        shutil.copy(dummyvrcapath, "dummy.vrca")
         cla.StatusL.setText(f"Status: Decompressing dummy VRCA...")
-        os.system(f"HOTSWAP.exe d {dummyvrcapath}")
+        os.system(f"HOTSWAP.exe d dummy.vrca")
         EventLog("Decompressed dummy vrca!")
         os.chdir(base)
         os.chdir("HOTSWAP")
@@ -114,6 +117,8 @@ def Hotswap(cla):
             os.remove("decompressed1.vrca")
         if os.path.exists("Avatar.vrca"):
             os.remove("Avatar.vrca")
+        if os.path.exists("dummy.vrca"):
+            os.remove("dummy.vrca")
         EventLog("Cleaned!")
         os.rename("compressed.vrca", "custom.vrca")
         cla.StatusL.setText(f"Status: VRCA Renamed!")
