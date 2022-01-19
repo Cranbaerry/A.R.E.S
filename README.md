@@ -80,6 +80,8 @@ Step Two: [Copy the files into your VRChat folder](https://i.imgur.com/izsyjz8.g
 
 Step Three: Run VRChat and allow the plugin to fully install the mod, you can now configure your settings by clicking [here](https://i.imgur.com/iXi8VXv.png) then [here](https://i.imgur.com/3y0XZeJ.png) brining you to the [settings screen](https://i.imgur.com/nyV5Sse.png).
 
+Info: From here onwards you can open ARES via the [ARES.exe](https://i.imgur.com/F3NDgCb.png) in your [GUI Folder](https://i.imgur.com/ovleFKV.png)!
+
 Step Four: [Run the "ARES.Updater.exe"](https://i.imgur.com/XfHDP2Z.gif), this will install the GUI and launch into it for a first time setup where you must select your Unity 2019.4.31f1 exe, follow the steps [here](https://rentry.org/LargestGithubSupportUnityInst) to ensure you have the correct unity installation!
 
 Step Five: After pressing okay [here](https://i.imgur.com/LgHbHJQ.png) find your exe and [select it](https://i.imgur.com/BydfbV8.png)!
