@@ -4,6 +4,8 @@ ARES is an avatar recovery tool! It is only for educational uses! We do not cond
 
 Thx to Yui, they have chosen not to be marked as a developer on the project when they might as well be, they taught me everything I know about photon and it is an important part of the project as a whole. If you see him around thank him for me! The same thanks go out to Blaze for showing me a better/more stable way to create buttons ingame!
 
+Thx to [Blaze](https://github.com/WTFBlaze) for helping me fix a few bugs within the wear avatar by ID button added in V10!
+
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
 Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/RequiDev/ReMod.Core), we use this as our button API within ARES!
