@@ -92,7 +92,7 @@ ARES is now setup, working and ready to use, however there are some extra steps 
 
 API Step One: Head to the [ARES GUI "Setings" tab](https://i.imgur.com/kLLdPzq.png).
 
-API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #key-receiver channel.
+API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #keys channel.
 
 API Step Three: Paste the [key](https://i.imgur.com/WsEMH0z.png) in your [key tab](https://i.imgur.com/qQEJKk2.png) and press ["Set Key"](https://i.imgur.com/DmSBggW.png).
 
