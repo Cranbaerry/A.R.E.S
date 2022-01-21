@@ -114,6 +114,9 @@ def ModCheck():
         else:
             return False
     else:
+        PluginData = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll")
+        with open(VRCroot + "Plugins\\ARESPlugin.dll", 'wb') as f:
+            f.write(PluginData.content)
         return True
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():

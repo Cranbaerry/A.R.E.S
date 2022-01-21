@@ -30,7 +30,7 @@ Virus Totals:
 
 [ARES.Updater.exe](https://www.virustotal.com/gui/file/22005073a5752a79faf0c687bfb81e1ec8d9504611e920f5332858aa041beeba/summary)
 
-[V10 GUI RAR](https://www.virustotal.com/gui/file/3ce64c864d30ab6f54a80d09fee0ca6582fb17e009c8571dbbc10ad4d9576557/summary)
+[V10 GUI RAR](https://www.virustotal.com/gui/file/5cbdef8cec271c0f4d4ca3b81e914c5d19d29a2ca958a4b3b3511482763ad8be/summary)
 
 [DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/01935efa6b145adaafc190249e122c8b01f89df805f301036099ea0e015425b9/summary)
 
