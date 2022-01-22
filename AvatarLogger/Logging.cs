@@ -12,6 +12,7 @@ namespace Logging
     {
         //Make string to contain friend avatars
         public static string FriendIDs = null;
+        public static string AvtrIDs = null;
         //Fetches the frend IDs on the ARES user
         public static System.Collections.IEnumerator FetchFriends()
         {
@@ -34,6 +35,7 @@ namespace Logging
                 //If logging of private avatars is disabled
                 if (!Config.LogPrivateAvatars)
                 {
+                    MelonLogger.Msg("avi" + playerHashtable["avatarDict"]["releaseStatus"].ToString());
                     //Check to see if the avatar is private and refuse to log if so
                     if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "private") { return; }
                 }
@@ -64,10 +66,20 @@ namespace Logging
                 //If the log file does not exist create it and append the credits of the mod
                 if (!File.Exists(AvatarFile))
                 { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
-                //Read the entire contents of the log file
-                string AvatarFileContents = File.ReadAllText(AvatarFile);
+                //Read log file
+                if (AvtrIDs == null)
+                {
+                    var lines = File.ReadLines(AvatarFile);
+                    foreach (var line in lines)
+                    {
+                        if (line.Contains("Avatar ID:")) ;
+                        {
+                            AvtrIDs = AvtrIDs + line;
+                        }
+                    }
+                }
                 //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
-                if (!AvatarFileContents.Contains(playerHashtable["avatarDict"]["id"].ToString()))
+                if (!AvtrIDs.Contains(playerHashtable["avatarDict"]["id"].ToString()))
                 {
                     //Log the following variables to the log file
                     File.AppendAllLines(AvatarFile, new string[]
@@ -140,6 +152,7 @@ namespace Logging
                     else { File.AppendAllText(AvatarFile, "Tags: None"); }
                     //Inform the user of the successful log
                     if (Config.LogToConsole) { MelonLogger.Msg($"Logged: {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
+                    AvtrIDs = AvtrIDs + playerHashtable["avatarDict"]["id"].ToString();
                     File.AppendAllText(AvatarFile, "\n\n");
                 }
             }
