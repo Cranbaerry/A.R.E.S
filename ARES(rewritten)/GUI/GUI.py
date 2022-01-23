@@ -141,13 +141,14 @@ class Ui(QtWidgets.QMainWindow):
                     KCV = KeyCheck(self.Settings["Username"])
                     if not KCV['allowed']:
                         if KCV['reason'] == "Not a user":
-                            self.Data.setPlainText(
-                                f"You are not currently a user!\nYou can get a key from ur discord server!\n{KCV['discord_invite']}")
+                            self.Data.setPlainText(f"You are not currently a user!\nYou can get a key from ur discord server!\n{KCV['discord_invite']}")
+                            self.LogWrapper(f"Not a user!")
                             return
                         elif KCV['reason'] == "Banned":
-                            self.Data.setPlainText(
-                                f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
+                            self.Data.setPlainText(f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
+                            self.LogWrapper(f"Banned user!")
                             return
+                    self.LogWrapper(f"Key registered!")
                     self.SearchA.setEnabled(True)
                     threading.Thread(target=UpdateStats, args=(self.Settings["Username"], self)).start()
                     if os.path.isfile("Log.txt"):
