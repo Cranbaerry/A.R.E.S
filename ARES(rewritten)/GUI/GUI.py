@@ -135,6 +135,7 @@ class Ui(QtWidgets.QMainWindow):
         #Sets API status label and logs its status to the console
         if self.Settings["SendToAPI"] == True:
             self.APIStatus.setText("API Enabled!")
+            self.LogWrapper(f"Key registered!")
             if ModCheck():
                 KCV = ""
                 try:
@@ -148,7 +149,6 @@ class Ui(QtWidgets.QMainWindow):
                             self.Data.setPlainText(f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
                             self.LogWrapper(f"Banned user!")
                             return
-                    self.LogWrapper(f"Key registered!")
                     self.SearchA.setEnabled(True)
                     threading.Thread(target=UpdateStats, args=(self.Settings["Username"], self)).start()
                     if os.path.isfile("Log.txt"):
