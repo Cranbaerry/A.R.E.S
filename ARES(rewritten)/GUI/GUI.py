@@ -183,7 +183,6 @@ class Ui(QtWidgets.QMainWindow):
     def LogWrapper(self, Data):
         self.Console.appendPlainText(EventLog(Data))
     #Allows the API to be enabled and disabled, then quits the application
-    # add this: make it start function upload avatars instead of starting
     def ToggleAPIF(self):
         if self.Settings["SendToAPI"] == True:
             self.Settings["SendToAPI"] = False
