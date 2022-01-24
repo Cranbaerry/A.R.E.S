@@ -254,7 +254,6 @@ RECODED/.idea/workspace.xml
 GUI/Settings.json
 GUI/AssetRipperConsole_win64(ds5678)/2019DLL/desktop.ini
 GUI/dist/AssetRipperConsole_win64(ds5678)/2019DLL/desktop.ini
-A.R.E.S Logger/DLLS/PlagueButtonAPI.dll
 ARES(rewritten)/Log.txt
 ARES(rewritten)/__pycache__/CoreUtils.cpython-38.pyc
 ARES(rewritten)/__pycache__/ExternalFunctions.cpython-38.pyc
@@ -265,3 +264,7 @@ ARES(rewritten)/__pycache__/ExternalFunctions.cpython-38.pyc
 ARES(rewritten)/__pycache__/CoreUtils.cpython-38.pyc
 ARES(rewritten)/GUI/dist/ARES.exe
 ARES(rewritten)/GUI/dist/GUI.rar
+ARES(rewritten)/GUI/dist/AssetRipperConsole_win64(ds5678)/2019DLL/
+ARES(rewritten)/GUI/dist/AssetRipperConsole_win64(ds5678)/2018DLL/
+ARES(rewritten)/GUI/AssetRipperConsole_win64(ds5678)/2019DLL/
+ARES(rewritten)/GUI/AssetRipperConsole_win64(ds5678)/2018DLL/
