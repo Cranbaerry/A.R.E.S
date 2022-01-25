@@ -1,243 +1,238 @@
-import traceback
-def makehtml(base,aci):
-    try:
-        avatars = aci
-        html = """
-    <!DOCTYPE html>
-    <html>
-       <head>
-       <meta charset="UTF-8">
-       <style>
-            html{
-        background-color: black;
-    }
-    
-    div{
-        display: inline-table;
-        position: relative;
-        text-align: center;
-        padding: 5px;
-        margin-inline-start: auto;
-    
-    
-      }
-    
-    .avatar-name{
-      left: 15%;
-      color: whitesmoke;
-    
-      opacity: 100%;
-      text-align: center;
-      font-size: 15px;
-      font: bold;
-      font-family: 'Open Sans', sans-serif;
-      font-weight:bold;
-      position: absolute;
-      top: 5px;
-      left: 10px;
-        text-shadow: -1px 1px 0 #000,
-                      1px 1px 0 #000,
-                     1px -1px 0 #000,
-                    -1px -1px 0 #000;
-    
-    
-    }
-    .avatar-id
-    {
-      left: 15%;
-      color: whitesmoke;
-    
-      opacity: 100%;
-      text-align: center;
-      font-size: 10px;
-      font: bold;
-      font-family: 'Open Sans', sans-serif;
-      font-weight:bold;
-      position: absolute;
-      bottom: 15px;
-      right: center;
-        text-shadow: -1px 1px 0 #000,
-                      1px 1px 0 #000,
-                     1px -1px 0 #000,
-                    -1px -1px 0 #000;
-    
-    
-    }
-    .avatar-releasestatus{
-      right: 15%;
-      font-size: 15px;
-      position: absolute;
-      top: -4px;
-      right: -4px;
-    
-    
-    }
-    a:link {
-      color: whitesmoke;
-      text-decoration: none;
-    
-    }
-    
-    /* visited link */
-    a:visited {
-      color: whitesmoke;
-    }
-    .avatar-download-link{
-    
-      right: 15%;
-      color: whitesmoke;
-      opacity: 100%;
-      text-align: right;
-      font-size: 10px;
-      font: bold;
-      font-family: 'Arial Narrow Bold', sans-serif;
-      font-weight:bold;
-    
-      position: absolute;
-      bottom: -4px;
-      right: 10px;
-    }
-    .title-header{
-      text-align: center;
-      font-size: 50px;
-      margin-bottom: 25px;
-      color: whitesmoke;
-      font-family: 'Open Sans', sans-serif;
-      font-weight: bold;
-    
-    }
-    
-    html {
-        overflow-y: scroll;
-      }
-    .avatar-image{
-      border-radius: 5px;
-    }
-    
-    .hotbar-div{
-      display: inline-table;
-    }
-    .hotbar-div2{
-    
-      display: inline-table;
-    
-    }
-    
-    .hotbar-search{
-      display: inline-table;
-    }
-    
-    .search-button{
-      border: none;
-      background-color: none;
-      background: none;
-      color:rgba(74,252,44,255);
-      font-family: 'Open Sans', sans-serif;
-      font-weight: bold;
-      font-size: 16px;
-    
-    }
-    .search-button:hover{
-      cursor:pointer;
-    }
-    input{
-      width: 100px;
-      border: none;
-      background-color: whitesmoke;
-    }
-    
-            html{
-        background-color: black;
-    }
-    p{
-        color: whitesmoke;
-        font-family: 'Open Sans', sans-serif;
-        font-size:initial;
-        padding: 0;
-        margin: 8.5px;
-    
-    
-    
-    }
-    html {
-        overflow-y: scroll;
-      }
-    .title-header .getmainpage{
-        text-align: center;
-        font-size: 50px;
-        margin-bottom: 25px;
-        color: whitesmoke;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: bold;
-    
-    
-    }
-    a:visited{
-        text-decoration: none;
-    
-    }
-    a:link{
-        text-decoration: none;
-    
-    }
-    
-    .specialcolumn{
-        display: inline-block;
-        margin-right: 15px;
-    }
-    
-    
-    .centereddiv{
-        margin-left: 25%;
-    }
-    .backbutton{
-        border: none;
-        background: none;
-        color:rgba(74,252,44,255);
-        font-family: 'Open Sans', sans-serif;
-        font-weight: bold;
-        font-size: 16px;
-    
-    }
-    .downloadlink{
-        font-size: initial;
-        border: none;
-        background: none;
-        color:rgba(74,252,44,255);
-        font-family: 'Open Sans', sans-serif;
-        cursor:pointer;
-    
-    
-    
-    }
-    
-    .backbutton:hover{
-    
-        border: none;
-        background: none;
-        color:rgba(74,252,44,255);
-        font-family: 'Open Sans', sans-serif;
-        font-weight: bold;
-        cursor:pointer;
-    
-    }
+import dateparser, html
+
+inlist = '<>'
+idd = 0
+
+
+def genhtml(avis):
+    global idd
+    strr = """<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+        <title>A.R.E.S Results</title>
+        <link rel="stylesheet" href="cssstuff/intlTelInput.css">
+        <link rel="stylesheet" href="cssstuff/bootstrap.min.css" />
+        <link rel="stylesheet" href="cssstuff/site_2.css" />
+        <style>
+            .margined {
+                max-width: 1500px;
+            }
         </style>
-          <title class="maintitle">A.R.E.S Ripper</title>
-          <link rel="preconnect" href="https://fonts.gstatic.com">
-          <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,800&display=swap" rel="stylesheet">
-       </head>
-       <body>
-       <a href="https://github.com/LargestBoi/A.R.E.S" class='title-header' class='getmainpage'><h1 class='getmainpage'>A.R.E.S Ripper<h1></a>
-    
-    
-       </section>
-    
-    """
-        for x in avatars:
-          html += f"""<div id = 'avatar-container' loading='lazy' ><img class='avatar-image' loading='lazy' src='{x[8]}'width='300' height='230'><p class='avatar-releasestatus' loading='lazy' ></p><a  loading='lazy' class='avatar-name'>{x[2]}</a><a  loading='lazy' class='avatar-id' >{x[1]}</a></div>"""
-        html += """\n      </body>
-    </html>"""
-        with open(f"{base}\\avatars.html", "w+", encoding="utf-8") as kl:
-                kl.write(html)
-    except:
-        traceback.print_exc()
+
+
+    </head>
+
+<body>
+    <button onclick="topFunction()" id="topbtn" title="Go to top">Top</button>
+    <script>
+        //Get the button:
+        mybutton = document.getElementById("topbtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            var a = document.documentElement.scrollTop;
+            var b = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var c = a / b;
+            var sspost = c
+            localStorage && (localStorage.scrollheight = sspost);
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+        function backscroll() {
+            if (localStorage && 'scrollheight' in localStorage) {
+                var sspost = localStorage.scrollheight;
+                }
+            document.body.scrollTop = sspost; // For Safari
+            document.documentElement.scrollTop = sspost; // For Chrome, Firefox, IE and Opera
+        }
+
+    </script>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="/">A.R.E.S Results</a>
+                <button class="button-color" onclick="showadvanced()">Show Advanced view</button>
+                <button class="button-color" onclick="hideadvanced()">Hide Advanced view</button>
+            </div>
+        </nav>
+    </header>
+    <script>
+    /* hide class post-author if clicked once and show if clicked again*/
+    function showadvanced() {
+        var x = document.getElementsByClassName("post-author");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+        var x = document.getElementsByClassName("post-status");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+        var x = document.getElementsByClassName("post-asseturls");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+        var x = document.getElementsByClassName("post-time");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+    }
+    function hideadvanced() {
+        var x = document.getElementsByClassName("post-author");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        var x = document.getElementsByClassName("post-status");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        var x = document.getElementsByClassName("post-asseturls");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        var x = document.getElementsByClassName("post-time");
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+    }
+    /* copy to clipboard from current class copybutton*/
+    </script>
+
+<div class="wrapper">
+	<div class="grid">
+        """
+    for avi in avis:
+        idd += 1
+        readabletiome = dateparser.parse(avi[0]).strftime("%Y-%m-%d %H:%M:%S")
+        if avi[11] == "private":
+            statustext = '<b class="" style="color:red;">private &#128308;'
+        else:
+            statustext = '<b class="" style="color:green;">public &#128994;'
+        strr1 = f"""
+			<div class="k-card">
+					<div class="k-card-body shadow">
+						<div class="k-card-images">
+                            <img class="k-card-img" src="{sanatize(str(avi[8]))}" alt="Avatar Image" class="k-card-image loading="lazy"">
+						</div>
+						<div class="k-card-data">
+							<span class="post-name">{sanatize(str(avi[2]))}</span>
+							<br />
+							<span class="post-author">Avatar Author: <b class="">{sanatize(str(avi[5]))}</b></span>
+                            <span class="post-avatar_id">Avatar ID: </b><button class="avataridbutton" id="{sanatize(str(idd))}" onclick="copytoclipboard({sanatize(str(idd))})">{sanatize(str(avi[1]))}</button></span>
+                            <span class="post-status">STATUS: {statustext}</b></span>
+                            PCgfnbfgn
+							<div class="post-link">
+								<span class="post-time">{sanatize(str(readabletiome))}</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+"""
+        asstype = ""
+        if avi[6] != "None":
+            asstype += "PC"
+        if asstype != "":
+            if avi[7] != "None":
+                asstype += " | "
+        if avi[7] != "None":
+            asstype += "Quest"
+        # print(asstype)
+        strr1 = strr1.replace("PCgfnbfgn",
+                              f"""<span class="post-asseturls">Asset Type(s): {sanatize(str(asstype))}</b></span>""")
+        strr += strr1
+    strr += """	</div>
+</div>
+<script>
+function copytoclipboard(id) {
+    var copyText = document.getElementById(id);
+    var txt = copyText.textContent || copyText.innerText;
+    fallbackCopyTextToClipboard(txt);
+    alert("Copied ID: " + txt);
+}
+
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+  }
+  function copyTextToClipboard(text) {
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(text);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err);
+    });
+  }
+
+  var copyBobBtn = document.querySelector('.js-copy-bob-btn'),
+    copyJaneBtn = document.querySelector('.js-copy-jane-btn');
+
+  copyBobBtn.addEventListener('click', function(event) {
+    copyTextToClipboard('Bob');
+  });
+
+
+  copyJaneBtn.addEventListener('click', function(event) {
+    copyTextToClipboard('Jane');
+  });
+</script>
+
+        </main>
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container-fluid margined" style="color: lightgray;">
+            &copy; A.R.E.S BiG PEEN <span style="float: right; color: #ef00ff;"
+                                                                           id="cn-ct"></span>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>"""
+    with open("avatars.html", "w", errors="ignore") as f:
+        f.write(strr)
+
+
+def sanatize(sss):
+    sss = html.escape(sss)
+    return sss

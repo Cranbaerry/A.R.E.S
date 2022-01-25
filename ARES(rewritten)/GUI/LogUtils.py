@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from PyQt5.QtGui import *
 #Importing ARES modules
-from GenerateHTML import makehtml
+from GenerateHTML import genhtml
 #Allows the log sice to be retrieved and returned
 def InitLogUtils():
     global BaseD
@@ -24,17 +24,18 @@ def DeleteLog():
             os.remove("Log.txt")
 def BrowserViewLoad(cls):
     try:
-        makehtml(BaseD,cls.Avatars)
-        with open(f'{BaseD}\\avatars.html','r+',errors='ignore') as av:
-            Page = av.read()
-        cls.BrowserWindow.setHtml(Page)
-        cls.MainTab.setTabVisible(1, True)
-        cls.MainTab.setCurrentIndex(1)
+        genhtml(cls.Avatars)
+        LoadToBrowser(cls)
+        #with open(f'{BaseD}\\avatars.html','r+',errors='ignore') as av:
+            #Page = av.read()
+        #cls.BrowserWindow.setHtml(Page)
+        #cls.MainTab.setTabVisible(1, True)
+        #cls.MainTab.setCurrentIndex(1)
     except:
         traceback.print_exc()
 def LoadToBrowser(cls):
     os.system("start avatars.html")
-    cls.MainTab.setCurrentIndex(0)
+    #cls.MainTab.setCurrentIndex(0)
 
 def CallUpdateStats(key,cls):
     threading.Thread(target=UpdateStats,args=(key,cls)).start()
