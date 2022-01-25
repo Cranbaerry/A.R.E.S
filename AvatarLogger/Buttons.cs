@@ -1,5 +1,6 @@
 ﻿//Importing reqired modules
 using System;
+using System.IO;
 using UnityEngine;
 using System.Threading;
 using System.Diagnostics;
@@ -45,11 +46,12 @@ namespace Buttons
             LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
             LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
             ReMenuPage FPage = TabPage.AddMenuPage("ARES Functions", "Use the other features within ARES");
+            FPage.AddButton("Open ARES GUI", "Opens the ARES GUI on your desktop!", delegate { OpenGUI(); });
             FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
             FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
             FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
-            FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
+            FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
             FPage.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
             MelonLogger.Msg("Ui ready!");
         }
@@ -128,6 +130,41 @@ namespace Buttons
             {
                 MelonLogger.Msg($"Invalid Avatar ID!");
             }
+        }
+        //Launches the ARES GUI from VRChat
+        public static void OpenGUI()
+        {
+            //Kills confliciting instances/applications
+            foreach (var process in Process.GetProcessesByName("ARES"))
+            {
+                process.Kill();
+                MelonLogger.Log("Pre-existant ARES closed!");
+            }
+            foreach (var process in Process.GetProcessesByName("HOTSWAP"))
+            {
+                process.Kill();
+                MelonLogger.Log("Pre-existant HOTSWAP closed!");
+            }
+            foreach (var process in Process.GetProcessesByName("Unity Hub"))
+            {
+                process.Kill();
+                MelonLogger.Log("Pre-existant Unity Hub closed!");
+            }
+            foreach (var process in Process.GetProcessesByName("Unity"))
+            {
+                process.Kill();
+                MelonLogger.Log("Pre-existant Unity closed!");
+            }
+            foreach (var process in Process.GetProcessesByName("AssetRipperConsole"))
+            {
+                process.Kill();
+                MelonLogger.Log("Pre-existant AssetRipperConsole closed!");
+            }
+            //Enters the GUI folder and runs it!
+            Directory.SetCurrentDirectory(MelonUtils.GameDirectory + "\\GUI\\");
+            Process.Start("ARES.exe");
+            Directory.SetCurrentDirectory(MelonUtils.GameDirectory);
+            MelonLogger.Log("ARES GUI Launched!");
         }
     }
 }
