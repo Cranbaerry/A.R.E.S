@@ -135,30 +135,66 @@ namespace Buttons
         public static void OpenGUI()
         {
             //Kills confliciting instances/applications
-            foreach (var process in Process.GetProcessesByName("ARES"))
+            try
             {
-                process.Kill();
-                MelonLogger.Log("Pre-existant ARES closed!");
+                foreach (Process proc in Process.GetProcessesByName("ARES"))
+                {
+                    proc.Kill();
+                    MelonLogger.Log("Pre-existant ARES closed!");
+                }
             }
-            foreach (var process in Process.GetProcessesByName("HOTSWAP"))
+            catch (Exception ex)
             {
-                process.Kill();
-                MelonLogger.Log("Pre-existant HOTSWAP closed!");
+                MelonLogger.Log("Error closing ARES :\n" + ex.Message);
             }
-            foreach (var process in Process.GetProcessesByName("Unity Hub"))
+            try
             {
-                process.Kill();
-                MelonLogger.Log("Pre-existant Unity Hub closed!");
+                foreach (Process proc in Process.GetProcessesByName("HOTSWAP"))
+                {
+                    proc.Kill();
+                    MelonLogger.Log("Pre-existant HOTSWAP closed!");
+                }
             }
-            foreach (var process in Process.GetProcessesByName("Unity"))
+            catch (Exception ex)
             {
-                process.Kill();
-                MelonLogger.Log("Pre-existant Unity closed!");
+                MelonLogger.Log("Error closing HOTSWAP :\n" + ex.Message);
             }
-            foreach (var process in Process.GetProcessesByName("AssetRipperConsole"))
+            try
             {
-                process.Kill();
-                MelonLogger.Log("Pre-existant AssetRipperConsole closed!");
+                foreach (Process proc in Process.GetProcessesByName("Unity"))
+                {
+                    proc.Kill();
+                    MelonLogger.Log("Pre-existant Unity closed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Log("Error closing Unity :\n" + ex.Message);
+            }
+            try
+            {
+                foreach (Process proc in Process.GetProcessesByName("Unity Hub"))
+                {
+                    proc.Kill();
+                    MelonLogger.Log("Pre-existant Unity Hub closed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Log("Error closing Unity Hub :\n" + ex.Message);
+            }
+
+            try
+            {
+                foreach (Process proc in Process.GetProcessesByName("AssetRipperConsole"))
+                {
+                    proc.Kill();
+                    MelonLogger.Log("Pre-existant AssetRipperConsole closed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Log("Error closing AssetRipperConsole :\n" + ex.Message);
             }
             //Enters the GUI folder and runs it!
             Directory.SetCurrentDirectory(MelonUtils.GameDirectory + "\\GUI\\");
