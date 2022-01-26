@@ -29,13 +29,21 @@ namespace Logging
                 if (!Config.LogPublicAvatars)
                 {
                     //Check to see if the avatar is public and refuse to log if so
-                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "public") { return; }
+                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "public")
+                    {
+                        if (Config.ConsoleError) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log public avatars disabled!"); }
+                        return; 
+                    }
                 }
                 //If logging of private avatars is disabled
                 if (!Config.LogPrivateAvatars)
                 {
                     //Check to see if the avatar is private and refuse to log if so
-                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "private") { return; }
+                    if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "private")
+                    {
+                        if (Config.ConsoleError) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log private avatars disabled!"); }
+                        return;
+                    }
                 }
                 //If logging own avatars is disabled
                 if (!Config.LogOwnAvatars)
