@@ -241,6 +241,7 @@ class Ui(QtWidgets.QMainWindow):
                     pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
                     self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
                     ErrorLog(self.Settings["Username"], traceback.format_exc())
+                    return
             self.LogWrapper("Starting hotswap on new thread...")
             threading.Thread(target=Hotswap, args=(self,)).start()
         except:
