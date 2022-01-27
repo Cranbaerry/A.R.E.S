@@ -361,14 +361,21 @@ class Ui(QtWidgets.QMainWindow):
                 os.chdir(self.BaseDir)
                 self.LogWrapper("Extracting loaded VRCA...")
             else:
-                self.LogWrapper("Extracting from log! Downloading avatar...")
-                DownloadVRCAFL(GetData(self.SelectedAvi, "PCAsset"), GetData(self.SelectedAvi, "QAsset"))
-                os.chdir("HOTSWAP")
-                shutil.move("Avatar.vrca",self.BaseDir + "\\Avatar.vrca")
-                os.chdir(self.BaseDir)
-                shutil.move("Avatar.vrca", "AssetRipperConsole_win64(ds5678)\\Avatar.vrca")
-                os.chdir(self.BaseDir)
-                self.LogWrapper("VRCA downloaded, continuing extract...")
+                try:
+                    self.LogWrapper("Extracting from log! Downloading avatar...")
+                    DownloadVRCAFL(GetData(self.SelectedAvi, "PCAsset"), GetData(self.SelectedAvi, "QAsset"))
+                    os.chdir("HOTSWAP")
+                    shutil.move("Avatar.vrca",self.BaseDir + "\\Avatar.vrca")
+                    os.chdir(self.BaseDir)
+                    shutil.move("Avatar.vrca", "AssetRipperConsole_win64(ds5678)\\Avatar.vrca")
+                    os.chdir(self.BaseDir)
+                    self.LogWrapper("VRCA downloaded, continuing extract...")
+                except:
+                    os.chdir(self.BaseDir)
+                    pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
+                    self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
+                    ErrorLog(self.Settings["Username"], traceback.format_exc())
+                    return
             if self.Algo1RB.isChecked():
                 ExtValue = "2019DLL"
             if self.Algo2RB.isChecked():
