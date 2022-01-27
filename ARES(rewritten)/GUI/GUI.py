@@ -230,11 +230,17 @@ class Ui(QtWidgets.QMainWindow):
                 shutil.copy(GetData(self.SelectedAvi, "PCAsset"),"HOTSWAP\\Avatar.vrca")
                 os.chdir(self.BaseDir)
             else:
-                self.LogWrapper("Hotswaping from log! Downloading avatar...")
-                DownloadVRCAFL(GetData(self.SelectedAvi,"PCAsset"),GetData(self.SelectedAvi,"QAsset"))
-                SetAviImage(GetData(self.SelectedAvi,"IMGURL"))
-                self.LogWrapper("VRCA downloaded, continuing hotswap...")
-                os.chdir(self.BaseDir)
+                try:
+                    self.LogWrapper("Hotswaping from log! Downloading avatar...")
+                    DownloadVRCAFL(GetData(self.SelectedAvi,"PCAsset"),GetData(self.SelectedAvi,"QAsset"))
+                    SetAviImage(GetData(self.SelectedAvi,"IMGURL"))
+                    self.LogWrapper("VRCA downloaded, continuing hotswap...")
+                    os.chdir(self.BaseDir)
+                except:
+                    os.chdir(self.BaseDir)
+                    pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
+                    self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
+                    ErrorLog(self.Settings["Username"], traceback.format_exc())
             self.LogWrapper("Starting hotswap on new thread...")
             threading.Thread(target=Hotswap, args=(self,)).start()
         except:
@@ -385,7 +391,9 @@ class Ui(QtWidgets.QMainWindow):
             self.DownloadVRCA.setEnabled(True)
         except:
             self.DownloadVRCA.setEnabled(True)
-            self.LogWrapper(f"An error occured while initiating the download of a VRCA: {traceback.format_exc()}")
+            pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
+            self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
+            ErrorLog(self.Settings["Username"], traceback.format_exc())
     #Goes to the next avatar in a loaded list
     def NextAvi(self):
         if self.AvatarIndex + 1 > self.MaxAvatar:
