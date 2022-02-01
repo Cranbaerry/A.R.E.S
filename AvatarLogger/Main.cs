@@ -58,8 +58,12 @@ namespace AvatarLogger
                 MelonLogger.Msg("Failed patches!");
             }
             //Starts lister to await Ui
-            MelonCoroutines.Start(FindUI());
-            MelonLogger.Msg("Listening for Ui...");
+            if (!Config.Stealth)
+            {
+                MelonCoroutines.Start(FindUI());
+                MelonLogger.Msg("Listening for Ui...");
+            }
+            else { MelonLogger.Msg("ARES running in stealth mode! To restore your in-game buttons enable 'Stealth' in the settings category in your GUI!"); }
         }
         //Wait till scene loads to being getting updated friends list
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)

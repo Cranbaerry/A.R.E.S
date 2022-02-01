@@ -24,17 +24,19 @@ Virus Totals:
 
 [ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
 
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/1c196ca1ad5fadd269544b83f9e2c2ac849b2adca7a7ca1ccc545fd244baeba6/summary)
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/80f0b3cdc54049cfa2b19cf0121f26a5357213fce32f1660d5095ee3e3d07519/summary)
 
 [UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
 
 [ARES.Updater.exe](https://www.virustotal.com/gui/file/22005073a5752a79faf0c687bfb81e1ec8d9504611e920f5332858aa041beeba/summary)
 
-[V10 GUI RAR](https://www.virustotal.com/gui/file/8b9dcbffd49ce405f9226140e6a93b4be34b9e0c11c302d2b5bb1c42216b08fe/summary)
+[V10 GUI RAR](https://www.virustotal.com/gui/file/2ab8e4be0acf7f4a813461abee6725348b383c0b63de5d261fa11f18a68e767e/summary)
 
 [DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/01935efa6b145adaafc190249e122c8b01f89df805f301036099ea0e015425b9/summary)
 
 Features:
+
+    -Stealth mode to ensure all in-game buttons are hidden!
 
     -Copy instance IDs and join by them by clipboard
 
@@ -82,11 +84,13 @@ Step Two: [Copy the files into your VRChat folder](https://i.imgur.com/izsyjz8.g
 
 Step Three: Run VRChat and allow the plugin to fully install the mod, you can now configure your settings by clicking [here](https://i.imgur.com/iXi8VXv.png) then [here](https://i.imgur.com/3y0XZeJ.png) brining you to the [settings screen](https://i.imgur.com/nyV5Sse.png).
 
-Info: From here onwards you can open ARES via the [ARES.exe](https://i.imgur.com/F3NDgCb.png) in your [GUI Folder](https://i.imgur.com/ovleFKV.png)!
-
 Step Four: [Run the "ARES.Updater.exe"](https://i.imgur.com/XfHDP2Z.gif), this will install the GUI and launch into it for a first time setup where you must select your Unity 2019.4.31f1 exe, follow the steps [here](https://rentry.org/LargestGithubSupportUnityInst) to ensure you have the correct unity installation!
 
 Step Five: After pressing okay [here](https://i.imgur.com/LgHbHJQ.png) find your exe and [select it](https://i.imgur.com/BydfbV8.png)!
+
+Step Six: Press "OK" on [this](https://i.imgur.com/gqKcHNn.png) screen, this will begin creating your HSB, if you don't know what you are doing press [original](https://i.imgur.com/NpcDrMu.png) here to use the regular VRCSDK! If you know what you are doing and want to use a custom SDK just select custom and choose your SDK of choice!
+
+Info: From here onwards you can open ARES via the [ARES.exe](https://i.imgur.com/F3NDgCb.png) in your [GUI Folder](https://i.imgur.com/ovleFKV.png)!
 
 ARES is now setup, working and ready to use, however there are some extra steps to gain API access to see a databse of avatars logged by all ARES users!
 
@@ -105,7 +109,5 @@ Issues? Open an issue in the "Issues" tab, We will do our best to resolve your i
 License:
 
 For other software used within the project please refer to the LICENSE folder in our release binaries and GitHub repos.
-
-VRChat avatar SDK is included within our HSB package, this entirely belongs to VRChat and we do not own it.
 
 [GNU GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html)

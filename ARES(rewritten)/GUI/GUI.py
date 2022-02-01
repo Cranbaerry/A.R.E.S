@@ -64,6 +64,8 @@ class Ui(QtWidgets.QMainWindow):
         self.BrowserViewBut.clicked.connect(lambda: BrowserViewLoad(self))
         self.LTBB = self.findChild(QtWidgets.QPushButton, 'LoadToBrowserButton')
         self.LTBB.clicked.connect(lambda: LoadToBrowser(self))
+        self.TSB = self.findChild(QtWidgets.QPushButton, 'ToggleStealthButton')
+        self.TSB.clicked.connect(self.StealthToggle)
         #Prepares browser
         self.BrowserWindow = self.findChild(QWebEngineView, 'Browser')
         #Prepares text boxes
@@ -86,6 +88,7 @@ class Ui(QtWidgets.QMainWindow):
         self.UUSL.setScaledContents(True)
         self.StatusL = self.findChild(QtWidgets.QLabel, 'StatuLabel')
         self.StatusL.setScaledContents(True)
+        self.SSL = self.findChild(QtWidgets.QLabel, 'StealthStatusLabel')
         #Prepares radio buttons
         self.AvatarNameRB = self.findChild(QtWidgets.QRadioButton, 'AvatarNameRB')
         self.AvatarAuthorRB = self.findChild(QtWidgets.QRadioButton, 'AvatarAuthorRB')
@@ -129,14 +132,23 @@ class Ui(QtWidgets.QMainWindow):
                 self.LogWrapper(f"Unity selected: {self.UPath}")
                 s.write(json.dumps(dd, indent=4))
             EventLog("Settings saved!")
+            EventLog("HSB creation started...")
         self.MainTab.setTabVisible(1, False)
         #Loads the settings into the application
         self.Settings = GetSettings()
+        if not os.path.isfile("HSBC.rar"):
+            pymsgbox.alert("HSB will now be created!")
+        if not CreateHSB(self.Settings["Unity_Exe"]):
+            pymsgbox.alert("Error in HSB creation, setup halted and ARES will now close, check your latest.log for more info!")
+            if os.path.isfile("Settings.json"):
+                os.remove("Settings.json")
+            CleanExit()
         #Sets API status label and logs its status to the console
         if self.Settings["SendToAPI"] == True:
             self.APIStatus.setText("API Enabled!")
             self.LogWrapper(f"Key registered!")
-            if ModCheck():
+            self.SSL.setText("NA")
+            if ModInstalled():
                 KCV = ""
                 try:
                     KCV = KeyCheck(self.Settings["Username"])
@@ -164,9 +176,27 @@ class Ui(QtWidgets.QMainWindow):
             self.APIStatus.setText("API Disabled!")
             self.LogWrapper("API is disabled on startup")
             self.MainTab.setTabVisible(2, False)
+        if ModInstalled():
+            self.ModSettings = GetModSettings()
+            if self.ModSettings["Stealth"] == False:
+                self.SSL.setText("Off")
+            else:
+                self.SSL.setText("On")
         #Gets the log size and displays it within a label
         self.LogWrapperSize.setText(LogSize())
         self.LogWrapper("Settings loaded!")
+    def StealthToggle(self):
+        if ModInstalled():
+            if self.ModSettings["Stealth"] == True:
+                NV = False
+                self.SSL.setText("Off")
+            else:
+                NV = True
+                self.SSL.setText("On")
+            self.ModSettings["Stealth"] = NV
+            SaveModSettings(self.ModSettings)
+        else:
+            pymsgbox.alert("Mod not installed, setting cannot be changed!")
     #Allows the stored unity directory to be changed
     def ChangeUnityF(self):
         self.Settings["Unity_Exe"] = QFileDialog.getOpenFileName(self, 'Select Unity.exe', 'Unity', "EXE Files (*.exe)")[0]
@@ -241,6 +271,7 @@ class Ui(QtWidgets.QMainWindow):
                     pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
                     self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
                     ErrorLog(self.Settings["Username"], traceback.format_exc())
+                    self.Hotswap.setEnabled(True)
                     return
             self.LogWrapper("Starting hotswap on new thread...")
             threading.Thread(target=Hotswap, args=(self,)).start()
@@ -375,6 +406,7 @@ class Ui(QtWidgets.QMainWindow):
                     pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
                     self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
                     ErrorLog(self.Settings["Username"], traceback.format_exc())
+                    self.ExtVRCA.setEnabled(True)
                     return
             if self.Algo1RB.isChecked():
                 ExtValue = "2019DLL"

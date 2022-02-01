@@ -42,10 +42,22 @@ def IsSetup():
 def GetSettings():
     with open("Settings.json", "r+") as s:
         return json.loads(s.read())
+#Gets the settings information
+def GetModSettings():
+    os.chdir("..")
+    with open("UserData\\ARESConfig.json", "r+") as s:
+        os.chdir(BaseD)
+        return json.loads(s.read())
 #Saves the settings provided to the settings file
 def SaveSettings(settings):
     with open("Settings.json", "w+") as s:
         s.write(json.dumps(settings, indent=4))
+#Saves the settings provided to the settings file
+def SaveModSettings(settings):
+    os.chdir("..")
+    with open("UserData\\ARESConfig.json", "w+") as s:
+        s.write(json.dumps(settings, indent=2))
+        os.chdir(BaseD)
 #Logs events
 def EventLog(Data):
     log = f'{str(datetime.datetime.now())} | {Data}'
@@ -90,7 +102,7 @@ def SetAviImage(ImageURL):
     }
     data = requests.request("GET", ImageURL, data=payload, headers=headers, stream=True)
     # Writes content to file
-    with open(f"{BaseD}\\HSB\\Assets\\Logo.png", "wb") as v:
+    with open(f"{BaseD}\\HSB\\HSB\\Assets\\ARES SMART\\Resources\\ARESLogoTex.png", "wb") as v:
         v.write(data.content)
 def LoadLog():
     try:
@@ -118,6 +130,12 @@ def ModCheck():
         with open(VRCroot + "Plugins\\ARESPlugin.dll", 'wb') as f:
             f.write(PluginData.content)
         return True
+def ModInstalled():
+    VRCroot = BaseD.replace("GUI", "")
+    if os.path.isfile(VRCroot + "Plugins\\ARESPlugin.dll"):
+        return True
+    else:
+         return False
 #Cleanly exits ARES and any other possibly conflicting software
 def CleanExit():
     try:

@@ -130,7 +130,7 @@ namespace Logging
                     //Adjust counter values to whatever the avatrs relese status is
                     string rs = playerHashtable["avatarDict"]["releaseStatus"].ToString();
                     if (rs == "public") { Pub = Pub + 1; };
-                    if (rs == "private") { Pri = Pri = 1; };
+                    if (rs == "private") { Pri = Pri + 1; };
                     //The last variables extracted are the tags of the avatar, these are added by the avatar uploader or by VRChat administrators/developers,
                     //they are initally stored as an array, if no tags are set the if statemnt will just continue with its else
                     if (playerHashtable["avatarDict"]["tags"].Count > 0)

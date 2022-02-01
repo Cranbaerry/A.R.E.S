@@ -8,6 +8,7 @@ namespace AvatarLogger
 {
     public class Config
     {
+        public bool Stealth { get; set; } = false;
         public bool LogAvatars { get; set; } = true;
         public bool LogFriendsAvatars { get; set; } = false;
         public bool LogOwnAvatars { get; set; } = false;
