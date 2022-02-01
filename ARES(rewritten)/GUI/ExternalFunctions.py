@@ -6,7 +6,7 @@ import os, shutil, tempfile, pymsgbox, requests, re, textwrap, time, traceback
 #Importing ARES modules
 from CoreUtils import *
 #Allows for the creation and execution of the HSB package
-def CreateHSB(UnityPath):
+def CreateHSB(UnityPath,key):
     try:
         if os.path.isfile("HSBC.rar"):
             return True
@@ -43,7 +43,8 @@ def CreateHSB(UnityPath):
         pymsgbox.alert("Succesfully created HSB!")
         return True
     except:
-        ErrorLog(f"Error in HSB creation:\n{traceback.format_exc()}")
+        EventLog("Error in HSB creation:\n{traceback.format_exc()}")
+        ErrorLog(key,f"Error in HSB creation:\n{traceback.format_exc()}")
         return False
 def OpenUnity(UnityPath,cla):
     Base = os.getcwd()

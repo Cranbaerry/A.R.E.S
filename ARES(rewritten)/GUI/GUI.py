@@ -138,7 +138,7 @@ class Ui(QtWidgets.QMainWindow):
         self.Settings = GetSettings()
         if not os.path.isfile("HSBC.rar"):
             pymsgbox.alert("HSB will now be created!")
-        if not CreateHSB(self.Settings["Unity_Exe"]):
+        if not CreateHSB(self.Settings["Username"], self.Settings["Unity_Exe"]):
             pymsgbox.alert("Error in HSB creation, setup halted and ARES will now close, check your latest.log for more info!")
             if os.path.isfile("Settings.json"):
                 os.remove("Settings.json")
