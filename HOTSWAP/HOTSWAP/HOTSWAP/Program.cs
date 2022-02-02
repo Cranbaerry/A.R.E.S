@@ -25,6 +25,8 @@ namespace HOTSWAP
             bundle.reader.Close();
             Console.WriteLine($"88.8% Bundle closed!");
             bundleInst.file = newBundle;
+            bundleStream.Flush();
+            bundleStream.Close();
             Console.WriteLine($"100% Bundle instance cleaned!");
         }
         //Creates function allowing it to be used with string imputs
