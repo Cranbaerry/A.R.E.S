@@ -147,7 +147,7 @@ namespace Logging
                     //If there are no tags present the default text "Tags: None" is written into the log file
                     else { File.AppendAllText(AvatarFile, "Tags: None"); }
                     //Inform the user of the successful log
-                    if (Config.LogToConsole) { MelonLogger.Msg($"Logged: {playerHashtable["user"]["displayName"]}'s avatar:  {playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]}!"); }
+                    if (Config.LogToConsole) { MelonLogger.Msg($"Logged: {playerHashtable["user"]["displayName"]}'s avatar ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!"); }
                     File.AppendAllText(AvatarFile, "\n\n");
                 }
             }
