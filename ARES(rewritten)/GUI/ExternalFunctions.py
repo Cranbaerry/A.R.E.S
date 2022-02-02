@@ -6,7 +6,7 @@ import os, shutil, tempfile, pymsgbox, requests, re, textwrap, time, traceback
 #Importing ARES modules
 from CoreUtils import *
 #Allows for the creation and execution of the HSB package
-def CreateHSB(UnityPath,key):
+def CreateHSB(key,UnityPath):
     try:
         if os.path.isfile("HSBC.rar"):
             return True
