@@ -112,6 +112,8 @@ class Ui(QtWidgets.QMainWindow):
         self.TagsShow.clicked.connect(self.ShowTags)
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
+        #Dummy print
+        print("10.3")
         #Checks if the app is set up correctly, if not run first time setup
         InitCore()
         InitLogUtils()
