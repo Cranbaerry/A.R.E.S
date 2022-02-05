@@ -258,27 +258,33 @@ class Ui(QtWidgets.QMainWindow):
             self.LogWrapper("Started hotswap process...")
             #Disables button to avoid spam
             self.Hotswap.setEnabled(False)
-            self.LogWrapper("Deciding asset URL...")
-            if GetData(self.SelectedAvi, "TimeDetected") == "VRCA":
-                self.LogWrapper("Hotswaping from loaded VRCA...")
-                shutil.copy(GetData(self.SelectedAvi, "PCAsset"),"HOTSWAP\\Avatar.vrca")
-                os.chdir(self.BaseDir)
+            self.LogWrapper("Dummy cheking...")
+            if os.path.isfile(f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca"):
+                self.LogWrapper("Deciding asset URL...")
+                if GetData(self.SelectedAvi, "TimeDetected") == "VRCA":
+                    self.LogWrapper("Hotswaping from loaded VRCA...")
+                    shutil.copy(GetData(self.SelectedAvi, "PCAsset"),"HOTSWAP\\Avatar.vrca")
+                    os.chdir(self.BaseDir)
+                else:
+                    try:
+                        self.LogWrapper("Hotswaping from log! Downloading avatar...")
+                        DownloadVRCAFL(GetData(self.SelectedAvi,"PCAsset"),GetData(self.SelectedAvi,"QAsset"))
+                        SetAviImage(GetData(self.SelectedAvi,"IMGURL"))
+                        self.LogWrapper("VRCA downloaded, continuing hotswap...")
+                        os.chdir(self.BaseDir)
+                    except:
+                        os.chdir(self.BaseDir)
+                        pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
+                        self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
+                        ErrorLog(self.Settings["Username"], traceback.format_exc())
+                        self.Hotswap.setEnabled(True)
+                        return
+                self.LogWrapper("Starting hotswap on new thread...")
+                threading.Thread(target=Hotswap, args=(self,)).start()
             else:
-                try:
-                    self.LogWrapper("Hotswaping from log! Downloading avatar...")
-                    DownloadVRCAFL(GetData(self.SelectedAvi,"PCAsset"),GetData(self.SelectedAvi,"QAsset"))
-                    SetAviImage(GetData(self.SelectedAvi,"IMGURL"))
-                    self.LogWrapper("VRCA downloaded, continuing hotswap...")
-                    os.chdir(self.BaseDir)
-                except:
-                    os.chdir(self.BaseDir)
-                    pymsgbox.alert("Error occured in downloading VRCA, this means the avatar could be deleted!")
-                    self.LogWrapper(f"Error occured in downloading VRCA, this means the avatar could be deleted!:\n {traceback.format_exc()}")
-                    ErrorLog(self.Settings["Username"], traceback.format_exc())
-                    self.Hotswap.setEnabled(True)
-                    return
-            self.LogWrapper("Starting hotswap on new thread...")
-            threading.Thread(target=Hotswap, args=(self,)).start()
+                self.LogWrapper("No dummy!")
+                pymsgbox.alert("There is no dummy VRCA to proceed with the hotswap, please open unity via ARES and create one!")
+                self.Hotswap.setEnabled(True)
         except:
             self.LogWrapper(f"Error occured during hotswap process!\n{traceback.format_exc()}")
             ErrorLog(self.Settings["Username"],traceback.format_exc())
