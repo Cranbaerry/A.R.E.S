@@ -26,7 +26,7 @@ Virus Totals:
 
 [ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
 
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/bf07e0162ac702ca283ac689a4bcec3e7693dfa2e88e053cc0b486e61391e1e0/summary)
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/020b2e94980466568839c8ff513189bfbef6d933099807583b1f98911b693d09/summary)
 
 [UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
 
@@ -37,6 +37,8 @@ Virus Totals:
 [DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/01935efa6b145adaafc190249e122c8b01f89df805f301036099ea0e015425b9/summary)
 
 Features:
+
+    -Unlimted avatar favorites (Can be disabled)
 
     -Stealth mode to ensure all in-game buttons are hidden!
 

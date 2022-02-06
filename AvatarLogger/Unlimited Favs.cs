@@ -48,7 +48,7 @@ namespace AvatarLogger.AvatarFavorites
             newFavList.transform.SetAsFirstSibling();
             newFavList.clearUnseenListOnCollapse = false;
             newFavList.field_Public_Category_0 = UiAvatarList.Category.SpecificList;
-            newFavList.GetComponentInChildren<Text>().text = "ARES Favorites.";
+            newFavList.GetComponentInChildren<Text>().text = "ARES Favorites ;-;";
             //Creates buttons for favorites system to work
             GameObject NewFavButton = UnityEngine.Object.Instantiate<GameObject>(VRCUiManager.prop_VRCUiManager_0.field_Public_GameObject_0.transform.Find("Screens/Avatar/Favorite Button").gameObject, VRCUiManager.prop_VRCUiManager_0.field_Public_GameObject_0.transform.Find("Screens/Avatar/"));
             NewFavButton.GetComponentInChildren<RectTransform>().localPosition = new Vector3(238.9283f, 372.6159f, -2);
