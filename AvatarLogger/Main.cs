@@ -1,5 +1,6 @@
 ﻿//Inporting all refernces used within the mod
 using System;
+using System.IO;
 using System.Collections.Generic;
 using MelonLoader;
 using VRC.Core;
@@ -11,10 +12,9 @@ using static Logging.Logging;
 using static BaseFuncs.BaseFuncs;
 using static Patches.Patches;
 using static Buttons.Buttons;
-using System.Threading;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "3.7", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4", "By LargestBoi, Yui and Afton")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger
@@ -38,6 +38,9 @@ namespace AvatarLogger
         //Void to run on application start
         public override void OnApplicationStart()
         {
+            //Create file for ARES favorites
+            if (!File.Exists("UserData/ARES_Favorites_config.json"))
+                File.Create("UserData/ARES_Favorites_config.json");
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll");

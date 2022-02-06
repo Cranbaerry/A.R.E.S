@@ -44,10 +44,15 @@ def GetSettings():
         return json.loads(s.read())
 #Gets the settings information
 def GetModSettings():
-    os.chdir("..")
-    with open("UserData\\ARESConfig.json", "r+") as s:
+    try:
+        os.chdir("..")
+        with open("UserData\\ARESConfig.json", "r+") as s:
+            os.chdir(BaseD)
+            return json.loads(s.read())
+    except:
         os.chdir(BaseD)
-        return json.loads(s.read())
+        pymsgbox.alert("Please run your game to ensure the mod can create the files reqired to communicate with the GUI! The application will now quit!")
+        CleanExit()
 #Saves the settings provided to the settings file
 def SaveSettings(settings):
     with open("Settings.json", "w+") as s:

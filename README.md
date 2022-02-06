@@ -6,6 +6,8 @@ Thx to Yui, they have chosen not to be marked as a developer on the project when
 
 Thx to [Blaze](https://github.com/WTFBlaze) for helping me fix a few bugs within the wear avatar by ID button added in V10!
 
+Thx to Afton (He doesn't have a GitHub ;-;) for helping me create the unlimited avatar favorites!
+
 Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
 Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/RequiDev/ReMod.Core), we use this as our button API within ARES!
@@ -24,13 +26,13 @@ Virus Totals:
 
 [ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
 
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/80f0b3cdc54049cfa2b19cf0121f26a5357213fce32f1660d5095ee3e3d07519/summary)
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/bf07e0162ac702ca283ac689a4bcec3e7693dfa2e88e053cc0b486e61391e1e0/summary)
 
 [UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
 
 [ARES.Updater.exe](https://www.virustotal.com/gui/file/22005073a5752a79faf0c687bfb81e1ec8d9504611e920f5332858aa041beeba/summary)
 
-[V10.3 GUI RAR](https://www.virustotal.com/gui/file/6b6e343b08f4cfd0763a963f87a0d48db14925647c0646b6da0e89082f73899a/summary)
+[V10.3 GUI RAR](https://www.virustotal.com/gui/file/cba8f741989015f50b69e84bfe8b4636835dd691ee5797f5068f6a12e329c856/summary)
 
 [DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/01935efa6b145adaafc190249e122c8b01f89df805f301036099ea0e015425b9/summary)
 

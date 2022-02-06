@@ -13,6 +13,7 @@ using VRC.UI;
 using ComfyUtils;
 using static BaseFuncs.BaseFuncs;
 using static AvatarLogger.Main;
+using AvatarLogger.AvatarFavorites;
 //Contains all code responsible for creating buttons/in-game Ui elements
 namespace Buttons
 {
@@ -35,6 +36,12 @@ namespace Buttons
         public static void OnUiManagerInit()
         {
             MelonLogger.Msg("Ui initiating...");
+            if (Config.UnlimitedFavorites)
+            {
+                UnlimitedFavorites.UI();
+                MelonCoroutines.Start(UnlimitedFavorites.RefreshMenu(1f));
+                MelonLogger.Msg("ARES Favorites Go BRRR");
+            }
             ReMenuPage TabPage = new ReMenuPage("ARES", true);
             ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
             ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
@@ -53,6 +60,7 @@ namespace Buttons
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
             FPage.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
+            FPage.AddToggle("Unlimited Avatar Favorites", "Pretty self explanitory innit? (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
             FPage.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
             MelonLogger.Msg("Ui ready!");
         }

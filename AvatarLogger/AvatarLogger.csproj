@@ -100,10 +100,13 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ConfigHelper.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderElement.cs" />
+    <Compile Include="Unlimited Favs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
