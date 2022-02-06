@@ -134,7 +134,6 @@ body {
     color: darkgrey;
     font-size: 0.75em;
     padding-bottom: 1em;
-    display: none;
 }
 
 .post-avatar_id {
@@ -203,21 +202,18 @@ body {
     color: darkgrey;
     font-size: 0.75em;
     padding-bottom: 1em;
-    display: none;
 }
 
 .post-asseturls {
     color: darkgrey;
     font-size: 0.75em;
     padding-bottom: 1em;
-    display: none;
 }
 
 .post-time {
     color: darkgrey;
     font-size: 0.75em;
     padding-bottom: 1em;
-    display: none;
 }
 
 
