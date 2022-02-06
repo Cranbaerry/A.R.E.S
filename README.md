@@ -26,7 +26,7 @@ Virus Totals:
 
 [ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
 
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/020b2e94980466568839c8ff513189bfbef6d933099807583b1f98911b693d09/summary)
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/a67fce29f4dae39c19a17566ede12cd1dbcac21905531354eee3a1c1a50e3155/summary)
 
 [UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
 
