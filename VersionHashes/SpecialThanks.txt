@@ -6,6 +6,6 @@ Jeremy for Asset Ripper:
 nesrak1 for AssetsTools.NET:
  -https://github.com/nesrak1/AssetsTools.NET
 GitHub:
- -https://github.com/LargestBoi/A.R.E.S
+ -https://github.com/cassell1337/A.R.E.S
 Wanna join the community?
  -https://discord.gg/dhSdMsfgWe

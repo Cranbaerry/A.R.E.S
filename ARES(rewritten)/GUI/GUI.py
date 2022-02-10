@@ -113,7 +113,7 @@ class Ui(QtWidgets.QMainWindow):
         #Getting special thanks from our pastebin and displaying it
         self.SpecialThanks.appendPlainText(GetSpecialThanks())
         #Dummy print
-        print("10.3")
+        print("10.3 fix212")
         #Checks if the app is set up correctly, if not run first time setup
         InitCore()
         InitLogUtils()
