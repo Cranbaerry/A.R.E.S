@@ -1,66 +1,67 @@
 import requests, re
 from LogUtils import *
+from CoreUtils import LoadLog,EventLog
 
 def check_quary_avatar_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar[2].lower():
+        if term.lower() in avatar["AvatarName"].lower():
             new.append(avatar)
     return new
 
 def check_quary_author_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar[5].lower():
+        if term.lower() in avatar["AuthorName"].lower():
             new.append(avatar)
     return new
 
 def check_quary_AvatarID_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar[1].lower():
+        if term.lower() in avatar["AvatarID"].lower():
             new.append(avatar)
     return new
 
 def check_quary_AuthorID_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar[4].lower():
+        if term.lower() in avatar["AuthorID"].lower():
             new.append(avatar)
     return new
 
 def check_private(avatars):
     new = []
     for avatar in avatars:
-        if str(avatar[11]).lower() == "private":
+        if str(avatar["Releasestatus"]).lower() == "private":
             new.append(avatar)
     return new
 
 def check_public(avatars):
     new = []
     for avatar in avatars:
-        if str(avatar[11]).lower() == "public":
+        if str(avatar["Releasestatus"]).lower() == "public":
             new.append(avatar)
     return new
 
 def check_pc_asset(avatars):
     new = []
     for avatar in avatars:
-        if avatar[6] != "None":
+        if avatar["PCAssetURL"] != "None":
             new.append(avatar)
     return new
 
 def check_quest_assets(avatars):
     new = []
     for avatar in avatars:
-        if avatar[7] != "None":
+        if avatar["QUESTAssetURL"] != "None":
             new.append(avatar)
     return new
 
 def check_both_assets(avatars):
     new = []
     for avatar in avatars:
-        if avatar[7] != "None" and avatar[6] != "None":
+        if avatar["QUESTAssetURL"] != "None" and avatar["PCAssetURL"] != "None":
             new.append(avatar)
     return new
 
@@ -68,7 +69,7 @@ def check_tags(tags, avatars):
     new = []
     for avatar in avatars:
         for tag in tags:
-            if tag.lower() in avatar[12].lower():
+            if tag.lower() in avatar["Tags"].lower():
                 if avatar not in new:
                     new.append(avatar)
     return new
@@ -136,14 +137,22 @@ def get_avatars_list_api(query, filters={}):
         'Accept-Language': 'en-US,en;q=0.9',
     }
 
-    data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
+    #data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
+    if filters["Avatar id"]:
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AvatarID,eq,' + query
 
-    response = requests.post('http://api.avataruploader.tk/search', headers=headers, json=data)
+    if filters["Avatar author"]:
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AuthorName,eq,' + query
+
+    if filters["Avatar name"]:
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AvatarName,eq,' + query
+
+    response = requests.get(url)
     IDList = []
     cleanarr = []
-    for x in response.json():
-        if x[1] not in IDList:
-            IDList.append(x[1])
+    for x in response.json()["records"]:
+        if x["AvatarID"] not in IDList:
+            IDList.append(x["AvatarID"])
             cleanarr.append(x)
     return cleanarr
 

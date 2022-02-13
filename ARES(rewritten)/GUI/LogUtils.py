@@ -133,38 +133,38 @@ def DecideAssetURL(PC,Q):
 #Cleans text to appear in the RawData preview
 def CleanText(data):
     try:
-        Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data[0])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
+        Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data["TimeDetected"])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:T\nTags:{data["Tags"]}"""
     except:
-        Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
+        Klean = f"""Time Detected:{data["TimeDetected"]}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:TBC\nTags:{data["Tags"]}"""
     return Klean
 #Gets data from SelectedAvi in a simpler way
 def GetData(SelAvi,param):
     if param == "TimeDetected":
-        return SelAvi[0]
+        return SelAvi["TimeDetected"]
     if param == "AvatarID":
-        return SelAvi[1]
+        return SelAvi["AvatarID"]
     if param == "AvatarName":
-        return SelAvi[2]
+        return SelAvi["AvatarName"]
     if param == "AvatarDescription":
-        return SelAvi[3]
+        return SelAvi["AvatarDescription"]
     if param == "AuthorID":
-        return SelAvi[4]
+        return SelAvi["AuthorID"]
     if param == "AuthorName":
-        return SelAvi[5]
+        return SelAvi["AuthorName"]
     if param == "PCAsset":
-        return SelAvi[6]
+        return SelAvi["PCAssetURL"]
     if param == "QAsset":
-        return SelAvi[7]
+        return SelAvi["QUESTAssetURL"]
     if param == "IMGURL":
-        return SelAvi[8]
+        return SelAvi["ImageURL"]
     if param == "ThumbURL":
-        return SelAvi[9]
+        return SelAvi["ThumbnailURL"]
     if param == "UnityVer":
-        return SelAvi[10]
+        return SelAvi["UnityVersion"]
     if param == "ReleaseStatus":
-        return SelAvi[11]
+        return "TBC"
     if param == "Tags":
-        return SelAvi[12]
+        return SelAvi["Tags"]
 
 #Gets image of SelectedAvi in a simpler way
 def GetImage(url):

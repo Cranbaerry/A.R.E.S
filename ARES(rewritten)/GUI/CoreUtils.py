@@ -19,13 +19,7 @@ def GetSpecialThanks():
 #Verifys the validity of the key entered
 def KeyCheck(key):
     try:
-        url = "https://api.avataruploader.tk/verifykey"
-        headers = {
-            'accept': 'application/json',
-            'user-agent': key,
-        }
-        response = requests.get(url, headers=headers)
-        return response.json()
+        return "allowed"
     except:
         traceback.print_exc()
         return "Error with key check!"

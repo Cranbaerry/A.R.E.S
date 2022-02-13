@@ -5,7 +5,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Manager", "1.5", "LargestBoi")]
+[assembly: MelonInfo(typeof(ARESPlugin.Updater), "ARES Manager", "1.6", "Redz")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 [assembly: MelonGame("VRChat", "VRChat")]
 
@@ -17,9 +17,9 @@ namespace ARESPlugin
 
         public override void OnPreInitialization()
         {
-            Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/AvatarLogger.dll");
+            Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/AvatarLogger.dll");
             Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReModCE/releases/latest/download/ReMod.Core.dll");
-            Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESLogo.png");
+            Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png");
 
             foreach (KeyValuePair<string, string> pair in Files)
             {

@@ -153,20 +153,20 @@ class Ui(QtWidgets.QMainWindow):
             if ModInstalled():
                 KCV = ""
                 try:
-                    KCV = KeyCheck(self.Settings["Username"])
-                    if not KCV['allowed']:
-                        if KCV['reason'] == "Not a user":
-                            self.Data.setPlainText(f"You are not currently a user!\nYou can get a key from ur discord server!\n{KCV['discord_invite']}")
-                            self.LogWrapper(f"Not a user!")
-                            return
-                        elif KCV['reason'] == "Banned":
-                            self.Data.setPlainText(f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
-                            pymsgbox.alert(f"You are a banned user! If you think this is a mistake try contact us here:{KCV['discord_invite']}\nARES will now quit to disable the API!")
-                            self.LogWrapper(f"Banned user, disabling API and quiting GUI")
-                            self.Settings["SendToAPI"] = False
-                            SaveSettings(self.Settings)
-                            self.LogWrapper("API toggled off")
-                            os.system('taskkill /F /im "ARES.exe"')
+                    #KCV = KeyCheck(self.Settings["Username"])
+                    #if not KCV['allowed']:
+                    #    if KCV['reason'] == "Not a user":
+                    #        self.Data.setPlainText(f"You are not currently a user!\nYou can get a key from ur discord server!\n{KCV['discord_invite']}")
+                    #        self.LogWrapper(f"Not a user!")
+                    #        return
+                    #    elif KCV['reason'] == "Banned":
+                    #        self.Data.setPlainText(f"You are a banned user!\nIf you think this is a mistake try contact us here:\n{KCV['discord_invite']}")
+                    #        pymsgbox.alert(f"You are a banned user! If you think this is a mistake try contact us here:{KCV['discord_invite']}\nARES will now quit to disable the API!")
+                    #        self.LogWrapper(f"Banned user, disabling API and quiting GUI")
+                    #        self.Settings["SendToAPI"] = False
+                    #        SaveSettings(self.Settings)
+                    #        self.LogWrapper("API toggled off")
+                    #        os.system('taskkill /F /im "ARES.exe"')
                     self.SearchA.setEnabled(True)
                     threading.Thread(target=UpdateStats, args=(self.Settings["Username"], self)).start()
                     if os.path.isfile("Log.txt"):

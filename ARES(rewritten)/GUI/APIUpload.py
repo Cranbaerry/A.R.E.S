@@ -27,19 +27,21 @@ def UploadAvatar(avatarlist, key):
                             "Releasestatus": x[11],
                             "Tags": x[12]}
 
-                    response = requests.post('https://api.avataruploader.tk/upload', headers=headers, json=data)
-                    if response.json()["status"] == "success":
+                    response = requests.post('http://avatarlogger.tk/records/Avatars', headers=headers, json=data)
+                    if type(response.json()) == int:
                         lock.acquire()
                         with open(f"{bd}\\Uploaded.txt","a+", errors="ignore") as f:
                             f.writelines(x[1] + "\n")
                         lock.release()
-                    elif response.json()["status"] == "already uploaded":
+                    elif response.json()["message"] == "Duplicate key exception":
                         lock.acquire()
                         with open(f"{bd}\\Uploaded.txt","a+", errors="ignore") as f:
                             f.writelines(x[1] + "\n")
                         lock.release()
                 except:
                     EventLog("Error occured whilst uploading avatar:\n" + traceback.format_exc())
+                    EventLog(data)
+                    EventLog(response.json())
     except:
         EventLog("Error occured whilst uploading avatar:\n" + traceback.format_exc())
 
