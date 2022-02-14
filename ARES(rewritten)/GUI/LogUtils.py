@@ -134,9 +134,9 @@ def DecideAssetURL(PC,Q):
 #Cleans text to appear in the RawData preview
 def CleanText(data):
     try:
-        Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data["TimeDetected"])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:T\nTags:{data["Tags"]}"""
+        Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data["TimeDetected"])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:{data["Releasestatus"]}\nTags:{data["Tags"]}"""
     except:
-        Klean = f"""Time Detected:{data["TimeDetected"]}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:TBC\nTags:{data["Tags"]}"""
+        Klean = f"""Time Detected:{data["TimeDetected"]}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:{data["Releasestatus"]}\nTags:{data["Tags"]}"""
     return Klean
 #Gets data from SelectedAvi in a simpler way
 def GetData(SelAvi,param):
@@ -163,7 +163,7 @@ def GetData(SelAvi,param):
     if param == "UnityVer":
         return SelAvi["UnityVersion"]
     if param == "ReleaseStatus":
-        return "TBC"
+        return SelAvi["Releasestatus"]
     if param == "Tags":
         return SelAvi["Tags"]
 
