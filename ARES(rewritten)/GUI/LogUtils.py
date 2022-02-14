@@ -44,11 +44,12 @@ def UpdateStats(key,cls):
         headers = {
             'user-agent': key,
         }
-        response = requests.get('https://api.avataruploader.tk/userstats', headers=headers)
+        response = requests.get('http://avatarlogger.tk/stats.php', headers=headers)
         data = response.json()
         cls.DBSL.setText(str(data['Total_database_size']))
-        cls.UUSL.setText(str(data['total_users_avatars']))
-        dates = data["upload_date_data"]
+        cls.UUSL.setText("To Fix")
+        #cls.UUSL.setText(str(data['total_users_avatars']))
+        #dates = data["upload_date_data"]
         datescleaned = []
         for x in dates:
             kk = dateparser.parse(x)

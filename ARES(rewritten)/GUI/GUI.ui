@@ -1525,10 +1525,12 @@ color: rgb(180, 180, 180);</string>
 background-color: rgba(54, 54, 54, 225);</string>
       </property>
       <property name="text">
-       <string>Developers:
-LargestBoi
-Cassell1337
-RealBoppr(Retired)</string>
+       <string>
+		   Developers:
+		   ShrekamusChrist
+		   LargestBoi(Retired)
+		   Cassell1337(Retired)
+		   RealBoppr(Retired)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

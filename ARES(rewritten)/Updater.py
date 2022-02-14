@@ -30,7 +30,7 @@ if os.path.isfile("VRChat.exe"):
             InstalledHash = hashlib.sha256(ARESDATA).hexdigest()
             print(f"Installed hash: {InstalledHash}")
         try:
-            LatestHash = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/ARESGUI.txt", timeout=10).text
+            LatestHash = requests.get("https://raw.githubusercontent.com/Dean2k/A.R.E.S/main/VersionHashes/ARESGUI.txt", timeout=10).text
             print(f"GitHub Hash: {LatestHash}")
         except:
             LatestHash = "Couldn't Connect!"
@@ -48,7 +48,7 @@ if os.path.isfile("VRChat.exe"):
                 print(f"ARES is out-of-date! Updating...")
                 if not os.path.isfile('UnRar.exe'):
                     print(f"Fetching UnRar.exe...")
-                    r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+                    r = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
                     with open("UnRar.exe", 'wb') as f:
                         total_length = int(r.headers.get('content-length'))
                         for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
@@ -56,7 +56,7 @@ if os.path.isfile("VRChat.exe"):
                                 f.write(chunk)
                                 f.flush()
                 print(f"Fetching GUI.rar...")
-                r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
+                r = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
                 with open("GUI.rar", 'wb') as f:
                     total_length = int(r.headers.get('content-length'))
                     for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
@@ -71,7 +71,7 @@ if os.path.isfile("VRChat.exe"):
         print("ARES not installed! Installing...")
         if not os.path.isfile('UnRar.exe'):
             print(f"Fetching UnRar.exe...")
-            r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
+            r = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/UnRAR.exe", stream=True)
             with open("UnRar.exe", 'wb') as f:
                 total_length = int(r.headers.get('content-length'))
                 for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
@@ -79,7 +79,7 @@ if os.path.isfile("VRChat.exe"):
                         f.write(chunk)
                         f.flush()
         print(f"Fetching GUI.rar...")
-        r = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
+        r = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/GUI.rar", stream=True)
         with open("GUI.rar", 'wb') as f:
             total_length = int(r.headers.get('content-length'))
             for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_length / 1024) + 1):
