@@ -139,13 +139,13 @@ def get_avatars_list_api(query, filters={}):
 
     #data = {"author": filters["Avatar author"], "avatarid": filters["Avatar id"], "name": filters["Avatar name"], "searchterm": query}
     if filters["Avatar id"]:
-        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AvatarID,eq,' + query
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&filter=AvatarID,eq,' + query
 
     if filters["Avatar author"]:
-        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AuthorName,eq,' + query
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&filter=AuthorName,eq,' + query
 
     if filters["Avatar name"]:
-        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,ReleaseStatus,Tags&filter=AvatarName,eq,' + query
+        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&filter=AvatarName,eq,' + query
 
     response = requests.get(url)
     IDList = []

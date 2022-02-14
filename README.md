@@ -82,7 +82,7 @@ Features:
 
 Installation:
 	
-Step One: [DownloadMe](https://github.com/LargestBoi/A.R.E.S/releases/latest/download/DRAG.CONTENTS.INTO.VRChat.FOLDER.rar).
+Step One: [DownloadMe](https://github.com/Dean2k/A.R.E.S/releases/latest/download/DRAG.CONTENTS.INTO.VRChat.FOLDER.rar).
 
 Step Two: [Copy the files into your VRChat folder](https://i.imgur.com/izsyjz8.gif).
 
@@ -100,11 +100,11 @@ ARES is now setup, working and ready to use, however there are some extra steps 
 
 API Step One: Head to the [ARES GUI "Setings" tab](https://i.imgur.com/kLLdPzq.png).
 
-API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #keys channel.
+~~API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #keys channel.~~
 
-API Step Three: Paste the [key](https://i.imgur.com/WsEMH0z.png) in your [key tab](https://i.imgur.com/qQEJKk2.png) and press ["Set Key"](https://i.imgur.com/DmSBggW.png).
+~~API Step Three: Paste the [key](https://i.imgur.com/WsEMH0z.png) in your [key tab](https://i.imgur.com/qQEJKk2.png) and press ["Set Key"](https://i.imgur.com/DmSBggW.png).~~
 
-API Step Four: You may now press the [Toggle API](https://i.imgur.com/xAnJGrG.png) button to activate the API, this will quit ARES, just open it again!
+API Step Two ~~Four~~: You may now press the [Toggle API](https://i.imgur.com/xAnJGrG.png) button to activate the API, this will quit ARES, just open it again!
 
 All done! Can now access [API Features](https://i.imgur.com/kklkouA.png)
 

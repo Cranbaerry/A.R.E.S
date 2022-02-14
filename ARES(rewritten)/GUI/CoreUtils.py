@@ -12,7 +12,7 @@ def InitCore():
 #Fetches special thanks from our pastebin
 def GetSpecialThanks():
     try:
-        SPTX = requests.get("https://raw.githubusercontent.com/LargestBoi/A.R.E.S/main/VersionHashes/SpecialThanks.txt", timeout=10).text
+        SPTX = requests.get("https://raw.githubusercontent.com/Dean2k/A.R.E.S/main/VersionHashes/SpecialThanks.txt", timeout=10).text
     except:
         SPTX = "Couldn't Connect!"
     return SPTX
@@ -119,13 +119,13 @@ def ModCheck():
     if not os.path.isfile(VRCroot + "Plugins\\ARESPlugin.dll"):
         ans = pymsgbox.confirm(text="Our API is a share to access system, you don't seem to have the ARES plugin installed, this means you cannot log avatars or contribute to our API! To gain API access you must have the ARES plugin installed, would you like to install the plugin?", title='ARES Plugin Check', buttons=['Yes', 'No'])
         if ans == "Yes":
-             PluginData = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll")
+             PluginData = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll")
              with open(VRCroot + "Plugins\\ARESPlugin.dll", 'wb') as f:
                  f.write(PluginData.content)
         else:
             return False
     else:
-        PluginData = requests.get("https://github.com/LargestBoi/A.R.E.S/releases/latest/download/ARESPlugin.dll")
+        PluginData = requests.get("https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll")
         with open(VRCroot + "Plugins\\ARESPlugin.dll", 'wb') as f:
             f.write(PluginData.content)
         return True
