@@ -136,7 +136,10 @@ def CleanText(data):
     try:
         Klean = f"""Time Detected:{datetime.utcfromtimestamp(int(data["TimeDetected"])).strftime('%Y-%m-%d %H:%M:%S')}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:{data["Releasestatus"]}\nTags:{data["Tags"]}"""
     except:
-        Klean = f"""Time Detected:{data["TimeDetected"]}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:{data["Releasestatus"]}\nTags:{data["Tags"]}"""
+        try:
+            Klean = f"""Time Detected:{data["TimeDetected"]}\nAvatar ID:{data["AvatarID"]}\nAvatar Name:{data["AvatarName"]}\nAvatar Description:{data["AvatarDescription"]}\nAuthor ID:{data["AuthorID"]}\nAuthor Name:{data["AuthorName"]}\nPC Asset URL:{data["PCAssetURL"]}\nQuest Asset URL:{data["QUESTAssetURL"]}\nImage URL:{data["ImageURL"]}\nThumbnail URL:{data["ThumbnailURL"]}\nUnity Version:{data["UnityVersion"]}\nRelease Status:{data["Releasestatus"]}\nTags:{data["Tags"]}"""
+        except:
+            Klean = f"""Time Detected:{data[0]}\nAvatar ID:{data[1]}\nAvatar Name:{data[2]}\nAvatar Description:{data[3]}\nAuthor ID:{data[4]}\nAuthor Name:{data[5]}\nPC Asset URL:{data[6]}\nQuest Asset URL:{data[7]}\nImage URL:{data[8]}\nThumbnail URL:{data[9]}\nUnity Version:{data[10]}\nRelease Status:{data[11]}\nTags:{data[12]}"""
     return Klean
 #Gets data from SelectedAvi in a simpler way
 def GetData(SelAvi,param):
