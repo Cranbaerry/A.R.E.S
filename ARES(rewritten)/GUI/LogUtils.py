@@ -144,31 +144,70 @@ def CleanText(data):
 #Gets data from SelectedAvi in a simpler way
 def GetData(SelAvi,param):
     if param == "TimeDetected":
-        return SelAvi["TimeDetected"]
+        try:
+            return SelAvi["TimeDetected"]
+        except:
+            return SelAvi[0]
     if param == "AvatarID":
-        return SelAvi["AvatarID"]
+        try:
+            return SelAvi["AvatarID"]
+        except:
+            return SelAvi[1]
     if param == "AvatarName":
-        return SelAvi["AvatarName"]
+        try:
+            return SelAvi["AvatarName"]
+        except:
+            return SelAvi[2]
     if param == "AvatarDescription":
-        return SelAvi["AvatarDescription"]
+        try:
+            return SelAvi["AvatarDescription"]
+        except:
+            return SelAvi[3]
     if param == "AuthorID":
-        return SelAvi["AuthorID"]
+        try:
+            return SelAvi["AuthorID"]
+        except:
+            return SelAvi[4]
     if param == "AuthorName":
-        return SelAvi["AuthorName"]
+        try:
+            return SelAvi["AuthorName"]
+        except:
+            return SelAvi[5]
     if param == "PCAsset":
-        return SelAvi["PCAssetURL"]
+        try:
+            return SelAvi["PCAssetURL"]
+        except:
+            return SelAvi[6]
     if param == "QAsset":
-        return SelAvi["QUESTAssetURL"]
+        try:
+            return SelAvi["QUESTAssetURL"]
+        except:
+            return SelAvi[7]
     if param == "IMGURL":
-        return SelAvi["ImageURL"]
+        try:
+            return SelAvi["ImageURL"]
+        except:
+            return SelAvi[8]
     if param == "ThumbURL":
-        return SelAvi["ThumbnailURL"]
+        try:
+            return SelAvi["ThumbnailURL"]
+        except:
+            return SelAvi[9]
     if param == "UnityVer":
-        return SelAvi["UnityVersion"]
+        try:
+            return SelAvi["UnityVersion"]
+        except:
+            return SelAvi[10]
     if param == "ReleaseStatus":
-        return SelAvi["Releasestatus"]
+        try:
+            return SelAvi["Releasestatus"]
+        except:
+            return SelAvi[11]
     if param == "Tags":
-        return SelAvi["Tags"]
+        try:
+            return SelAvi["Tags"]
+        except:
+            return SelAvi[12]
 
 #Gets image of SelectedAvi in a simpler way
 def GetImage(url):
