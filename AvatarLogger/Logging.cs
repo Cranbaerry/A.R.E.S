@@ -71,11 +71,9 @@ namespace Logging
                 string AvatarFile = "GUI\\Log.txt";
                 //If the log file does not exist create it and append the credits of the mod
                 if (!File.Exists(AvatarFile))
-                { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
-                //Read the entire contents of the log file
-                string AvatarFileContents = File.ReadAllText(AvatarFile);
+                { File.AppendAllText(AvatarFile, "Mod By ShrekamusChrist, LargestBoi & Yui\n"); }
                 //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
-                if (!AvatarFileContents.Contains(playerHashtable["avatarDict"]["id"].ToString()))
+                if (!HasAvatarId(AvatarFile,playerHashtable["avatarDict"]["id"].ToString()))
                 {
                     //Log the following variables to the log file
                     File.AppendAllLines(AvatarFile, new string[]
@@ -151,6 +149,20 @@ namespace Logging
                     File.AppendAllText(AvatarFile, "\n\n");
                 }
             }
+        }
+
+        public static bool HasAvatarId(string avatarFile, string avatarId)
+        {
+            var lines = File.ReadLines(avatarFile);
+            foreach (var line in lines)
+            {
+                if (line.Contains(avatarId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
