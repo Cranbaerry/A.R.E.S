@@ -14,7 +14,7 @@ namespace ARES.Modules
     {
         public List<Records> getAvatars(string query)
         {
-            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&filter=AvatarName,eq,{0}", query));
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,eq,{0}", query));
 
             WebReq.Method = "GET";
 
@@ -33,6 +33,29 @@ namespace ARES.Modules
             Avatar items = JsonConvert.DeserializeObject<Avatar>(jsonString);
 
             return items.records;
+        }
+
+        public Stats getStats()
+        {
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/stats.php"));
+
+            WebReq.Method = "GET";
+
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            Console.WriteLine(WebResp.StatusCode);
+            Console.WriteLine(WebResp.Server);
+
+            string jsonString;
+            using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
+            {
+                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                jsonString = reader.ReadToEnd();
+            }
+
+            Stats item = JsonConvert.DeserializeObject<Stats>(jsonString);
+
+            return item;
         }
     }
 }

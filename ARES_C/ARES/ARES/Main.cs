@@ -18,6 +18,7 @@ namespace ARES
     {
         public Api ApiGrab;
         public CoreFunctions CoreFunctions;
+        private List<Records> AvatarList;
 
         public Main()
         {
@@ -28,48 +29,43 @@ namespace ARES
         {
             ApiGrab = new Api();
             CoreFunctions = new CoreFunctions();
+            lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
+            cbSearchTerm.SelectedIndex = 3;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            flowAvatars.Controls.Clear();
             List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text);
 
             foreach (var item in avatars)
             {
                 PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
+                Bitmap bitmap; bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
 
-                using (WebClient webClient = new WebClient())
+                if (bitmap != null)
                 {
-
-                    webClient.Headers.Add("user-agent", "VRCX");
-                    try
-                    {
-                        Stream stream = webClient.OpenRead(item.ThumbnailURL);
-                        Bitmap bitmap; bitmap = new Bitmap(stream);
-
-                        if (bitmap != null)
-                        {
-                            avatarImage.Image = bitmap;
-                        }
-                    }
-                    catch (WebException ex)
-                    {
-                        avatarImage.Load("https://image.freepik.com/free-vector/glitch-error-404-page_23-2148105404.jpg");
-                    }
-
-                    txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(item);
-                    //byte[] data = webClient.DownloadData(item.ThumbnailURL);
-                    //    using (MemoryStream mem = new MemoryStream(data))
-                    //    {
-                    //        using (var yourImage = Image.FromStream(mem))
-                    //        {
-                    //            avatarImage.Image = yourImage.;
-                    //        }
-                    //    }
-                    //}
-
+                    avatarImage.Image = bitmap;
+                    avatarImage.Name = item.AvatarID;
+                    avatarImage.Click += LoadInfo;
                     flowAvatars.Controls.Add(avatarImage);
-                }
+                }            
+            }
+            AvatarList = avatars;
+        }
+
+        private void LoadInfo(object sender, EventArgs e)
+        {
+            var img = (PictureBox)sender;
+            Records avatar = AvatarList.Find(x => x.AvatarID == img.Name);
+            txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(avatar);
+
+
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(avatar.ThumbnailURL);
+
+            if (bitmap != null)
+            {
+                selectedImage.Image = bitmap;
             }
         }
     }
