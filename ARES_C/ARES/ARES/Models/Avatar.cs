@@ -13,6 +13,8 @@ namespace ARES.Models
         public string AvatarName { get; set; }
         public string AvatarDescription { get; set; }
         public string AuthorName { get; set; }
+
+        public string AuthorID { get; set; }
         public string PCAssetURL { get; set; }
         public string QuestAssetURL { get; set; }
         public string ImageURL { get; set; }

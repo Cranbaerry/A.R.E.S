@@ -29,7 +29,6 @@ namespace ARES
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.txtSearchTerm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.rbAvatarName = new System.Windows.Forms.RadioButton();
@@ -38,18 +37,15 @@ namespace ARES
             this.cbAvatarId = new System.Windows.Forms.RadioButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.flowAvatars = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.flowAvatars = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtAvatarInfo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip.SuspendLayout();
-            this.flowAvatars.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -130,6 +126,18 @@ namespace ARES
             this.statusLabel.Size = new System.Drawing.Size(64, 17);
             this.statusLabel.Text = "Status: Idle";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Text = "|";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(90, 17);
+            this.toolStripStatusLabel2.Text = "Database Size: 0";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -142,24 +150,11 @@ namespace ARES
             // flowAvatars
             // 
             this.flowAvatars.AutoScroll = true;
-            this.flowAvatars.Controls.Add(this.pictureBox1);
             this.flowAvatars.Location = new System.Drawing.Point(16, 61);
             this.flowAvatars.Name = "flowAvatars";
             this.flowAvatars.Padding = new System.Windows.Forms.Padding(10);
             this.flowAvatars.Size = new System.Drawing.Size(812, 394);
             this.flowAvatars.TabIndex = 7;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel1.Text = "|";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(90, 17);
-            this.toolStripStatusLabel2.Text = "Database Size: 0";
             // 
             // btnSearch
             // 
@@ -180,7 +175,6 @@ namespace ARES
             this.txtAvatarInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtAvatarInfo.Size = new System.Drawing.Size(421, 369);
             this.txtAvatarInfo.TabIndex = 0;
-            this.txtAvatarInfo.Text = resources.GetString("txtAvatarInfo.Text");
             // 
             // groupBox1
             // 
@@ -191,14 +185,6 @@ namespace ARES
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Avatar Info";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(148, 146);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // Main
             // 
@@ -223,10 +209,8 @@ namespace ARES
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.flowAvatars.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,7 +232,6 @@ namespace ARES
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtAvatarInfo;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Modules\Api.cs" />
+    <Compile Include="Modules\CoreFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Main.resx">

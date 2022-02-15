@@ -120,19 +120,4 @@
   <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="txtAvatarInfo.Text" xml:space="preserve">
-    <value>Time Detected:2022-02-13 02:00:38
-Avatar ID:avtr_84c943c7-531f-45a1-bda1-78a92592546f
-Avatar Name:DarkLugia
-Avatar Description:Dark Lugia
-Author ID:usr_5c2a0ed2-75d9-41f5-80a2-fb52e4ded5a4
-Author Name:Big Al
-PC Asset URL:https://api.vrchat.cloud/api/1/file/file_41709ad8-bded-4d84-bfb9-9670bc5cb577/1/file
-Quest Asset URL:None
-Image URL:https://api.vrchat.cloud/api/1/file/file_289bed6b-6abb-4287-a01f-d84e8bab4a35/1/file
-Thumbnail URL:https://d348imysud55la.cloudfront.net/thumbnails/1564532054.thumbnail-500.png
-Unity Version:5.6.3p1
-Release Status:T
-Tags: None</value>
-  </data>
 </root>
