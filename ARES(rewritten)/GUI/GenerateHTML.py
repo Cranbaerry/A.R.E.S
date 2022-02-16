@@ -117,10 +117,50 @@ def genhtml(avis):
 <div class="wrapper">
 	<div class="grid">
         """
-    for avi in avis:
+    for avi in avis:           
         idd += 1
-        readabletiome = dateparser.parse(avi[0]).strftime("%Y-%m-%d %H:%M:%S")
-        if avi[11] == "private":
+        try:
+            aviDate = avi[0]
+        except:
+            aviDate = avi["TimeDetected"]
+
+        try:
+            aviStatus = avi[11]
+        except:
+            aviStatus = avi["Releasestatus"]
+
+        try:
+            aviImage = avi[8]
+        except:
+            aviImage = avi["ImageURL"]
+
+        try:
+            aviAuthor = avi[5]
+        except:
+            aviAuthor = avi["AuthorName"]
+
+        try:
+            aviName = avi[2]
+        except:
+            aviName = avi["AvatarName"]
+
+        try:
+            aviId = avi[1]
+        except:
+            aviId = avi["AvatarID"]
+
+        try:
+            pcAsset = avi[6]
+        except:
+            pcAsset = avi["PCAssetURL"]
+
+        try:
+            questAsset = avi[6]
+        except:
+            questAsset = avi["QUESTAssetURL"]
+
+        readabletiome = dateparser.parse(aviDate).strftime("%Y-%m-%d %H:%M:%S")
+        if aviStatus == "private":
             statustext = '<b class="" style="color:red;">private &#128308;'
         else:
             statustext = '<b class="" style="color:green;">public &#128994;'
@@ -128,13 +168,13 @@ def genhtml(avis):
 			<div class="k-card">
 					<div class="k-card-body shadow">
 						<div class="k-card-images">
-                            <img class="k-card-img" src="{sanatize(str(avi[8]))}" alt="Avatar Image" class="k-card-image loading="lazy"">
+                            <img class="k-card-img" src="{sanatize(str(aviImage))}" alt="Avatar Image" class="k-card-image loading="lazy"">
 						</div>
 						<div class="k-card-data">
-							<span class="post-name">{sanatize(str(avi[2]))}</span>
+							<span class="post-name">{sanatize(str(aviName))}</span>
 							<br />
-							<span class="post-author">Avatar Author: <b class="">{sanatize(str(avi[5]))}</b></span>
-                            <span class="post-avatar_id">Avatar ID: </b><button class="avataridbutton" id="{sanatize(str(idd))}" onclick="copytoclipboard({sanatize(str(idd))})">{sanatize(str(avi[1]))}</button></span>
+							<span class="post-author">Avatar Author: <b class="">{sanatize(str(aviAuthor))}</b></span>
+                            <span class="post-avatar_id">Avatar ID: </b><button class="avataridbutton" id="{sanatize(str(idd))}" onclick="copytoclipboard({sanatize(str(idd))})">{sanatize(str(aviId))}</button></span>
                             <span class="post-status">STATUS: {statustext}</b></span>
                             PCgfnbfgn
 							<div class="post-link">
@@ -146,12 +186,12 @@ def genhtml(avis):
 			</div>
 """
         asstype = ""
-        if avi[6] != "None":
+        if pcAsset != "None":
             asstype += "PC"
         if asstype != "":
-            if avi[7] != "None":
+            if questAsset != "None":
                 asstype += " | "
-        if avi[7] != "None":
+        if questAsset != "None":
             asstype += "Quest"
         # print(asstype)
         strr1 = strr1.replace("PCgfnbfgn",
