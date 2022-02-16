@@ -71,7 +71,6 @@ namespace ARES.UPDATER
         {
             FileDownloader fileDownloader = new FileDownloader("https://github.com/Dean2k/A.R.E.S/releases/latest/download/UnRAR.exe", fileLocation + @"\UnRAR.exe");
             fileDownloader.StartDownload(timeout, "UnRAR.rar");
-            guiDownloaded = true;
         }
 
         static void extractGUI()
