@@ -23,6 +23,7 @@ namespace ARES
         public bool locked;
         public Thread imageThread;
         public int avatarCount;
+        public Records selectedAvatar;
 
         public Main()
         {
@@ -42,6 +43,7 @@ namespace ARES
             if (!locked)
             {
                 flowAvatars.Controls.Clear();
+                
                 statusLabel.Text = "Status: Loading API";
                 List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text);
                 AvatarList = avatars;
@@ -63,7 +65,7 @@ namespace ARES
                 foreach (var item in AvatarList)
                 {
                     PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
-                    Bitmap bitmap; bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                    Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
 
                     if (bitmap != null)
                     {
@@ -77,7 +79,6 @@ namespace ARES
                                 flowAvatars.Controls.Add(avatarImage);
                             });
                         }
-                        
                     } else
                     {
                         avatarCount--;
@@ -112,11 +113,11 @@ namespace ARES
         private void LoadInfo(object sender, EventArgs e)
         {
             var img = (PictureBox)sender;
-            Records avatar = AvatarList.Find(x => x.AvatarID == img.Name);
-            txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(avatar);
+            selectedAvatar = AvatarList.Find(x => x.AvatarID == img.Name);
+            txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
 
 
-            Bitmap bitmap; bitmap = CoreFunctions.loadImage(avatar.ThumbnailURL);
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedAvatar.ThumbnailURL);
 
             if (bitmap != null)
             {

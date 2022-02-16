@@ -348,7 +348,6 @@ namespace ARES
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(54)))), ((int)(((byte)(135)))));
-            this.BackgroundImage = global::ARES.Properties.Resources.gabriel_tovar_5h9gdcD7_eM_unsplash;
             this.ClientSize = new System.Drawing.Size(1175, 668);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
