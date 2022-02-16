@@ -14,7 +14,14 @@ namespace ARES.Modules
     {
         public List<Records> getAvatars(string query)
         {
-            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,eq,{0}", query));
+            string url = "";
+            if (!String.IsNullOrEmpty(query)) {
+                url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,eq,{0}", query);
+            } else
+            {
+                url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
+            }
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
 
             WebReq.Method = "GET";
 
