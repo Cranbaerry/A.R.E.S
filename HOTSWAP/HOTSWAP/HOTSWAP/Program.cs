@@ -73,11 +73,6 @@ namespace HOTSWAP
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("DevNote: This may take a while on large avatars,\nthe percentages arent even, they are\njust displayed based on the event currently\noccuring!");
-                Console.WriteLine("While you wait here are some credits:");
-                Console.WriteLine("LargestBoi (HOTSWAP.exe)");
-                Console.WriteLine("nesrak1 for AssetsTools.NET v2");
-                Console.WriteLine("This was modified into AssetsTools.NET v3");
-                Console.WriteLine("by LargestBoi making compression ~3X faster!");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -99,11 +94,6 @@ namespace HOTSWAP
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("DevNote: This may take a while on large avatars,\nthe percentages arent even, they are\njust displayed based on the event currently\noccuring!");
-                Console.WriteLine("While you wait here are some credits:");
-                Console.WriteLine("LargestBoi (HOTSWAP.exe)");
-                Console.WriteLine("nesrak1 for AssetsTools.NET v2");
-                Console.WriteLine("This was modified into AssetsTools.NET v3");
-                Console.WriteLine("by LargestBoi making compression ~3X faster!");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
