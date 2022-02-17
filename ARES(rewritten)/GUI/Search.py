@@ -5,71 +5,116 @@ from CoreUtils import LoadLog,EventLog
 def check_quary_avatar_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar["AvatarName"].lower():
+        try:
+            avatarName = avatar["AvatarName"].lower()
+        except:
+            avatarName = avatar[2].lower()
+        if term.lower() in avatarName:
             new.append(avatar)
     return new
 
 def check_quary_author_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar["AuthorName"].lower():
+        try:
+            authorName = avatar["AuthorName"].lower()
+        except:
+            authorName = avatar[5].lower()
+        if term.lower() in authorName:
             new.append(avatar)
     return new
 
 def check_quary_AvatarID_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar["AvatarID"].lower():
+        try:
+            avatarId = avatar["AvatarID"].lower()
+        except:
+            avatarId = avatar[1].lower()
+        if term.lower() in avatarId:
             new.append(avatar)
     return new
 
 def check_quary_AuthorID_name(term, avatars):
     new = []
     for avatar in avatars:
-        if term.lower() in avatar["AuthorID"].lower():
+        try:
+            authorId = avatar["AuthorID"].lower()
+        except:
+            authorId = avatar[4].lower()
+        if term.lower() in authorId:
             new.append(avatar)
     return new
 
 def check_private(avatars):
     new = []
     for avatar in avatars:
-        if str(avatar["Releasestatus"]).lower() == "private":
+        try:
+            releaseStatus = avatar["Releasestatus"]
+        except:
+            releaseStatus = avatar[11]
+        if str(releaseStatus).lower() == "private":
             new.append(avatar)
     return new
 
 def check_public(avatars):
     new = []
     for avatar in avatars:
-        if str(avatar["Releasestatus"]).lower() == "public":
+        try:
+            releaseStatus = avatar["Releasestatus"]
+        except:
+            releaseStatus = avatar[11]
+        if str(releaseStatus).lower() == "public":
             new.append(avatar)
     return new
 
 def check_pc_asset(avatars):
     new = []
     for avatar in avatars:
-        if avatar["PCAssetURL"] != "None":
+        try:
+            pcAssetUrl = avatar["PCAssetURL"]
+        except:
+            pcAssetUrl = avatar[6]
+        if pcAssetUrl != "None":
             new.append(avatar)
     return new
 
 def check_quest_assets(avatars):
     new = []
     for avatar in avatars:
-        if avatar["QUESTAssetURL"] != "None":
+        try:
+            questAssetUrl = avatar["QUESTAssetURL"]
+        except:
+            questAssetUrl = avatar[7]
+        if questAssetUrl != "None":
             new.append(avatar)
     return new
 
 def check_both_assets(avatars):
     new = []
     for avatar in avatars:
-        if avatar["QUESTAssetURL"] != "None" and avatar["PCAssetURL"] != "None":
+        try:
+            pcAssetUrl = avatar["PCAssetURL"]
+        except:
+            pcAssetUrl = avatar[6]
+
+        try:
+            questAssetUrl = avatar["QUESTAssetURL"]
+        except:
+            questAssetUrl = avatar[7]
+        if questAssetUrl != "None" and pcAssetUrl != "None":
             new.append(avatar)
     return new
 
 def check_tags(tags, avatars):
     new = []
     for avatar in avatars:
+        try:
+            aviTags = avatar["Tags"]
+        except:
+            aviTags = avatar[12]
         for tag in tags:
-            if tag.lower() in avatar["Tags"].lower():
+            if tag.lower() in aviTags.lower():
                 if avatar not in new:
                     new.append(avatar)
     return new
@@ -142,7 +187,10 @@ def get_avatars_list_api(query, filters={}):
         url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarID,eq,' + query
 
     if filters["Avatar author"]:
-        url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AuthorName,eq,' + query
+        if('usr_' in query):
+            url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AuthorID,eq,' + query
+        else:
+            url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AuthorName,eq,' + query
 
     if filters["Avatar name"]:
         url = 'http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,eq,' + query
