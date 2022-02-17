@@ -33,10 +33,11 @@ namespace ARES
             this.txtSearchTerm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.progress = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblStats = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatsAmount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblStats = new System.Windows.Forms.ToolStripStatusLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.flowAvatars = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -51,14 +52,13 @@ namespace ARES
             this.btnDownload = new System.Windows.Forms.Button();
             this.btnLoadAvatars = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblAvatarCount = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnSearchLocal = new System.Windows.Forms.Button();
             this.cbSearchTerm = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblAvatarCount = new System.Windows.Forms.Label();
-            this.progress = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -81,6 +81,7 @@ namespace ARES
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(190, 31);
@@ -102,6 +103,14 @@ namespace ARES
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
+            // progress
+            // 
+            this.progress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.progress.Name = "progress";
+            this.progress.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.progress.Size = new System.Drawing.Size(100, 16);
+            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            // 
             // statusLabel
             // 
             this.statusLabel.BackColor = System.Drawing.Color.Transparent;
@@ -116,13 +125,6 @@ namespace ARES
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
-            // lblStats
-            // 
-            this.lblStats.BackColor = System.Drawing.Color.Transparent;
-            this.lblStats.Name = "lblStats";
-            this.lblStats.Size = new System.Drawing.Size(81, 17);
-            this.lblStats.Text = ":Database Size";
-            // 
             // lblStatsAmount
             // 
             this.lblStatsAmount.BackColor = System.Drawing.Color.Transparent;
@@ -130,10 +132,18 @@ namespace ARES
             this.lblStatsAmount.Size = new System.Drawing.Size(13, 17);
             this.lblStatsAmount.Text = "0";
             // 
+            // lblStats
+            // 
+            this.lblStats.BackColor = System.Drawing.Color.Transparent;
+            this.lblStats.Name = "lblStats";
+            this.lblStats.Size = new System.Drawing.Size(81, 17);
+            this.lblStats.Text = ":Database Size";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(12, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(188, 31);
@@ -189,6 +199,7 @@ namespace ARES
             // 
             // logo
             // 
+            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
             this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
             this.logo.Location = new System.Drawing.Point(0, 0);
@@ -200,6 +211,7 @@ namespace ARES
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
             this.panel2.Controls.Add(this.btnBrowserView);
             this.panel2.Controls.Add(this.btnExtractVRCA);
             this.panel2.Controls.Add(this.btnLoadVRCA);
@@ -257,6 +269,7 @@ namespace ARES
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
             this.panel3.Controls.Add(this.lblAvatarCount);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.btnSearchLocal);
@@ -272,6 +285,28 @@ namespace ARES
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(972, 624);
             this.panel3.TabIndex = 12;
+            // 
+            // lblAvatarCount
+            // 
+            this.lblAvatarCount.AutoSize = true;
+            this.lblAvatarCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAvatarCount.ForeColor = System.Drawing.Color.White;
+            this.lblAvatarCount.Location = new System.Drawing.Point(200, 152);
+            this.lblAvatarCount.Name = "lblAvatarCount";
+            this.lblAvatarCount.Size = new System.Drawing.Size(30, 31);
+            this.lblAvatarCount.TabIndex = 14;
+            this.lblAvatarCount.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(12, 152);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(194, 31);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Avatar Count:";
             // 
             // btnSearchLocal
             // 
@@ -315,39 +350,11 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 31);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Avatar Count:";
-            // 
-            // lblAvatarCount
-            // 
-            this.lblAvatarCount.AutoSize = true;
-            this.lblAvatarCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAvatarCount.Location = new System.Drawing.Point(200, 152);
-            this.lblAvatarCount.Name = "lblAvatarCount";
-            this.lblAvatarCount.Size = new System.Drawing.Size(30, 31);
-            this.lblAvatarCount.TabIndex = 14;
-            this.lblAvatarCount.Text = "0";
-            // 
-            // progress
-            // 
-            this.progress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.progress.Name = "progress";
-            this.progress.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.progress.Size = new System.Drawing.Size(100, 16);
-            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(54)))), ((int)(((byte)(135)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1175, 668);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
