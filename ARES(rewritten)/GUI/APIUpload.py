@@ -30,12 +30,12 @@ def UploadAvatar(avatarlist, key):
                     response = requests.post('http://avatarlogger.tk/records/Avatars', headers=headers, json=data)
                     if type(response.json()) == int:
                         lock.acquire()
-                        with open(f"{bd}\\Uploaded.txt","a+", errors="ignore") as f:
+                        with open(f"{bd}\\AvatarUploaded.txt","a+", errors="ignore") as f:
                             f.writelines(x[1] + "\n")
                         lock.release()
                     elif response.json()["message"] == "Duplicate key exception":
                         lock.acquire()
-                        with open(f"{bd}\\Uploaded.txt","a+", errors="ignore") as f:
+                        with open(f"{bd}\\AvatarUploaded.txt","a+", errors="ignore") as f:
                             f.writelines(x[1] + "\n")
                         lock.release()
                 except:
@@ -56,10 +56,10 @@ def StartUploads(key):
         avatarlist4 = avatarlist[len(avatarlist) // 5 * 3:len(avatarlist) // 5 * 4]
         avatarlist5 = avatarlist[len(avatarlist) // 5 * 4:len(avatarlist)]
         bd = os.getcwd()
-        if not os.path.isfile(f"{bd}\\Uploaded.txt"):
-            with open(f"{bd}\\Uploaded.txt", "a+"):
+        if not os.path.isfile(f"{bd}\\AvatarUploaded.txt"):
+            with open(f"{bd}\\AvatarUploaded.txt", "a+"):
                 pass
-        with open(f"{bd}\\Uploaded.txt","r+", errors="ignore") as f:
+        with open(f"{bd}\\AvatarUploaded.txt","r+", errors="ignore") as f:
             uploaded = f.readlines()
             uploaded = [x.strip() for x in uploaded]
         t1 = threading.Thread(target=UploadAvatar, args=(avatarlist1,key))
