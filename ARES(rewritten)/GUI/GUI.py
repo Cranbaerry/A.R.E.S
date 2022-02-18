@@ -135,7 +135,7 @@ class Ui(QtWidgets.QMainWindow):
                 s.write(json.dumps(dd, indent=4))
             EventLog("Settings saved!")
             EventLog("HSB creation started...")
-        if os.path.isFile("Uploaded.txt"):
+        if os.path.isfile("Uploaded.txt"):
             os.remove("Uploaded.txt")
         self.MainTab.setTabVisible(1, False)
         #Loads the settings into the application
