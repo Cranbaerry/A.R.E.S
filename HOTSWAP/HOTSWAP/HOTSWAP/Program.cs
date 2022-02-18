@@ -14,7 +14,8 @@ namespace HOTSWAP
             Console.WriteLine($"22.2% Bundle file assigned!");
             FileStream bundleStream = File.Open(savePath, FileMode.Create);
             Console.WriteLine($"33.3% Loaded file to bundle stream!");
-            bundle.Unpack(bundle.reader, new AssetsFileWriter(bundleStream));
+            var progressBar = new SZProgress();
+            bundle.Unpack(bundle.reader, new AssetsFileWriter(bundleStream), progressBar);
             Console.WriteLine($"44.4% Unpack stream complete!");
             bundleStream.Position = 0;
             Console.WriteLine($"55.5% Bundle stream position assigned!");
@@ -52,7 +53,8 @@ namespace HOTSWAP
             using (var writer = new AssetsFileWriter(stream))
             {
                 Console.WriteLine($"75% File compression stream ready!");
-                bun.file.Pack(bun.file.reader, writer, AssetBundleCompressionType.LZMA);
+                var progressBar = new SZProgress();
+                bun.file.Pack(bun.file.reader, writer, AssetBundleCompressionType.LZMA, progressBar);
                 Console.WriteLine($"100% Compressed file packing complete!");
             }
         }
@@ -72,7 +74,7 @@ namespace HOTSWAP
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("DevNote: This may take a while on large avatars,\nthe percentages arent even, they are\njust displayed based on the event currently\noccuring!");
+                Console.WriteLine("DevNote: Hey its me Largest boi again, some good news!\nMe and FACS added a progress display because reasons, bye!");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -93,7 +95,7 @@ namespace HOTSWAP
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("DevNote: This may take a while on large avatars,\nthe percentages arent even, they are\njust displayed based on the event currently\noccuring!");
+                Console.WriteLine("DevNote: Hey its me Largest boi again, some good news!\nMe and FACS added a progress display because reasons, bye!");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("===================================================");
                 Console.ForegroundColor = ConsoleColor.White;

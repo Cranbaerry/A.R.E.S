@@ -32,7 +32,7 @@ namespace Logging
                     if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "public")
                     {
                         if (Config.ConsoleError) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log public avatars disabled!"); }
-                        return; 
+                        return;
                     }
                 }
                 //If logging of private avatars is disabled
@@ -69,12 +69,18 @@ namespace Logging
                 }
                 //Locate the log file
                 string AvatarFile = "GUI\\Log.txt";
+                string AvatarFileIds = "GUI\\LogIds.txt";
                 //If the log file does not exist create it and append the credits of the mod
                 if (!File.Exists(AvatarFile))
                 { File.AppendAllText(AvatarFile, "Mod By ShrekamusChrist, LargestBoi & Yui\n"); }
+
+                if (!File.Exists(AvatarFileIds))
+                { File.AppendAllText(AvatarFileIds, "Mod By ShrekamusChrist, LargestBoi & Yui\n"); }
                 //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
-                if (!HasAvatarId(AvatarFile,playerHashtable["avatarDict"]["id"].ToString()))
+                if (!HasAvatarId(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString()))
                 {
+                    //Log the id to a different file to help speed up reading and looping
+                    File.AppendAllText(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString() + "\n");
                     //Log the following variables to the log file
                     File.AppendAllLines(AvatarFile, new string[]
                     {
