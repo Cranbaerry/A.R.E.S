@@ -59,6 +59,8 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.cbVersionUnity = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -182,6 +184,7 @@ namespace ARES
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtAvatarInfo);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(693, 186);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 435);
@@ -212,6 +215,8 @@ namespace ARES
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.cbVersionUnity);
             this.panel2.Controls.Add(this.btnBrowserView);
             this.panel2.Controls.Add(this.btnExtractVRCA);
             this.panel2.Controls.Add(this.btnLoadVRCA);
@@ -224,7 +229,7 @@ namespace ARES
             // 
             // btnBrowserView
             // 
-            this.btnBrowserView.Location = new System.Drawing.Point(3, 206);
+            this.btnBrowserView.Location = new System.Drawing.Point(3, 59);
             this.btnBrowserView.Name = "btnBrowserView";
             this.btnBrowserView.Size = new System.Drawing.Size(167, 43);
             this.btnBrowserView.TabIndex = 16;
@@ -233,16 +238,17 @@ namespace ARES
             // 
             // btnExtractVRCA
             // 
-            this.btnExtractVRCA.Location = new System.Drawing.Point(3, 157);
+            this.btnExtractVRCA.Location = new System.Drawing.Point(3, 206);
             this.btnExtractVRCA.Name = "btnExtractVRCA";
             this.btnExtractVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnExtractVRCA.TabIndex = 15;
             this.btnExtractVRCA.Text = "Extract VRCA";
             this.btnExtractVRCA.UseVisualStyleBackColor = true;
+            this.btnExtractVRCA.Click += new System.EventHandler(this.btnExtractVRCA_Click);
             // 
             // btnLoadVRCA
             // 
-            this.btnLoadVRCA.Location = new System.Drawing.Point(3, 108);
+            this.btnLoadVRCA.Location = new System.Drawing.Point(3, 157);
             this.btnLoadVRCA.Name = "btnLoadVRCA";
             this.btnLoadVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnLoadVRCA.TabIndex = 14;
@@ -251,12 +257,13 @@ namespace ARES
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(3, 59);
+            this.btnDownload.Location = new System.Drawing.Point(3, 108);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(167, 43);
             this.btnDownload.TabIndex = 13;
             this.btnDownload.Text = "Download VRCA";
             this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // btnLoadAvatars
             // 
@@ -350,6 +357,30 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // cbVersionUnity
+            // 
+            this.cbVersionUnity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVersionUnity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbVersionUnity.FormattingEnabled = true;
+            this.cbVersionUnity.Items.AddRange(new object[] {
+            "2019",
+            "2018"});
+            this.cbVersionUnity.Location = new System.Drawing.Point(3, 286);
+            this.cbVersionUnity.Name = "cbVersionUnity";
+            this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
+            this.cbVersionUnity.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(3, 252);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 25);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Unity Version:";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -373,6 +404,7 @@ namespace ARES
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -412,6 +444,8 @@ namespace ARES
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripProgressBar progress;
         public System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ComboBox cbVersionUnity;
+        private System.Windows.Forms.Label label4;
     }
 }
 

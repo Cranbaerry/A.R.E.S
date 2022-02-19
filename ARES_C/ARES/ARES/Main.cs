@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,6 +38,10 @@ namespace ARES
             CoreFunctions = new CoreFunctions();
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
             cbSearchTerm.SelectedIndex = 3;
+            cbVersionUnity.SelectedIndex = 0;
+            MessageBoxManager.Yes = "Quest";
+            MessageBoxManager.No = "PC";
+            MessageBoxManager.Register();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -43,7 +49,7 @@ namespace ARES
             if (!locked)
             {
                 flowAvatars.Controls.Clear();
-                
+
                 statusLabel.Text = "Status: Loading API";
                 List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text);
                 AvatarList = avatars;
@@ -55,7 +61,7 @@ namespace ARES
                 statusLabel.Text = "Status: Loading Avatar Images";
                 imageThread = new Thread(new ThreadStart(GetImages));
                 imageThread.Start();
-            }         
+            }
         }
 
         public void GetImages()
@@ -79,7 +85,8 @@ namespace ARES
                                 flowAvatars.Controls.Add(avatarImage);
                             });
                         }
-                    } else
+                    }
+                    else
                     {
                         avatarCount--;
                         if (lblAvatarCount.InvokeRequired)
@@ -92,7 +99,7 @@ namespace ARES
                     }
                     if (progress.GetCurrentParent().InvokeRequired)
                     {
-                        progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value ++; }));
+                        progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
                     }
                 }
             }
@@ -122,6 +129,110 @@ namespace ARES
             if (bitmap != null)
             {
                 selectedImage.Image = bitmap;
+            }
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            if (selectedAvatar != null)
+            {
+
+                DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dlgResult == DialogResult.Yes)
+                {
+                    downloadFile(selectedAvatar.QuestAssetURL);
+                }
+                else if (dlgResult == DialogResult.No)
+                {
+                    downloadFile(selectedAvatar.PCAssetURL);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an avatar first.");
+            }
+        }
+
+        private void btnExtractVRCA_Click(object sender, EventArgs e)
+        {
+            if (selectedAvatar != null)
+            {
+                
+                DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dlgResult == DialogResult.Yes)
+                {
+                    if (selectedAvatar.QuestAssetURL != "None")
+                    {
+                        downloadFile(selectedAvatar.QuestAssetURL);
+                    } else
+                    {
+                        MessageBox.Show("Quest version doesn't exist");
+                        return;
+                    }
+                }
+                else if (dlgResult == DialogResult.No)
+                {
+                    if (selectedAvatar.PCAssetURL != "None")
+                    {
+                        downloadFile(selectedAvatar.PCAssetURL);
+                    }
+                    else
+                    {
+                        MessageBox.Show("PC version doesn't exist");
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+                FolderBrowserDialog folderDlg = new FolderBrowserDialog
+                {
+                    ShowNewFolderButton = true
+                };
+                // Show the FolderBrowserDialog.  
+                DialogResult result = folderDlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string unityVersion = cbVersionUnity.Text + "DLL";
+                    string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    string commands = string.Format("/C AssetRipperConsole.exe {2} {3}\\AssetRipperConsole_win64\\{0} -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
+
+                    Process p = new Process();
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = "CMD.EXE",
+                        Arguments = commands,
+                        WorkingDirectory = filePath + @"\AssetRipperConsole_win64"
+                    };
+                    p.StartInfo = psi;
+                    p.Start();
+                    p.WaitForExit();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please select an avatar first.");
+            }
+        }
+
+        private void downloadFile(string url)
+        {
+            using (var client = new WebClient())
+            {
+                try
+                {
+                    client.Headers.Add("user-agent", "VRCX");
+                    client.DownloadFile(url, "custom.vrca");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

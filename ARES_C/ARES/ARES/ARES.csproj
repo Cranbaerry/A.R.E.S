@@ -36,6 +36,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AssetsTools.NET">
+      <HintPath>.\AssetsTools.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -67,6 +70,9 @@
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Modules\Api.cs" />
     <Compile Include="Modules\CoreFunctions.cs" />
+    <Compile Include="Modules\HotSwap.cs" />
+    <Compile Include="Modules\MessageBoxManager.cs" />
+    <Compile Include="Modules\ProgressBar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Main.resx">
@@ -82,6 +88,96 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="AssetRipperConsole_win64\Licenses\AssetStudio.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Avalonia.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Brotli.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\CommandLineParser.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Cpp2IL.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Crunch.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\darkfx.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\FMOD.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Fmod5Sharp.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\ILSpy.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\ImageSharp.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\LibVLCSharp.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Lz4.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\MeshSharp.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\MessageBoxAvalonia.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\MonoCecil.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\NAudio.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\NAudioLame.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\NAudioVorbis.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\NVorbis.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\SevenZipCsharp.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\SharpCompress.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\SharpGLTF.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\SharpZipLib.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\texgenpack.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Unity.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\uTinyRipper.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\uTinyRipperExporter.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\Xiph.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssetRipperConsole_win64\Licenses\YamlDotNet.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -97,8 +193,260 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AssetRipperConsole_win64\2018DLL\Assembly-CSharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\AWSSDK.CognitoIdentity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\AWSSDK.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\AWSSDK.S3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\AWSSDK.SecurityToken.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\Blake2Sharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\Collections.Pooled.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\DotZLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\ICSharpCode.SharpZipLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\librsync.net.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\mscorlib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Buffers.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Collections.Immutable.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Memory.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Numerics.Vectors.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\System.Runtime.CompilerServices.Unsafe.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.AnimationModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.AudioModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.CoreModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.PhysicsModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.UIModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.UnityWebRequestModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.UnityWebRequestTextureModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.VideoModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\UnityEngine.XRModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCCore-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCCore-Standalone.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK2-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK3A-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK3A.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK3Base-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDK3Base.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDKBase-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\VRCSDKBase.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2018DLL\zlibwapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\Assembly-CSharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\AWSSDK.CognitoIdentity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\AWSSDK.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\AWSSDK.S3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\AWSSDK.SecurityToken.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\Blake2Sharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\Collections.Pooled.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\DotZLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\ICSharpCode.SharpZipLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\librsync.net.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\mscorlib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\shell32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Buffers.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Collections.Immutable.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Memory.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Numerics.Vectors.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\System.Runtime.CompilerServices.Unsafe.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEditor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.AnimationModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.AssetBundleModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.CoreModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.IMGUIModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.TerrainModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.UnityWebRequestModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCCore-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCCore-Standalone.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK2-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK3A-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK3A.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDKBase-Editor.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDKBase.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\zlibwapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\AssetRipperConsole.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\capstone.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\crunch.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\crunchunity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\fmod.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\libmp3lame.32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\libmp3lame.64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\ogg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\texgenpack.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\Texture2DDecoderNative.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\vorbis.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
-    <None Include="Resources\gabriel-tovar-5h9gdcD7-eM-unsplash.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

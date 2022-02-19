@@ -59,15 +59,5 @@ namespace ARES.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap gabriel_tovar_5h9gdcD7_eM_unsplash {
-            get {
-                object obj = ResourceManager.GetObject("gabriel-tovar-5h9gdcD7-eM-unsplash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
