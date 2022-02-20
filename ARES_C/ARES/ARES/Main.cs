@@ -21,12 +21,14 @@ namespace ARES
     {
         public Api ApiGrab;
         public CoreFunctions CoreFunctions;
+        public IniFile iniFile;
         private List<Records> AvatarList;
         private List<Records> localAvatars;
         public bool locked;
         public Thread imageThread;
         public int avatarCount;
         public Records selectedAvatar;
+        public string unityPath;
 
         public Main()
         {
@@ -37,12 +39,58 @@ namespace ARES
         {
             ApiGrab = new Api();
             CoreFunctions = new CoreFunctions();
+            iniFile = new IniFile();
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
             cbSearchTerm.SelectedIndex = 3;
             cbVersionUnity.SelectedIndex = 0;
             MessageBoxManager.Yes = "Quest";
             MessageBoxManager.No = "PC";
             MessageBoxManager.Register();
+            if (!iniFile.KeyExists("unity"))
+            {
+                selectFile();
+            } else
+            {
+                unityPath = iniFile.Read("unity");
+            }
+            
+            if (!string.IsNullOrEmpty(unityPath))
+            {
+                var unitySetup = CoreFunctions.setupHSB();
+                if (unitySetup == (true, false))
+                {
+                    CoreFunctions.setupUnity(unityPath);
+                }
+            }
+        }
+
+        private void selectFile()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "exe files (*.exe)|*.exe";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+            unityPath = filePath;
+            iniFile.Write("unity", filePath);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -157,36 +205,9 @@ namespace ARES
         {
             if (selectedAvatar != null)
             {
-
-                DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                if (dlgResult == DialogResult.Yes)
+                if (!downloadVRCA())
                 {
-                    if (selectedAvatar.QuestAssetURL != "None")
-                    {
-                        string[] version = selectedAvatar.QuestAssetURL.Split('/');
-                        version[7] = nmQuestVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), "custom.vrca");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Quest version doesn't exist");
-                        return;
-                    }
-                }
-                else if (dlgResult == DialogResult.No)
-                {
-                    if (selectedAvatar.PCAssetURL != "None")
-                    {
-                        string[] version = selectedAvatar.PCAssetURL.Split('/');
-                        version[7] = nmPcVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), "custom.vrca");
-                    }
-                    else
-                    {
-                        MessageBox.Show("PC version doesn't exist");
-                        return;
-                    }
+                    return;
                 }
             }
             else
@@ -195,43 +216,51 @@ namespace ARES
             }
         }
 
+        private bool downloadVRCA()
+        {
+            DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
+            if (dlgResult == DialogResult.Yes)
+            {
+                if (selectedAvatar.QuestAssetURL != "None")
+                {
+                    string[] version = selectedAvatar.QuestAssetURL.Split('/');
+                    version[7] = nmQuestVersion.Value.ToString();
+                    downloadFile(string.Join("/", version), "custom.vrca");
+                }
+                else
+                {
+                    MessageBox.Show("Quest version doesn't exist");
+                    return false;
+                }
+            }
+            else if (dlgResult == DialogResult.No)
+            {
+                if (selectedAvatar.PCAssetURL != "None")
+                {
+                    string[] version = selectedAvatar.PCAssetURL.Split('/');
+                    version[7] = nmPcVersion.Value.ToString();
+                    downloadFile(string.Join("/", version), "custom.vrca");
+                }
+                else
+                {
+                    MessageBox.Show("PC version doesn't exist");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
 
         private void btnExtractVRCA_Click(object sender, EventArgs e)
         {
             if (selectedAvatar != null)
             {
-                
-                DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                if (dlgResult == DialogResult.Yes)
-                {
-                    if (selectedAvatar.QuestAssetURL != "None")
-                    {
-                        string[] version = selectedAvatar.QuestAssetURL.Split('/');
-                        version[7] = nmQuestVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), "custom.vrca");
-                    } else
-                    {
-                        MessageBox.Show("Quest version doesn't exist");
-                        return;
-                    }
-                }
-                else if (dlgResult == DialogResult.No)
-                {
-                    if (selectedAvatar.PCAssetURL != "None")
-                    {
-                        string[] version = selectedAvatar.PCAssetURL.Split('/');
-                        version[7] = nmPcVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), "custom.vrca");
-                    }
-                    else
-                    {
-                        MessageBox.Show("PC version doesn't exist");
-                        return;
-                    }
-                }
-                else
+                if (!downloadVRCA())
                 {
                     return;
                 }
@@ -342,6 +371,25 @@ namespace ARES
             else
             {
                 MessageBox.Show("Still loading last search");
+            }
+        }
+
+        private void btnHotswap_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUnity_Click(object sender, EventArgs e)
+        {
+            var unitySetup = CoreFunctions.setupHSB();
+            if (unitySetup == (true,false))
+            {
+                CoreFunctions.setupUnity(unityPath);
+                CoreFunctions.openUnityPreSetup(unityPath);
+            }
+            else if(unitySetup == (true, true))
+            {
+                CoreFunctions.openUnityPreSetup(unityPath);
             }
         }
     }

@@ -1,10 +1,12 @@
 ﻿using ARES.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -75,7 +77,7 @@ namespace ARES.Modules
                     AvatarDescription = lineItem[3].Split(':')[1].Replace("\r", ""),
                     AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
                     AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
-                    PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https","https:"),
+                    PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                     QuestAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                     ImageURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                     ThumbnailURL = string.Join("", lineItem[9].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
@@ -87,6 +89,148 @@ namespace ARES.Modules
             }
 
             return list;
+        }
+
+        public (bool, bool) setupHSB()
+        {
+            if (File.Exists("HSBC.rar"))
+            {
+                return (true, true);
+            }
+            try
+            {
+                tryDelete();
+                string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string commands = string.Format("/C UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q]");
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = filePath
+                };
+                p.StartInfo = psi;
+                p.Start();
+                p.WaitForExit();
+                return (true, false);
+            }
+            catch
+            {
+                return (false, false);
+            }
+        }
+
+        public bool setupUnity(string unityPath)
+        {
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            try
+            {
+                string commands = string.Format("/C \"{0}\" -ProjectPath HSB", unityPath);
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = filePath
+                };
+                p.StartInfo = psi;
+                p.Start();
+                p.WaitForExit();
+
+            }
+            catch { return false; }
+
+
+            try
+            {
+
+                string commands = string.Format("/C Rar.exe a HSBC.rar HSB");
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = filePath
+                };
+                p.StartInfo = psi;
+                p.Start();
+                p.WaitForExit();
+
+                tryDelete();
+            }
+            catch (Exception  ex) {
+                Console.WriteLine(ex.Message);
+                return false; 
+            }
+            return true;
+        }
+
+        private void tryDelete()
+        {
+            try
+            {
+                killProcess("Unity Hub.exe");
+                killProcess("Unity.exe");
+                if (Directory.Exists("HSB"))
+                {
+                    Directory.Delete("HSB", true);
+                }
+                Directory.CreateDirectory("HSB");
+            }
+            catch { }
+        }
+
+        public bool openUnityPreSetup(string unityPath)
+        {
+
+            tryDelete();
+            try
+            {
+                string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string commands = string.Format("/C UnRAR.exe x HSBC.rar HSB -id[c,d,n,p,q]");
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = filePath
+                };
+                p.StartInfo = psi;
+                p.Start();
+                p.WaitForExit();
+
+                if (Directory.Exists("HSB/HSB"))
+                {
+                    commands = string.Format("/C \"{0}\" -ProjectPath HSB/HSB", unityPath);
+
+                    p = new Process();
+                    psi = new ProcessStartInfo
+                    {
+                        FileName = "CMD.EXE",
+                        Arguments = commands,
+                        WorkingDirectory = filePath
+                    };
+                    p.StartInfo = psi;
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                    //p.WaitForExit();
+                }
+                return false;
+            }
+            catch { return false; }
+        }
+
+        private void killProcess(string processName)
+        {
+            try
+            {
+                Process.Start("taskkill", "/F /IM \"" + processName + "\"");
+                Console.WriteLine("Killed Process: " + processName);
+            }
+            catch { }
         }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Modules\Api.cs" />
     <Compile Include="Modules\CoreFunctions.cs" />
     <Compile Include="Modules\HotSwap.cs" />
+    <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\MessageBoxManager.cs" />
     <Compile Include="Modules\ProgressBar.cs" />
     <Compile Include="Program.cs" />
@@ -176,6 +177,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="AssetRipperConsole_win64\Licenses\YamlDotNet.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="HSB.rar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -446,6 +450,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="Rar.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnRAR.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
