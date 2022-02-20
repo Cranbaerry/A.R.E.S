@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ARES.Modules
@@ -53,6 +54,39 @@ namespace ARES.Modules
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dateTime.ToString();
+        }
+
+        public List<Records> getLocalAvatars()
+        {
+            List<Records> list = new List<Records>();
+            string contents = File.ReadAllText(@"Log.txt");
+            string pattern = "Time Detected:(.*)\r\nAvatar ID:(.*)\r\nAvatar Name:(.*)\r\nAvatar Description:(.*)\r\nAuthor ID:(.*)\r\nAuthor Name:(.*)\r\nPC Asset URL:(.*)\r\nQuest Asset URL:(.*)\r\nImage URL:(.*)\r\nThumbnail URL:(.*)\r\nUnity Version:(.*)\r\nRelease Status:(.*)\r\nTags:(.*)";
+            string[] logRecords = Regex.Matches(contents, pattern).Cast<Match>().Select(m => m.Value).ToArray();
+
+
+            foreach (var item in logRecords)
+            {
+                string[] lineItem = item.Split('\n');
+                Records records = new Records
+                {
+                    TimeDetected = lineItem[0].Split(':')[1].Replace("\r", ""),
+                    AvatarID = lineItem[1].Split(':')[1].Replace("\r", ""),
+                    AvatarName = lineItem[2].Split(':')[1].Replace("\r", ""),
+                    AvatarDescription = lineItem[3].Split(':')[1].Replace("\r", ""),
+                    AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
+                    AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
+                    PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https","https:"),
+                    QuestAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                    ImageURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                    ThumbnailURL = string.Join("", lineItem[9].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                    UnityVersion = lineItem[10].Split(':')[1].Replace("\r", ""),
+                    ReleaseStatus = lineItem[11].Split(':')[1].Replace("\r", ""),
+                    Tags = lineItem[12].Split(':')[1].Replace("\r", "")
+                };
+                list.Add(records);
+            }
+
+            return list;
         }
     }
 }

@@ -44,7 +44,6 @@ namespace ARES
             this.txtAvatarInfo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnBrowserView = new System.Windows.Forms.Button();
             this.btnExtractVRCA = new System.Windows.Forms.Button();
@@ -57,18 +56,26 @@ namespace ARES
             this.btnSearchLocal = new System.Windows.Forms.Button();
             this.cbSearchTerm = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.cbVersionUnity = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.nmPcVersion = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.selectedImage = new System.Windows.Forms.PictureBox();
+            this.logo = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nmQuestVersion = new System.Windows.Forms.NumericUpDown();
+            this.btnStopSearch = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -200,21 +207,13 @@ namespace ARES
             this.panel1.Size = new System.Drawing.Size(173, 170);
             this.panel1.TabIndex = 10;
             // 
-            // logo
-            // 
-            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
-            this.logo.Location = new System.Drawing.Point(0, 0);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(173, 170);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logo.TabIndex = 0;
-            this.logo.TabStop = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.nmQuestVersion);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.nmPcVersion);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.cbVersionUnity);
             this.panel2.Controls.Add(this.btnBrowserView);
@@ -273,10 +272,12 @@ namespace ARES
             this.btnLoadAvatars.TabIndex = 11;
             this.btnLoadAvatars.Text = "Load Avatars";
             this.btnLoadAvatars.UseVisualStyleBackColor = true;
+            this.btnLoadAvatars.Click += new System.EventHandler(this.btnLoadAvatars_Click);
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.btnStopSearch);
             this.panel3.Controls.Add(this.lblAvatarCount);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.btnSearchLocal);
@@ -323,6 +324,7 @@ namespace ARES
             this.btnSearchLocal.TabIndex = 12;
             this.btnSearchLocal.Text = "Search Local";
             this.btnSearchLocal.UseVisualStyleBackColor = true;
+            this.btnSearchLocal.Click += new System.EventHandler(this.btnSearchLocal_Click);
             // 
             // cbSearchTerm
             // 
@@ -347,6 +349,49 @@ namespace ARES
             this.panel4.Size = new System.Drawing.Size(270, 171);
             this.panel4.TabIndex = 10;
             // 
+            // cbVersionUnity
+            // 
+            this.cbVersionUnity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVersionUnity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbVersionUnity.FormattingEnabled = true;
+            this.cbVersionUnity.Items.AddRange(new object[] {
+            "2019",
+            "2018"});
+            this.cbVersionUnity.Location = new System.Drawing.Point(3, 408);
+            this.cbVersionUnity.Name = "cbVersionUnity";
+            this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
+            this.cbVersionUnity.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(3, 374);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 25);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Unity Version:";
+            // 
+            // nmPcVersion
+            // 
+            this.nmPcVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nmPcVersion.Location = new System.Drawing.Point(3, 271);
+            this.nmPcVersion.Name = "nmPcVersion";
+            this.nmPcVersion.Size = new System.Drawing.Size(167, 26);
+            this.nmPcVersion.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(5, 252);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(138, 16);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "PC Avatar Version:";
+            // 
             // selectedImage
             // 
             this.selectedImage.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -357,29 +402,46 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // cbVersionUnity
+            // logo
             // 
-            this.cbVersionUnity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVersionUnity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbVersionUnity.FormattingEnabled = true;
-            this.cbVersionUnity.Items.AddRange(new object[] {
-            "2019",
-            "2018"});
-            this.cbVersionUnity.Location = new System.Drawing.Point(3, 286);
-            this.cbVersionUnity.Name = "cbVersionUnity";
-            this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
-            this.cbVersionUnity.TabIndex = 0;
+            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
+            this.logo.Location = new System.Drawing.Point(0, 0);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(173, 170);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logo.TabIndex = 0;
+            this.logo.TabStop = false;
             // 
-            // label4
+            // label6
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 252);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 25);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Unity Version:";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(5, 300);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(158, 16);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Quest Avatar Version:";
+            // 
+            // nmQuestVersion
+            // 
+            this.nmQuestVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nmQuestVersion.Location = new System.Drawing.Point(3, 319);
+            this.nmQuestVersion.Name = "nmQuestVersion";
+            this.nmQuestVersion.Size = new System.Drawing.Size(167, 26);
+            this.nmQuestVersion.TabIndex = 18;
+            // 
+            // btnStopSearch
+            // 
+            this.btnStopSearch.Location = new System.Drawing.Point(574, 139);
+            this.btnStopSearch.Name = "btnStopSearch";
+            this.btnStopSearch.Size = new System.Drawing.Size(113, 41);
+            this.btnStopSearch.TabIndex = 15;
+            this.btnStopSearch.Text = "Stop Search";
+            this.btnStopSearch.UseVisualStyleBackColor = true;
+            this.btnStopSearch.Click += new System.EventHandler(this.btnStopSearch_Click);
             // 
             // Main
             // 
@@ -402,13 +464,15 @@ namespace ARES
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,6 +510,11 @@ namespace ARES
         public System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ComboBox cbVersionUnity;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nmPcVersion;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown nmQuestVersion;
+        private System.Windows.Forms.Button btnStopSearch;
     }
 }
 
