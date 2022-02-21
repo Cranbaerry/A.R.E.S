@@ -1,4 +1,5 @@
 ﻿using ARES.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -60,35 +61,39 @@ namespace ARES.Modules
 
         public List<Records> getLocalAvatars()
         {
-            List<Records> list = new List<Records>();
-            string contents = File.ReadAllText(@"Log.txt");
-            string pattern = "Time Detected:(.*)\r\nAvatar ID:(.*)\r\nAvatar Name:(.*)\r\nAvatar Description:(.*)\r\nAuthor ID:(.*)\r\nAuthor Name:(.*)\r\nPC Asset URL:(.*)\r\nQuest Asset URL:(.*)\r\nImage URL:(.*)\r\nThumbnail URL:(.*)\r\nUnity Version:(.*)\r\nRelease Status:(.*)\r\nTags:(.*)";
-            string[] logRecords = Regex.Matches(contents, pattern).Cast<Match>().Select(m => m.Value).ToArray();
-
-
-            foreach (var item in logRecords)
+            if (File.Exists("Log.txt"))
             {
-                string[] lineItem = item.Split('\n');
-                Records records = new Records
-                {
-                    TimeDetected = lineItem[0].Split(':')[1].Replace("\r", ""),
-                    AvatarID = lineItem[1].Split(':')[1].Replace("\r", ""),
-                    AvatarName = lineItem[2].Split(':')[1].Replace("\r", ""),
-                    AvatarDescription = lineItem[3].Split(':')[1].Replace("\r", ""),
-                    AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
-                    AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
-                    PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
-                    QuestAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
-                    ImageURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
-                    ThumbnailURL = string.Join("", lineItem[9].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
-                    UnityVersion = lineItem[10].Split(':')[1].Replace("\r", ""),
-                    ReleaseStatus = lineItem[11].Split(':')[1].Replace("\r", ""),
-                    Tags = lineItem[12].Split(':')[1].Replace("\r", "")
-                };
-                list.Add(records);
-            }
+                List<Records> list = new List<Records>();
+                string contents = File.ReadAllText(@"Log.txt");
+                string pattern = "Time Detected:(.*)\r\nAvatar ID:(.*)\r\nAvatar Name:(.*)\r\nAvatar Description:(.*)\r\nAuthor ID:(.*)\r\nAuthor Name:(.*)\r\nPC Asset URL:(.*)\r\nQuest Asset URL:(.*)\r\nImage URL:(.*)\r\nThumbnail URL:(.*)\r\nUnity Version:(.*)\r\nRelease Status:(.*)\r\nTags:(.*)";
+                string[] logRecords = Regex.Matches(contents, pattern).Cast<Match>().Select(m => m.Value).ToArray();
 
-            return list;
+
+                foreach (var item in logRecords)
+                {
+                    string[] lineItem = item.Split('\n');
+                    Records records = new Records
+                    {
+                        TimeDetected = lineItem[0].Split(':')[1].Replace("\r", ""),
+                        AvatarID = lineItem[1].Split(':')[1].Replace("\r", ""),
+                        AvatarName = lineItem[2].Split(':')[1].Replace("\r", ""),
+                        AvatarDescription = lineItem[3].Split(':')[1].Replace("\r", ""),
+                        AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
+                        AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
+                        PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        QuestAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        ImageURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        ThumbnailURL = string.Join("", lineItem[9].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        UnityVersion = lineItem[10].Split(':')[1].Replace("\r", ""),
+                        ReleaseStatus = lineItem[11].Split(':')[1].Replace("\r", ""),
+                        Tags = lineItem[12].Split(':')[1].Replace("\r", "")
+                    };
+                    list.Add(records);
+                }
+
+                return list;
+            }
+            return new List<Records>();
         }
 
         public (bool, bool) setupHSB()
@@ -231,6 +236,61 @@ namespace ARES.Modules
                 Console.WriteLine("Killed Process: " + processName);
             }
             catch { }
+        }
+
+        public void uploadToApi(List<Records> avatars)
+        {
+           
+            string uploadedFile = "AvatarUploaded.txt";
+            if (!File.Exists(uploadedFile))
+            {
+                File.Create(uploadedFile);
+            }
+            foreach (var item in avatars)
+            {
+                if (!HasAvatarId(uploadedFile, item.AvatarID))
+                {
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://avatarlogger.tk/records/Avatars");
+                    httpWebRequest.ContentType = "application/json";
+                    httpWebRequest.Method = "POST";
+                    string jsonPost = JsonConvert.SerializeObject(item);
+                    using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                    {
+                        streamWriter.Write(jsonPost);
+                    }
+                    try
+                    {
+                        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                        {
+                            var result = streamReader.ReadToEnd();
+                        }
+                        File.AppendAllText(uploadedFile, item.AvatarID);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message.Contains("(409) Conflict"))
+                        {
+                            File.AppendAllText(uploadedFile, item.AvatarID);
+                        }
+                    }
+                    Console.WriteLine(item.AvatarID);
+                }
+            }
+        }
+
+        public bool HasAvatarId(string avatarFile, string avatarId)
+        {
+            var lines = File.ReadLines(avatarFile);
+            foreach (var line in lines)
+            {
+                if (line.Contains(avatarId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

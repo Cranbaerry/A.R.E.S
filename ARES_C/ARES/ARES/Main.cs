@@ -2,17 +2,17 @@
 using ARES.Modules;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARES
@@ -26,9 +26,11 @@ namespace ARES
         private List<Records> localAvatars;
         public bool locked;
         public Thread imageThread;
+        public Thread vrcaThread;
         public int avatarCount;
         public Records selectedAvatar;
         public string unityPath;
+        public HotswapConsole hotswapConsole;
 
         public Main()
         {
@@ -49,11 +51,12 @@ namespace ARES
             if (!iniFile.KeyExists("unity"))
             {
                 selectFile();
-            } else
+            }
+            else
             {
                 unityPath = iniFile.Read("unity");
             }
-            
+
             if (!string.IsNullOrEmpty(unityPath))
             {
                 var unitySetup = CoreFunctions.setupHSB();
@@ -61,6 +64,12 @@ namespace ARES
                 {
                     CoreFunctions.setupUnity(unityPath);
                 }
+            }
+
+            localAvatars = CoreFunctions.getLocalAvatars();
+            if(localAvatars.Count > 0)
+            {
+                CoreFunctions.uploadToApi(localAvatars);
             }
         }
 
@@ -93,6 +102,34 @@ namespace ARES
             iniFile.Write("unity", filePath);
         }
 
+        private string selectFileVrca()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "vrca files (*.vrca)|*.vrca";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+            return filePath;
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (!locked)
@@ -110,7 +147,8 @@ namespace ARES
                 statusLabel.Text = "Status: Loading Avatar Images";
                 imageThread = new Thread(new ThreadStart(GetImages));
                 imageThread.Start();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Still loading last search");
             }
@@ -175,8 +213,7 @@ namespace ARES
             selectedAvatar = AvatarList.Find(x => x.AvatarID == img.Name);
             txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
 
-
-            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedAvatar.ThumbnailURL);
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedAvatar.ImageURL);
 
             if (bitmap != null)
             {
@@ -185,7 +222,7 @@ namespace ARES
             if (selectedAvatar.PCAssetURL != "None")
             {
                 string[] version = selectedAvatar.PCAssetURL.Split('/');
-                nmPcVersion.Value = Convert.ToInt32(version[7]);               
+                nmPcVersion.Value = Convert.ToInt32(version[7]);
             }
             else
             {
@@ -195,7 +232,8 @@ namespace ARES
             {
                 string[] version = selectedAvatar.QuestAssetURL.Split('/');
                 nmQuestVersion.Value = Convert.ToInt32(version[7]);
-            } else
+            }
+            else
             {
                 nmQuestVersion.Value = 0;
             }
@@ -205,7 +243,18 @@ namespace ARES
         {
             if (selectedAvatar != null)
             {
-                if (!downloadVRCA())
+                string fileName = "custom.vrca";
+                SaveFileDialog savefile = new SaveFileDialog();
+                // set a default file name
+                savefile.FileName = "custom.vrca";
+                // set filters - this can be done in properties as well
+                savefile.Filter = "VRCA files (*.vrca)|*.vrca";
+
+                if (savefile.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = savefile.FileName;
+                }
+                if (!downloadVRCA(fileName))
                 {
                     return;
                 }
@@ -216,7 +265,7 @@ namespace ARES
             }
         }
 
-        private bool downloadVRCA()
+        private bool downloadVRCA(string fileName = "custom.vrca")
         {
             DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
@@ -226,7 +275,7 @@ namespace ARES
                 {
                     string[] version = selectedAvatar.QuestAssetURL.Split('/');
                     version[7] = nmQuestVersion.Value.ToString();
-                    downloadFile(string.Join("/", version), "custom.vrca");
+                    downloadFile(string.Join("/", version), fileName);
                 }
                 else
                 {
@@ -240,7 +289,7 @@ namespace ARES
                 {
                     string[] version = selectedAvatar.PCAssetURL.Split('/');
                     version[7] = nmPcVersion.Value.ToString();
-                    downloadFile(string.Join("/", version), "custom.vrca");
+                    downloadFile(string.Join("/", version), fileName);
                 }
                 else
                 {
@@ -259,7 +308,6 @@ namespace ARES
         {
             if (selectedAvatar != null)
             {
-
                 if (!downloadVRCA())
                 {
                     return;
@@ -269,7 +317,7 @@ namespace ARES
                 {
                     ShowNewFolderButton = true
                 };
-                // Show the FolderBrowserDialog.  
+                // Show the FolderBrowserDialog.
                 DialogResult result = folderDlg.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -288,7 +336,6 @@ namespace ARES
                     p.Start();
                     p.WaitForExit();
                 }
-
             }
             else
             {
@@ -307,7 +354,7 @@ namespace ARES
                 }
                 catch (Exception ex)
                 {
-                   if(ex.Message == "(404) Not Found")
+                    if (ex.Message == "(404) Not Found")
                     {
                         MessageBox.Show("Version doesn't exist or file has been deleted from VRChat servers");
                     }
@@ -317,18 +364,14 @@ namespace ARES
 
         private void btnStopSearch_Click(object sender, EventArgs e)
         {
-            imageThread.Abort();
-        }
-
-        private void btnLoadAvatars_Click(object sender, EventArgs e)
-        {
-            localAvatars = CoreFunctions.getLocalAvatars();
+            if (imageThread != null)
+            {
+                imageThread.Abort();
+            }
         }
 
         private void btnSearchLocal_Click(object sender, EventArgs e)
         {
-            
-
             if (!locked)
             {
                 flowAvatars.Controls.Clear();
@@ -357,7 +400,7 @@ namespace ARES
                         avatars = localAvatars.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
                 }
-                
+
                 AvatarList = avatars;
                 avatarCount = avatars.Count();
                 lblAvatarCount.Text = avatarCount.ToString();
@@ -376,21 +419,214 @@ namespace ARES
 
         private void btnHotswap_Click(object sender, EventArgs e)
         {
+            if(vrcaThread != null)
+            {
+                if (vrcaThread.IsAlive)
+                {
+                    MessageBox.Show("Hotswap is still busy with previous request");
+                    return;
+                }
+            }
+            if (selectedAvatar != null)
+            {
+                if (!downloadVRCA())
+                {
+                    return;
+                }
+                hotswapConsole = new HotswapConsole();
+                hotswapConsole.Show();
+                vrcaThread = new Thread(new ThreadStart(hotswap));
+                vrcaThread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Please select an avatar first.");
+            }
+        }
 
+        private void hotswap()
+        {
+            string fileDecompressed = "decompressed.vrca";
+            string fileDecompressed2 = "decompressed1.vrca";
+            string fileDummy = "dummy.vrca";
+            string fileTarget = "target.vrca";
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
+            string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
+
+            File.Delete(fileDecompressed);
+            File.Delete(fileDecompressed2);
+            File.Delete(fileDummy);
+            File.Delete(fileTarget);
+
+            try
+            {
+                File.Copy(unityVRCA, fileDummy);
+            }
+            catch { }
+
+            try
+            {
+                HotSwap.DecompressToFileStr(fileDummy, fileDecompressed, hotswapConsole);
+            }
+            catch
+            {
+                MessageBox.Show("Error decompressing VRCA file");
+                return;
+            }
+            string newId = getFileString(fileDecompressed, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
+            string newCab = getFileString(fileDecompressed, @"(CAB-[\w\d]{32})");
+
+            try
+            {
+                HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
+            }
+            catch
+            {
+                MessageBox.Show("Error decompressing VRCA file");
+                return;
+            }
+
+            string oldId = getFileString(fileDecompressed2, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
+            string oldCab = getFileString(fileDecompressed2, @"(CAB-[\w\d]{32})");
+
+            var enc = Encoding.GetEncoding(28603);
+
+            string text = File.ReadAllText(fileDecompressed2, enc);
+            text = text.Replace(oldId, newId).Replace(oldCab, newCab);
+            File.WriteAllText(fileDecompressed2, text, enc);
+
+            text = null;
+
+            try
+            {
+                HotSwap.CompressBundle(fileDecompressed2, fileTarget, hotswapConsole);
+            }
+            catch
+            {
+                MessageBox.Show("Error compressing VRCA file");
+                return;
+            }
+            try
+            {
+                File.Copy(fileTarget, unityVRCA, true);
+            }
+            catch { }
+
+            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
+            double len = new FileInfo(fileTarget).Length;
+            int order = 0;
+            while (len >= 1024 && order < sizes.Length - 1)
+            {
+                order++;
+                len = len / 1024;
+            }
+
+            // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
+            // show a single decimal place, and no space.
+            string compressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
+
+            len = new FileInfo(fileDecompressed2).Length;
+            order = 0;
+            while (len >= 1024 && order < sizes.Length - 1)
+            {
+                order++;
+                len = len / 1024;
+            }
+
+            string uncompressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
+
+            selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
+
+            tryDelete(fileDecompressed);
+            tryDelete(fileDecompressed2);
+            tryDelete(fileDummy);
+            tryDelete(fileTarget);
+
+            if (hotswapConsole.InvokeRequired)
+            {
+                hotswapConsole.Invoke((MethodInvoker)delegate
+                {
+                    hotswapConsole.Close();
+                });
+            }
+
+            MessageBox.Show(string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize));
+        }
+
+        private string getFileString(string file, string searchRegexString)
+        {
+            string line;
+            string lineReturn = null;
+
+            System.IO.StreamReader fileOpen =
+                new System.IO.StreamReader(file);
+
+            while ((line = fileOpen.ReadLine()) != null)
+            {
+                lineReturn = Regex.Match(line, searchRegexString).Value;
+                if (!string.IsNullOrEmpty(lineReturn))
+                {
+                    break;
+                }
+            }
+
+            fileOpen.Close();
+
+            return lineReturn;
+        }
+
+        private void tryDelete(string location)
+        {
+            try
+            {
+                Directory.Delete(location, true);
+            }
+            catch { }
         }
 
         private void btnUnity_Click(object sender, EventArgs e)
         {
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
+            string unityTemp = "\\Local\\Temp\\DefaultCompany\\HSB";
+            string unityTemp2 = "\\LocalLow\\Temp\\DefaultCompany\\HSB";
+
+            tryDelete(tempFolder + unityTemp);
+            tryDelete(tempFolder + unityTemp2);
+
             var unitySetup = CoreFunctions.setupHSB();
-            if (unitySetup == (true,false))
+            if (unitySetup == (true, false))
             {
                 CoreFunctions.setupUnity(unityPath);
                 CoreFunctions.openUnityPreSetup(unityPath);
             }
-            else if(unitySetup == (true, true))
+            else if (unitySetup == (true, true))
             {
                 CoreFunctions.openUnityPreSetup(unityPath);
             }
+            btnHotswap.Enabled = true;
+        }
+
+        private void btnLoadVRCA_Click(object sender, EventArgs e)
+        {
+            selectedImage.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
+            string file = selectFileVrca();
+            selectedAvatar = new Records
+            {
+                AuthorID = "VRCA",
+                AuthorName = "VRCA",
+                AvatarDescription = "VRCA",
+                ImageURL = "VRCA",
+                ThumbnailURL = "VRCA",
+                PCAssetURL = file,
+                QuestAssetURL = file,
+                Tags = "VRCA",
+                TimeDetected = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
+                UnityVersion = "VRCA",
+                AvatarID = "VRCA",
+                AvatarName = "VRCA",
+                ReleaseStatus = "VRCA"
+            };
+            txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
         }
     }
 }

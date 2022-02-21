@@ -56,8 +56,9 @@ namespace ARES
             this.btnExtractVRCA = new System.Windows.Forms.Button();
             this.btnLoadVRCA = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
-            this.btnLoadAvatars = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnUnity = new System.Windows.Forms.Button();
+            this.btnHotswap = new System.Windows.Forms.Button();
             this.btnStopSearch = new System.Windows.Forms.Button();
             this.lblAvatarCount = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,8 +67,6 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnHotswap = new System.Windows.Forms.Button();
-            this.btnUnity = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -234,7 +233,6 @@ namespace ARES
             this.panel2.Controls.Add(this.btnExtractVRCA);
             this.panel2.Controls.Add(this.btnLoadVRCA);
             this.panel2.Controls.Add(this.btnDownload);
-            this.panel2.Controls.Add(this.btnLoadAvatars);
             this.panel2.Location = new System.Drawing.Point(12, 182);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(173, 448);
@@ -245,7 +243,7 @@ namespace ARES
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(5, 300);
+            this.label6.Location = new System.Drawing.Point(5, 260);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(158, 16);
             this.label6.TabIndex = 17;
@@ -254,7 +252,7 @@ namespace ARES
             // nmQuestVersion
             // 
             this.nmQuestVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmQuestVersion.Location = new System.Drawing.Point(3, 319);
+            this.nmQuestVersion.Location = new System.Drawing.Point(3, 279);
             this.nmQuestVersion.Name = "nmQuestVersion";
             this.nmQuestVersion.Size = new System.Drawing.Size(167, 26);
             this.nmQuestVersion.TabIndex = 18;
@@ -264,7 +262,7 @@ namespace ARES
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(5, 252);
+            this.label5.Location = new System.Drawing.Point(5, 212);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 16);
             this.label5.TabIndex = 0;
@@ -273,7 +271,7 @@ namespace ARES
             // nmPcVersion
             // 
             this.nmPcVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmPcVersion.Location = new System.Drawing.Point(3, 271);
+            this.nmPcVersion.Location = new System.Drawing.Point(3, 231);
             this.nmPcVersion.Name = "nmPcVersion";
             this.nmPcVersion.Size = new System.Drawing.Size(167, 26);
             this.nmPcVersion.TabIndex = 0;
@@ -283,7 +281,7 @@ namespace ARES
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 374);
+            this.label4.Location = new System.Drawing.Point(3, 334);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(160, 25);
             this.label4.TabIndex = 0;
@@ -297,7 +295,7 @@ namespace ARES
             this.cbVersionUnity.Items.AddRange(new object[] {
             "2019",
             "2018"});
-            this.cbVersionUnity.Location = new System.Drawing.Point(3, 408);
+            this.cbVersionUnity.Location = new System.Drawing.Point(3, 368);
             this.cbVersionUnity.Name = "cbVersionUnity";
             this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
             this.cbVersionUnity.TabIndex = 0;
@@ -305,7 +303,7 @@ namespace ARES
             // btnBrowserView
             // 
             this.btnBrowserView.Enabled = false;
-            this.btnBrowserView.Location = new System.Drawing.Point(3, 59);
+            this.btnBrowserView.Location = new System.Drawing.Point(3, 10);
             this.btnBrowserView.Name = "btnBrowserView";
             this.btnBrowserView.Size = new System.Drawing.Size(167, 43);
             this.btnBrowserView.TabIndex = 16;
@@ -314,7 +312,7 @@ namespace ARES
             // 
             // btnExtractVRCA
             // 
-            this.btnExtractVRCA.Location = new System.Drawing.Point(3, 206);
+            this.btnExtractVRCA.Location = new System.Drawing.Point(3, 157);
             this.btnExtractVRCA.Name = "btnExtractVRCA";
             this.btnExtractVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnExtractVRCA.TabIndex = 15;
@@ -324,32 +322,24 @@ namespace ARES
             // 
             // btnLoadVRCA
             // 
-            this.btnLoadVRCA.Location = new System.Drawing.Point(3, 157);
+            this.btnLoadVRCA.Enabled = false;
+            this.btnLoadVRCA.Location = new System.Drawing.Point(3, 108);
             this.btnLoadVRCA.Name = "btnLoadVRCA";
             this.btnLoadVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnLoadVRCA.TabIndex = 14;
             this.btnLoadVRCA.Text = "Load VRCA";
             this.btnLoadVRCA.UseVisualStyleBackColor = true;
+            this.btnLoadVRCA.Click += new System.EventHandler(this.btnLoadVRCA_Click);
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(3, 108);
+            this.btnDownload.Location = new System.Drawing.Point(3, 59);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(167, 43);
             this.btnDownload.TabIndex = 13;
             this.btnDownload.Text = "Download VRCA";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // btnLoadAvatars
-            // 
-            this.btnLoadAvatars.Location = new System.Drawing.Point(3, 10);
-            this.btnLoadAvatars.Name = "btnLoadAvatars";
-            this.btnLoadAvatars.Size = new System.Drawing.Size(167, 43);
-            this.btnLoadAvatars.TabIndex = 11;
-            this.btnLoadAvatars.Text = "Load Avatars";
-            this.btnLoadAvatars.UseVisualStyleBackColor = true;
-            this.btnLoadAvatars.Click += new System.EventHandler(this.btnLoadAvatars_Click);
             // 
             // panel3
             // 
@@ -372,6 +362,27 @@ namespace ARES
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(972, 624);
             this.panel3.TabIndex = 12;
+            // 
+            // btnUnity
+            // 
+            this.btnUnity.Location = new System.Drawing.Point(458, 94);
+            this.btnUnity.Name = "btnUnity";
+            this.btnUnity.Size = new System.Drawing.Size(113, 41);
+            this.btnUnity.TabIndex = 17;
+            this.btnUnity.Text = "Open Unity";
+            this.btnUnity.UseVisualStyleBackColor = true;
+            this.btnUnity.Click += new System.EventHandler(this.btnUnity_Click);
+            // 
+            // btnHotswap
+            // 
+            this.btnHotswap.Enabled = false;
+            this.btnHotswap.Location = new System.Drawing.Point(577, 94);
+            this.btnHotswap.Name = "btnHotswap";
+            this.btnHotswap.Size = new System.Drawing.Size(110, 41);
+            this.btnHotswap.TabIndex = 16;
+            this.btnHotswap.Text = "Hotswap";
+            this.btnHotswap.UseVisualStyleBackColor = true;
+            this.btnHotswap.Click += new System.EventHandler(this.btnHotswap_Click);
             // 
             // btnStopSearch
             // 
@@ -448,27 +459,6 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // btnHotswap
-            // 
-            this.btnHotswap.Enabled = false;
-            this.btnHotswap.Location = new System.Drawing.Point(577, 94);
-            this.btnHotswap.Name = "btnHotswap";
-            this.btnHotswap.Size = new System.Drawing.Size(110, 41);
-            this.btnHotswap.TabIndex = 16;
-            this.btnHotswap.Text = "Hotswap";
-            this.btnHotswap.UseVisualStyleBackColor = true;
-            this.btnHotswap.Click += new System.EventHandler(this.btnHotswap_Click);
-            // 
-            // btnUnity
-            // 
-            this.btnUnity.Location = new System.Drawing.Point(458, 94);
-            this.btnUnity.Name = "btnUnity";
-            this.btnUnity.Size = new System.Drawing.Size(113, 41);
-            this.btnUnity.TabIndex = 17;
-            this.btnUnity.Text = "Open Unity";
-            this.btnUnity.UseVisualStyleBackColor = true;
-            this.btnUnity.Click += new System.EventHandler(this.btnUnity_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,7 +512,6 @@ namespace ARES
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox selectedImage;
         private System.Windows.Forms.ToolStripStatusLabel lblStatsAmount;
-        private System.Windows.Forms.Button btnLoadAvatars;
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.ComboBox cbSearchTerm;
         private System.Windows.Forms.Button btnBrowserView;

@@ -1,13 +1,18 @@
-﻿using System;
+﻿using ARES;
+using System;
+using System.Windows.Forms;
+
 public class SZProgress : SevenZip.ICodeProgress
 {
     public ulong maxSize;
     public float prog;
+    private HotswapConsole hotswap;
 
-    public SZProgress()
+    public SZProgress(HotswapConsole hotswapConsole)
     {
         maxSize = 0;
         prog = 0.0f;
+        hotswap = hotswapConsole;
     }
     public void SetProgress(ulong inSize)
     {
@@ -16,6 +21,18 @@ public class SZProgress : SevenZip.ICodeProgress
         {
             prog = pgs;
             Console.Write($"\rProgress: %{prog * 100}");
+            safeProgress(hotswap.pbProgress, Convert.ToInt32((int)Math.Round(prog *100)));
+        }
+    }
+
+    private static void safeProgress(ProgressBar progress, int value)
+    {
+        if (progress.InvokeRequired)
+        {
+            progress.Invoke((MethodInvoker)delegate
+            {
+                progress.Value = value;
+            });
         }
     }
 
