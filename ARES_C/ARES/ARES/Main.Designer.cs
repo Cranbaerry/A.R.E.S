@@ -453,10 +453,10 @@ namespace ARES
             this.cbSearchTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSearchTerm.FormattingEnabled = true;
             this.cbSearchTerm.Items.AddRange(new object[] {
-            "Author ID",
+            "Avatar Name",
             "Author Name",
             "Avatar ID",
-            "Avatar Name"});
+            "Author ID"});
             this.cbSearchTerm.Location = new System.Drawing.Point(197, 50);
             this.cbSearchTerm.Name = "cbSearchTerm";
             this.cbSearchTerm.Size = new System.Drawing.Size(255, 39);

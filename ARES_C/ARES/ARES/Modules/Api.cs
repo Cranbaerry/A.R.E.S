@@ -18,7 +18,7 @@ namespace ARES.Modules
             if (!string.IsNullOrEmpty(query)) {
                 if (type == "Avatar Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,eq,{0}", query);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query);
                 }
                 if (type == "Avatar ID")
                 {

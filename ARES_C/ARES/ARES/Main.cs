@@ -42,8 +42,24 @@ namespace ARES
             ApiGrab = new Api();
             CoreFunctions = new CoreFunctions();
             iniFile = new IniFile();
+            if (!Directory.Exists("Logs"))
+            {
+                Directory.CreateDirectory("Logs");
+            }
+
+            if (File.Exists("LatestLog.txt"))
+            {
+                File.Move("LatestLog.txt", string.Format("Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
+                File.Create("LatestLog.txt");
+            } else
+            {
+                File.Create("LatestLog.txt");
+            }
+
+            
+
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
-            cbSearchTerm.SelectedIndex = 3;
+            cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
             MessageBoxManager.Yes = "Quest";
             MessageBoxManager.No = "PC";
@@ -77,6 +93,7 @@ namespace ARES
             {
                 CoreFunctions.uploadToApi(localAvatars);
             }
+
         }
 
         private void selectFile()
@@ -166,7 +183,9 @@ namespace ARES
             {
                 foreach (var item in AvatarList)
                 {
+                    GroupBox groupBox = new GroupBox { Size = new Size(150, 150) };
                     PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
+                    Label label = new Label { Text = "Avatar Name: " + item.AvatarName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
                     Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
 
                     if (bitmap != null)
@@ -174,11 +193,15 @@ namespace ARES
                         avatarImage.Image = bitmap;
                         avatarImage.Name = item.AvatarID;
                         avatarImage.Click += LoadInfo;
+                        label.Click += LoadInfo;
+                        groupBox.Controls.Add(avatarImage);
+                        groupBox.Controls.Add(label);
+                        label.Parent = avatarImage;
                         if (flowAvatars.InvokeRequired)
                         {
                             flowAvatars.Invoke((MethodInvoker)delegate
                             {
-                                flowAvatars.Controls.Add(avatarImage);
+                                flowAvatars.Controls.Add(groupBox);
                             });
                         }
                     }
