@@ -76,7 +76,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
             {
-                //btnSearch.Enabled = false;
+                btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
