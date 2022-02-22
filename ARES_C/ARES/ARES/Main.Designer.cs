@@ -67,6 +67,7 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnRepair = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -322,7 +323,6 @@ namespace ARES
             // 
             // btnLoadVRCA
             // 
-            this.btnLoadVRCA.Enabled = false;
             this.btnLoadVRCA.Location = new System.Drawing.Point(3, 108);
             this.btnLoadVRCA.Name = "btnLoadVRCA";
             this.btnLoadVRCA.Size = new System.Drawing.Size(167, 43);
@@ -344,6 +344,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.btnRepair);
             this.panel3.Controls.Add(this.btnUnity);
             this.panel3.Controls.Add(this.btnHotswap);
             this.panel3.Controls.Add(this.btnStopSearch);
@@ -459,6 +460,16 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // btnRepair
+            // 
+            this.btnRepair.Location = new System.Drawing.Point(458, 139);
+            this.btnRepair.Name = "btnRepair";
+            this.btnRepair.Size = new System.Drawing.Size(113, 41);
+            this.btnRepair.TabIndex = 18;
+            this.btnRepair.Text = "Repair VRCA";
+            this.btnRepair.UseVisualStyleBackColor = true;
+            this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,7 +484,7 @@ namespace ARES
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "A.R.E.S V11";
+            this.Text = "A.R.E.S V11 - Beta";
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -532,6 +543,7 @@ namespace ARES
         private System.Windows.Forms.Button btnStopSearch;
         private System.Windows.Forms.Button btnHotswap;
         private System.Windows.Forms.Button btnUnity;
+        private System.Windows.Forms.Button btnRepair;
     }
 }
 

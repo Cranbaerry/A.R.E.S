@@ -265,13 +265,13 @@ namespace ARES.Modules
                         {
                             var result = streamReader.ReadToEnd();
                         }
-                        File.AppendAllText(uploadedFile, item.AvatarID);
+                        File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
                     }
                     catch (Exception ex)
                     {
                         if (ex.Message.Contains("(409) Conflict"))
                         {
-                            File.AppendAllText(uploadedFile, item.AvatarID);
+                            File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
                         }
                     }
                     Console.WriteLine(item.AvatarID);
