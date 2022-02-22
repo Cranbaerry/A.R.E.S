@@ -16,11 +16,11 @@ namespace ARES.Models
 
         public string AuthorID { get; set; }
         public string PCAssetURL { get; set; }
-        public string QuestAssetURL { get; set; }
+        public string QUESTAssetURL { get; set; }
         public string ImageURL { get; set; }
         public string ThumbnailURL { get; set; }
         public string UnityVersion { get; set; }
-        public string ReleaseStatus { get; set; }
+        public string Releasestatus { get; set; }
         public string Tags { get; set; }
     }
 

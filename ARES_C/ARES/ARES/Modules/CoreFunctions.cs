@@ -20,7 +20,7 @@ namespace ARES.Modules
 
         public string SetAvatarInfo(Records avatar)
         {
-            string avatarString = string.Format("Time Dectected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(Convert.ToDouble(avatar.TimeDetected)), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QuestAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.ReleaseStatus, avatar.Tags, Environment.NewLine);
+            string avatarString = string.Format("Time Dectected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(Convert.ToDouble(avatar.TimeDetected)), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QUESTAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
             return avatarString;
         }
 
@@ -81,11 +81,11 @@ namespace ARES.Modules
                         AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
                         AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
                         PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
-                        QuestAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        QUESTAssetURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                         ImageURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                         ThumbnailURL = string.Join("", lineItem[9].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
                         UnityVersion = lineItem[10].Split(':')[1].Replace("\r", ""),
-                        ReleaseStatus = lineItem[11].Split(':')[1].Replace("\r", ""),
+                        Releasestatus = lineItem[11].Split(':')[1].Replace("\r", ""),
                         Tags = lineItem[12].Split(':')[1].Replace("\r", "")
                     };
                     list.Add(records);

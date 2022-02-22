@@ -61,8 +61,8 @@ namespace ARES
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
             cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
-            MessageBoxManager.Yes = "Quest";
-            MessageBoxManager.No = "PC";
+            MessageBoxManager.Yes = "PC";
+            MessageBoxManager.No = "Quest";
             MessageBoxManager.Register();
             if (!iniFile.KeyExists("unity"))
             {
@@ -76,7 +76,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
             {
-                btnSearch.Enabled = false;
+                //btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -177,13 +177,14 @@ namespace ARES
             }
         }
 
+
         public void GetImages()
         {
             try
             {
                 foreach (var item in AvatarList)
                 {
-                    GroupBox groupBox = new GroupBox { Size = new Size(150, 150) };
+                    Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
                     PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
                     Label label = new Label { Text = "Avatar Name: " + item.AvatarName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
                     Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
@@ -191,8 +192,8 @@ namespace ARES
                     if (bitmap != null)
                     {
                         avatarImage.Image = bitmap;
-                        avatarImage.Name = item.AvatarID;
-                        avatarImage.Click += LoadInfo;
+                        label.Name = item.AvatarID;
+                        //avatarImage.Click += LoadInfo;
                         label.Click += LoadInfo;
                         groupBox.Controls.Add(avatarImage);
                         groupBox.Controls.Add(label);
@@ -238,7 +239,7 @@ namespace ARES
 
         private void LoadInfo(object sender, EventArgs e)
         {
-            var img = (PictureBox)sender;
+            var img = (Label)sender;
             selectedAvatar = AvatarList.Find(x => x.AvatarID == img.Name);
             txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
 
@@ -257,9 +258,9 @@ namespace ARES
             {
                 nmPcVersion.Value = 0;
             }
-            if (selectedAvatar.QuestAssetURL != "None")
+            if (selectedAvatar.QUESTAssetURL != "None")
             {
-                string[] version = selectedAvatar.QuestAssetURL.Split('/');
+                string[] version = selectedAvatar.QUESTAssetURL.Split('/');
                 nmQuestVersion.Value = Convert.ToInt32(version[7]);
             }
             else
@@ -298,44 +299,65 @@ namespace ARES
         {
             if (selectedAvatar.AuthorName != "VRCA")
             {
-                DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                if (dlgResult == DialogResult.Yes)
+                if (selectedAvatar.PCAssetURL != "None" && selectedAvatar.QUESTAssetURL != "None")
                 {
-                    if (selectedAvatar.QuestAssetURL != "None")
+                    DialogResult dlgResult = MessageBox.Show("Select which version to download", "VRCA Select", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (dlgResult == DialogResult.No)
                     {
+                        if (selectedAvatar.QUESTAssetURL != "None")
+                        {
 
-                        string[] version = selectedAvatar.QuestAssetURL.Split('/');
-                        version[7] = nmQuestVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), fileName);
+                            string[] version = selectedAvatar.QUESTAssetURL.Split('/');
+                            version[7] = nmQuestVersion.Value.ToString();
+                            downloadFile(string.Join("/", version), fileName);
 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Quest version doesn't exist");
+                            return false;
+                        }
+                    }
+                    else if (dlgResult == DialogResult.Yes)
+                    {
+                        if (selectedAvatar.PCAssetURL != "None")
+                        {
+
+                            string[] version = selectedAvatar.PCAssetURL.Split('/');
+                            version[7] = nmPcVersion.Value.ToString();
+                            downloadFile(string.Join("/", version), fileName);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("PC version doesn't exist");
+                            return false;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Quest version doesn't exist");
                         return false;
                     }
                 }
-                else if (dlgResult == DialogResult.No)
+                else if (selectedAvatar.PCAssetURL != "None")
                 {
-                    if (selectedAvatar.PCAssetURL != "None")
-                    {
 
-                        string[] version = selectedAvatar.PCAssetURL.Split('/');
-                        version[7] = nmPcVersion.Value.ToString();
-                        downloadFile(string.Join("/", version), fileName);
+                    string[] version = selectedAvatar.PCAssetURL.Split('/');
+                    version[7] = nmPcVersion.Value.ToString();
+                    downloadFile(string.Join("/", version), fileName);
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("PC version doesn't exist");
-                        return false;
-                    }
                 }
-                else
+                else if (selectedAvatar.QUESTAssetURL != "None")
                 {
-                    return false;
+
+                    string[] version = selectedAvatar.QUESTAssetURL.Split('/');
+                    version[7] = nmQuestVersion.Value.ToString();
+                    downloadFile(string.Join("/", version), fileName);
+
                 }
+                else { return false; }
+
             }
             else
             {
@@ -408,6 +430,7 @@ namespace ARES
             if (imageThread != null)
             {
                 imageThread.Abort();
+                locked = false;
             }
         }
 
@@ -512,6 +535,13 @@ namespace ARES
             catch
             {
                 MessageBox.Show("Error decompressing VRCA file");
+                if (hotswapConsole.InvokeRequired)
+                {
+                    hotswapConsole.Invoke((MethodInvoker)delegate
+                    {
+                        hotswapConsole.Close();
+                    });
+                }
                 return;
             }
             string newId = getFileString(fileDecompressed, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
@@ -524,6 +554,13 @@ namespace ARES
             catch
             {
                 MessageBox.Show("Error decompressing VRCA file");
+                if (hotswapConsole.InvokeRequired)
+                {
+                    hotswapConsole.Invoke((MethodInvoker)delegate
+                    {
+                        hotswapConsole.Close();
+                    });
+                }
                 return;
             }
 
@@ -545,6 +582,13 @@ namespace ARES
             catch
             {
                 MessageBox.Show("Error compressing VRCA file");
+                if (hotswapConsole.InvokeRequired)
+                {
+                    hotswapConsole.Invoke((MethodInvoker)delegate
+                    {
+                        hotswapConsole.Close();
+                    });
+                }
                 return;
             }
             try
@@ -724,13 +768,13 @@ namespace ARES
                 ImageURL = "VRCA",
                 ThumbnailURL = "VRCA",
                 PCAssetURL = file,
-                QuestAssetURL = file,
+                QUESTAssetURL = file,
                 Tags = "VRCA",
                 TimeDetected = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
                 UnityVersion = "VRCA",
                 AvatarID = "VRCA",
                 AvatarName = "VRCA",
-                ReleaseStatus = "VRCA"
+                Releasestatus = "VRCA"
             };
             txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
         }
