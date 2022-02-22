@@ -57,6 +57,7 @@ namespace ARES
             this.btnLoadVRCA = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnRepair = new System.Windows.Forms.Button();
             this.btnUnity = new System.Windows.Forms.Button();
             this.btnHotswap = new System.Windows.Forms.Button();
             this.btnStopSearch = new System.Windows.Forms.Button();
@@ -67,7 +68,6 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnRepair = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -254,6 +254,11 @@ namespace ARES
             // 
             this.nmQuestVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nmQuestVersion.Location = new System.Drawing.Point(3, 279);
+            this.nmQuestVersion.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
             this.nmQuestVersion.Name = "nmQuestVersion";
             this.nmQuestVersion.Size = new System.Drawing.Size(167, 26);
             this.nmQuestVersion.TabIndex = 18;
@@ -273,6 +278,11 @@ namespace ARES
             // 
             this.nmPcVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nmPcVersion.Location = new System.Drawing.Point(3, 231);
+            this.nmPcVersion.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
             this.nmPcVersion.Name = "nmPcVersion";
             this.nmPcVersion.Size = new System.Drawing.Size(167, 26);
             this.nmPcVersion.TabIndex = 0;
@@ -363,6 +373,16 @@ namespace ARES
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(972, 624);
             this.panel3.TabIndex = 12;
+            // 
+            // btnRepair
+            // 
+            this.btnRepair.Location = new System.Drawing.Point(458, 139);
+            this.btnRepair.Name = "btnRepair";
+            this.btnRepair.Size = new System.Drawing.Size(113, 41);
+            this.btnRepair.TabIndex = 18;
+            this.btnRepair.Text = "Repair VRCA";
+            this.btnRepair.UseVisualStyleBackColor = true;
+            this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
             // 
             // btnUnity
             // 
@@ -459,16 +479,6 @@ namespace ARES
             this.selectedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
-            // 
-            // btnRepair
-            // 
-            this.btnRepair.Location = new System.Drawing.Point(458, 139);
-            this.btnRepair.Name = "btnRepair";
-            this.btnRepair.Size = new System.Drawing.Size(113, 41);
-            this.btnRepair.TabIndex = 18;
-            this.btnRepair.Text = "Repair VRCA";
-            this.btnRepair.UseVisualStyleBackColor = true;
-            this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
             // 
             // Main
             // 
