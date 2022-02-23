@@ -57,6 +57,44 @@ namespace ARES.Modules
             return items.records;
         }
 
+        public List<WorldClass> getWorlds(string query, string type)
+        {
+            string url = "";
+            if (!string.IsNullOrEmpty(query))
+            {
+                if (type == "World Name")
+                {
+                    url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldName,cs,{0}", query);
+                }
+                if (type == "World ID")
+                {
+                    url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldID,eq,{0}", query);
+                }
+            } else
+            {
+                url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
+            }
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
+
+            WebReq.Method = "GET";
+
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            Console.WriteLine(WebResp.StatusCode);
+            Console.WriteLine(WebResp.Server);
+
+            string jsonString;
+            using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
+            {
+                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                jsonString = reader.ReadToEnd();
+            }
+
+            Worlds items = JsonConvert.DeserializeObject<Worlds>(jsonString);
+
+            return items.records;
+        }
+
         public Stats getStats()
         {
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/stats.php"));

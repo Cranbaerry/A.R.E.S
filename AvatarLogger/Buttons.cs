@@ -45,6 +45,7 @@ namespace Buttons
             ReMenuPage TabPage = new ReMenuPage("ARES", true);
             ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
             ReMenuPage LSMP = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
+            LSMP.AddToggle("Log Worlds", "Toggles the logging of worlds", delegate (bool b) { Config.LogWorlds = b; }, Config.LogWorlds);
             LSMP.AddToggle("Log Avatars", "Toggles the logging of avatars", delegate (bool b) { Config.LogAvatars = b; }, Config.LogAvatars);
             LSMP.AddToggle("Log Public Avatars", "Toggles the logging of public avatars", delegate (bool b) { Config.LogPublicAvatars = b; }, Config.LogPublicAvatars);
             LSMP.AddToggle("Log Private Avatars", "Toggles the logging of private avatars", delegate (bool b) { Config.LogPrivateAvatars = b; }, Config.LogPrivateAvatars);

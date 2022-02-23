@@ -105,8 +105,9 @@
     <Reference Include="Photon-DotNet">
       <HintPath>E:\SteamLibrary\steamapps\common\VRChat\MelonLoader\Managed\Photon-DotNet.dll</HintPath>
     </Reference>
-    <Reference Include="ReMod.Core">
-      <HintPath>..\..\..\Release\ReMod.Core.dll</HintPath>
+    <Reference Include="ReMod.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ReMod.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

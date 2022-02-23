@@ -170,5 +170,68 @@ namespace Logging
 
             return false;
         }
+
+        public static void ExecuteLogWorld(ApiWorld worldTable)
+        {
+            //If avatar loggin is enabled
+            if (Config.LogWorlds)
+            {
+                //Locate the log file
+                string AvatarFile = "GUI\\LogWorld.txt";
+                string AvatarFileIds = "GUI\\LogWorldIds.txt";
+                //If the log file does not exist create it and append the credits of the mod
+                if (!File.Exists(AvatarFile))
+                { File.AppendAllText(AvatarFile, "Mod By ShrekamusChrist, LargestBoi & Yui\n"); }
+
+                if (!File.Exists(AvatarFileIds))
+                { File.AppendAllText(AvatarFileIds, "Mod By ShrekamusChrist, LargestBoi & Yui\n"); }
+                //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
+                if (!HasAvatarId(AvatarFileIds, worldTable.id))
+                {
+                    //Log the id to a different file to help speed up reading and looping
+                    File.AppendAllText(AvatarFileIds, worldTable.id + "\n");
+                    //Log the following variables to the log file
+                    File.AppendAllLines(AvatarFile, new string[]
+                    {
+                    //Obtains the cuttent system date/time in unix and logs it as the time the avatar was detected
+                    $"Time Detected:{((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString()}",
+                    //Continues to extract more data from the hash table and write it to the log file such as:
+                    //Avatar ID, Name, Description, Author ID, Author Name and the PC Asset URL
+                    $"World ID:{worldTable.id}",
+                    $"World Name:{worldTable.name}",
+                    $"World Description:{worldTable.description}",
+                    $"Author ID:{worldTable.authorId}",
+                    $"Author Name:{worldTable.authorName}",
+                    });
+
+                    File.AppendAllLines(AvatarFile, new string[]
+                    {
+                    $"PC Asset URL:{worldTable.assetUrl}",
+                    $"Image URL:{worldTable.imageUrl}",
+                    $"Thumbnail URL:{worldTable.thumbnailImageUrl}",
+                    $"Unity Version:{worldTable.unityVersion}",
+                    $"Release Status:{worldTable.releaseStatus}",
+                    });
+                    //The last variables extracted are the tags of the avatar, these are added by the avatar uploader or by VRChat administrators/developers,
+                    //they are initally stored as an array, if no tags are set the if statemnt will just continue with its else
+                    if (worldTable.tags.Count > 0)
+                    {
+                        //Prepares to create a string from the array of tags
+                        StringBuilder builder = new StringBuilder();
+                        //Adds the text "Tags: " to the string being created as an identifer
+                        builder.Append("Tags: ");
+                        //For every value in the tags array add it to the string being created
+                        foreach (string tag in worldTable.tags) { builder.Append($"{tag},"); }
+                        //Write the final created string into the log file containing all extracted and sorted tags
+                        File.AppendAllText(AvatarFile, builder.ToString().Remove(builder.ToString().LastIndexOf(",")));
+                    }
+                    //If there are no tags present the default text "Tags: None" is written into the log file
+                    else { File.AppendAllText(AvatarFile, "Tags: None"); }
+                    //Inform the user of the successful log
+                    if (Config.LogToConsole) { MelonLogger.Msg($"Logged: {worldTable.authorName}'s World ({worldTable.name}|{worldTable.releaseStatus})!"); }
+                    File.AppendAllText(AvatarFile, "\n\n");
+                }
+            }
+        }
     }
 }

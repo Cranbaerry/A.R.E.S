@@ -24,6 +24,12 @@ namespace ARES.Modules
             return avatarString;
         }
 
+        public string SetWorldInfo(WorldClass avatar)
+        {
+            string avatarString = string.Format("Time Dectected: {0} {12}World ID: {1} {12}World Name: {2} {12}World Description {3} {12}Author ID: {4} {12}Author Name: {5} {12}PC Asset URL: {6} {12}Image URL: {7} {12}Thumbnail URL: {8} {12}Unity Version: {9} {12}Release Status: {10} {12}Tags: {11}", GetDate(Convert.ToDouble(avatar.TimeDetected)), avatar.WorldID, avatar.WorldName, avatar.WorldDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
+            return avatarString;
+        }
+
         public Bitmap loadImage(string url)
         {
             using (WebClient webClient = new WebClient())
@@ -96,6 +102,42 @@ namespace ARES.Modules
             return new List<Records>();
         }
 
+        public List<WorldClass> getLocalWorlds()
+        {
+            if (File.Exists("LogWorld.txt"))
+            {
+                List<WorldClass> list = new List<WorldClass>();
+                string contents = File.ReadAllText(@"LogWorld.txt");
+                string pattern = "Time Detected:(.*)\r\nWorld ID:(.*)\r\nWorld Name:(.*)\r\nWorld Description:(.*)\r\nAuthor ID:(.*)\r\nAuthor Name:(.*)\r\nPC Asset URL:(.*)\r\nImage URL:(.*)\r\nThumbnail URL:(.*)\r\nUnity Version:(.*)\r\nRelease Status:(.*)\r\nTags:(.*)";
+                string[] logRecords = Regex.Matches(contents, pattern).Cast<Match>().Select(m => m.Value).ToArray();
+
+
+                foreach (var item in logRecords)
+                {
+                    string[] lineItem = item.Split('\n');
+                    WorldClass records = new WorldClass
+                    {
+                        TimeDetected = lineItem[0].Split(':')[1].Replace("\r", ""),
+                        WorldID = lineItem[1].Split(':')[1].Replace("\r", ""),
+                        WorldName = lineItem[2].Split(':')[1].Replace("\r", ""),
+                        WorldDescription = lineItem[3].Split(':')[1].Replace("\r", ""),
+                        AuthorID = lineItem[4].Split(':')[1].Replace("\r", ""),
+                        AuthorName = lineItem[5].Split(':')[1].Replace("\r", ""),
+                        PCAssetURL = string.Join("", lineItem[6].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        ImageURL = string.Join("", lineItem[7].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        ThumbnailURL = string.Join("", lineItem[8].Split(':').Skip(1)).Replace("\r", "").Replace("https", "https:"),
+                        UnityVersion = lineItem[9].Split(':')[1].Replace("\r", ""),
+                        Releasestatus = lineItem[10].Split(':')[1].Replace("\r", ""),
+                        Tags = lineItem[11].Split(':')[1].Replace("\r", "")
+                    };
+                    list.Add(records);
+                }
+
+                return list;
+            }
+            return new List<WorldClass>();
+        }
+
         public (bool, bool) setupHSB()
         {
             if (File.Exists("HSBC.rar"))
@@ -106,7 +148,7 @@ namespace ARES.Modules
             {
                 tryDelete();
                 string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string commands = string.Format("/C UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q]");
+                string commands = string.Format("/C UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q] -O+");
 
                 Process p = new Process();
                 ProcessStartInfo psi = new ProcessStartInfo
@@ -194,7 +236,7 @@ namespace ARES.Modules
             try
             {
                 string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string commands = string.Format("/C UnRAR.exe x HSBC.rar HSB -id[c,d,n,p,q]");
+                string commands = string.Format("/C UnRAR.exe x HSBC.rar HSB -id[c,d,n,p,q] -O+");
 
                 Process p = new Process();
                 ProcessStartInfo psi = new ProcessStartInfo
@@ -275,6 +317,47 @@ namespace ARES.Modules
                         }
                     }
                     Console.WriteLine(item.AvatarID);
+                }
+            }
+        }
+
+        public void uploadToApiWorld(List<WorldClass> worlds)
+        {
+
+            string uploadedFile = "WorldUploaded.txt";
+            if (!File.Exists(uploadedFile))
+            {
+                File.Create(uploadedFile);
+            }
+            foreach (var item in worlds)
+            {
+                if (!HasAvatarId(uploadedFile, item.WorldID))
+                {
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://avatarlogger.tk/records/Worlds");
+                    httpWebRequest.ContentType = "application/json";
+                    httpWebRequest.Method = "POST";
+                    string jsonPost = JsonConvert.SerializeObject(item);
+                    using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                    {
+                        streamWriter.Write(jsonPost);
+                    }
+                    try
+                    {
+                        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                        {
+                            var result = streamReader.ReadToEnd();
+                        }
+                        File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message.Contains("(409) Conflict"))
+                        {
+                            File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
+                        }
+                    }
+                    Console.WriteLine(item.WorldID);
                 }
             }
         }

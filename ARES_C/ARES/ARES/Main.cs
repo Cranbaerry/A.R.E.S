@@ -23,12 +23,16 @@ namespace ARES
         public CoreFunctions CoreFunctions;
         public IniFile iniFile;
         private List<Records> AvatarList;
+        private List<WorldClass> worldList;
         private List<Records> localAvatars;
+        private List<WorldClass> localWorlds;
         public bool locked;
         public Thread imageThread;
         public Thread vrcaThread;
         public int avatarCount;
+        public int worldCount;
         public Records selectedAvatar;
+        public WorldClass selectedWorld;
         public string unityPath;
         public HotswapConsole hotswapConsole;
 
@@ -51,12 +55,13 @@ namespace ARES
             {
                 File.Move("LatestLog.txt", string.Format("Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
                 File.Create("LatestLog.txt");
-            } else
+            }
+            else
             {
                 File.Create("LatestLog.txt");
             }
 
-            
+
 
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
             cbSearchTerm.SelectedIndex = 0;
@@ -76,7 +81,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
             {
-               // btnSearch.Enabled = false;
+                btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -92,6 +97,12 @@ namespace ARES
             if (localAvatars.Count > 0)
             {
                 CoreFunctions.uploadToApi(localAvatars);
+            }
+
+            localWorlds = CoreFunctions.getLocalWorlds();
+            if (localWorlds.Count > 0)
+            {
+                CoreFunctions.uploadToApiWorld(localWorlds);
             }
 
         }
@@ -160,16 +171,32 @@ namespace ARES
                 flowAvatars.Controls.Clear();
 
                 statusLabel.Text = "Status: Loading API";
-                List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
-                AvatarList = avatars;
-                avatarCount = avatars.Count();
-                lblAvatarCount.Text = avatarCount.ToString();
-                progress.Maximum = avatarCount;
-                progress.Value = 0;
-                locked = true;
-                statusLabel.Text = "Status: Loading Avatar Images";
-                imageThread = new Thread(new ThreadStart(GetImages));
-                imageThread.Start();
+                if (!cbSearchTerm.Text.Contains("World"))
+                {
+                    List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
+                    AvatarList = avatars;
+                    avatarCount = avatars.Count();
+                    lblAvatarCount.Text = avatarCount.ToString();
+                    progress.Maximum = avatarCount;
+                    progress.Value = 0;
+                    locked = true;
+                    statusLabel.Text = "Status: Loading Avatar Images";
+                    imageThread = new Thread(new ThreadStart(GetImages));
+                    imageThread.Start();
+                }
+                else
+                {
+                    List<WorldClass> worlds = ApiGrab.getWorlds(txtSearchTerm.Text, cbSearchTerm.Text);
+                    worldList = worlds;
+                    worldCount = worlds.Count();
+                    lblAvatarCount.Text = worldCount.ToString();
+                    progress.Maximum = worldCount;
+                    progress.Value = 0;
+                    locked = true;
+                    statusLabel.Text = "Status: Loading World Images";
+                    imageThread = new Thread(new ThreadStart(GetImagesWorld));
+                    imageThread.Start();
+                }
             }
             else
             {
@@ -237,6 +264,65 @@ namespace ARES
             }
         }
 
+        public void GetImagesWorld()
+        {
+            try
+            {
+                foreach (var item in worldList)
+                {
+                    Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
+                    PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
+                    Label label = new Label { Text = "World Name: " + item.WorldName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
+                    Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+
+                    if (bitmap != null)
+                    {
+                        avatarImage.Image = bitmap;
+                        label.Name = item.WorldID;
+                        //avatarImage.Click += LoadInfo;
+                        label.Click += LoadInfoWorld;
+                        groupBox.Controls.Add(avatarImage);
+                        groupBox.Controls.Add(label);
+                        label.Parent = avatarImage;
+                        if (flowAvatars.InvokeRequired)
+                        {
+                            flowAvatars.Invoke((MethodInvoker)delegate
+                            {
+                                flowAvatars.Controls.Add(groupBox);
+                            });
+                        }
+                    }
+                    else
+                    {
+                        worldCount--;
+                        if (lblAvatarCount.InvokeRequired)
+                        {
+                            lblAvatarCount.Invoke((MethodInvoker)delegate
+                            {
+                                lblAvatarCount.Text = worldCount.ToString();
+                            });
+                        }
+                    }
+                    if (progress.GetCurrentParent().InvokeRequired)
+                    {
+                        progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            locked = false;
+            if (statusLabel.GetCurrentParent().InvokeRequired)
+            {
+                statusLabel.GetCurrentParent().Invoke((MethodInvoker)delegate
+                {
+                    statusLabel.Text = "Status: Idle";
+                });
+            }
+        }
+
         private void LoadInfo(object sender, EventArgs e)
         {
             var img = (Label)sender;
@@ -269,31 +355,94 @@ namespace ARES
             }
         }
 
+        private void LoadInfoWorld(object sender, EventArgs e)
+        {
+            var img = (Label)sender;
+            selectedWorld = worldList.Find(x => x.WorldID == img.Name);
+            txtAvatarInfo.Text = CoreFunctions.SetWorldInfo(selectedWorld);
+
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedWorld.ImageURL);
+
+            if (bitmap != null)
+            {
+                selectedImage.Image = bitmap;
+            }
+            if (selectedWorld.PCAssetURL != "None")
+            {
+                string[] version = selectedWorld.PCAssetURL.Split('/');
+                nmPcVersion.Value = Convert.ToInt32(version[7]);
+            }
+            else
+            {
+                nmPcVersion.Value = 0;
+            }
+            nmQuestVersion.Value = 0;
+
+        }
+
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            if (selectedAvatar != null)
+            if (!string.IsNullOrEmpty(txtAvatarInfo.Text))
             {
-                string fileName = "custom.vrca";
-                SaveFileDialog savefile = new SaveFileDialog();
-                // set a default file name
-                savefile.FileName = "custom.vrca";
-                // set filters - this can be done in properties as well
-                savefile.Filter = "VRCA files (*.vrca)|*.vrca";
+                if (selectedAvatar != null)
+                {
+                    if (txtAvatarInfo.Text.Contains("avtr_") && selectedAvatar.AvatarID.Contains("avtr_"))
+                    {
 
-                if (savefile.ShowDialog() == DialogResult.OK)
-                {
-                    fileName = savefile.FileName;
+                        SaveFileDialog savefile = new SaveFileDialog();
+                        string fileName = "custom.vrca";
+                        savefile.Filter = "VRCA files (*.vrca)|*.vrca";
+                        savefile.FileName = fileName;
+
+
+                        if (savefile.ShowDialog() == DialogResult.OK)
+                        {
+                            fileName = savefile.FileName;
+                        }
+                        if (!downloadVRCA(fileName))
+                        {
+                            return;
+                        }
+                    }
                 }
-                if (!downloadVRCA(fileName))
+
+                if (selectedWorld != null)
                 {
-                    return;
+                    if (txtAvatarInfo.Text.Contains("wrld_") && selectedWorld.WorldID.Contains("wrld_"))
+                    {
+
+                        SaveFileDialog savefile = new SaveFileDialog();
+                        string fileName = "custom.VRCW";
+                        savefile.Filter = "VRCW files (*.VRCW)|*.VRCW";
+                        savefile.FileName = fileName;
+
+
+                        if (savefile.ShowDialog() == DialogResult.OK)
+                        {
+                            fileName = savefile.FileName;
+                        }
+                        if (!downloadVRCW(fileName))
+                        {
+                            return;
+                        }
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("Please select an avatar first.");
+                MessageBox.Show("Please select an avatar or world first.");
             }
+
         }
+
+        private bool downloadVRCW(string fileName = "custom.vrcw")
+        {
+            string[] version = selectedWorld.PCAssetURL.Split('/');
+            version[7] = nmPcVersion.Value.ToString();
+            downloadFile(string.Join("/", version), fileName);
+            return true;
+        }
+
 
         private bool downloadVRCA(string fileName = "custom.vrca")
         {
@@ -363,7 +512,7 @@ namespace ARES
             {
                 downloadFile(selectedAvatar.PCAssetURL, fileName);
             }
-            
+
             return true;
         }
 
@@ -659,7 +808,7 @@ namespace ARES
             string oldCab = getFileString(fileDecompressed2, @"(CAB-[\w\d]{32})");
 
             hotswapConsole.Close();
-           
+
             txtSearchTerm.Text = oldId;
             cbSearchTerm.SelectedIndex = 2;
             btnSearch.PerformClick();

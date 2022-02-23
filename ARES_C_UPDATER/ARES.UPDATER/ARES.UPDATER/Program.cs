@@ -75,10 +75,23 @@ namespace ARES.UPDATER
 
         static void extractGUI()
         {
-            string fileExtractLocation = string.Format(@"x -o+ -y {0}\GUI.rar {0}{1}", fileLocation, @"\GUI\");
+            string fileExtractLocation = string.Format("x -id[c,d,n,p,q] -O+ -y {0}\\GUI.rar \"{0}{1}\"", fileLocation, @"\GUI\");
             try
             {
-                Process.Start(fileLocation + @"\UnRAR.exe", fileExtractLocation);
+                string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string commands = string.Format("/C UnRAR.exe x GUI.rar GUI -id[c,d,n,p,q] -O+");
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = filePath
+                };
+                p.StartInfo = psi;
+                p.Start();
+                p.WaitForExit();
+
             } catch { }
         }
 

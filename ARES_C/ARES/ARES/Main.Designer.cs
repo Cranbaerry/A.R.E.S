@@ -57,6 +57,7 @@ namespace ARES
             this.btnLoadVRCA = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnVrcaSearch = new System.Windows.Forms.Button();
             this.btnRepair = new System.Windows.Forms.Button();
             this.btnUnity = new System.Windows.Forms.Button();
             this.btnHotswap = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnVrcaSearch = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -200,7 +200,7 @@ namespace ARES
             this.groupBox1.Size = new System.Drawing.Size(270, 435);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Avatar Info";
+            this.groupBox1.Text = "Avatar/World Info";
             // 
             // panel1
             // 
@@ -348,7 +348,7 @@ namespace ARES
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(167, 43);
             this.btnDownload.TabIndex = 13;
-            this.btnDownload.Text = "Download VRCA";
+            this.btnDownload.Text = "Download VRCA / VRCW";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
@@ -375,6 +375,16 @@ namespace ARES
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(972, 624);
             this.panel3.TabIndex = 12;
+            // 
+            // btnVrcaSearch
+            // 
+            this.btnVrcaSearch.Location = new System.Drawing.Point(339, 139);
+            this.btnVrcaSearch.Name = "btnVrcaSearch";
+            this.btnVrcaSearch.Size = new System.Drawing.Size(113, 41);
+            this.btnVrcaSearch.TabIndex = 19;
+            this.btnVrcaSearch.Text = "Attempt VRCA Search";
+            this.btnVrcaSearch.UseVisualStyleBackColor = true;
+            this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
             // 
             // btnRepair
             // 
@@ -422,7 +432,7 @@ namespace ARES
             this.lblAvatarCount.AutoSize = true;
             this.lblAvatarCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAvatarCount.ForeColor = System.Drawing.Color.White;
-            this.lblAvatarCount.Location = new System.Drawing.Point(200, 152);
+            this.lblAvatarCount.Location = new System.Drawing.Point(108, 152);
             this.lblAvatarCount.Name = "lblAvatarCount";
             this.lblAvatarCount.Size = new System.Drawing.Size(30, 31);
             this.lblAvatarCount.TabIndex = 14;
@@ -435,9 +445,9 @@ namespace ARES
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(12, 152);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 31);
+            this.label3.Size = new System.Drawing.Size(101, 31);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Avatar Count:";
+            this.label3.Text = "Count:";
             // 
             // btnSearchLocal
             // 
@@ -458,7 +468,9 @@ namespace ARES
             "Avatar Name",
             "Author Name",
             "Avatar ID",
-            "Author ID"});
+            "Author ID",
+            "World Name",
+            "World ID"});
             this.cbSearchTerm.Location = new System.Drawing.Point(197, 50);
             this.cbSearchTerm.Name = "cbSearchTerm";
             this.cbSearchTerm.Size = new System.Drawing.Size(255, 39);
@@ -481,16 +493,6 @@ namespace ARES
             this.selectedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
-            // 
-            // btnVrcaSearch
-            // 
-            this.btnVrcaSearch.Location = new System.Drawing.Point(339, 139);
-            this.btnVrcaSearch.Name = "btnVrcaSearch";
-            this.btnVrcaSearch.Size = new System.Drawing.Size(113, 41);
-            this.btnVrcaSearch.TabIndex = 19;
-            this.btnVrcaSearch.Text = "Attempt VRCA Search";
-            this.btnVrcaSearch.UseVisualStyleBackColor = true;
-            this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
             // 
             // Main
             // 

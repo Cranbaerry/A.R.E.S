@@ -26,8 +26,8 @@ namespace AvatarLogger
         //Creates string that can retrieve the current instance ID
         public static string WorldInstanceID => $"{RoomManager.field_Internal_Static_ApiWorld_0.id}:{RoomManager.field_Internal_Static_ApiWorldInstance_0.instanceId}";
         //Function that allows the world to be joined via an instanc ID
-        public static void JoinInstance(string worldID, string instanceID)
-        => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
+        public static void JoinInstance(string worldID, string instanceID) => new PortalInternal().Method_Private_Void_String_String_PDM_0(worldID, instanceID);
+
         //Sets static counter values to monitor logging statistics
         public static int PC = 0;
         public static int Q = 0;
@@ -72,13 +72,18 @@ namespace AvatarLogger
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
             //When scene loads fetch friends
-            if (buildIndex == -1) { MelonCoroutines.Start(FetchFriends()); }
+            if (buildIndex == -1) { 
+                MelonCoroutines.Start(FetchFriends());
+                MelonCoroutines.Start(LogWorlds());
+            }
         }
         //On network manager run a command thatll log all users in a room
         internal static System.Collections.IEnumerator OnNetworkManagerInit()
         {
             //Obtains the player hash table and sends it to the method responsible for logging information from the table
             while (NetworkManager.field_Internal_Static_NetworkManager_0 == null) yield return new UnityEngine.WaitForSecondsRealtime(2f);
+            
+            
             if (NetworkManager.field_Internal_Static_NetworkManager_0 != null) new Action(() =>
             {
                 NetworkManager.field_Internal_Static_NetworkManager_0.field_Internal_VRCEventDelegate_1_Player_0.field_Private_HashSet_1_UnityAction_1_T_0.Add(new Action<VRC.Player>((obj) =>
@@ -92,6 +97,15 @@ namespace AvatarLogger
                 }));
             })();
         }
+
+        //On network manager run a command thatll log worlds
+        internal static System.Collections.IEnumerator LogWorlds()
+        {
+            while (RoomManager.field_Internal_Static_ApiWorld_0 == null) yield return new WaitForEndOfFrame();
+            ApiWorld apiWorld = RoomManager.field_Internal_Static_ApiWorld_0;
+            ExecuteLogWorld(apiWorld);
+        }
+
         //Locates the Ui in preperation for button creation
         private static System.Collections.IEnumerator FindUI()
         {

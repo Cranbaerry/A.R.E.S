@@ -74,6 +74,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\World.cs" />
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Modules\Api.cs" />
