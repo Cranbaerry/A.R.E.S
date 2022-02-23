@@ -76,7 +76,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
             {
-                btnSearch.Enabled = false;
+               // btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -642,10 +642,8 @@ namespace ARES
         private void hotswapRepair()
         {
             string fileDecompressed2 = "decompressed1.vrca";
-            string fileTarget = "Repaired.vrca";
 
             File.Delete(fileDecompressed2);
-            File.Delete(fileTarget);
 
             try
             {
@@ -657,50 +655,16 @@ namespace ARES
                 return;
             }
 
-            try
-            {
-                HotSwap.CompressBundle(fileDecompressed2, fileTarget, hotswapConsole);
-            }
-            catch
-            {
-                MessageBox.Show("Error compressing VRCA file");
-                return;
-            }
+            string oldId = getFileString(fileDecompressed2, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
+            string oldCab = getFileString(fileDecompressed2, @"(CAB-[\w\d]{32})");
 
-            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
-            double len = new FileInfo(fileTarget).Length;
-            int order = 0;
-            while (len >= 1024 && order < sizes.Length - 1)
-            {
-                order++;
-                len = len / 1024;
-            }
+            hotswapConsole.Close();
+           
+            txtSearchTerm.Text = oldId;
+            cbSearchTerm.SelectedIndex = 2;
+            btnSearch.PerformClick();
 
-            // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
-            // show a single decimal place, and no space.
-            string compressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
-
-            len = new FileInfo(fileDecompressed2).Length;
-            order = 0;
-            while (len >= 1024 && order < sizes.Length - 1)
-            {
-                order++;
-                len = len / 1024;
-            }
-
-            string uncompressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
-
-            selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
-
-            if (hotswapConsole.InvokeRequired)
-            {
-                hotswapConsole.Invoke((MethodInvoker)delegate
-                {
-                    hotswapConsole.Close();
-                });
-            }
-
-            MessageBox.Show(string.Format("Got file sizes, comp:{0}, decomp:{1}, File Repaired", compressedSize, uncompressedSize));
+            txtAvatarInfo.Text += Environment.NewLine + "Avatar Id from VRCA: " + oldId + Environment.NewLine + "CAB Id from VRCA: " + oldCab;
         }
 
         private string getFileString(string file, string searchRegexString)
@@ -781,7 +745,6 @@ namespace ARES
 
         private void btnRepair_Click(object sender, EventArgs e)
         {
-
             if (vrcaThread != null)
             {
                 if (vrcaThread.IsAlive)
@@ -802,6 +765,39 @@ namespace ARES
                     hotswapConsole.Show();
                     vrcaThread = new Thread(new ThreadStart(hotswapRepair));
                     vrcaThread.Start();
+                }
+                else
+                {
+                    MessageBox.Show("Please load a VRCA file first");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an avatar first.");
+            }
+        }
+
+        private void btnVrcaSearch_Click(object sender, EventArgs e)
+        {
+            if (vrcaThread != null)
+            {
+                if (vrcaThread.IsAlive)
+                {
+                    MessageBox.Show("VRCA search (Hotswap) is still busy with previous request");
+                    return;
+                }
+            }
+            if (selectedAvatar != null)
+            {
+                if (selectedAvatar.AuthorName == "VRCA")
+                {
+                    if (!downloadVRCA())
+                    {
+                        return;
+                    }
+                    hotswapConsole = new HotswapConsole();
+                    hotswapConsole.Show();
+                    hotswapRepair();
                 }
                 else
                 {

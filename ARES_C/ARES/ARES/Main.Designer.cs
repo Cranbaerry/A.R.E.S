@@ -68,6 +68,7 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnVrcaSearch = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -354,6 +355,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.btnVrcaSearch);
             this.panel3.Controls.Add(this.btnRepair);
             this.panel3.Controls.Add(this.btnUnity);
             this.panel3.Controls.Add(this.btnHotswap);
@@ -480,6 +482,16 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // btnVrcaSearch
+            // 
+            this.btnVrcaSearch.Location = new System.Drawing.Point(339, 139);
+            this.btnVrcaSearch.Name = "btnVrcaSearch";
+            this.btnVrcaSearch.Size = new System.Drawing.Size(113, 41);
+            this.btnVrcaSearch.TabIndex = 19;
+            this.btnVrcaSearch.Text = "Attempt VRCA Search";
+            this.btnVrcaSearch.UseVisualStyleBackColor = true;
+            this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -554,6 +566,7 @@ namespace ARES
         private System.Windows.Forms.Button btnHotswap;
         private System.Windows.Forms.Button btnUnity;
         private System.Windows.Forms.Button btnRepair;
+        private System.Windows.Forms.Button btnVrcaSearch;
     }
 }
 
