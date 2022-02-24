@@ -10,6 +10,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ARES.Modules
@@ -96,7 +97,7 @@ namespace ARES.Modules
                     };
                     list.Add(records);
                 }
-
+                WriteLog(string.Format("Loaded Local Avatars"));
                 return list;
             }
             return new List<Records>();
@@ -132,7 +133,7 @@ namespace ARES.Modules
                     };
                     list.Add(records);
                 }
-
+                WriteLog(string.Format("Loaded Local Worlds"));
                 return list;
             }
             return new List<WorldClass>();
@@ -276,6 +277,7 @@ namespace ARES.Modules
             {
                 Process.Start("taskkill", "/F /IM \"" + processName + "\"");
                 Console.WriteLine("Killed Process: " + processName);
+                WriteLog(string.Format("Killed Process", processName));
             }
             catch { }
         }
@@ -288,6 +290,7 @@ namespace ARES.Modules
             {
                 File.Create(uploadedFile);
             }
+            Thread.Sleep(500);
             foreach (var item in avatars)
             {
                 if (!HasAvatarId(uploadedFile, item.AvatarID))
@@ -308,12 +311,14 @@ namespace ARES.Modules
                             var result = streamReader.ReadToEnd();
                         }
                         File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
+                        WriteLog(string.Format("Avatar: {0} uploaded to API", item.AvatarID));
                     }
                     catch (Exception ex)
                     {
                         if (ex.Message.Contains("(409) Conflict"))
                         {
                             File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
+                            WriteLog(string.Format("Avatar: {0} already on API", item.AvatarID));
                         }
                     }
                     Console.WriteLine(item.AvatarID);
@@ -329,6 +334,7 @@ namespace ARES.Modules
             {
                 File.Create(uploadedFile);
             }
+            Thread.Sleep(500);
             foreach (var item in worlds)
             {
                 if (!HasAvatarId(uploadedFile, item.WorldID))
@@ -349,12 +355,14 @@ namespace ARES.Modules
                             var result = streamReader.ReadToEnd();
                         }
                         File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
+                        WriteLog(string.Format("World: {0} Uploaded to API", item.WorldID));
                     }
                     catch (Exception ex)
                     {
                         if (ex.Message.Contains("(409) Conflict"))
                         {
                             File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
+                            WriteLog(string.Format("World: {0} already on API", item.WorldID));
                         }
                     }
                     Console.WriteLine(item.WorldID);
@@ -374,6 +382,12 @@ namespace ARES.Modules
             }
 
             return false;
+        }
+
+        public void WriteLog(string logText)
+        {
+            string logBuilder = string.Format("{0:yy/MM/dd H:mm:ss} | {1} \n", DateTime.Now,logText);
+            File.AppendAllText("LatestLog.txt", logBuilder);
         }
     }
 }

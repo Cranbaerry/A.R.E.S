@@ -61,6 +61,7 @@ namespace ARES
                 File.Create("LatestLog.txt");
             }
 
+            Thread.Sleep(500);
 
 
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
@@ -666,10 +667,10 @@ namespace ARES
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
 
-            File.Delete(fileDecompressed);
-            File.Delete(fileDecompressed2);
-            File.Delete(fileDummy);
-            File.Delete(fileTarget);
+            tryDelete(fileDecompressed);
+            tryDelete(fileDecompressed2);
+            tryDelete(fileDummy);
+            tryDelete(fileTarget);
 
             try
             {
@@ -681,8 +682,9 @@ namespace ARES
             {
                 HotSwap.DecompressToFileStr(fileDummy, fileDecompressed, hotswapConsole);
             }
-            catch
+            catch (Exception ex)
             {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
                 MessageBox.Show("Error decompressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -700,8 +702,9 @@ namespace ARES
             {
                 HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
             }
-            catch
+            catch(Exception ex)
             {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
                 MessageBox.Show("Error decompressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -728,8 +731,9 @@ namespace ARES
             {
                 HotSwap.CompressBundle(fileDecompressed2, fileTarget, hotswapConsole);
             }
-            catch
+            catch (Exception ex)
             {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
                 MessageBox.Show("Error compressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -768,13 +772,14 @@ namespace ARES
             }
 
             string uncompressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
-
+            CoreFunctions.WriteLog(string.Format("Successfully hotswapped avatar"));
             selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
             tryDelete(fileDummy);
             tryDelete(fileTarget);
+
 
             if (hotswapConsole.InvokeRequired)
             {
@@ -792,14 +797,15 @@ namespace ARES
         {
             string fileDecompressed2 = "decompressed1.vrca";
 
-            File.Delete(fileDecompressed2);
+            tryDelete(fileDecompressed2);
 
             try
             {
                 HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
             }
-            catch
+            catch (Exception ex)
             {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
                 MessageBox.Show("Error decompressing VRCA file");
                 return;
             }
@@ -814,6 +820,7 @@ namespace ARES
             btnSearch.PerformClick();
 
             txtAvatarInfo.Text += Environment.NewLine + "Avatar Id from VRCA: " + oldId + Environment.NewLine + "CAB Id from VRCA: " + oldCab;
+            CoreFunctions.WriteLog(string.Format("Repaired VRCA file"));
         }
 
         private string getFileString(string file, string searchRegexString)
@@ -842,9 +849,29 @@ namespace ARES
         {
             try
             {
-                Directory.Delete(location, true);
+                if (File.Exists(location))
+                {
+                    File.Delete(location);
+                    CoreFunctions.WriteLog(string.Format("Deleted file {0}", location));
+                }
             }
-            catch { }
+            catch(Exception ex)
+            {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+            }
+        }
+
+        private void tryDeleteDirectory(string location)
+        {
+            try
+            {
+                Directory.Delete(location, true);
+                CoreFunctions.WriteLog(string.Format("Deleted file {0}", location));
+            }
+            catch (Exception ex)
+            {
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+            }
         }
 
         private void btnUnity_Click(object sender, EventArgs e)
@@ -853,8 +880,8 @@ namespace ARES
             string unityTemp = "\\Local\\Temp\\DefaultCompany\\HSB";
             string unityTemp2 = "\\LocalLow\\Temp\\DefaultCompany\\HSB";
 
-            tryDelete(tempFolder + unityTemp);
-            tryDelete(tempFolder + unityTemp2);
+            tryDeleteDirectory(tempFolder + unityTemp);
+            tryDeleteDirectory(tempFolder + unityTemp2);
 
             var unitySetup = CoreFunctions.setupHSB();
             if (unitySetup == (true, false))
