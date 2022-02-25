@@ -24,17 +24,17 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 Virus Totals:
 
-[ARESPlugin.dll](https://www.virustotal.com/gui/file/b58f9afc6c2f4ae2ee8f68109f95b8f166721d8978148644672a177f329f1389/summary)
+[ARESPlugin.dll](https://www.virustotal.com/gui/file/dfe89e62fcc820adf64e96c8707991fc99320374e4cda4e192eaa99837bfaa26/summary)
 
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/7e0f9c59aefedcb94b3325962a0edde732838f7889d30f0057fa6e729038b3f9/summary)
+[AvatarLogger.dll](https://www.virustotal.com/gui/file/4cf54e694e100c02c54e3f20ca8465b62a5f26695365d15eb5dcbe041c30bba0/summary)
 
 [UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
 
-[ARES.Updater.exe](https://www.virustotal.com/gui/file/52027c007a0cc02741c6a9afe4e20c2e0be6f46749dcc0bbdca0588e76bb09f2/summary)
+[ARES.Updater.exe](https://www.virustotal.com/gui/file/fc26bad74bb215928132bb2bc56e03df135628d57941e959b3a2e82bd026d1c3/summary)
 
-[V10.3.9 GUI RAR](https://www.virustotal.com/gui/file/7d9601f518418b067432493f04da9ef8f644c614f50386d13270632f04b6bd49/summary)
+[V11 GUI RAR](https://www.virustotal.com/gui/file/5a9a6c57a25925ebce0e53e37b63384d12eda9c568ea06f959b3c943612b0fd7/summary)
 
-[DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/50a581d7d38e54c7f52cdd014b2af092562c4e9c67a6530ab0cf15249a9fc5be/summary)
+[DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/10e60fcb04a0e0c75652cb54c356a923b183fcf47950a585743b70a4624c12ee/summary)
 
 Features:
 
