@@ -36,6 +36,8 @@ namespace ARES
         public WorldClass selectedWorld;
         public string unityPath;
         public HotswapConsole hotswapConsole;
+        public bool isAvatar;
+        public bool apiEnabled;
 
         public Main()
         {
@@ -67,6 +69,29 @@ namespace ARES
                 myFile.Close();
             }
 
+            if (!iniFile.KeyExists("apiEnabled"))
+            {
+                DialogResult dlgResult = MessageBox.Show("Enable API support?", "API", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dlgResult == DialogResult.No)
+                {
+                    apiEnabled = false;
+                    iniFile.Write("apiEnabled", "false");
+                }
+                else if (dlgResult == DialogResult.Yes)
+                {
+                    apiEnabled = true;
+                    iniFile.Write("apiEnabled", "true");
+                }
+                else
+                {
+                    apiEnabled = true;
+                    iniFile.Write("apiEnabled", "true");
+                }
+            } else
+            {
+                apiEnabled = Convert.ToBoolean(iniFile.Read("apiEnabled"));
+            }
 
 
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
@@ -77,15 +102,16 @@ namespace ARES
             MessageBoxManager.Register();
             if (!iniFile.KeyExists("unity"))
             {
+                MessageBox.Show("Please select unity.exe");
                 selectFile();
             }
             else
-            {
+            {                
                 unityPath = iniFile.Read("unity");
             }
 
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
-            if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
+            if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
                btnSearch.Enabled = false;
             }
@@ -99,14 +125,15 @@ namespace ARES
                 }
             }
 
+
             localAvatars = CoreFunctions.getLocalAvatars();
-            if (localAvatars.Count > 0)
+            if (localAvatars.Count > 0 && apiEnabled)
             {
                 CoreFunctions.uploadToApi(localAvatars);
             }
 
             localWorlds = CoreFunctions.getLocalWorlds();
-            if (localWorlds.Count > 0)
+            if (localWorlds.Count > 0 && apiEnabled)
             {
                 CoreFunctions.uploadToApiWorld(localWorlds);
             }
@@ -182,11 +209,39 @@ namespace ARES
                 {
                     List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
                     AvatarList = avatars;
-                    avatarCount = avatars.Count();
+                    if (!chkPC.Checked && !chkQuest.Checked)
+                    {
+                        if (chkPC.Checked)
+                        {
+                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim() != "None").ToList();
+                        }
+                        else
+                        {
+                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim() == "None").ToList();
+                        }
+                        if (chkQuest.Checked)
+                        {
+                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim() != "None").ToList();
+                        }
+                        else
+                        {
+                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim() == "None").ToList();
+                        }
+                    }
+                    if (chkPublic.Checked == true && chkPrivate.Checked == false)
+                    {
+                        AvatarList = AvatarList.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
+                    }
+                    if (chkPublic.Checked == false && chkPrivate.Checked == true)
+                    {
+                        AvatarList = AvatarList.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
+                    }
+                    avatarCount = AvatarList.Count();
                     lblAvatarCount.Text = avatarCount.ToString();
                     progress.Maximum = avatarCount;
                     progress.Value = 0;
                     locked = true;
+                    isAvatar = true;
                     statusLabel.Text = "Status: Loading Avatar Images";
                     imageThread = new Thread(new ThreadStart(GetImages));
                     imageThread.Start();
@@ -200,6 +255,7 @@ namespace ARES
                     progress.Maximum = worldCount;
                     progress.Value = 0;
                     locked = true;
+                    isAvatar = false;
                     statusLabel.Text = "Status: Loading World Images";
                     imageThread = new Thread(new ThreadStart(GetImagesWorld));
                     imageThread.Start();
@@ -542,7 +598,7 @@ namespace ARES
                 {
                     string unityVersion = cbVersionUnity.Text + "DLL";
                     string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    string commands = string.Format("/C AssetRipperConsole.exe {2} {3}\\AssetRipperConsole_win64\\{0} -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
+                    string commands = string.Format("/K AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
 
                     Process p = new Process();
                     ProcessStartInfo psi = new ProcessStartInfo
@@ -603,6 +659,34 @@ namespace ARES
                 }
                 else
                 {
+
+                    if (!chkPC.Checked && !chkQuest.Checked)
+                    {
+                        if (chkPC.Checked)
+                        {
+                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim() != "None").ToList();
+                        }
+                        else
+                        {
+                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim() == "None").ToList();
+                        }
+                        if (chkQuest.Checked)
+                        {
+                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim() != "None").ToList();
+                        }
+                        else
+                        {
+                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim() == "None").ToList();
+                        }
+                    }
+                    if (chkPublic.Checked == true && chkPrivate.Checked == false)
+                    {
+                        avatars = localAvatars.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
+                    }
+                    if (chkPublic.Checked == false && chkPrivate.Checked == true)
+                    {
+                        avatars = localAvatars.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
+                    }
                     if (cbSearchTerm.Text == "Avatar Name")
                     {
                         avatars = localAvatars.Where(x => String.Equals(x.AvatarName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
@@ -998,6 +1082,99 @@ namespace ARES
             {
                 generateHtml.GenerateHtmlPage(AvatarList);
                 System.Diagnostics.Process.Start("avatars.html");
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (isAvatar)
+            {
+                if(cbCopy.Text == "Time Dectected")
+                {                   
+                    Clipboard.SetText(selectedAvatar.TimeDetected);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Avatar ID")
+                {
+                    Clipboard.SetText(selectedAvatar.AvatarID);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Avatar Name")
+                {
+                    Clipboard.SetText(selectedAvatar.AvatarName);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Avatar Description")
+                {
+                    Clipboard.SetText(selectedAvatar.AvatarDescription);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Author ID")
+                {
+                    Clipboard.SetText(selectedAvatar.AuthorID);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Author Name")
+                {
+                    Clipboard.SetText(selectedAvatar.AuthorName);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "PC Asset URL")
+                {
+                    Clipboard.SetText(selectedAvatar.PCAssetURL);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Quest Asset URL")
+                {
+                    Clipboard.SetText(selectedAvatar.QUESTAssetURL);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Image URL")
+                {
+                    Clipboard.SetText(selectedAvatar.ImageURL);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Thumbnail URL")
+                {
+                    Clipboard.SetText(selectedAvatar.ThumbnailURL);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Unity Version")
+                {
+                    Clipboard.SetText(selectedAvatar.UnityVersion);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Release Status")
+                {
+                    Clipboard.SetText(selectedAvatar.Releasestatus);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+                if (cbCopy.Text == "Tags")
+                {
+                    Clipboard.SetText(selectedAvatar.Tags);
+                    MessageBox.Show("information copied to clipboard.");
+                }
+            } else
+            {
+                MessageBox.Show("Only works for avatars atm.");
+            }
+        }
+
+        private void btnApi_Click(object sender, EventArgs e)
+        {
+            if (apiEnabled)
+            {
+                btnSearch.Enabled = false;
+                apiEnabled = false;
+                btnApi.Text = "Enable API";
+                iniFile.Write("apiEnabled", "false");
+            }
+            else if (!apiEnabled)
+            {
+                btnSearch.Enabled = true;
+                apiEnabled = true;
+                btnApi.Text = "Disable API";
+                iniFile.Write("apiEnabled", "true");
             }
         }
     }

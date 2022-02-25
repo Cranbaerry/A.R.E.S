@@ -69,6 +69,14 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.cbCopy = new System.Windows.Forms.ComboBox();
+            this.btnApi = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkPublic = new System.Windows.Forms.CheckBox();
+            this.chkPrivate = new System.Windows.Forms.CheckBox();
+            this.chkPC = new System.Windows.Forms.CheckBox();
+            this.chkQuest = new System.Windows.Forms.CheckBox();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -156,7 +164,7 @@ namespace ARES
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 52);
+            this.label2.Location = new System.Drawing.Point(10, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(188, 31);
             this.label2.TabIndex = 6;
@@ -188,11 +196,13 @@ namespace ARES
             this.txtAvatarInfo.Name = "txtAvatarInfo";
             this.txtAvatarInfo.ReadOnly = true;
             this.txtAvatarInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 410);
+            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 376);
             this.txtAvatarInfo.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbCopy);
+            this.groupBox1.Controls.Add(this.btnCopy);
             this.groupBox1.Controls.Add(this.txtAvatarInfo);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(693, 186);
@@ -355,6 +365,12 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.chkQuest);
+            this.panel3.Controls.Add(this.chkPC);
+            this.panel3.Controls.Add(this.chkPrivate);
+            this.panel3.Controls.Add(this.chkPublic);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.btnApi);
             this.panel3.Controls.Add(this.btnVrcaSearch);
             this.panel3.Controls.Add(this.btnRepair);
             this.panel3.Controls.Add(this.btnUnity);
@@ -494,6 +510,119 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // btnCopy
+            // 
+            this.btnCopy.Location = new System.Drawing.Point(179, 401);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(85, 28);
+            this.btnCopy.TabIndex = 20;
+            this.btnCopy.Text = "Copy Info";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // cbCopy
+            // 
+            this.cbCopy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCopy.FormattingEnabled = true;
+            this.cbCopy.Items.AddRange(new object[] {
+            "Time Dectected",
+            "Avatar ID",
+            "Avatar Name",
+            "Avatar Description",
+            "Author ID",
+            "Author Name",
+            "PC Asset URL",
+            "Quest Asset URL",
+            "Image URL",
+            "Thumbnail URL",
+            "Unity Version",
+            "Release Status",
+            "Tags",
+            "World ID",
+            "World Name"});
+            this.cbCopy.Location = new System.Drawing.Point(6, 401);
+            this.cbCopy.Name = "cbCopy";
+            this.cbCopy.Size = new System.Drawing.Size(167, 28);
+            this.cbCopy.TabIndex = 19;
+            // 
+            // btnApi
+            // 
+            this.btnApi.Location = new System.Drawing.Point(220, 139);
+            this.btnApi.Name = "btnApi";
+            this.btnApi.Size = new System.Drawing.Size(113, 41);
+            this.btnApi.TabIndex = 20;
+            this.btnApi.Text = "Disable API";
+            this.btnApi.UseVisualStyleBackColor = true;
+            this.btnApi.Click += new System.EventHandler(this.btnApi_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(10, 99);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(90, 31);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Filter:";
+            // 
+            // chkPublic
+            // 
+            this.chkPublic.AutoSize = true;
+            this.chkPublic.Checked = true;
+            this.chkPublic.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPublic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPublic.ForeColor = System.Drawing.Color.White;
+            this.chkPublic.Location = new System.Drawing.Point(174, 105);
+            this.chkPublic.Name = "chkPublic";
+            this.chkPublic.Size = new System.Drawing.Size(70, 20);
+            this.chkPublic.TabIndex = 23;
+            this.chkPublic.Text = "Public";
+            this.chkPublic.UseVisualStyleBackColor = true;
+            // 
+            // chkPrivate
+            // 
+            this.chkPrivate.AutoSize = true;
+            this.chkPrivate.Checked = true;
+            this.chkPrivate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPrivate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPrivate.ForeColor = System.Drawing.Color.White;
+            this.chkPrivate.Location = new System.Drawing.Point(250, 105);
+            this.chkPrivate.Name = "chkPrivate";
+            this.chkPrivate.Size = new System.Drawing.Size(76, 20);
+            this.chkPrivate.TabIndex = 24;
+            this.chkPrivate.Text = "Private";
+            this.chkPrivate.UseVisualStyleBackColor = true;
+            // 
+            // chkPC
+            // 
+            this.chkPC.AutoSize = true;
+            this.chkPC.Checked = true;
+            this.chkPC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPC.ForeColor = System.Drawing.Color.White;
+            this.chkPC.Location = new System.Drawing.Point(332, 105);
+            this.chkPC.Name = "chkPC";
+            this.chkPC.Size = new System.Drawing.Size(47, 20);
+            this.chkPC.TabIndex = 25;
+            this.chkPC.Text = "PC";
+            this.chkPC.UseVisualStyleBackColor = true;
+            // 
+            // chkQuest
+            // 
+            this.chkQuest.AutoSize = true;
+            this.chkQuest.Checked = true;
+            this.chkQuest.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkQuest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkQuest.ForeColor = System.Drawing.Color.White;
+            this.chkQuest.Location = new System.Drawing.Point(385, 105);
+            this.chkQuest.Name = "chkQuest";
+            this.chkQuest.Size = new System.Drawing.Size(67, 20);
+            this.chkQuest.TabIndex = 26;
+            this.chkQuest.Text = "Quest";
+            this.chkQuest.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -569,6 +698,14 @@ namespace ARES
         private System.Windows.Forms.Button btnUnity;
         private System.Windows.Forms.Button btnRepair;
         private System.Windows.Forms.Button btnVrcaSearch;
+        private System.Windows.Forms.ComboBox cbCopy;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Button btnApi;
+        private System.Windows.Forms.CheckBox chkQuest;
+        private System.Windows.Forms.CheckBox chkPC;
+        private System.Windows.Forms.CheckBox chkPrivate;
+        private System.Windows.Forms.CheckBox chkPublic;
+        private System.Windows.Forms.Label label7;
     }
 }
 

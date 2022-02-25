@@ -18,23 +18,23 @@ namespace ARES.Modules
             if (!string.IsNullOrEmpty(query)) {
                 if (type == "Avatar Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=5000&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query);
                 }
                 if (type == "Avatar ID")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AvatarID,eq,{0}", query);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=5000&order=TimeDetected,desc&filter=AvatarID,eq,{0}", query);
                 }
                 if (type == "Author Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AuthorName,eq,{0}", query);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=5000&order=TimeDetected,desc&filter=AuthorName,eq,{0}", query);
                 }
                 if(type == "Author ID")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=AuthorID,eq,{0}", query);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=5000&order=TimeDetected,desc&filter=AuthorID,eq,{0}", query);
                 }
             } else
             {
-                url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
+                url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=5000&order=TimeDetected,desc");
             }
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
 
