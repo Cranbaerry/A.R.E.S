@@ -117,8 +117,9 @@ namespace ARES
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "exe files (*.exe)|*.exe";
+                openFileDialog.Filter = "Unity (Unity.exe)|Unity.exe";
                 openFileDialog.RestoreDirectory = true;
+                openFileDialog.Title = "Select Unity exe";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
