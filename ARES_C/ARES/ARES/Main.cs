@@ -22,6 +22,7 @@ namespace ARES
         public Api ApiGrab;
         public CoreFunctions CoreFunctions;
         public IniFile iniFile;
+        public GenerateHtml generateHtml;
         private List<Records> AvatarList;
         private List<WorldClass> worldList;
         private List<Records> localAvatars;
@@ -46,6 +47,8 @@ namespace ARES
             ApiGrab = new Api();
             CoreFunctions = new CoreFunctions();
             iniFile = new IniFile();
+            generateHtml = new GenerateHtml();
+
             if (!Directory.Exists("Logs"))
             {
                 Directory.CreateDirectory("Logs");
@@ -54,6 +57,7 @@ namespace ARES
             if (File.Exists("LatestLog.txt"))
             {
                 File.Move("LatestLog.txt", string.Format("Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
+                Thread.Sleep(500);
                 var myFile = File.Create("LatestLog.txt");
                 myFile.Close();
             }
@@ -83,7 +87,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll"))
             {
-                btnSearch.Enabled = false;
+               btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -985,6 +989,14 @@ namespace ARES
             else
             {
                 MessageBox.Show("Please select an avatar first.");
+            }
+        }
+
+        private void btnBrowserView_Click(object sender, EventArgs e)
+        {
+            if (AvatarList != null)
+            {
+                generateHtml.GenerateHtmlPage(AvatarList);
             }
         }
     }

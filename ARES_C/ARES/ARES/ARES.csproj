@@ -79,6 +79,7 @@
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Modules\Api.cs" />
     <Compile Include="Modules\CoreFunctions.cs" />
+    <Compile Include="Modules\GenerateHtml.cs" />
     <Compile Include="Modules\HotSwap.cs" />
     <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\MessageBoxManager.cs" />
@@ -459,6 +460,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AssetRipperConsole_win64\vorbis.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cssstuff\bootstrap.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cssstuff\intlTelInput.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cssstuff\site_2.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

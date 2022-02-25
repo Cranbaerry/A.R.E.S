@@ -314,13 +314,13 @@ namespace ARES
             // 
             // btnBrowserView
             // 
-            this.btnBrowserView.Enabled = false;
             this.btnBrowserView.Location = new System.Drawing.Point(3, 10);
             this.btnBrowserView.Name = "btnBrowserView";
             this.btnBrowserView.Size = new System.Drawing.Size(167, 43);
             this.btnBrowserView.TabIndex = 16;
             this.btnBrowserView.Text = "Brower View";
             this.btnBrowserView.UseVisualStyleBackColor = true;
+            this.btnBrowserView.Click += new System.EventHandler(this.btnBrowserView_Click);
             // 
             // btnExtractVRCA
             // 
@@ -508,7 +508,7 @@ namespace ARES
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "A.R.E.S V11 - Beta";
+            this.Text = "A.R.E.S V11";
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
