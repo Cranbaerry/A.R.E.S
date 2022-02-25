@@ -12,6 +12,7 @@ using static Logging.Logging;
 using static BaseFuncs.BaseFuncs;
 using static Patches.Patches;
 using static Buttons.Buttons;
+//using System.Data.SQLite;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
 [assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.1", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
@@ -35,6 +36,7 @@ namespace AvatarLogger
         public static int Pri = 0;
         public static ConfigHelper<Config> Helper;
         public static Config Config => Helper.Config;
+        //public static SQLiteConnection sqlite_conn;
         //Void to run on application start
         public override void OnApplicationStart()
         {
@@ -67,6 +69,24 @@ namespace AvatarLogger
                 MelonLogger.Msg("Listening for Ui...");
             }
             else { MelonLogger.Msg("ARES running in stealth mode! To restore your in-game buttons enable 'Stealth' in the settings category in your GUI!"); }
+
+            //sqlite_conn = new SQLiteConnection(@"Data Source=.\GUI\Logs.sqlite;Version=3;");
+            //sqlite_conn.Open();
+            //SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            //try
+            //{                
+            //    sqlite_cmd.CommandText = "CREATE TABLE `Avatars` (`TimeDetected` varchar(12) DEFAULT NULL,`AvatarID` varchar(255) DEFAULT NULL,`AvatarName` varchar(255) DEFAULT NULL,`AvatarDescription` varchar(1000) DEFAULT NULL,`AuthorID` varchar(255) DEFAULT NULL,`AuthorName` varchar(255) DEFAULT NULL,`PCAssetURL` varchar(255) DEFAULT NULL,`QUESTAssetURL` varchar(255) DEFAULT NULL,`ImageURL` varchar(255) DEFAULT NULL,`ThumbnailURL` varchar(255) DEFAULT NULL,`UnityVersion` varchar(255) DEFAULT NULL,`Releasestatus` varchar(255) DEFAULT NULL,`Tags` varchar(255) DEFAULT NULL,`Uploaded` boolean NOT NULL default 0);";
+            //    sqlite_cmd.ExecuteNonQuery();
+            //}
+            //catch { }
+
+            //try
+            //{
+            //    sqlite_cmd.CommandText = "CREATE TABLE `Worlds` (`TimeDetected` varchar(12) NOT NULL,`WorldID` varchar(255) NOT NULL,`WorldName` varchar(255) NOT NULL,`WorldDescription` varchar(1000) NOT NULL,`AuthorID` varchar(255) NOT NULL,`AuthorName` varchar(255) NOT NULL,`PCAssetURL` varchar(255) NOT NULL,`ImageURL` varchar(255) NOT NULL,`ThumbnailURL` varchar(255) NOT NULL,`UnityVersion` varchar(255) NOT NULL,`Releasestatus` varchar(255) NOT NULL,`Tags` varchar(255) NOT NULL,`Uploaded` boolean NOT NULL default 0);";
+            //    sqlite_cmd.ExecuteNonQuery();
+            //}
+            //catch { }
+
         }
         //Wait till scene loads to being getting updated friends list
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)

@@ -18,7 +18,7 @@ namespace ARESPlugin
         public override void OnPreInitialization()
         {
             Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/AvatarLogger.dll");
-            Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReModCE/releases/latest/download/ReMod.Core.dll");
+            Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReMod.Core/releases/latest/download/ReMod.Core.dll");
             Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png");
 
             foreach (KeyValuePair<string, string> pair in Files)
