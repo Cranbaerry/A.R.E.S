@@ -332,7 +332,8 @@ namespace ARES.Modules
             string uploadedFile = "WorldUploaded.txt";
             if (!File.Exists(uploadedFile))
             {
-                File.Create(uploadedFile);
+                var myFile = File.Create(uploadedFile);
+                myFile.Close();
             }
             Thread.Sleep(500);
             foreach (var item in worlds)

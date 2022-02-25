@@ -54,14 +54,15 @@ namespace ARES
             if (File.Exists("LatestLog.txt"))
             {
                 File.Move("LatestLog.txt", string.Format("Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
-                File.Create("LatestLog.txt");
+                var myFile = File.Create("LatestLog.txt");
+                myFile.Close();
             }
             else
             {
-                File.Create("LatestLog.txt");
+                var myFile = File.Create("LatestLog.txt");
+                myFile.Close();
             }
 
-            Thread.Sleep(500);
 
 
             lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
