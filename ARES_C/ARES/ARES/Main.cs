@@ -230,11 +230,11 @@ namespace ARES
                         }
                         else
                         {
-                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
+                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").ToList();
                         }
                     } else
                     {
-                        AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                        AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
                     {
