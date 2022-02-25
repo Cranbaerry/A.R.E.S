@@ -997,6 +997,7 @@ namespace ARES
             if (AvatarList != null)
             {
                 generateHtml.GenerateHtmlPage(AvatarList);
+                System.Diagnostics.Process.Start("avatars.html");
             }
         }
     }
