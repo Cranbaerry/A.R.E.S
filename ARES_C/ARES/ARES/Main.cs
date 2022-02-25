@@ -214,23 +214,23 @@ namespace ARES
                 {
                     List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
                     AvatarList = avatars;
-                    if (!chkPC.Checked && !chkQuest.Checked)
+                    if (!chkPC.Checked || !chkQuest.Checked)
                     {
                         if (chkPC.Checked)
                         {
-                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim() != "None").ToList();
+                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
                         }
                         else
                         {
-                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim() == "None").ToList();
+                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() == "none").ToList();
                         }
                         if (chkQuest.Checked)
                         {
-                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim() != "None").ToList();
+                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                         }
                         else
                         {
-                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim() == "None").ToList();
+                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").ToList();
                         }
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
@@ -665,23 +665,23 @@ namespace ARES
                 else
                 {
 
-                    if (!chkPC.Checked && !chkQuest.Checked)
+                    if (!chkPC.Checked || !chkQuest.Checked)
                     {
                         if (chkPC.Checked)
                         {
-                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim() != "None").ToList();
+                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
                         }
                         else
                         {
-                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim() == "None").ToList();
+                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() == "none").ToList();
                         }
                         if (chkQuest.Checked)
                         {
-                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim() != "None").ToList();
+                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                         }
                         else
                         {
-                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim() == "None").ToList();
+                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").ToList();
                         }
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
