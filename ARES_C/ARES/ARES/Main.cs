@@ -93,8 +93,13 @@ namespace ARES
                 apiEnabled = Convert.ToBoolean(iniFile.Read("apiEnabled"));
             }
 
-
-            lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
+            try
+            {
+                lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
+            } catch
+            {
+                CoreFunctions.WriteLog("Error getting API stats.");
+            }
             cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
             MessageBoxManager.Yes = "PC";
