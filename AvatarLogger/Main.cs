@@ -88,6 +88,8 @@ namespace AvatarLogger
             //catch { }
 
         }
+
+
         //Wait till scene loads to being getting updated friends list
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
@@ -102,7 +104,6 @@ namespace AvatarLogger
         {
             //Obtains the player hash table and sends it to the method responsible for logging information from the table
             while (NetworkManager.field_Internal_Static_NetworkManager_0 == null) yield return new UnityEngine.WaitForSecondsRealtime(2f);
-            
             
             if (NetworkManager.field_Internal_Static_NetworkManager_0 != null) new Action(() =>
             {
