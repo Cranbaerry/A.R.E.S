@@ -88,7 +88,8 @@ namespace ARES
                     apiEnabled = true;
                     iniFile.Write("apiEnabled", "true");
                 }
-            } else
+            }
+            else
             {
                 apiEnabled = Convert.ToBoolean(iniFile.Read("apiEnabled"));
             }
@@ -96,7 +97,8 @@ namespace ARES
             try
             {
                 lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
-            } catch
+            }
+            catch
             {
                 CoreFunctions.WriteLog("Error getting API stats.");
             }
@@ -111,14 +113,14 @@ namespace ARES
                 selectFile();
             }
             else
-            {                
+            {
                 unityPath = iniFile.Read("unity");
             }
 
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
-               btnSearch.Enabled = false;
+                btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -214,27 +216,13 @@ namespace ARES
                 {
                     List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
                     AvatarList = avatars;
-                    if (!chkPC.Checked || !chkQuest.Checked)
+                    if (chkPC.Checked)
                     {
-                        if (chkPC.Checked)
-                        {
-                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
-                        }
-                        else
-                        {
-                            AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() == "none").ToList();
-                        }
-                        if (chkQuest.Checked)
-                        {
-                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
-                        }
-                        else
-                        {
-                            AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").ToList();
-                        }
-                    } else
+                        AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                    }
+                    if (chkQuest.Checked)
                     {
-                        AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
+                        AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
                     {
@@ -800,7 +788,7 @@ namespace ARES
             {
                 HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
                 MessageBox.Show("Error decompressing VRCA file");
@@ -953,7 +941,7 @@ namespace ARES
                     CoreFunctions.WriteLog(string.Format("Deleted file {0}", location));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
             }
@@ -1097,8 +1085,8 @@ namespace ARES
         {
             if (isAvatar)
             {
-                if(cbCopy.Text == "Time Dectected")
-                {                   
+                if (cbCopy.Text == "Time Dectected")
+                {
                     Clipboard.SetText(selectedAvatar.TimeDetected);
                     MessageBox.Show("information copied to clipboard.");
                 }
@@ -1162,7 +1150,8 @@ namespace ARES
                     Clipboard.SetText(selectedAvatar.Tags);
                     MessageBox.Show("information copied to clipboard.");
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Only works for avatars atm.");
             }

@@ -46,7 +46,7 @@ namespace AvatarLogger
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll");
-            HandleQueue(UpkeepFiles);
+            //HandleQueue(UpkeepFiles);
             try
             {
                 MelonLogger.Msg("Applying patches...");
@@ -94,7 +94,8 @@ namespace AvatarLogger
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
             //When scene loads fetch friends
-            if (buildIndex == -1) { 
+            if (buildIndex == -1)
+            {
                 MelonCoroutines.Start(FetchFriends());
                 MelonCoroutines.Start(LogWorlds());
             }
@@ -104,17 +105,14 @@ namespace AvatarLogger
         {
             //Obtains the player hash table and sends it to the method responsible for logging information from the table
             while (NetworkManager.field_Internal_Static_NetworkManager_0 == null) yield return new UnityEngine.WaitForSecondsRealtime(2f);
-            
+
             if (NetworkManager.field_Internal_Static_NetworkManager_0 != null) new Action(() =>
             {
                 NetworkManager.field_Internal_Static_NetworkManager_0.field_Internal_VRCEventDelegate_1_Player_0.field_Private_HashSet_1_UnityAction_1_T_0.Add(new Action<VRC.Player>((obj) =>
-                {
-                    if (obj.field_Private_APIUser_0.id != APIUser.CurrentUser.id)
-                    {
-                        var ht = obj.field_Private_Player_0.field_Private_Hashtable_0;
-                        dynamic playerHashtable = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(ht)));
-                        ExecuteLog(playerHashtable);
-                    }
+                {                   
+                    var ht = obj.field_Private_Player_0.field_Private_Hashtable_0;
+                    dynamic playerHashtable = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(ht)));
+                    ExecuteLog(playerHashtable);
                 }));
             })();
         }
