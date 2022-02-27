@@ -594,7 +594,7 @@ namespace ARES
                 {
                     string unityVersion = cbVersionUnity.Text + "DLL";
                     string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    string commands = string.Format("/K AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
+                    string commands = string.Format("/C AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
 
                     Process p = new Process();
                     ProcessStartInfo psi = new ProcessStartInfo
@@ -606,6 +606,15 @@ namespace ARES
                     p.StartInfo = psi;
                     p.Start();
                     p.WaitForExit();
+
+                    tryDeleteDirectory(folderDlg.SelectedPath + @"\AssetRipper\GameAssemblies");
+                    tryDeleteDirectory(folderDlg.SelectedPath + @"\Assets\Scripts");
+                    try
+                    {
+                        Directory.Move(folderDlg.SelectedPath + @"\Assets\Shader", folderDlg.SelectedPath + @"\Assets\.Shader");
+                    }
+                    catch { }
+
                 }
             }
             else
@@ -655,25 +664,13 @@ namespace ARES
                 }
                 else
                 {
-
-                    if (!chkPC.Checked || !chkQuest.Checked)
+                    if (chkPC.Checked)
                     {
-                        if (chkPC.Checked)
-                        {
-                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
-                        }
-                        else
-                        {
-                            avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() == "none").ToList();
-                        }
-                        if (chkQuest.Checked)
-                        {
-                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
-                        }
-                        else
-                        {
-                            avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() == "none").ToList();
-                        }
+                        avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                    }
+                    if (chkQuest.Checked)
+                    {
+                        avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
                     {
@@ -699,6 +696,7 @@ namespace ARES
                     {
                         avatars = localAvatars.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
+
                 }
 
                 AvatarList = avatars;

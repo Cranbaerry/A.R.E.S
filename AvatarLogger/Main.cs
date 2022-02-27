@@ -46,7 +46,7 @@ namespace AvatarLogger
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
             //Ensures reqired upkeep files are installed and updated
             UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll");
-            //HandleQueue(UpkeepFiles);
+            HandleQueue(UpkeepFiles);
             try
             {
                 MelonLogger.Msg("Applying patches...");
