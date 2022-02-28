@@ -12,6 +12,7 @@ namespace ARES.Modules
     {
         public void GenerateHtmlPage(List<Records> avatars)
         {
+            string assetTypes = "";           
             string htmlLayout = @"<!DOCTYPE html>
                                                 <html lang='en'>
 
@@ -126,6 +127,20 @@ namespace ARES.Modules
                                                     string buildString = "";
                                                     foreach (var item in avatars)
                                                     {
+                if(item.PCAssetURL != "None")
+                {
+                    assetTypes = "PC";
+                }
+                if(item.QUESTAssetURL != "None")
+                {
+                    if(assetTypes != null)
+                    {
+                        assetTypes += ",Quest";
+                    } else
+                    {
+                        assetTypes = "Quest";
+                    }
+                }
                                                         string avatarSection = string.Format(@"
                                                     <div class='k-card'>
 					                                        <div class='k-card-body shadow'>
@@ -138,12 +153,13 @@ namespace ARES.Modules
 							                                        <span class='post-author'>Avatar Author: <b class=''>{3}</ b ></ span >
                                                                     <span class='post-avatar_id'> Avatar ID: </b><button class='avataridbutton' id='{4}' onclick='copytoclipboard(""{4}"")'>{4}</button></span>            
                                                                                   <span class='post-status'> STATUS: {0}</b></span>
+                                                                                  <span class='post - asseturls'>Asset Type(s): {6}</span>
                                                                                        <div class= 'post-link'>                    
                                                                                             <span class= 'post-time' >{5}</span>                        
                                                                                        </div>                        
                                                                </div>                       
                                                    </div> </a> </div>                       
-                                                                                ", item.Releasestatus, item.ImageURL, item.AvatarName, item.AuthorName, item.AvatarID, item.TimeDetected, item.PCAssetURL, item.QUESTAssetURL);
+                                                                                ", item.Releasestatus, item.ImageURL, item.AvatarName, item.AuthorName, item.AvatarID, GetDate(Convert.ToDouble(item.TimeDetected)),assetTypes);
                                                         buildString += avatarSection;
                                                     }
 
@@ -225,7 +241,13 @@ namespace ARES.Modules
             File.WriteAllText("avatars.html", finished);
         }
 
-
+        public string GetDate(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dateTime.ToString();
+        }
 
 
     }

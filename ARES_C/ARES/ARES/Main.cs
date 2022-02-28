@@ -120,7 +120,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
-                btnSearch.Enabled = false;
+                //btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -594,7 +594,24 @@ namespace ARES
                 {
                     string unityVersion = cbVersionUnity.Text + "DLL";
                     string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    string commands = string.Format("/C AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderDlg.SelectedPath, filePath + @"\custom.vrca", filePath);
+                    string avatarName = Encoding.ASCII.GetString(
+                    Encoding.Convert(
+                        Encoding.UTF8,
+                        Encoding.GetEncoding(
+                            Encoding.ASCII.EncodingName,
+                            new EncoderReplacementFallback(string.Empty),
+                            new DecoderExceptionFallback()
+                            ),
+                        Encoding.UTF8.GetBytes(selectedAvatar.AvatarName)
+                        )
+                    );
+                    char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+                    string folderExtractLocation = folderDlg.SelectedPath + @"\" + new string(avatarName.Where(ch => !invalidFileNameChars.Contains(ch)).ToArray());
+                    if (!Directory.Exists(folderExtractLocation))
+                    {
+                        Directory.CreateDirectory(folderExtractLocation);
+                    }
+                    string commands = string.Format("/C AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderExtractLocation, filePath + @"\custom.vrca", filePath);
 
                     Process p = new Process();
                     ProcessStartInfo psi = new ProcessStartInfo
@@ -607,11 +624,11 @@ namespace ARES
                     p.Start();
                     p.WaitForExit();
 
-                    tryDeleteDirectory(folderDlg.SelectedPath + @"\AssetRipper\GameAssemblies");
-                    tryDeleteDirectory(folderDlg.SelectedPath + @"\Assets\Scripts");
+                    tryDeleteDirectory(folderExtractLocation + @"\AssetRipper\GameAssemblies");
+                    tryDeleteDirectory(folderExtractLocation + @"\Assets\Scripts");
                     try
                     {
-                        Directory.Move(folderDlg.SelectedPath + @"\Assets\Shader", folderDlg.SelectedPath + @"\Assets\.Shader");
+                        Directory.Move(folderExtractLocation + @"\Assets\Shader", folderExtractLocation + @"\Assets\.Shader");
                     }
                     catch { }
 
@@ -1086,7 +1103,7 @@ namespace ARES
             if (AvatarList != null)
             {
                 generateHtml.GenerateHtmlPage(AvatarList);
-                System.Diagnostics.Process.Start("avatars.html");
+                Process.Start("avatars.html");
             }
         }
 
