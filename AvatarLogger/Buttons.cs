@@ -60,50 +60,52 @@ namespace Buttons
             FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
             FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
             FPage.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
-            WingMenu.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
-            WingMenu.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
-            //FPage.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
-            //FPage.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
-
-            //ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
-            //ReMenuPage TabPage = null;
-            //try
-            //{
-            //    TabPage = ReMenuPage.Create("ARES", true);
-            //}
-            //catch { }
-            //ReMenuPage LSMPT = null;
-            //try
-            //{
-            //    LSMPT = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
-            //}
-            //catch { }
             
-            //LSMPT.AddToggle("Log Worlds", "Toggles the logging of worlds", delegate (bool b) { Config.LogWorlds = b; }, Config.LogWorlds);
-            //LSMPT.AddToggle("Log Avatars", "Toggles the logging of avatars", delegate (bool b) { Config.LogAvatars = b; }, Config.LogAvatars);
-            //LSMPT.AddToggle("Log Public Avatars", "Toggles the logging of public avatars", delegate (bool b) { Config.LogPublicAvatars = b; }, Config.LogPublicAvatars);
-            //LSMPT.AddToggle("Log Private Avatars", "Toggles the logging of private avatars", delegate (bool b) { Config.LogPrivateAvatars = b; }, Config.LogPrivateAvatars);
-            //LSMPT.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; }, Config.LogOwnAvatars);
-            //LSMPT.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
-            //LSMPT.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
-            //LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
+            ReMirroredWingMenu otherToggles = WingMenu.AddSubMenu("Other", "Use the other features within ARES");
+            otherToggles.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; }, Config.UnlimitedFavorites);
+            otherToggles.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; }, Config.Stealth);
+            FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
+            FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
 
-            //ReMenuPage FPageT = null;
-            //try
-            //{
-            //    FPageT = TabPage.AddMenuPage("ARES Functions", "Use the other features within ARES");
-            //}
-            //catch { }
-             
-            //FPageT.AddButton("Open ARES GUI", "Opens the ARES GUI on your desktop!", delegate { OpenGUI(); });
-            //FPageT.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
-            //FPageT.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
-            //FPageT.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
-            //FPageT.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
-            //FPageT.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
-            //FPageT.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
-            //FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
-            //FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
+            ReTabButton ARESTAB = ReTabButton.Create("ARES", "Access ARES Menus", "ARES", ButtonImage);
+            ReMenuPage TabPage = null;
+            try
+            {
+                TabPage = ReMenuPage.Create("ARES", true);
+            }
+            catch { }
+            ReMenuPage LSMPT = null;
+            try
+            {
+                LSMPT = TabPage.AddMenuPage("Logging Settings", "Allows you to configure your ARES settings!");
+            }
+            catch { }
+
+            LSMPT.AddToggle("Log Worlds", "Toggles the logging of worlds", delegate (bool b) { Config.LogWorlds = b; }, Config.LogWorlds);
+            LSMPT.AddToggle("Log Avatars", "Toggles the logging of avatars", delegate (bool b) { Config.LogAvatars = b; }, Config.LogAvatars);
+            LSMPT.AddToggle("Log Public Avatars", "Toggles the logging of public avatars", delegate (bool b) { Config.LogPublicAvatars = b; }, Config.LogPublicAvatars);
+            LSMPT.AddToggle("Log Private Avatars", "Toggles the logging of private avatars", delegate (bool b) { Config.LogPrivateAvatars = b; }, Config.LogPrivateAvatars);
+            LSMPT.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; }, Config.LogOwnAvatars);
+            LSMPT.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
+            LSMPT.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
+            LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
+
+            ReMenuPage FPageT = null;
+            try
+            {
+                FPageT = TabPage.AddMenuPage("ARES Functions", "Use the other features within ARES");
+            }
+            catch { }
+
+            FPageT.AddButton("Open ARES GUI", "Opens the ARES GUI on your desktop!", delegate { OpenGUI(); });
+            FPageT.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
+            FPageT.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
+            FPageT.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
+            FPageT.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
+            FPageT.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
+            FPageT.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
+            FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
+            FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
             MelonLogger.Msg("Ui ready!");
         }
 

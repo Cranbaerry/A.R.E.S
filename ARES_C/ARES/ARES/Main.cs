@@ -760,7 +760,18 @@ namespace ARES
             {
                 File.Copy(unityVRCA, fileDummy);
             }
-            catch { }
+            catch 
+            {
+                MessageBox.Show("Make sure you've started the build and publish on unity");
+                if (hotswapConsole.InvokeRequired)
+                {
+                    hotswapConsole.Invoke((MethodInvoker)delegate
+                    {
+                        hotswapConsole.Close();
+                    });
+                }
+                return;
+            }
 
             try
             {
