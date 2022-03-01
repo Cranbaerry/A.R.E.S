@@ -22,20 +22,6 @@ If you have any feedback for us or would like to suggest a feature please use ou
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
-Virus Totals:
-
-[ARESPlugin.dll](https://www.virustotal.com/gui/file/dfe89e62fcc820adf64e96c8707991fc99320374e4cda4e192eaa99837bfaa26/summary)
-
-[AvatarLogger.dll](https://www.virustotal.com/gui/file/4cf54e694e100c02c54e3f20ca8465b62a5f26695365d15eb5dcbe041c30bba0/summary)
-
-[UnRar.exe](https://www.virustotal.com/gui/file/f706f001e14f2c505de572ef095cd0cdcb8701bd9f2068a7048e4edb6f81b2d0/summary)
-
-[ARES.Updater.exe](https://www.virustotal.com/gui/file/52027c007a0cc02741c6a9afe4e20c2e0be6f46749dcc0bbdca0588e76bb09f2/summary)
-
-[V11.0.1a GUI RAR](https://www.virustotal.com/gui/file/aaf072b9dfaca42ccb2ab2b4ea622e6678c84ee53d449d4c4ee179d729db27b6/summary)
-
-[DRAG.INTO.VRChat.FOLDER.RAR](https://www.virustotal.com/gui/file/10e60fcb04a0e0c75652cb54c356a923b183fcf47950a585743b70a4624c12ee/summary)
-
 Features:
 
     -Unlimted avatar favorites (Can be disabled)
@@ -57,10 +43,8 @@ Features:
 		-Avatar ID
 		
 		-Avatar Author
-		
-		-Uploader Tags
 
-            -Author ID
+        -Author ID
 	
 	-Browse the logs with image previews of avatars
 	
@@ -96,17 +80,7 @@ Step Six: Press "OK" on [this](https://i.imgur.com/gqKcHNn.png) screen, this wil
 
 Info: From here onwards you can open ARES via the [ARES.exe](https://i.imgur.com/F3NDgCb.png) in your [GUI Folder](https://i.imgur.com/ovleFKV.png)!
 
-ARES is now setup, working and ready to use, however there are some extra steps to gain API access to see a databse of avatars logged by all ARES users!
-
-API Step One: Head to the [ARES GUI "Setings" tab](https://i.imgur.com/kLLdPzq.png).
-
-~~API Step Two: Head to our [Discord Server](https://discord.gg/dhSdMsfgWe), verify and [get a key](https://i.imgur.com/YtzzQOf.png) by typing !key in the #keys channel.~~
-
-~~API Step Three: Paste the [key](https://i.imgur.com/WsEMH0z.png) in your [key tab](https://i.imgur.com/qQEJKk2.png) and press ["Set Key"](https://i.imgur.com/DmSBggW.png).~~
-
-API Step Two ~~Four~~: You may now press the [Toggle API](https://i.imgur.com/xAnJGrG.png) button to activate the API, this will quit ARES, just open it again!
-
-All done! Can now access [API Features](https://i.imgur.com/kklkouA.png)
+ARES is now setup, working and ready to use
 
 Issues? Open an issue in the "Issues" tab, We will do our best to resolve your issue!
 
