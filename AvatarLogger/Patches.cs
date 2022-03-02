@@ -29,8 +29,7 @@ namespace Patches
         //All the possible routes leading to an avatar being logged
         public static void OnEventPatch()
         {
-            Instance.Patch(typeof(VRCNetworkingClient).GetMethod("OnEvent"), new HarmonyLib.HarmonyMethod(typeof(Patches).GetMethod(nameof(Patches.Detour), BindingFlags.NonPublic | BindingFlags.Static)), null, null, null, null);
-            //Instance.Patch(typeof(LoadBalancingClient).GetMethod("OnEvent"), new HarmonyLib.HarmonyMethod(typeof(Patches).GetMethod(nameof(Patches.OnEventLBC), BindingFlags.Static | BindingFlags.NonPublic)), null, null, null, null);
+            Instance.Patch(typeof(VRCNetworkingClient).GetMethod("OnEvent"), new HarmonyLib.HarmonyMethod(typeof(Patches).GetMethod(nameof(Patches.OnEventLBC), BindingFlags.NonPublic | BindingFlags.Static)), null, null, null, null);
         }
 
         private static bool OnEventLBC(EventData __0)
@@ -65,36 +64,22 @@ namespace Patches
 
                 case 253:
                     {
+                        // patched by LargestBoi
                         try
                         {
-                            if (__0.Code == 253)
+                            foreach (VRCPlayer player in UnityEngine.Object.FindObjectsOfType<VRCPlayer>())
                             {
-                                string customProps = JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(__0.Parameters));
-                                dynamic playerHashtable = JsonConvert.DeserializeObject(customProps);
-                                ExecuteLog(playerHashtable["251"]);
+                                var ht = player.prop_Player_0.prop_Player_1.prop_Hashtable_0;
+                                dynamic playerHashtable = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(ht)));
+                                ExecuteLog(playerHashtable);
                             }
                         }
-                        catch (Exception ex) { MelonLogger.Msg(ex.Message); }
-                        return true;
-                    };
+                        catch (Exception e) { MelonLogger.Msg($"Error: \n{e}"); }
+                    }
+                    return true;
                 default:
                     break;
             }
-            return true;
-        }
-
-        private static bool Detour(ref EventData __0)
-        {
-            try
-            {
-                if (__0.Code == 253)
-                {
-                    string customProps = JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(__0.Parameters));
-                    dynamic playerHashtable = JsonConvert.DeserializeObject(customProps);
-                    ExecuteLog(playerHashtable["251"]);
-                }
-            }
-            catch { }
             return true;
         }
     }
