@@ -29,6 +29,7 @@ namespace ARES
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.txtSearchTerm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,6 +78,8 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.cbLimit = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,7 +97,7 @@ namespace ARES
             this.txtSearchTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchTerm.Location = new System.Drawing.Point(197, 6);
             this.txtSearchTerm.Name = "txtSearchTerm";
-            this.txtSearchTerm.Size = new System.Drawing.Size(490, 38);
+            this.txtSearchTerm.Size = new System.Drawing.Size(374, 38);
             this.txtSearchTerm.TabIndex = 0;
             // 
             // label1
@@ -240,6 +243,7 @@ namespace ARES
             // 
             // btnCopy
             // 
+            this.btnCopy.ForeColor = System.Drawing.Color.Black;
             this.btnCopy.Location = new System.Drawing.Point(179, 401);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(85, 28);
@@ -374,7 +378,7 @@ namespace ARES
             this.btnExtractVRCA.Name = "btnExtractVRCA";
             this.btnExtractVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnExtractVRCA.TabIndex = 15;
-            this.btnExtractVRCA.Text = "Extract VRCA";
+            this.btnExtractVRCA.Text = "Extract VRCA/VRCW";
             this.btnExtractVRCA.UseVisualStyleBackColor = true;
             this.btnExtractVRCA.Click += new System.EventHandler(this.btnExtractVRCA_Click);
             // 
@@ -401,6 +405,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.cbLimit);
             this.panel3.Controls.Add(this.chkQuest);
             this.panel3.Controls.Add(this.chkPC);
             this.panel3.Controls.Add(this.chkPrivate);
@@ -621,6 +626,26 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // cbLimit
+            // 
+            this.cbLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLimit.FormattingEnabled = true;
+            this.cbLimit.Items.AddRange(new object[] {
+            "Max",
+            "1000",
+            "500",
+            "250",
+            "100",
+            "50",
+            "10",
+            "1"});
+            this.cbLimit.Location = new System.Drawing.Point(577, 6);
+            this.cbLimit.Name = "cbLimit";
+            this.cbLimit.Size = new System.Drawing.Size(110, 39);
+            this.cbLimit.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.cbLimit, "Limit amount of results pulled back (5000 is max for API local is unlimited)");
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,6 +661,7 @@ namespace ARES
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "A.R.E.S V11";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ares_Close);
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -704,6 +730,8 @@ namespace ARES
         private System.Windows.Forms.CheckBox chkPrivate;
         private System.Windows.Forms.CheckBox chkPublic;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cbLimit;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

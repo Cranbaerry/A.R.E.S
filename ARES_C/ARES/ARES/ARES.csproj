@@ -414,7 +414,19 @@
     <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.TerrainModule.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.TextCoreModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.TextRenderingModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.UI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AssetRipperConsole_win64\2019DLL\UnityEngine.UnityWebRequestModule.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRC.Udon.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AssetRipperConsole_win64\2019DLL\VRCCore-Editor.dll">
@@ -427,6 +439,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK3.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AssetRipperConsole_win64\2019DLL\VRCSDK3A-Editor.dll">

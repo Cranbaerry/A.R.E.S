@@ -30,6 +30,7 @@ namespace ARES
         public bool locked;
         public Thread imageThread;
         public Thread vrcaThread;
+        public Thread uploadThread;
         public int avatarCount;
         public int worldCount;
         public Records selectedAvatar;
@@ -50,22 +51,31 @@ namespace ARES
             CoreFunctions = new CoreFunctions();
             iniFile = new IniFile();
             generateHtml = new GenerateHtml();
-
-            if (!Directory.Exists("Logs"))
+            try
             {
-                Directory.CreateDirectory("Logs");
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                string version = fileVersionInfo.ProductVersion;
+                this.Text = "ARES V" + version;
+            }
+            catch { }
+            cbLimit.SelectedIndex = 0;
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (!Directory.Exists(filePath + @"\Logs"))
+            {
+                Directory.CreateDirectory(filePath + @"\Logs");
             }
 
-            if (File.Exists("LatestLog.txt"))
+            if (File.Exists(filePath + @"\LatestLog.txt"))
             {
-                File.Move("LatestLog.txt", string.Format("Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
+                File.Move(filePath + @"\LatestLog.txt", string.Format(filePath + "\\Logs\\{0}.txt", string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now)));
                 Thread.Sleep(500);
-                var myFile = File.Create("LatestLog.txt");
+                var myFile = File.Create(filePath + @"\LatestLog.txt");
                 myFile.Close();
             }
             else
             {
-                var myFile = File.Create("LatestLog.txt");
+                var myFile = File.Create(filePath + @"\LatestLog.txt");
                 myFile.Close();
             }
 
@@ -109,7 +119,7 @@ namespace ARES
             MessageBoxManager.Register();
             if (!iniFile.KeyExists("unity"))
             {
-                MessageBox.Show("Please select unity.exe");
+                MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
                 selectFile();
             }
             else
@@ -136,7 +146,8 @@ namespace ARES
             localAvatars = CoreFunctions.getLocalAvatars();
             if (localAvatars.Count > 0 && apiEnabled)
             {
-                CoreFunctions.uploadToApi(localAvatars);
+                uploadThread = new Thread(() => CoreFunctions.uploadToApi(localAvatars));
+                uploadThread.Start();
             }
 
             localWorlds = CoreFunctions.getLocalWorlds();
@@ -214,7 +225,7 @@ namespace ARES
                 statusLabel.Text = "Status: Loading API";
                 if (!cbSearchTerm.Text.Contains("World"))
                 {
-                    List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text);
+                    List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text, cbLimit.Text);
                     AvatarList = avatars;
                     if (chkPC.Checked)
                     {
@@ -279,7 +290,6 @@ namespace ARES
                     {
                         avatarImage.Image = bitmap;
                         label.Name = item.AvatarID;
-                        //avatarImage.Click += LoadInfo;
                         label.Click += LoadInfo;
                         groupBox.Controls.Add(avatarImage);
                         groupBox.Controls.Add(label);
@@ -496,8 +506,15 @@ namespace ARES
 
         private bool downloadVRCW(string fileName = "custom.vrcw")
         {
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (fileName == "custom.vrcw")
+            {
+                fileName = filePath + @"\custom.vrcw";
+            }
+
             string[] version = selectedWorld.PCAssetURL.Split('/');
             version[7] = nmPcVersion.Value.ToString();
+
             downloadFile(string.Join("/", version), fileName);
             return true;
         }
@@ -505,6 +522,11 @@ namespace ARES
 
         private bool downloadVRCA(string fileName = "custom.vrca")
         {
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (fileName == "custom.vrca")
+            {
+                fileName = filePath + @"\custom.vrca";
+            }
             if (selectedAvatar.AuthorName != "VRCA")
             {
                 if (selectedAvatar.PCAssetURL != "None" && selectedAvatar.QUESTAssetURL != "None")
@@ -577,7 +599,7 @@ namespace ARES
 
         private void btnExtractVRCA_Click(object sender, EventArgs e)
         {
-            if (selectedAvatar != null)
+            if (selectedAvatar != null && isAvatar)
             {
                 if (!downloadVRCA())
                 {
@@ -605,6 +627,7 @@ namespace ARES
                         Encoding.UTF8.GetBytes(selectedAvatar.AvatarName)
                         )
                     );
+                    avatarName += "-ARES";
                     char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
                     string folderExtractLocation = folderDlg.SelectedPath + @"\" + new string(avatarName.Where(ch => !invalidFileNameChars.Contains(ch)).ToArray());
                     if (!Directory.Exists(folderExtractLocation))
@@ -634,9 +657,67 @@ namespace ARES
 
                 }
             }
+            else if (selectedWorld != null && !isAvatar)
+            {
+                if (!downloadVRCW())
+                {
+                    return;
+                }
+
+                FolderBrowserDialog folderDlg = new FolderBrowserDialog
+                {
+                    ShowNewFolderButton = true
+                };
+                // Show the FolderBrowserDialog.
+                DialogResult result = folderDlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string unityVersion = cbVersionUnity.Text + "DLL";
+                    string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    string worldName = Encoding.ASCII.GetString(
+                    Encoding.Convert(
+                        Encoding.UTF8,
+                        Encoding.GetEncoding(
+                            Encoding.ASCII.EncodingName,
+                            new EncoderReplacementFallback(string.Empty),
+                            new DecoderExceptionFallback()
+                            ),
+                        Encoding.UTF8.GetBytes(selectedWorld.WorldName)
+                        )
+                    );
+                    worldName += "-ARES";
+                    char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+                    string folderExtractLocation = folderDlg.SelectedPath + @"\" + new string(worldName.Where(ch => !invalidFileNameChars.Contains(ch)).ToArray());
+                    if (!Directory.Exists(folderExtractLocation))
+                    {
+                        Directory.CreateDirectory(folderExtractLocation);
+                    }
+                    string commands = string.Format("/C AssetRipperConsole.exe \"{2}\" \"{3}\\AssetRipperConsole_win64\\{0}\" -o \"{1}\" -q ", unityVersion, folderExtractLocation, filePath + @"\custom.vrcw", filePath);
+
+                    Process p = new Process();
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = "CMD.EXE",
+                        Arguments = commands,
+                        WorkingDirectory = filePath + @"\AssetRipperConsole_win64"
+                    };
+                    p.StartInfo = psi;
+                    p.Start();
+                    p.WaitForExit();
+
+                    tryDeleteDirectory(folderExtractLocation + @"\AssetRipper\GameAssemblies");
+                    tryDeleteDirectory(folderExtractLocation + @"\Assets\Scripts");
+                    try
+                    {
+                        Directory.Move(folderExtractLocation + @"\Assets\Shader", folderExtractLocation + @"\Assets\.Shader");
+                    }
+                    catch { }
+
+                }
+            }
             else
             {
-                MessageBox.Show("Please select an avatar first.");
+                MessageBox.Show("Please select an avatar or world first.");
             }
         }
 
@@ -716,6 +797,13 @@ namespace ARES
 
                 }
 
+                avatars = avatars.OrderByDescending(x => x.TimeDetected).ToList();
+
+                if (cbLimit.Text != "Max")
+                {
+                    avatars = avatars.Take(Convert.ToInt32(cbLimit.Text)).ToList();
+                }
+
                 AvatarList = avatars;
                 avatarCount = avatars.Count();
                 lblAvatarCount.Text = avatarCount.ToString();
@@ -761,10 +849,11 @@ namespace ARES
 
         private void hotswap()
         {
-            string fileDecompressed = "decompressed.vrca";
-            string fileDecompressed2 = "decompressed1.vrca";
-            string fileDummy = "dummy.vrca";
-            string fileTarget = "target.vrca";
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string fileDecompressed = filePath + @"\decompressed.vrca";
+            string fileDecompressed2 = filePath + @"decompressed1.vrca";
+            string fileDummy = filePath + @"dummy.vrca";
+            string fileTarget = filePath + @"target.vrca";
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
 
@@ -777,7 +866,7 @@ namespace ARES
             {
                 File.Copy(unityVRCA, fileDummy);
             }
-            catch 
+            catch
             {
                 MessageBox.Show("Make sure you've started the build and publish on unity");
                 if (hotswapConsole.InvokeRequired)
@@ -812,7 +901,7 @@ namespace ARES
 
             try
             {
-                HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
+                HotSwap.DecompressToFileStr(filePath + @"\custom.vrca", fileDecompressed2, hotswapConsole);
             }
             catch (Exception ex)
             {
@@ -907,13 +996,14 @@ namespace ARES
 
         private void hotswapRepair()
         {
-            string fileDecompressed2 = "decompressed1.vrca";
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string fileDecompressed2 = filePath + @"\decompressed1.vrca";
 
             tryDelete(fileDecompressed2);
 
             try
             {
-                HotSwap.DecompressToFileStr("custom.vrca", fileDecompressed2, hotswapConsole);
+                HotSwap.DecompressToFileStr(filePath + @"\custom.vrca", fileDecompressed2, hotswapConsole);
             }
             catch (Exception ex)
             {
@@ -1198,6 +1288,22 @@ namespace ARES
                 apiEnabled = true;
                 btnApi.Text = "Disable API";
                 iniFile.Write("apiEnabled", "true");
+            }
+        }
+
+        private void Ares_Close(object sender, FormClosedEventArgs e)
+        {
+            if (imageThread != null)
+            {
+                imageThread.Abort();
+            }
+            if (vrcaThread != null)
+            {
+                vrcaThread.Abort();
+            }
+            if (uploadThread != null)
+            {
+                uploadThread.Abort();
             }
         }
     }

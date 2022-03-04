@@ -208,9 +208,10 @@ namespace ARES.Modules
 
                 tryDelete();
             }
-            catch (Exception  ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
-                return false; 
+                return false;
             }
             return true;
         }
@@ -284,11 +285,12 @@ namespace ARES.Modules
 
         public void uploadToApi(List<Records> avatars)
         {
-           
-            string uploadedFile = "AvatarUploaded.txt";
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string uploadedFile = filePath + @"\AvatarUploaded.txt";           
             if (!File.Exists(uploadedFile))
             {
-                File.Create(uploadedFile);
+                var myFile = File.Create(uploadedFile);
+                myFile.Close();
             }
             Thread.Sleep(500);
             foreach (var item in avatars)
@@ -387,7 +389,7 @@ namespace ARES.Modules
 
         public void WriteLog(string logText)
         {
-            string logBuilder = string.Format("{0:yy/MM/dd H:mm:ss} | {1} \n", DateTime.Now,logText);
+            string logBuilder = string.Format("{0:yy/MM/dd H:mm:ss} | {1} \n", DateTime.Now, logText);
             File.AppendAllText("LatestLog.txt", logBuilder);
         }
     }
