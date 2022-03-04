@@ -31,6 +31,7 @@ namespace ARES
         public Thread imageThread;
         public Thread vrcaThread;
         public Thread uploadThread;
+        public Thread browserThread;
         public int avatarCount;
         public int worldCount;
         public Records selectedAvatar;
@@ -130,7 +131,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
-                //btnSearch.Enabled = false;
+                btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -810,6 +811,7 @@ namespace ARES
                 progress.Maximum = avatarCount;
                 progress.Value = 0;
                 locked = true;
+                isAvatar = true;
                 statusLabel.Text = "Status: Loading Avatar Images";
                 imageThread = new Thread(new ThreadStart(GetImages));
                 imageThread.Start();
@@ -1102,6 +1104,7 @@ namespace ARES
         {
             selectedImage.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
             string file = selectFileVrca();
+            isAvatar = true;
             selectedAvatar = new Records
             {
                 AuthorID = "VRCA",

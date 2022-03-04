@@ -186,10 +186,17 @@ namespace ARES.Modules
                 p.StartInfo = psi;
                 p.Start();
                 p.WaitForExit();
-
             }
             catch { return false; }
 
+            killProcess("Unity Hub.exe");
+            killProcess("Unity.exe");
+
+            try
+            {
+                File.Copy(filePath + @"\HSB\Assets\ARES SMART\Resources\.CurrentLayout-default.dwlt", filePath + @"\HSB\Library\CurrentLayout-default.dwlt", true);
+            }
+            catch { }
 
             try
             {
