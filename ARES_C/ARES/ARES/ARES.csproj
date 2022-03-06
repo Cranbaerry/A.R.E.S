@@ -89,10 +89,12 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\MatchModel.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Modules\Api.cs" />
+    <Compile Include="Modules\byteModule.cs" />
     <Compile Include="Modules\CoreFunctions.cs" />
     <Compile Include="Modules\GenerateHtml.cs" />
     <Compile Include="Modules\HotSwap.cs" />

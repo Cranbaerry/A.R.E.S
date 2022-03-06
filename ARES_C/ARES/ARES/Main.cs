@@ -858,6 +858,15 @@ namespace ARES
             string fileTarget = filePath + @"target.vrca";
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
+            string regexId = @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})";
+            string regexCab = @"(CAB-[\w\d]{32})";
+            string regexUnity = @"[\d]{4}.[\d]{1}.[\w\d]{4}";
+            string regexUnityOlder = @"[\d]{1}.[\d]{1}.[\w\d]{3}";
+            Regex AvatarIdRegex = new Regex(regexId);
+            Regex AvatarCabRegex = new Regex(regexCab);
+            Regex UnityRegex = new Regex(regexUnity);
+            Regex UnityRegexOlder = new Regex(regexUnityOlder);
+
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
@@ -898,8 +907,7 @@ namespace ARES
                 }
                 return;
             }
-            string newId = getFileString(fileDecompressed, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
-            string newCab = getFileString(fileDecompressed, @"(CAB-[\w\d]{32})");
+            MatchModel matchModelNew = getMatches(fileDecompressed, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder);
 
             try
             {
@@ -919,16 +927,11 @@ namespace ARES
                 return;
             }
 
-            string oldId = getFileString(fileDecompressed2, @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})");
-            string oldCab = getFileString(fileDecompressed2, @"(CAB-[\w\d]{32})");
-
-            var enc = Encoding.GetEncoding(28603);
-
-            string text = File.ReadAllText(fileDecompressed2, enc);
-            text = text.Replace(oldId, newId).Replace(oldCab, newCab);
-            File.WriteAllText(fileDecompressed2, text, enc);
-
-            text = null;
+            MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder);
+            byte[] avatarBytes = File.ReadAllBytes(fileDecompressed2);
+            byte[] bytes = byteModule.newbytes(avatarBytes, System.Text.Encoding.UTF8.GetBytes(matchModelOld.AvatarCab), System.Text.Encoding.UTF8.GetBytes(matchModelNew.AvatarCab),
+            System.Text.Encoding.UTF8.GetBytes(matchModelOld.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelNew.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelOld.UnityVersion), System.Text.Encoding.UTF8.GetBytes(matchModelNew.UnityVersion), matchModelOld.AvatarCabCount, matchModelOld.AvatarIdCount, matchModelOld.UnityCount);
+            File.WriteAllBytes(fileDecompressed2, bytes);
 
             try
             {
@@ -962,8 +965,6 @@ namespace ARES
                 len = len / 1024;
             }
 
-            // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
-            // show a single decimal place, and no space.
             string compressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
 
             len = new FileInfo(fileDecompressed2).Length;
@@ -996,6 +997,34 @@ namespace ARES
         }
 
 
+        private MatchModel getMatches(string file,Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld)
+        {
+            string fileContents = File.ReadAllText(file);
+            var avatarIdMatch = avatarId.Matches(fileContents);
+            int avatarIdCount = avatarIdMatch.Count;
+
+            var avatarCabMatch = avatarCab.Matches(fileContents);
+            int avatarCabCount = avatarCabMatch.Count;
+
+            var unityMatch = unityVersion.Matches(fileContents);
+            int unityCount = unityMatch.Count;
+
+            if(unityCount == 0)
+            {
+                unityMatch = unityVersionOld.Matches(fileContents);
+                unityCount = unityMatch.Count;
+            }
+
+            return new MatchModel { 
+                AvatarId = avatarIdMatch[0].Value, 
+                AvatarCab = avatarCabMatch[0].Value, 
+                UnityVersion = unityMatch[0].Value, 
+                AvatarIdCount = avatarIdCount, 
+                AvatarCabCount = avatarCabCount, 
+                UnityCount = unityCount 
+            };
+        }
+
         private void hotswapRepair()
         {
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -1026,6 +1055,8 @@ namespace ARES
             txtAvatarInfo.Text += Environment.NewLine + "Avatar Id from VRCA: " + oldId + Environment.NewLine + "CAB Id from VRCA: " + oldCab;
             CoreFunctions.WriteLog(string.Format("Repaired VRCA file"));
         }
+
+
 
         private string getFileString(string file, string searchRegexString)
         {
