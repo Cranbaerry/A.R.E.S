@@ -21,13 +21,13 @@ namespace ARES.Modules
 
         public string SetAvatarInfo(Records avatar)
         {
-            string avatarString = string.Format("Time Dectected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(Convert.ToDouble(avatar.TimeDetected)), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QUESTAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
+            string avatarString = string.Format("Time Dectected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(avatar.TimeDetected), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QUESTAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
             return avatarString;
         }
 
         public string SetWorldInfo(WorldClass avatar)
         {
-            string avatarString = string.Format("Time Dectected: {0} {12}World ID: {1} {12}World Name: {2} {12}World Description {3} {12}Author ID: {4} {12}Author Name: {5} {12}PC Asset URL: {6} {12}Image URL: {7} {12}Thumbnail URL: {8} {12}Unity Version: {9} {12}Release Status: {10} {12}Tags: {11}", GetDate(Convert.ToDouble(avatar.TimeDetected)), avatar.WorldID, avatar.WorldName, avatar.WorldDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
+            string avatarString = string.Format("Time Dectected: {0} {12}World ID: {1} {12}World Name: {2} {12}World Description {3} {12}Author ID: {4} {12}Author Name: {5} {12}PC Asset URL: {6} {12}Image URL: {7} {12}Thumbnail URL: {8} {12}Unity Version: {9} {12}Release Status: {10} {12}Tags: {11}", GetDate(avatar.TimeDetected), avatar.WorldID, avatar.WorldName, avatar.WorldDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
             return avatarString;
         }
 
@@ -58,12 +58,19 @@ namespace ARES.Modules
             }
         }
 
-        public string GetDate(double unixTimeStamp)
+        public string GetDate(string unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dateTime.ToString();
+            try
+            {
+                double time = Convert.ToDouble(unixTimeStamp);
+                DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dateTime = dateTime.AddSeconds(time).ToLocalTime();
+                return dateTime.ToString();
+            } catch
+            {
+                return DateTime.UtcNow.ToString();
+            }
         }
 
         public List<Records> getLocalAvatars()

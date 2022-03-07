@@ -752,51 +752,48 @@ namespace ARES
 
         private void btnSearchLocal_Click(object sender, EventArgs e)
         {
+            List<Records> localRecords = localAvatars;
             if (!locked)
             {
                 flowAvatars.Controls.Clear();
                 statusLabel.Text = "Status: Loading Local";
                 List<Records> avatars = null;
-                if (txtSearchTerm.Text == "")
-                {
-                    avatars = localAvatars;
-                }
-                else
-                {
+             
                     if (chkPC.Checked)
                     {
-                        avatars = localAvatars.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                        localRecords = localRecords.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
                     }
                     if (chkQuest.Checked)
                     {
-                        avatars = localAvatars.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
+                        localRecords = localRecords.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
                     }
                     if (chkPublic.Checked == true && chkPrivate.Checked == false)
                     {
-                        avatars = localAvatars.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
+                        localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
                     }
                     if (chkPublic.Checked == false && chkPrivate.Checked == true)
                     {
-                        avatars = localAvatars.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
+                        localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
                     }
-                    if (cbSearchTerm.Text == "Avatar Name")
+                    if (cbSearchTerm.Text == "Avatar Name" && txtSearchTerm.Text != "")
                     {
-                        avatars = localAvatars.Where(x => String.Equals(x.AvatarName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                        localRecords = localRecords.Where(x => String.Equals(x.AvatarName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
-                    if (cbSearchTerm.Text == "Avatar ID")
+                    if (cbSearchTerm.Text == "Avatar ID" && txtSearchTerm.Text != "")
                     {
-                        avatars = localAvatars.Where(x => String.Equals(x.AvatarID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                        localRecords = localRecords.Where(x => String.Equals(x.AvatarID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
-                    if (cbSearchTerm.Text == "Author Name")
+                    if (cbSearchTerm.Text == "Author Name" && txtSearchTerm.Text != "")
                     {
-                        avatars = localAvatars.Where(x => String.Equals(x.AuthorName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                        localRecords = localRecords.Where(x => String.Equals(x.AuthorName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
-                    if (cbSearchTerm.Text == "Author ID")
+                    if (cbSearchTerm.Text == "Author ID" && txtSearchTerm.Text != "")
                     {
-                        avatars = localAvatars.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                        localRecords = localRecords.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
                     }
+                    avatars = localRecords;
 
-                }
+                
 
                 avatars = avatars.OrderByDescending(x => x.TimeDetected).ToList();
 
