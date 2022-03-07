@@ -60,6 +60,7 @@ namespace ARES
             this.btnLoadVRCA = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbLimit = new System.Windows.Forms.ComboBox();
             this.chkQuest = new System.Windows.Forms.CheckBox();
             this.chkPC = new System.Windows.Forms.CheckBox();
             this.chkPrivate = new System.Windows.Forms.CheckBox();
@@ -78,8 +79,10 @@ namespace ARES
             this.panel4 = new System.Windows.Forms.Panel();
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.cbLimit = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkLoadImages = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nmThread = new System.Windows.Forms.NumericUpDown();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -90,6 +93,7 @@ namespace ARES
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -119,7 +123,7 @@ namespace ARES
             this.toolStripStatusLabel1,
             this.lblStatsAmount,
             this.lblStats});
-            this.statusStrip.Location = new System.Drawing.Point(0, 646);
+            this.statusStrip.Location = new System.Drawing.Point(0, 668);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.statusStrip.Size = new System.Drawing.Size(1175, 22);
@@ -179,7 +183,7 @@ namespace ARES
             this.flowAvatars.Location = new System.Drawing.Point(13, 186);
             this.flowAvatars.Name = "flowAvatars";
             this.flowAvatars.Padding = new System.Windows.Forms.Padding(10);
-            this.flowAvatars.Size = new System.Drawing.Size(674, 435);
+            this.flowAvatars.Size = new System.Drawing.Size(674, 468);
             this.flowAvatars.TabIndex = 7;
             // 
             // btnSearch
@@ -199,7 +203,7 @@ namespace ARES
             this.txtAvatarInfo.Name = "txtAvatarInfo";
             this.txtAvatarInfo.ReadOnly = true;
             this.txtAvatarInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 376);
+            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 409);
             this.txtAvatarInfo.TabIndex = 0;
             // 
             // groupBox1
@@ -210,7 +214,7 @@ namespace ARES
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(693, 186);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 435);
+            this.groupBox1.Size = new System.Drawing.Size(270, 468);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Avatar/World Info";
@@ -236,7 +240,7 @@ namespace ARES
             "Tags",
             "World ID",
             "World Name"});
-            this.cbCopy.Location = new System.Drawing.Point(6, 401);
+            this.cbCopy.Location = new System.Drawing.Point(6, 434);
             this.cbCopy.Name = "cbCopy";
             this.cbCopy.Size = new System.Drawing.Size(167, 28);
             this.cbCopy.TabIndex = 19;
@@ -244,7 +248,7 @@ namespace ARES
             // btnCopy
             // 
             this.btnCopy.ForeColor = System.Drawing.Color.Black;
-            this.btnCopy.Location = new System.Drawing.Point(179, 401);
+            this.btnCopy.Location = new System.Drawing.Point(179, 434);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(85, 28);
             this.btnCopy.TabIndex = 20;
@@ -255,7 +259,7 @@ namespace ARES
             // panel1
             // 
             this.panel1.Controls.Add(this.logo);
-            this.panel1.Location = new System.Drawing.Point(12, 6);
+            this.panel1.Location = new System.Drawing.Point(12, 8);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(173, 170);
             this.panel1.TabIndex = 10;
@@ -271,10 +275,14 @@ namespace ARES
             this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logo.TabIndex = 0;
             this.logo.TabStop = false;
+            this.logo.Click += new System.EventHandler(this.logo_Click);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel2.Controls.Add(this.nmThread);
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.chkLoadImages);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.nmQuestVersion);
             this.panel2.Controls.Add(this.label5);
@@ -285,9 +293,9 @@ namespace ARES
             this.panel2.Controls.Add(this.btnExtractVRCA);
             this.panel2.Controls.Add(this.btnLoadVRCA);
             this.panel2.Controls.Add(this.btnDownload);
-            this.panel2.Location = new System.Drawing.Point(12, 182);
+            this.panel2.Location = new System.Drawing.Point(12, 184);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(173, 448);
+            this.panel2.Size = new System.Drawing.Size(173, 481);
             this.panel2.TabIndex = 11;
             // 
             // label6
@@ -343,7 +351,7 @@ namespace ARES
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 334);
+            this.label4.Location = new System.Drawing.Point(3, 317);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(160, 25);
             this.label4.TabIndex = 0;
@@ -357,7 +365,7 @@ namespace ARES
             this.cbVersionUnity.Items.AddRange(new object[] {
             "2019",
             "2018"});
-            this.cbVersionUnity.Location = new System.Drawing.Point(3, 368);
+            this.cbVersionUnity.Location = new System.Drawing.Point(3, 351);
             this.cbVersionUnity.Name = "cbVersionUnity";
             this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
             this.cbVersionUnity.TabIndex = 0;
@@ -388,7 +396,7 @@ namespace ARES
             this.btnLoadVRCA.Name = "btnLoadVRCA";
             this.btnLoadVRCA.Size = new System.Drawing.Size(167, 43);
             this.btnLoadVRCA.TabIndex = 14;
-            this.btnLoadVRCA.Text = "Load VRCA";
+            this.btnLoadVRCA.Text = "Load VRCA/VRCW";
             this.btnLoadVRCA.UseVisualStyleBackColor = true;
             this.btnLoadVRCA.Click += new System.EventHandler(this.btnLoadVRCA_Click);
             // 
@@ -428,10 +436,30 @@ namespace ARES
             this.panel3.Controls.Add(this.btnSearch);
             this.panel3.Controls.Add(this.flowAvatars);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(191, 6);
+            this.panel3.Location = new System.Drawing.Point(191, 8);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(972, 624);
+            this.panel3.Size = new System.Drawing.Size(972, 657);
             this.panel3.TabIndex = 12;
+            // 
+            // cbLimit
+            // 
+            this.cbLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLimit.FormattingEnabled = true;
+            this.cbLimit.Items.AddRange(new object[] {
+            "Max",
+            "1000",
+            "500",
+            "250",
+            "100",
+            "50",
+            "10",
+            "1"});
+            this.cbLimit.Location = new System.Drawing.Point(577, 6);
+            this.cbLimit.Name = "cbLimit";
+            this.cbLimit.Size = new System.Drawing.Size(110, 39);
+            this.cbLimit.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.cbLimit, "Limit amount of results pulled back (5000 is max for API local is unlimited)");
             // 
             // chkQuest
             // 
@@ -626,32 +654,52 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // cbLimit
+            // chkLoadImages
             // 
-            this.cbLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLimit.FormattingEnabled = true;
-            this.cbLimit.Items.AddRange(new object[] {
-            "Max",
-            "1000",
-            "500",
-            "250",
-            "100",
-            "50",
-            "10",
-            "1"});
-            this.cbLimit.Location = new System.Drawing.Point(577, 6);
-            this.cbLimit.Name = "cbLimit";
-            this.cbLimit.Size = new System.Drawing.Size(110, 39);
-            this.cbLimit.TabIndex = 27;
-            this.toolTip1.SetToolTip(this.cbLimit, "Limit amount of results pulled back (5000 is max for API local is unlimited)");
+            this.chkLoadImages.AutoSize = true;
+            this.chkLoadImages.Checked = true;
+            this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLoadImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLoadImages.ForeColor = System.Drawing.Color.White;
+            this.chkLoadImages.Location = new System.Drawing.Point(8, 443);
+            this.chkLoadImages.Name = "chkLoadImages";
+            this.chkLoadImages.Size = new System.Drawing.Size(148, 28);
+            this.chkLoadImages.TabIndex = 0;
+            this.chkLoadImages.Text = "Load Images";
+            this.toolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
+            this.chkLoadImages.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(5, 392);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(166, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Max Image Threads";
+            // 
+            // nmThread
+            // 
+            this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nmThread.Location = new System.Drawing.Point(3, 415);
+            this.nmThread.Name = "nmThread";
+            this.nmThread.Size = new System.Drawing.Size(167, 26);
+            this.nmThread.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.nmThread, "Setting this number too high can cause issues");
+            this.nmThread.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1175, 668);
+            this.ClientSize = new System.Drawing.Size(1175, 690);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -677,6 +725,7 @@ namespace ARES
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,6 +781,9 @@ namespace ARES
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbLimit;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkLoadImages;
+        private System.Windows.Forms.NumericUpDown nmThread;
+        private System.Windows.Forms.Label label8;
     }
 }
 

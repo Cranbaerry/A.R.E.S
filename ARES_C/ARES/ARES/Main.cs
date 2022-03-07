@@ -32,7 +32,10 @@ namespace ARES
         public Thread vrcaThread;
         public Thread uploadThread;
         public Thread browserThread;
-        public int avatarCount;
+        public int threadCount;
+        public int maxThreads = 12;
+        public volatile int currentThreads = 0;
+        public volatile int avatarCount;
         public int worldCount;
         public Records selectedAvatar;
         public WorldClass selectedWorld;
@@ -40,6 +43,7 @@ namespace ARES
         public HotswapConsole hotswapConsole;
         public bool isAvatar;
         public bool apiEnabled;
+        public bool loadImages;
 
         public Main()
         {
@@ -52,6 +56,10 @@ namespace ARES
             CoreFunctions = new CoreFunctions();
             iniFile = new IniFile();
             generateHtml = new GenerateHtml();
+            try
+            {
+                nmThread.Value = Environment.ProcessorCount;
+            } catch { }
             try
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -131,7 +139,7 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
-                btnSearch.Enabled = false;
+              //  btnSearch.Enabled = false;
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -197,7 +205,7 @@ namespace ARES
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "vrca files (*.vrca)|*.vrca";
+                openFileDialog.Filter = "vrc* files (*.vrc*)|*.vrc*";
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -221,6 +229,8 @@ namespace ARES
         {
             if (!locked)
             {
+                maxThreads = Convert.ToInt32(nmThread.Value);
+                loadImages = chkLoadImages.Checked;
                 flowAvatars.Controls.Clear();
 
                 statusLabel.Text = "Status: Loading API";
@@ -279,46 +289,17 @@ namespace ARES
         public void GetImages()
         {
             try
-            {
+            {                
                 foreach (var item in AvatarList)
                 {
-                    Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
-                    PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
-                    Label label = new Label { Text = "Avatar Name: " + item.AvatarName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
-                    Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
-
-                    if (bitmap != null)
+                    while (currentThreads >= maxThreads)
                     {
-                        avatarImage.Image = bitmap;
-                        label.Name = item.AvatarID;
-                        label.Click += LoadInfo;
-                        groupBox.Controls.Add(avatarImage);
-                        groupBox.Controls.Add(label);
-                        label.Parent = avatarImage;
-                        if (flowAvatars.InvokeRequired)
-                        {
-                            flowAvatars.Invoke((MethodInvoker)delegate
-                            {
-                                flowAvatars.Controls.Add(groupBox);
-                            });
-                        }
+                        Thread.Sleep(50);
                     }
-                    else
-                    {
-                        avatarCount--;
-                        if (lblAvatarCount.InvokeRequired)
-                        {
-                            lblAvatarCount.Invoke((MethodInvoker)delegate
-                            {
-                                lblAvatarCount.Text = avatarCount.ToString();
-                            });
-                        }
-                    }
-                    if (progress.GetCurrentParent().InvokeRequired)
-                    {
-                        progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
-                    }
-                }
+                    currentThreads++;
+                    var t = new Thread(() => MultiGetImages(item));
+                    t.Start();
+                }               
             }
             catch (Exception ex)
             {
@@ -334,6 +315,57 @@ namespace ARES
             }
         }
 
+        public void MultiGetImages(Records item)
+        {
+            try
+            {
+                Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
+                PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
+                Label label = new Label { Text = "Avatar Name: " + item.AvatarName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
+                Bitmap bitmap = null;
+                if (loadImages)
+                {
+                    bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                }
+
+                if (bitmap != null || !loadImages)
+                {
+                    avatarImage.Image = bitmap;
+                    label.Name = item.AvatarID;
+                    label.Click += LoadInfo;
+                    groupBox.Controls.Add(avatarImage);
+                    groupBox.Controls.Add(label);
+                    label.Parent = avatarImage;
+                    if (flowAvatars.InvokeRequired)
+                    {
+                        flowAvatars.Invoke((MethodInvoker)delegate
+                        {
+                            flowAvatars.Controls.Add(groupBox);
+                        });
+                    }
+                }
+                else
+                {
+                    avatarCount--;
+                    if (lblAvatarCount.InvokeRequired)
+                    {
+                        lblAvatarCount.Invoke((MethodInvoker)delegate
+                        {
+                            lblAvatarCount.Text = avatarCount.ToString();
+                        });
+                    }
+                }
+                if (progress.GetCurrentParent().InvokeRequired)
+                {
+                    progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
+                }
+                currentThreads--;
+            } catch
+            {
+                currentThreads--;
+            }
+        }
+
         public void GetImagesWorld()
         {
             try
@@ -343,9 +375,13 @@ namespace ARES
                     Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
                     PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
                     Label label = new Label { Text = "World Name: " + item.WorldName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
-                    Bitmap bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                    Bitmap bitmap = null;
+                    if (loadImages)
+                    {
+                        bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                    }
 
-                    if (bitmap != null)
+                    if (bitmap != null || !loadImages)
                     {
                         avatarImage.Image = bitmap;
                         label.Name = item.WorldID;
@@ -1132,24 +1168,47 @@ namespace ARES
         {
             selectedImage.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
             string file = selectFileVrca();
-            isAvatar = true;
-            selectedAvatar = new Records
+            if (Path.GetExtension(file).ToLower() == "vrca")
             {
-                AuthorID = "VRCA",
-                AuthorName = "VRCA",
-                AvatarDescription = "VRCA",
-                ImageURL = "VRCA",
-                ThumbnailURL = "VRCA",
-                PCAssetURL = file,
-                QUESTAssetURL = file,
-                Tags = "VRCA",
-                TimeDetected = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
-                UnityVersion = "VRCA",
-                AvatarID = "VRCA",
-                AvatarName = "VRCA",
-                Releasestatus = "VRCA"
-            };
-            txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
+                isAvatar = true;
+                selectedAvatar = new Records
+                {
+                    AuthorID = "VRCA",
+                    AuthorName = "VRCA",
+                    AvatarDescription = "VRCA",
+                    ImageURL = "VRCA",
+                    ThumbnailURL = "VRCA",
+                    PCAssetURL = file,
+                    QUESTAssetURL = file,
+                    Tags = "VRCA",
+                    TimeDetected = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
+                    UnityVersion = "VRCA",
+                    AvatarID = "VRCA",
+                    AvatarName = "VRCA",
+                    Releasestatus = "VRCA"
+                };
+                txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
+            } else
+            {
+                isAvatar = false;
+                selectedWorld = new WorldClass
+                {
+                    AuthorID = "VRCW",
+                    AuthorName = "VRCW",
+                    WorldDescription = "VRCW",
+                    ImageURL = "VRCW",
+                    ThumbnailURL = "VRCW",
+                    PCAssetURL = file,
+                    Tags = "VRCW",
+                    TimeDetected = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
+                    UnityVersion = "VRCW",
+                    WorldID = "VRCW",
+                    WorldName = "VRCW",
+                    Releasestatus = "VRCW"
+                };
+                txtAvatarInfo.Text = CoreFunctions.SetWorldInfo(selectedWorld);
+            }
+            
         }
 
         private void btnRepair_Click(object sender, EventArgs e)
@@ -1336,6 +1395,12 @@ namespace ARES
             {
                 uploadThread.Abort();
             }
+            Thread.Sleep(2000);
+        }
+
+        private void logo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ARES is an avatar recovery tool! It is only for educational uses! We do not condone theft of avatars,\nthe tool soley exists to recover avatars from within VRChat back onto new accounts and into their unity packages keeping as much of the avatar in-tact as possible!\n\nCurrently Developed by: \nShrekamusChrist\n\nPrevious Developers: \nLargestBoi\nCass_Dev");
         }
     }
 }
