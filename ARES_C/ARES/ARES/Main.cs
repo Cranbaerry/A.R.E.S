@@ -139,7 +139,10 @@ namespace ARES
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
-              //  btnSearch.Enabled = false;
+                btnSearch.Enabled = false;
+#if DEBUG
+                btnSearch.Enabled = true;
+#endif
             }
 
             if (!string.IsNullOrEmpty(unityPath))
@@ -1168,7 +1171,7 @@ namespace ARES
         {
             selectedImage.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
             string file = selectFileVrca();
-            if (Path.GetExtension(file).ToLower() == "vrca")
+            if (Path.GetExtension(file).ToLower() == ".vrca")
             {
                 isAvatar = true;
                 selectedAvatar = new Records
