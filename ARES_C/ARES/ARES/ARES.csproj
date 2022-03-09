@@ -502,6 +502,7 @@
     <Content Include="Rar.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\rippeds.png" />
     <Content Include="UnRAR.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

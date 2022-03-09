@@ -47,7 +47,6 @@ namespace ARES
             this.cbCopy = new System.Windows.Forms.ComboBox();
             this.btnCopy = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.nmThread = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -80,20 +79,23 @@ namespace ARES
             this.btnSearchLocal = new System.Windows.Forms.Button();
             this.cbSearchTerm = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pbRipped = new System.Windows.Forms.PictureBox();
+            this.selectedImage = new System.Windows.Forms.PictureBox();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -123,10 +125,10 @@ namespace ARES
             this.toolStripStatusLabel1,
             this.lblStatsAmount,
             this.lblStats});
-            this.statusStrip.Location = new System.Drawing.Point(0, 668);
+            this.statusStrip.Location = new System.Drawing.Point(0, 677);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip.Size = new System.Drawing.Size(1175, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1173, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -263,19 +265,6 @@ namespace ARES
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(173, 170);
             this.panel1.TabIndex = 10;
-            // 
-            // logo
-            // 
-            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
-            this.logo.Location = new System.Drawing.Point(0, 0);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(173, 170);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logo.TabIndex = 0;
-            this.logo.TabStop = false;
-            this.logo.Click += new System.EventHandler(this.logo_Click);
             // 
             // panel2
             // 
@@ -689,6 +678,16 @@ namespace ARES
             this.panel4.Size = new System.Drawing.Size(270, 171);
             this.panel4.TabIndex = 10;
             // 
+            // pbRipped
+            // 
+            this.pbRipped.Image = global::ARES.Properties.Resources.rippeds;
+            this.pbRipped.Location = new System.Drawing.Point(1425, 147);
+            this.pbRipped.Name = "pbRipped";
+            this.pbRipped.Size = new System.Drawing.Size(132, 75);
+            this.pbRipped.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbRipped.TabIndex = 13;
+            this.pbRipped.TabStop = false;
+            // 
             // selectedImage
             // 
             this.selectedImage.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -699,12 +698,26 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
+            // logo
+            // 
+            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
+            this.logo.Location = new System.Drawing.Point(0, 0);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(173, 170);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logo.TabIndex = 0;
+            this.logo.TabStop = false;
+            this.logo.Click += new System.EventHandler(this.logo_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1175, 690);
+            this.ClientSize = new System.Drawing.Size(1173, 699);
+            this.Controls.Add(this.pbRipped);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -721,7 +734,6 @@ namespace ARES
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
@@ -730,7 +742,9 @@ namespace ARES
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -789,6 +803,7 @@ namespace ARES
         private System.Windows.Forms.CheckBox chkLoadImages;
         private System.Windows.Forms.NumericUpDown nmThread;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.PictureBox pbRipped;
     }
 }
 

@@ -44,6 +44,7 @@ namespace ARES
         public bool isAvatar;
         public bool apiEnabled;
         public bool loadImages;
+        public List<string> rippedList;
 
         public Main()
         {
@@ -59,7 +60,8 @@ namespace ARES
             try
             {
                 nmThread.Value = Environment.ProcessorCount;
-            } catch { }
+            }
+            catch { }
             try
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -86,6 +88,20 @@ namespace ARES
             {
                 var myFile = File.Create(filePath + @"\LatestLog.txt");
                 myFile.Close();
+            }
+
+            if (!File.Exists(filePath + @"\Ripped.txt"))
+            {
+                var myFile = File.Create(filePath + @"\Ripped.txt");
+                myFile.Close();
+            }
+            else
+            {
+                rippedList = new List<string>();
+                foreach (string line in System.IO.File.ReadLines(filePath + @"\Ripped.txt"))
+                {
+                    rippedList.Add(line);
+                }
             }
 
             if (!iniFile.KeyExists("apiEnabled"))
@@ -154,7 +170,6 @@ namespace ARES
                 }
             }
 
-
             localAvatars = CoreFunctions.getLocalAvatars();
             if (localAvatars.Count > 0 && apiEnabled)
             {
@@ -167,7 +182,6 @@ namespace ARES
             {
                 CoreFunctions.uploadToApiWorld(localWorlds);
             }
-
         }
 
         private void selectFile()
@@ -288,11 +302,10 @@ namespace ARES
             }
         }
 
-
         public void GetImages()
         {
             try
-            {                
+            {
                 foreach (var item in AvatarList)
                 {
                     while (currentThreads >= maxThreads)
@@ -302,7 +315,7 @@ namespace ARES
                     currentThreads++;
                     var t = new Thread(() => MultiGetImages(item));
                     t.Start();
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -324,7 +337,17 @@ namespace ARES
             {
                 Panel groupBox = new Panel { Size = new Size(150, 150), BackColor = Color.Transparent };
                 PictureBox avatarImage = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
-                Label label = new Label { Text = "Avatar Name: " + item.AvatarName, BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
+                PictureBox ripped = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, Size = new Size(148, 146) };
+                string questPc = "";
+                if (item.PCAssetURL.ToLower() != "none")
+                {
+                    questPc += "{PC}";
+                }
+                if (item.QUESTAssetURL.ToLower() != "none")
+                {
+                    questPc += "{Quest}";
+                }
+                Label label = new Label { Text = "Avatar Name: " + item.AvatarName + " [" + questPc + "]", BackColor = Color.Transparent, ForeColor = Color.Red, Size = new Size(148, 146) };
                 Bitmap bitmap = null;
                 if (loadImages)
                 {
@@ -337,8 +360,21 @@ namespace ARES
                     label.Name = item.AvatarID;
                     label.Click += LoadInfo;
                     groupBox.Controls.Add(avatarImage);
-                    groupBox.Controls.Add(label);
-                    label.Parent = avatarImage;
+                    if (rippedList.Contains(item.AvatarID))
+                    {
+                        ripped.Image = pbRipped.Image;
+                        
+                        groupBox.Controls.Add(ripped);
+                        groupBox.Controls.Add(label);
+                        ripped.Parent = avatarImage;
+                        label.Parent = ripped;
+                    }
+                    else
+                    {
+                        groupBox.Controls.Add(label);
+                        label.Parent = avatarImage;
+                    }
+                    
                     if (flowAvatars.InvokeRequired)
                     {
                         flowAvatars.Invoke((MethodInvoker)delegate
@@ -363,7 +399,8 @@ namespace ARES
                     progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
                 }
                 currentThreads--;
-            } catch
+            }
+            catch
             {
                 currentThreads--;
             }
@@ -486,7 +523,6 @@ namespace ARES
                 nmPcVersion.Value = 0;
             }
             nmQuestVersion.Value = 0;
-
         }
 
         private void btnDownload_Click(object sender, EventArgs e)
@@ -497,12 +533,10 @@ namespace ARES
                 {
                     if (txtAvatarInfo.Text.Contains("avtr_") && selectedAvatar.AvatarID.Contains("avtr_"))
                     {
-
                         SaveFileDialog savefile = new SaveFileDialog();
                         string fileName = "custom.vrca";
                         savefile.Filter = "VRCA files (*.vrca)|*.vrca";
                         savefile.FileName = fileName;
-
 
                         if (savefile.ShowDialog() == DialogResult.OK)
                         {
@@ -519,12 +553,10 @@ namespace ARES
                 {
                     if (txtAvatarInfo.Text.Contains("wrld_") && selectedWorld.WorldID.Contains("wrld_"))
                     {
-
                         SaveFileDialog savefile = new SaveFileDialog();
                         string fileName = "custom.VRCW";
                         savefile.Filter = "VRCW files (*.VRCW)|*.VRCW";
                         savefile.FileName = fileName;
-
 
                         if (savefile.ShowDialog() == DialogResult.OK)
                         {
@@ -541,7 +573,6 @@ namespace ARES
             {
                 MessageBox.Show("Please select an avatar or world first.");
             }
-
         }
 
         private bool downloadVRCW(string fileName = "custom.vrcw")
@@ -558,7 +589,6 @@ namespace ARES
             downloadFile(string.Join("/", version), fileName);
             return true;
         }
-
 
         private bool downloadVRCA(string fileName = "custom.vrca")
         {
@@ -577,11 +607,9 @@ namespace ARES
                     {
                         if (selectedAvatar.QUESTAssetURL != "None")
                         {
-
                             string[] version = selectedAvatar.QUESTAssetURL.Split('/');
                             version[7] = nmQuestVersion.Value.ToString();
                             downloadFile(string.Join("/", version), fileName);
-
                         }
                         else
                         {
@@ -593,11 +621,9 @@ namespace ARES
                     {
                         if (selectedAvatar.PCAssetURL != "None")
                         {
-
                             string[] version = selectedAvatar.PCAssetURL.Split('/');
                             version[7] = nmPcVersion.Value.ToString();
                             downloadFile(string.Join("/", version), fileName);
-
                         }
                         else
                         {
@@ -612,22 +638,17 @@ namespace ARES
                 }
                 else if (selectedAvatar.PCAssetURL != "None")
                 {
-
                     string[] version = selectedAvatar.PCAssetURL.Split('/');
                     version[7] = nmPcVersion.Value.ToString();
                     downloadFile(string.Join("/", version), fileName);
-
                 }
                 else if (selectedAvatar.QUESTAssetURL != "None")
                 {
-
                     string[] version = selectedAvatar.QUESTAssetURL.Split('/');
                     version[7] = nmQuestVersion.Value.ToString();
                     downloadFile(string.Join("/", version), fileName);
-
                 }
                 else { return false; }
-
             }
             else
             {
@@ -694,7 +715,11 @@ namespace ARES
                         Directory.Move(folderExtractLocation + @"\Assets\Shader", folderExtractLocation + @"\Assets\.Shader");
                     }
                     catch { }
-
+                    if (selectedAvatar.AvatarID != "VRCA")
+                    {
+                        File.AppendAllText(filePath + @"\Ripped.txt", selectedAvatar.AvatarID + "\n");
+                        rippedList.Add(selectedAvatar.AvatarID);
+                    }
                 }
             }
             else if (selectedWorld != null && !isAvatar)
@@ -752,7 +777,6 @@ namespace ARES
                         Directory.Move(folderExtractLocation + @"\Assets\Shader", folderExtractLocation + @"\Assets\.Shader");
                     }
                     catch { }
-
                 }
             }
             else
@@ -794,45 +818,44 @@ namespace ARES
             List<Records> localRecords = localAvatars;
             if (!locked)
             {
+                loadImages = chkLoadImages.Checked;
                 flowAvatars.Controls.Clear();
                 statusLabel.Text = "Status: Loading Local";
                 List<Records> avatars = null;
-             
-                    if (chkPC.Checked)
-                    {
-                        localRecords = localRecords.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
-                    }
-                    if (chkQuest.Checked)
-                    {
-                        localRecords = localRecords.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
-                    }
-                    if (chkPublic.Checked == true && chkPrivate.Checked == false)
-                    {
-                        localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
-                    }
-                    if (chkPublic.Checked == false && chkPrivate.Checked == true)
-                    {
-                        localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
-                    }
-                    if (cbSearchTerm.Text == "Avatar Name" && txtSearchTerm.Text != "")
-                    {
-                        localRecords = localRecords.Where(x => String.Equals(x.AvatarName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                    }
-                    if (cbSearchTerm.Text == "Avatar ID" && txtSearchTerm.Text != "")
-                    {
-                        localRecords = localRecords.Where(x => String.Equals(x.AvatarID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                    }
-                    if (cbSearchTerm.Text == "Author Name" && txtSearchTerm.Text != "")
-                    {
-                        localRecords = localRecords.Where(x => String.Equals(x.AuthorName, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                    }
-                    if (cbSearchTerm.Text == "Author ID" && txtSearchTerm.Text != "")
-                    {
-                        localRecords = localRecords.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                    }
-                    avatars = localRecords;
 
-                
+                if (chkPC.Checked)
+                {
+                    localRecords = localRecords.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                }
+                if (chkQuest.Checked)
+                {
+                    localRecords = localRecords.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
+                }
+                if (chkPublic.Checked == true && chkPrivate.Checked == false)
+                {
+                    localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
+                }
+                if (chkPublic.Checked == false && chkPrivate.Checked == true)
+                {
+                    localRecords = localRecords.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
+                }
+                if (cbSearchTerm.Text == "Avatar Name" && txtSearchTerm.Text != "")
+                {
+                    localRecords = localRecords.Where(x => x.AvatarName.Contains(txtSearchTerm.Text)).ToList();
+                }
+                if (cbSearchTerm.Text == "Avatar ID" && txtSearchTerm.Text != "")
+                {
+                    localRecords = localRecords.Where(x => String.Equals(x.AvatarID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                }
+                if (cbSearchTerm.Text == "Author Name" && txtSearchTerm.Text != "")
+                {
+                    localRecords = localRecords.Where(x => x.AuthorName.Contains(txtSearchTerm.Text)).ToList();
+                }
+                if (cbSearchTerm.Text == "Author ID" && txtSearchTerm.Text != "")
+                {
+                    localRecords = localRecords.Where(x => String.Equals(x.AuthorID, txtSearchTerm.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                }
+                avatars = localRecords;
 
                 avatars = avatars.OrderByDescending(x => x.TimeDetected).ToList();
 
@@ -902,7 +925,6 @@ namespace ARES
             Regex AvatarCabRegex = new Regex(regexCab);
             Regex UnityRegex = new Regex(regexUnity);
             Regex UnityRegexOlder = new Regex(regexUnityOlder);
-
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
@@ -1020,7 +1042,6 @@ namespace ARES
             tryDelete(fileDummy);
             tryDelete(fileTarget);
 
-
             if (hotswapConsole.InvokeRequired)
             {
                 hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1030,10 +1051,11 @@ namespace ARES
             }
 
             MessageBox.Show(string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize));
+            File.AppendAllText(filePath + @"\Ripped.txt", matchModelOld.AvatarId + "\n");
+            rippedList.Add(matchModelOld.AvatarId);
         }
 
-
-        private MatchModel getMatches(string file,Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld)
+        private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld)
         {
             string fileContents = File.ReadAllText(file);
             var avatarIdMatch = avatarId.Matches(fileContents);
@@ -1045,19 +1067,20 @@ namespace ARES
             var unityMatch = unityVersion.Matches(fileContents);
             int unityCount = unityMatch.Count;
 
-            if(unityCount == 0)
+            if (unityCount == 0)
             {
                 unityMatch = unityVersionOld.Matches(fileContents);
                 unityCount = unityMatch.Count;
             }
 
-            return new MatchModel { 
-                AvatarId = avatarIdMatch[0].Value, 
-                AvatarCab = avatarCabMatch[0].Value, 
-                UnityVersion = unityMatch[0].Value, 
-                AvatarIdCount = avatarIdCount, 
-                AvatarCabCount = avatarCabCount, 
-                UnityCount = unityCount 
+            return new MatchModel
+            {
+                AvatarId = avatarIdMatch[0].Value,
+                AvatarCab = avatarCabMatch[0].Value,
+                UnityVersion = unityMatch[0].Value,
+                AvatarIdCount = avatarIdCount,
+                AvatarCabCount = avatarCabCount,
+                UnityCount = unityCount
             };
         }
 
@@ -1091,8 +1114,6 @@ namespace ARES
             txtAvatarInfo.Text += Environment.NewLine + "Avatar Id from VRCA: " + oldId + Environment.NewLine + "CAB Id from VRCA: " + oldCab;
             CoreFunctions.WriteLog(string.Format("Repaired VRCA file"));
         }
-
-
 
         private string getFileString(string file, string searchRegexString)
         {
@@ -1191,7 +1212,8 @@ namespace ARES
                     Releasestatus = "VRCA"
                 };
                 txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
-            } else
+            }
+            else
             {
                 isAvatar = false;
                 selectedWorld = new WorldClass
@@ -1211,7 +1233,6 @@ namespace ARES
                 };
                 txtAvatarInfo.Text = CoreFunctions.SetWorldInfo(selectedWorld);
             }
-            
         }
 
         private void btnRepair_Click(object sender, EventArgs e)
