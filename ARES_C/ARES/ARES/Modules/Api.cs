@@ -36,7 +36,7 @@ namespace ARES.Modules
                 }
                 if (type == "Author Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorName,eq,{0}", query, amount);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorName,cs,{0}", query, amount);
                 }
                 if(type == "Author ID")
                 {

@@ -49,6 +49,9 @@ namespace ARES
             this.panel1 = new System.Windows.Forms.Panel();
             this.logo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.nmThread = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.chkLoadImages = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.nmQuestVersion = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -80,20 +83,17 @@ namespace ARES
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkLoadImages = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.nmThread = new System.Windows.Forms.NumericUpDown();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -297,6 +297,51 @@ namespace ARES
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(173, 481);
             this.panel2.TabIndex = 11;
+            // 
+            // nmThread
+            // 
+            this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nmThread.Location = new System.Drawing.Point(3, 415);
+            this.nmThread.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nmThread.Name = "nmThread";
+            this.nmThread.Size = new System.Drawing.Size(167, 26);
+            this.nmThread.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.nmThread, "Setting this number too high can cause issues");
+            this.nmThread.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(5, 392);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(166, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Max Image Threads";
+            // 
+            // chkLoadImages
+            // 
+            this.chkLoadImages.AutoSize = true;
+            this.chkLoadImages.Checked = true;
+            this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLoadImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLoadImages.ForeColor = System.Drawing.Color.White;
+            this.chkLoadImages.Location = new System.Drawing.Point(8, 443);
+            this.chkLoadImages.Name = "chkLoadImages";
+            this.chkLoadImages.Size = new System.Drawing.Size(148, 28);
+            this.chkLoadImages.TabIndex = 0;
+            this.chkLoadImages.Text = "Load Images";
+            this.toolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
+            this.chkLoadImages.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -654,51 +699,6 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // chkLoadImages
-            // 
-            this.chkLoadImages.AutoSize = true;
-            this.chkLoadImages.Checked = true;
-            this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLoadImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLoadImages.ForeColor = System.Drawing.Color.White;
-            this.chkLoadImages.Location = new System.Drawing.Point(8, 443);
-            this.chkLoadImages.Name = "chkLoadImages";
-            this.chkLoadImages.Size = new System.Drawing.Size(148, 28);
-            this.chkLoadImages.TabIndex = 0;
-            this.chkLoadImages.Text = "Load Images";
-            this.toolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
-            this.chkLoadImages.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(5, 392);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(166, 20);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Max Image Threads";
-            // 
-            // nmThread
-            // 
-            this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmThread.Location = new System.Drawing.Point(3, 415);
-            this.nmThread.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nmThread.Name = "nmThread";
-            this.nmThread.Size = new System.Drawing.Size(167, 26);
-            this.nmThread.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.nmThread, "Setting this number too high can cause issues");
-            this.nmThread.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -713,7 +713,7 @@ namespace ARES
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "A.R.E.S V11";
+            this.Text = "A.R.E.S V11.3.2";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ares_Close);
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
@@ -724,13 +724,13 @@ namespace ARES
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
