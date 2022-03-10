@@ -8,7 +8,7 @@ Thx to [Blaze](https://github.com/WTFBlaze) for helping me fix a few bugs within
 
 Thx to Afton (He doesn't have a GitHub ;-;) for helping me create the unlimited avatar favorites!
 
-Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by me and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
+Thx to [nesrak1](https://github.com/nesrak1/AssetsTools.NET) for the original "AssetTools.NET.dll" file that was edited by FACS01 and then packed into our HOTSWAP allowing for VRCA files to be compressed and decompressed!
 
 Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/RequiDev/ReMod.Core), we use this as our button API within ARES!
 
@@ -20,7 +20,7 @@ Thx to [FatihBAKIR](https://github.com/FatihBAKIR/UnityPacker) for the ability t
 
 Thx to [Avatarchik](https://github.com/Avatarchik/UnityPackageExtractor) for the ability to extract unity files
 
-And special thanks to [cassell1337](https://github.com/cassell1337) for development assisted development of the GUI (v10)
+Thx to [cassell1337](https://github.com/cassell1337) for development assisted development of the GUI (v10)
 
 [Permanent Invite Link To Support Discord Server](https://discord.gg/dhSdMsfgWe)
 
@@ -78,9 +78,11 @@ Step Three: Run VRChat and allow the plugin to fully install the mod, you can no
 
 Step Four: [Run the "ARES.Updater.exe"](https://i.imgur.com/XfHDP2Z.gif), this will install the GUI and launch into it for a first time setup where you must select your Unity 2019.4.31f1 exe, follow the steps [here](https://rentry.org/LargestGithubSupportUnityInst) to ensure you have the correct unity installation!
 
-Step Five: After pressing okay [here](https://i.imgur.com/LgHbHJQ.png) find your exe and [select it](https://i.imgur.com/BydfbV8.png)!
+Step Five: Press either [Yes or No](https://i.imgur.com/I4OBNJk.png) to enable/disable API support 
 
-Step Six: Press "OK" on [this](https://i.imgur.com/gqKcHNn.png) screen, this will begin creating your HSB, if you don't know what you are doing press [original](https://i.imgur.com/NpcDrMu.png) here to use the regular VRCSDK! If you know what you are doing and want to use a custom SDK just select custom and choose your SDK of choice!
+Step Six: After pressing OK [here](https://i.imgur.com/mWTjR3G.png) find your exe and [select it](https://i.imgur.com/BydfbV8.png)!
+
+Step Seven: This will begin creating your HSB, if you don't know what you are doing press [original](https://i.imgur.com/NpcDrMu.png) here to use the regular VRCSDK! If you know what you are doing and want to use a custom SDK just select custom and choose your SDK of choice!
 
 Info: From here onwards you can open ARES via the [ARES.exe](https://i.imgur.com/F3NDgCb.png) in your [GUI Folder](https://i.imgur.com/ovleFKV.png)!
 
