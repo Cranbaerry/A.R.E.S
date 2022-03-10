@@ -12,6 +12,7 @@ namespace Logging
     {
         //Make string to contain friend avatars
         public static string FriendIDs = null;
+        public static string MyLastAvatar = null;
         //Fetches the frend IDs on the ARES user
         public static System.Collections.IEnumerator FetchFriends()
         {
@@ -31,7 +32,7 @@ namespace Logging
                     //Check to see if the avatar is public and refuse to log if so
                     if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "public")
                     {
-                        if (Config.ConsoleError) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log public avatars disabled!"); }
+                        if (Config.ConsoleError && !AviChange) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log public avatars disabled!"); }
                         return;
                     }
                 }
@@ -41,7 +42,7 @@ namespace Logging
                     //Check to see if the avatar is private and refuse to log if so
                     if (playerHashtable["avatarDict"]["releaseStatus"].ToString() == "private")
                     {
-                        if (Config.ConsoleError) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log private avatars disabled!"); }
+                        if (Config.ConsoleError && !AviChange) { MelonLogger.Msg($"Avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log private avatars disabled!"); }
                         return;
                     }
                 }
@@ -51,9 +52,12 @@ namespace Logging
                     //Check if the avatar about to be uploaded belongs to the user and was uploaded from their account
                     if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
                     {
-                        //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                        if (Config.ConsoleError) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
-                        return;
+                        if (MyLastAvatar != playerHashtable["avatarDict"]["id"].ToString())
+                        {
+                            //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
+                            if (Config.ConsoleError && !AviChange) { MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, you have log own avatars disabled!"); }
+                            return;
+                        }
                     }
                 }
                 //If logging of friends avatars is disabled
@@ -63,7 +67,7 @@ namespace Logging
                     if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString()))
                     {
                         //If the user is a friend inform the user the log has not occurred and why so
-                        if (Config.ConsoleError) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
+                        if (Config.ConsoleError && !AviChange) { MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged, they are a friend!"); }
                         return;
                     }
                 }
@@ -79,7 +83,13 @@ namespace Logging
                 //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
                 if (!HasAvatarId(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString()))
                 {
-                    if (Config.LogToConsole) { if (AviChange) { MelonLogger.Msg($"{playerHashtable["user"]["displayName"]} changed into ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!"); } }
+                    if (Config.LogToConsole)
+                    {
+                        if (AviChange)
+                        {
+                            MelonLogger.Msg($"{playerHashtable["user"]["displayName"]} changed into ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!");
+                        }
+                    }
                     //Log the id to a different file to help speed up reading and looping
                     File.AppendAllText(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString() + "\n");
                     //Log the following variables to the log file

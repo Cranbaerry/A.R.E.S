@@ -46,7 +46,7 @@ Features:
 		
 		-Avatar Author
 
-        -Author ID
+		-Author ID
 
 	-Search Worlds
 
