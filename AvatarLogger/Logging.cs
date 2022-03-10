@@ -22,7 +22,6 @@ namespace Logging
         //Executes logging of the avatar
         public static void ExecuteLog(dynamic playerHashtable, bool AviChange = false)
         {
-            if (Config.LogToConsole) { if (AviChange) { MelonLogger.Msg($"{playerHashtable["user"]["displayName"]} changed into ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!"); } }
             //If avatar loggin is enabled
             if (Config.LogAvatars)
             {
@@ -80,6 +79,7 @@ namespace Logging
                 //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
                 if (!HasAvatarId(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString()))
                 {
+                    if (Config.LogToConsole) { if (AviChange) { MelonLogger.Msg($"{playerHashtable["user"]["displayName"]} changed into ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!"); } }
                     //Log the id to a different file to help speed up reading and looping
                     File.AppendAllText(AvatarFileIds, playerHashtable["avatarDict"]["id"].ToString() + "\n");
                     //Log the following variables to the log file
