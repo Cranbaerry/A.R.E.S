@@ -56,6 +56,9 @@
     <Reference Include="AssetsTools.NET">
       <HintPath>.\AssetsTools.NET.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -70,6 +73,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HotswapConsole.cs">
@@ -84,6 +90,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Git.cs" />
     <Compile Include="Models\MatchModel.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Models\Avatar.cs" />
@@ -95,7 +102,10 @@
     <Compile Include="Modules\HotSwap.cs" />
     <Compile Include="Modules\IniFile.cs" />
     <Compile Include="Modules\MessageBoxManager.cs" />
+    <Compile Include="Modules\PackageExtractor.cs" />
     <Compile Include="Modules\ProgressBar.cs" />
+    <Compile Include="Modules\ScanPackage.cs" />
+    <Compile Include="Modules\UnityPack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HotswapConsole.resx">

@@ -47,6 +47,7 @@ namespace ARES
             this.cbCopy = new System.Windows.Forms.ComboBox();
             this.btnCopy = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.nmThread = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -79,23 +80,23 @@ namespace ARES
             this.btnSearchLocal = new System.Windows.Forms.Button();
             this.cbSearchTerm = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.selectedImage = new System.Windows.Forms.PictureBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pbRipped = new System.Windows.Forms.PictureBox();
-            this.selectedImage = new System.Windows.Forms.PictureBox();
-            this.logo = new System.Windows.Forms.PictureBox();
+            this.btnScan = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -266,9 +267,23 @@ namespace ARES
             this.panel1.Size = new System.Drawing.Size(173, 170);
             this.panel1.TabIndex = 10;
             // 
+            // logo
+            // 
+            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
+            this.logo.Location = new System.Drawing.Point(0, 0);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(173, 170);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logo.TabIndex = 0;
+            this.logo.TabStop = false;
+            this.logo.Click += new System.EventHandler(this.logo_Click);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel2.Controls.Add(this.btnScan);
             this.panel2.Controls.Add(this.nmThread);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.chkLoadImages);
@@ -290,7 +305,7 @@ namespace ARES
             // nmThread
             // 
             this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmThread.Location = new System.Drawing.Point(3, 415);
+            this.nmThread.Location = new System.Drawing.Point(2, 426);
             this.nmThread.Minimum = new decimal(new int[] {
             1,
             0,
@@ -311,7 +326,7 @@ namespace ARES
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(5, 392);
+            this.label8.Location = new System.Drawing.Point(4, 403);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(166, 20);
             this.label8.TabIndex = 0;
@@ -324,7 +339,7 @@ namespace ARES
             this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLoadImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLoadImages.ForeColor = System.Drawing.Color.White;
-            this.chkLoadImages.Location = new System.Drawing.Point(8, 443);
+            this.chkLoadImages.Location = new System.Drawing.Point(7, 454);
             this.chkLoadImages.Name = "chkLoadImages";
             this.chkLoadImages.Size = new System.Drawing.Size(148, 28);
             this.chkLoadImages.TabIndex = 0;
@@ -337,7 +352,7 @@ namespace ARES
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(5, 260);
+            this.label6.Location = new System.Drawing.Point(5, 300);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(158, 16);
             this.label6.TabIndex = 17;
@@ -346,7 +361,7 @@ namespace ARES
             // nmQuestVersion
             // 
             this.nmQuestVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmQuestVersion.Location = new System.Drawing.Point(3, 279);
+            this.nmQuestVersion.Location = new System.Drawing.Point(3, 319);
             this.nmQuestVersion.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -361,7 +376,7 @@ namespace ARES
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(5, 212);
+            this.label5.Location = new System.Drawing.Point(5, 252);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 16);
             this.label5.TabIndex = 0;
@@ -370,7 +385,7 @@ namespace ARES
             // nmPcVersion
             // 
             this.nmPcVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmPcVersion.Location = new System.Drawing.Point(3, 231);
+            this.nmPcVersion.Location = new System.Drawing.Point(3, 271);
             this.nmPcVersion.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -385,7 +400,7 @@ namespace ARES
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 317);
+            this.label4.Location = new System.Drawing.Point(2, 345);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(160, 25);
             this.label4.TabIndex = 0;
@@ -399,7 +414,7 @@ namespace ARES
             this.cbVersionUnity.Items.AddRange(new object[] {
             "2019",
             "2018"});
-            this.cbVersionUnity.Location = new System.Drawing.Point(3, 351);
+            this.cbVersionUnity.Location = new System.Drawing.Point(2, 373);
             this.cbVersionUnity.Name = "cbVersionUnity";
             this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
             this.cbVersionUnity.TabIndex = 0;
@@ -678,16 +693,6 @@ namespace ARES
             this.panel4.Size = new System.Drawing.Size(270, 171);
             this.panel4.TabIndex = 10;
             // 
-            // pbRipped
-            // 
-            this.pbRipped.Image = global::ARES.Properties.Resources.rippeds;
-            this.pbRipped.Location = new System.Drawing.Point(1425, 147);
-            this.pbRipped.Name = "pbRipped";
-            this.pbRipped.Size = new System.Drawing.Size(132, 75);
-            this.pbRipped.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbRipped.TabIndex = 13;
-            this.pbRipped.TabStop = false;
-            // 
             // selectedImage
             // 
             this.selectedImage.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -698,18 +703,26 @@ namespace ARES
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
             // 
-            // logo
+            // pbRipped
             // 
-            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
-            this.logo.Location = new System.Drawing.Point(0, 0);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(173, 170);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logo.TabIndex = 0;
-            this.logo.TabStop = false;
-            this.logo.Click += new System.EventHandler(this.logo_Click);
+            this.pbRipped.Image = global::ARES.Properties.Resources.rippeds;
+            this.pbRipped.Location = new System.Drawing.Point(1425, 147);
+            this.pbRipped.Name = "pbRipped";
+            this.pbRipped.Size = new System.Drawing.Size(132, 75);
+            this.pbRipped.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbRipped.TabIndex = 13;
+            this.pbRipped.TabStop = false;
+            // 
+            // btnScan
+            // 
+            this.btnScan.Location = new System.Drawing.Point(3, 206);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(167, 43);
+            this.btnScan.TabIndex = 19;
+            this.btnScan.Text = "Scan Unity Package";
+            this.toolTip1.SetToolTip(this.btnScan, "Scan and remove bad files from unity packages");
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // Main
             // 
@@ -734,6 +747,7 @@ namespace ARES
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
@@ -742,9 +756,8 @@ namespace ARES
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -804,6 +817,7 @@ namespace ARES
         private System.Windows.Forms.NumericUpDown nmThread;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pbRipped;
+        private System.Windows.Forms.Button btnScan;
     }
 }
 

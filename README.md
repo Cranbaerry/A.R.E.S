@@ -14,7 +14,11 @@ Thx to [Requi](https://github.com/RequiDev) for [ReMod.Core](https://github.com/
 
 Thx to [Kirai](https://github.com/xKiraiChan) for the code behind our [force clone](https://github.com/Astrum-Project/AstralClone) patch!
 
-Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES!
+Thx to [FACS01](https://github.com/FACS01-01/FACS_Utilities) for the bledshape and animation repairs only compatable with VRCA files extracted with ARES & scanning of the Unity Packages!
+
+Thx to [FatihBAKIR](https://github.com/FatihBAKIR/UnityPacker) for the ability to compress unity files
+
+Thx to [Avatarchik](https://github.com/Avatarchik/UnityPackageExtractor) for the ability to extract unity files
 
 And special thanks to [cassell1337](https://github.com/cassell1337) for development assisted development of the GUI and total development of the API!
 

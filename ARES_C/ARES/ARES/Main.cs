@@ -182,6 +182,11 @@ namespace ARES
             {
                 CoreFunctions.uploadToApiWorld(localWorlds);
             }
+            try
+            {
+                ScanPackage.DownloadOnlineSourcesOnStartup();
+            }
+            catch { }
         }
 
         private void selectFile()
@@ -363,7 +368,7 @@ namespace ARES
                     if (rippedList.Contains(item.AvatarID))
                     {
                         ripped.Image = pbRipped.Image;
-                        
+
                         groupBox.Controls.Add(ripped);
                         groupBox.Controls.Add(label);
                         ripped.Parent = avatarImage;
@@ -374,7 +379,7 @@ namespace ARES
                         groupBox.Controls.Add(label);
                         label.Parent = avatarImage;
                     }
-                    
+
                     if (flowAvatars.InvokeRequired)
                     {
                         flowAvatars.Invoke((MethodInvoker)delegate
@@ -1425,6 +1430,83 @@ namespace ARES
         private void logo_Click(object sender, EventArgs e)
         {
             MessageBox.Show("ARES is an avatar recovery tool! It is only for educational uses! We do not condone theft of avatars,\nthe tool soley exists to recover avatars from within VRChat back onto new accounts and into their unity packages keeping as much of the avatar in-tact as possible!\n\nCurrently Developed by: \nShrekamusChrist\n\nPrevious Developers: \nLargestBoi\nCass_Dev");
+        }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(ScanPackage.UnityTemp))
+            {
+                tryDeleteDirectory(ScanPackage.UnityTemp);
+            }
+
+            Directory.CreateDirectory(ScanPackage.UnityTemp);
+
+            string packageSelected = selectPackage();
+            string outpath = "";
+
+            if (!string.IsNullOrEmpty(packageSelected))
+            {
+                outpath = PackageExtractor.ExtractPackage(packageSelected, ScanPackage.UnityTemp);
+            }
+            
+            (int,int,int) scanCount = ScanPackage.CheckFiles();
+
+            if(scanCount.Item3 > 0)
+            {
+                MessageBox.Show("Bad files were detected please select a new location for cleaned UnityPackage");
+                string fileLocation = createPackage();
+                var blank = new string[0];
+                var rootDir = "Assets/";
+                var pack = Package.FromDirectory(outpath, fileLocation,true, blank, blank);
+                pack.GeneratePackage(rootDir);
+            }
+
+            MessageBox.Show(string.Format("Bad files detected {0}, Safe files detected {1}, Unknown files detected {2}", scanCount.Item3, scanCount.Item1, scanCount.Item2));
+
+
+        }
+
+        private string selectPackage()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = ".unitypackage files (*.unitypackage)|*.unitypackage";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+            return filePath;
+        }
+
+        private string createPackage()
+        {
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Filter = ".unitypackage files (*.unitypackage)|*.unitypackage";
+                sfd.FilterIndex = 2;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    return sfd.FileName;
+                }
+            }
+            return null;
         }
     }
 }
