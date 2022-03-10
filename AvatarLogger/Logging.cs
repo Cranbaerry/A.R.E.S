@@ -20,8 +20,9 @@ namespace Logging
             foreach (string pal in pals) { FriendIDs += $"{pal},"; }
         }
         //Executes logging of the avatar
-        public static void ExecuteLog(dynamic playerHashtable)
+        public static void ExecuteLog(dynamic playerHashtable, bool AviChange = false)
         {
+            if (Config.LogToConsole) { if (AviChange) { MelonLogger.Msg($"{playerHashtable["user"]["displayName"]} changed into ({playerHashtable["avatarDict"]["name"]}|{playerHashtable["avatarDict"]["releaseStatus"]})!"); } }
             //If avatar loggin is enabled
             if (Config.LogAvatars)
             {

@@ -71,7 +71,7 @@ namespace Patches
                             {
                                 var ht = player.prop_Player_0.prop_Player_1.prop_Hashtable_0;
                                 dynamic playerHashtable = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(Serialize.FromIL2CPPToManaged<object>(ht)));
-                                ExecuteLog(playerHashtable);
+                                ExecuteLog(playerHashtable, true);
                             }
                         }
                         catch (Exception e) { MelonLogger.Msg($"Error: \n{e}"); }

@@ -15,7 +15,7 @@ using static Buttons.Buttons;
 //using System.Data.SQLite;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.1.1", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.0", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger
