@@ -51,13 +51,15 @@ namespace ARES.UPDATER
                     Console.WriteLine("Updating ARES");
                     startGuiDownload();
                     extractGUI();
-                    Process.Start(fileLocation + @"\GUI\ARES.exe");
-                } 
-            } else
+                }
+                startARES();
+            }
+            else
             {
                 Console.WriteLine("The updater is not currently in the VRChat folder, please place it\nalongside your 'VRChat.exe' file for optimal preformance!\nYou can just hit enter to close meh!");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
             }
+
         }
 
         static void startGuiDownload()
@@ -78,21 +80,41 @@ namespace ARES.UPDATER
             string fileExtractLocation = string.Format("x -id[c,d,n,p,q] -O+ -y {0}\\GUI.rar \"{0}{1}\"", fileLocation, @"\GUI\");
             try
             {
-                string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string commands = string.Format("/C UnRAR.exe x GUI.rar GUI -id[c,d,n,p,q] -O+");
+                string commands = string.Format("/C UnRAR.exe {0}", fileExtractLocation);
 
                 Process p = new Process();
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "CMD.EXE",
                     Arguments = commands,
-                    WorkingDirectory = filePath
+                    WorkingDirectory = fileLocation
                 };
                 p.StartInfo = psi;
                 p.Start();
                 p.WaitForExit();
 
-            } catch { }
+            }
+            catch { }
+        }
+
+        static void startARES()
+        {
+            try
+            {
+                string commands = string.Format("/C ARES.exe");
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "CMD.EXE",
+                    Arguments = commands,
+                    WorkingDirectory = fileLocation + @"\GUI\",
+                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+                };
+                p.StartInfo = psi;
+                p.Start();
+            }
+            catch { }
         }
 
         static void killProcess(string processName)
@@ -110,7 +132,7 @@ namespace ARES.UPDATER
             using (SHA256 SHA256 = SHA256Managed.Create())
             {
                 using (FileStream fileStream = File.OpenRead(filePath))
-                return BitConverter.ToString(SHA256.ComputeHash(fileStream)).Replace("-", "");
+                    return BitConverter.ToString(SHA256.ComputeHash(fileStream)).Replace("-", "");
             }
         }
 
