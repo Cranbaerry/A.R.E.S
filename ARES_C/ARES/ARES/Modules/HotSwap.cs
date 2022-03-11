@@ -15,7 +15,7 @@ namespace ARES.Modules
         public static void DecompressToFile(BundleFileInstance bundleInst, string savePath, HotswapConsole hotSwap)
         {
             AssetBundleFile bundle = bundleInst.file;
-            safeWrite(hotSwap.txtStatusText,$"22.2% Bundle file assigned!" + Environment.NewLine);
+            safeWrite(hotSwap.txtStatusText, $"22.2% Bundle file assigned!" + Environment.NewLine);
             safeProgress(hotSwap.pbProgress, 22);
             FileStream bundleStream = File.Open(savePath, FileMode.Create);
             safeWrite(hotSwap.txtStatusText, $"33.3% Loaded file to bundle stream!" + Environment.NewLine);
@@ -48,7 +48,7 @@ namespace ARES.Modules
             var am = new AssetsManager();
             safeWrite(hotSwap.txtStatusText, "11.1% Declared new asset manager!" + Environment.NewLine);
             safeProgress(hotSwap.pbProgress, 11);
-            DecompressToFile(am.LoadBundleFile(bundlePath), unpackedBundlePath,  hotSwap);
+            DecompressToFile(am.LoadBundleFile(bundlePath), unpackedBundlePath, hotSwap);
         }
 
         private static void safeWrite(TextBox text, string textWrite)
@@ -78,24 +78,21 @@ namespace ARES.Modules
         //Creates function to compress asset bundles
         public static void CompressBundle(string file, string compFile, HotswapConsole hotSwap)
         {
-            var am = new AssetsManager();
-            safeWrite(hotSwap.txtStatusText, $"25% Declared new asset manager!" + Environment.NewLine);
-            safeWrite(hotSwap.txtStatusText, $"25% Declared new asset manager!" + Environment.NewLine);
-            var bun = am.LoadBundleFile(file);
-            safeWrite(hotSwap.txtStatusText, $"50% Bundle file initialized!" + Environment.NewLine);
-            using (var stream = File.OpenWrite(compFile))
+            using (var stream = new AssetsFileWriter(compFile))
             {
-                using (var writer = new AssetsFileWriter(stream))
-                {
-                    safeWrite(hotSwap.txtStatusText, $"75% File compression stream ready!" + Environment.NewLine);
-                    var progressBar = new SZProgress(hotSwap);
-                    bun.file.Pack(bun.file.reader, writer, AssetBundleCompressionType.LZMA, progressBar);
-
-                    safeWrite(hotSwap.txtStatusText, $"100% Compressed file packing complete!" + Environment.NewLine);
-                }
+                var am = new AssetsManager();
+                safeWrite(hotSwap.txtStatusText, $"25% Declared new asset manager!" + Environment.NewLine);
+                var bun = am.LoadBundleFile(file, false);
+                safeWrite(hotSwap.txtStatusText, $"50% Bundle file initialized!" + Environment.NewLine);
+                var progressBar = new SZProgress(hotSwap);
+                bun.file.Pack(bun.file.reader, stream, AssetBundleCompressionType.LZMA, progressBar);
+                safeWrite(hotSwap.txtStatusText, $"100% Compressed file packing complete!" + Environment.NewLine);
+                am.UnloadAll();
+                bun = null;
             }
-            am.UnloadAll();
-            bun = null;
+
         }
+
+
     }
 }

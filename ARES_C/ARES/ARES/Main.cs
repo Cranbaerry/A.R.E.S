@@ -917,15 +917,15 @@ namespace ARES
         {
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string fileDecompressed = filePath + @"\decompressed.vrca";
-            string fileDecompressed2 = filePath + @"decompressed1.vrca";
-            string fileDummy = filePath + @"dummy.vrca";
-            string fileTarget = filePath + @"target.vrca";
+            string fileDecompressed2 = filePath + @"\decompressed1.vrca";
+            string fileDummy = filePath + @"\dummy.vrca";
+            string fileTarget = filePath + @"\target.vrca";
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
             string regexId = @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})";
             string regexCab = @"(CAB-[\w\d]{32})";
-            string regexUnity = @"[\d]{4}.[\d]{1}.[\w\d]{4}";
-            string regexUnityOlder = @"[\d]{1}.[\d]{1}.[\w\d]{3}";
+            string regexUnity = @"20[\d]{2}.[\d]{1}.[\w\d]{4}";
+            string regexUnityOlder = @"5.[\d]{1}.[\w\d]{3}";
             Regex AvatarIdRegex = new Regex(regexId);
             Regex AvatarCabRegex = new Regex(regexCab);
             Regex UnityRegex = new Regex(regexUnity);
@@ -996,6 +996,9 @@ namespace ARES
             System.Text.Encoding.UTF8.GetBytes(matchModelOld.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelNew.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelOld.UnityVersion), System.Text.Encoding.UTF8.GetBytes(matchModelNew.UnityVersion), matchModelOld.AvatarCabCount, matchModelOld.AvatarIdCount, matchModelOld.UnityCount);
             File.WriteAllBytes(fileDecompressed2, bytes);
 
+            bytes = null;
+            avatarBytes = null;
+
             try
             {
                 HotSwap.CompressBundle(fileDecompressed2, fileTarget, hotswapConsole);
@@ -1062,21 +1065,47 @@ namespace ARES
 
         private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld)
         {
-            string fileContents = File.ReadAllText(file);
-            var avatarIdMatch = avatarId.Matches(fileContents);
-            int avatarIdCount = avatarIdMatch.Count;
+            MatchCollection avatarIdMatch = null;
+            MatchCollection avatarCabMatch = null;
+            MatchCollection unityMatch = null;
+            int avatarIdCount = 0;
+            int avatarCabCount = 0;
+            int unityCount = 0;
 
-            var avatarCabMatch = avatarCab.Matches(fileContents);
-            int avatarCabCount = avatarCabMatch.Count;
-
-            var unityMatch = unityVersion.Matches(fileContents);
-            int unityCount = unityMatch.Count;
-
-            if (unityCount == 0)
+            foreach (string line in System.IO.File.ReadLines(file))
             {
-                unityMatch = unityVersionOld.Matches(fileContents);
-                unityCount = unityMatch.Count;
+                var tempId = avatarId.Matches(line);
+                var tempCab = avatarCab.Matches(line);
+                var tempUnity = unityVersion.Matches(line);
+                if (tempId.Count > 0)
+                {
+                    avatarIdMatch = tempId;
+                    avatarIdCount++;
+                }
+                if (tempCab.Count > 0)
+                {
+                    avatarCabMatch = tempCab;
+                    avatarCabCount++;
+                }
+                if (tempUnity.Count > 0)
+                {
+                    unityMatch = tempUnity;
+                    unityCount++;
+                }
             }
+
+            if(unityCount == 0)
+            {
+                foreach (string line in System.IO.File.ReadLines(file))
+                {
+                    var tempUnity = unityVersionOld.Matches(line);
+                    if (tempUnity.Count > 0)
+                    {
+                        unityMatch = tempUnity;
+                        unityCount++;
+                    }
+                }
+            }          
 
             return new MatchModel
             {
@@ -1448,16 +1477,16 @@ namespace ARES
             {
                 outpath = PackageExtractor.ExtractPackage(packageSelected, ScanPackage.UnityTemp);
             }
-            
-            (int,int,int) scanCount = ScanPackage.CheckFiles();
 
-            if(scanCount.Item3 > 0)
+            (int, int, int) scanCount = ScanPackage.CheckFiles();
+
+            if (scanCount.Item3 > 0)
             {
                 MessageBox.Show("Bad files were detected please select a new location for cleaned UnityPackage");
                 string fileLocation = createPackage();
                 var blank = new string[0];
                 var rootDir = "Assets/";
-                var pack = Package.FromDirectory(outpath, fileLocation,true, blank, blank);
+                var pack = Package.FromDirectory(outpath, fileLocation, true, blank, blank);
                 pack.GeneratePackage(rootDir);
             }
 
