@@ -1121,7 +1121,7 @@ namespace ARES
 
         private void getReadyForCompress(string oldFile, string newFile, MatchModel old, MatchModel newModel)
         {
-            var enc = Encoding.GetEncoding(28603);
+            var enc = Encoding.GetEncoding(28592);
             using (StreamReaderOver vReader = new StreamReaderOver(oldFile, enc))
             {
                 using (StreamWriter vWriter = new StreamWriter(newFile, false, enc))
