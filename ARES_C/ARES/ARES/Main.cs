@@ -158,6 +158,7 @@ namespace ARES
                 btnSearch.Enabled = false;
 #if DEBUG
                 btnSearch.Enabled = true;
+                btnHotswap.Enabled = true;
 #endif
             }
 
@@ -918,21 +919,25 @@ namespace ARES
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string fileDecompressed = filePath + @"\decompressed.vrca";
             string fileDecompressed2 = filePath + @"\decompressed1.vrca";
+            string fileDecompressedFinal = filePath + @"\finalDecompressed.vrca";
             string fileDummy = filePath + @"\dummy.vrca";
             string fileTarget = filePath + @"\target.vrca";
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
             string regexId = @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})";
+            string regexPrefabId = @"(prefab-id-v1_avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}_[\d]{10})";
             string regexCab = @"(CAB-[\w\d]{32})";
             string regexUnity = @"20[\d]{2}.[\d]{1}.[\w\d]{4}";
             string regexUnityOlder = @"5.[\d]{1}.[\w\d]{3}";
             Regex AvatarIdRegex = new Regex(regexId);
+            Regex AvatarPrefabIdRegex = new Regex(regexPrefabId);
             Regex AvatarCabRegex = new Regex(regexCab);
             Regex UnityRegex = new Regex(regexUnity);
             Regex UnityRegexOlder = new Regex(regexUnityOlder);
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
+            tryDelete(fileDecompressedFinal);
             tryDelete(fileDummy);
             tryDelete(fileTarget);
 
@@ -970,7 +975,7 @@ namespace ARES
                 }
                 return;
             }
-            MatchModel matchModelNew = getMatches(fileDecompressed, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder);
+            MatchModel matchModelNew = getMatches(fileDecompressed, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
 
             try
             {
@@ -990,18 +995,13 @@ namespace ARES
                 return;
             }
 
-            MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder);
-            byte[] avatarBytes = File.ReadAllBytes(fileDecompressed2);
-            byte[] bytes = byteModule.newbytes(avatarBytes, System.Text.Encoding.UTF8.GetBytes(matchModelOld.AvatarCab), System.Text.Encoding.UTF8.GetBytes(matchModelNew.AvatarCab),
-            System.Text.Encoding.UTF8.GetBytes(matchModelOld.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelNew.AvatarId), System.Text.Encoding.UTF8.GetBytes(matchModelOld.UnityVersion), System.Text.Encoding.UTF8.GetBytes(matchModelNew.UnityVersion), matchModelOld.AvatarCabCount, matchModelOld.AvatarIdCount, matchModelOld.UnityCount);
-            File.WriteAllBytes(fileDecompressed2, bytes);
+            MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
 
-            bytes = null;
-            avatarBytes = null;
+            getReadyForCompress(fileDecompressed2, fileDecompressedFinal, matchModelOld, matchModelNew);
 
             try
             {
-                HotSwap.CompressBundle(fileDecompressed2, fileTarget, hotswapConsole);
+                HotSwap.CompressBundle(fileDecompressedFinal, fileTarget, hotswapConsole);
             }
             catch (Exception ex)
             {
@@ -1047,6 +1047,7 @@ namespace ARES
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
+            tryDelete(fileDecompressedFinal);
             tryDelete(fileDummy);
             tryDelete(fileTarget);
 
@@ -1063,29 +1064,31 @@ namespace ARES
             rippedList.Add(matchModelOld.AvatarId);
         }
 
-        private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld)
+        private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld, Regex avatarAssetId)
         {
             MatchCollection avatarIdMatch = null;
+            MatchCollection avatarAssetIdMatch = null;
             MatchCollection avatarCabMatch = null;
             MatchCollection unityMatch = null;
-            int avatarIdCount = 0;
-            int avatarCabCount = 0;
             int unityCount = 0;
 
             foreach (string line in System.IO.File.ReadLines(file))
             {
                 var tempId = avatarId.Matches(line);
+                var tempAssetId = avatarAssetId.Matches(line);
                 var tempCab = avatarCab.Matches(line);
                 var tempUnity = unityVersion.Matches(line);
+                if (tempAssetId.Count > 0)
+                {
+                    avatarAssetIdMatch = tempAssetId;
+                }
                 if (tempId.Count > 0)
                 {
                     avatarIdMatch = tempId;
-                    avatarIdCount++;
                 }
                 if (tempCab.Count > 0)
                 {
                     avatarCabMatch = tempCab;
-                    avatarCabCount++;
                 }
                 if (tempUnity.Count > 0)
                 {
@@ -1102,20 +1105,57 @@ namespace ARES
                     if (tempUnity.Count > 0)
                     {
                         unityMatch = tempUnity;
-                        unityCount++;
+                        break;
                     }
                 }
-            }          
+            }
 
             return new MatchModel
             {
                 AvatarId = avatarIdMatch[0].Value,
                 AvatarCab = avatarCabMatch[0].Value,
                 UnityVersion = unityMatch[0].Value,
-                AvatarIdCount = avatarIdCount,
-                AvatarCabCount = avatarCabCount,
-                UnityCount = unityCount
+                AvatarAssetId = avatarAssetIdMatch[0].Value
             };
+        }
+
+        private void getReadyForCompress(string oldFile, string newFile, MatchModel old, MatchModel newModel)
+        {
+            var enc = Encoding.GetEncoding(28603);
+            using (StreamReaderOver vReader = new StreamReaderOver(oldFile, enc))
+            {
+                using (StreamWriter vWriter = new StreamWriter(newFile, false, enc))
+                {
+                    while (!vReader.EndOfStream)
+                    {
+                            string vLine = vReader.ReadLine();
+                            string replace = checkAndReplaceLine(vLine, old, newModel);
+                            vWriter.Write(replace);                       
+                    }
+                }
+            }
+        }
+
+        private string checkAndReplaceLine(string line, MatchModel old, MatchModel newModel)
+        {
+            string edited = line;
+            if (edited.Contains(old.AvatarAssetId))
+            {
+                edited = edited.Replace(old.AvatarAssetId, newModel.AvatarAssetId);
+            }
+            if (edited.Contains(old.AvatarId))
+            {
+                edited = edited.Replace(old.AvatarId, newModel.AvatarId);
+            }
+            if (edited.Contains(old.AvatarCab))
+            {
+                edited = edited.Replace(old.AvatarCab, newModel.AvatarCab);
+            }
+            if (edited.Contains(old.UnityVersion))
+            {
+                edited = edited.Replace(old.UnityVersion, newModel.UnityVersion);
+            }
+            return edited;
         }
 
         private void hotswapRepair()
