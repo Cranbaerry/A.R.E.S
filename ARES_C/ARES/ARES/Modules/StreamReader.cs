@@ -16,35 +16,28 @@ class StreamReaderOver : StreamReader
     {
     }
 
-    public override String ReadLine()
+    public override string ReadLine()
     {
         StringBuilder sb = new StringBuilder();
         while (true)
         {
             int ch = Read();
-            if (ch == -1)
+            switch (ch)
             {
-                break;
-            }
-            if (ch == '\r' || ch == '\n')
-            {
-                if (ch == '\n')
-                {
+                case -1:
+                    goto exitloop;
+                case 10: // \n
                     sb.Append('\n');
-                    break;
-                }
-                else if (ch == '\r')
-                {
+                    goto exitloop;
+                case 13: // \r
                     sb.Append('\r');
+                    goto exitloop;
+                default:
+                    sb.Append((char)ch);
                     break;
-                }
             }
-            sb.Append((char)ch);
         }
-        if (sb.Length > 0)
-        {
-            return sb.ToString();
-        }
-        return null;
+    exitloop:
+        return sb.Length > 0 ? sb.ToString() : null;
     }
 }
