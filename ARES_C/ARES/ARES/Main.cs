@@ -1586,8 +1586,8 @@ namespace ARES
             string programLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             killProcess("Unity Hub.exe");
             killProcess("Unity.exe");
-            tryDelete(programLocation + "HSBC.rar");
-            tryDeleteDirectory(programLocation + "HSB");
+            tryDelete(programLocation + "/HSBC.rar");
+            tryDeleteDirectory(programLocation + "/HSB");
         }
 
         private void killProcess(string processName)
