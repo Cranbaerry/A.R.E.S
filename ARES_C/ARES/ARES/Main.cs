@@ -1528,6 +1528,9 @@ namespace ARES
                 var rootDir = "Assets/";
                 var pack = Package.FromDirectory(outpath, fileLocation, true, blank, blank);
                 pack.GeneratePackage(rootDir);
+            } else
+            {
+                MessageBox.Show("No Bad files were detected");
             }
 
             MessageBox.Show(string.Format("Bad files detected {0}, Safe files detected {1}, Unknown files detected {2}", scanCount.Item3, scanCount.Item1, scanCount.Item2));
@@ -1576,6 +1579,26 @@ namespace ARES
                 }
             }
             return null;
+        }
+
+        private void btnHsbClean_Click(object sender, EventArgs e)
+        {
+            string programLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            killProcess("Unity Hub.exe");
+            killProcess("Unity.exe");
+            tryDelete(programLocation + "HSBC.rar");
+            tryDeleteDirectory(programLocation + "HSB");
+        }
+
+        private void killProcess(string processName)
+        {
+            try
+            {
+                Process.Start("taskkill", "/F /IM \"" + processName + "\"");
+                Console.WriteLine("Killed Process: " + processName);
+                CoreFunctions.WriteLog(string.Format("Killed Process", processName));
+            }
+            catch { }
         }
     }
 }

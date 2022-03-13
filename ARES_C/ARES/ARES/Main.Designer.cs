@@ -49,6 +49,7 @@ namespace ARES
             this.panel1 = new System.Windows.Forms.Panel();
             this.logo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnScan = new System.Windows.Forms.Button();
             this.nmThread = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.chkLoadImages = new System.Windows.Forms.CheckBox();
@@ -84,7 +85,7 @@ namespace ARES
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pbRipped = new System.Windows.Forms.PictureBox();
-            this.btnScan = new System.Windows.Forms.Button();
+            this.btnHsbClean = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -302,6 +303,17 @@ namespace ARES
             this.panel2.Size = new System.Drawing.Size(173, 481);
             this.panel2.TabIndex = 11;
             // 
+            // btnScan
+            // 
+            this.btnScan.Location = new System.Drawing.Point(3, 206);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(167, 43);
+            this.btnScan.TabIndex = 19;
+            this.btnScan.Text = "Scan Unity Package";
+            this.toolTip1.SetToolTip(this.btnScan, "Scan and remove bad files from unity packages");
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            // 
             // nmThread
             // 
             this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -462,6 +474,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.btnHsbClean);
             this.panel3.Controls.Add(this.cbLimit);
             this.panel3.Controls.Add(this.chkQuest);
             this.panel3.Controls.Add(this.chkPC);
@@ -515,7 +528,7 @@ namespace ARES
             this.chkQuest.AutoSize = true;
             this.chkQuest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkQuest.ForeColor = System.Drawing.Color.White;
-            this.chkQuest.Location = new System.Drawing.Point(385, 105);
+            this.chkQuest.Location = new System.Drawing.Point(197, 115);
             this.chkQuest.Name = "chkQuest";
             this.chkQuest.Size = new System.Drawing.Size(67, 20);
             this.chkQuest.TabIndex = 26;
@@ -529,7 +542,7 @@ namespace ARES
             this.chkPC.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPC.ForeColor = System.Drawing.Color.White;
-            this.chkPC.Location = new System.Drawing.Point(332, 105);
+            this.chkPC.Location = new System.Drawing.Point(197, 94);
             this.chkPC.Name = "chkPC";
             this.chkPC.Size = new System.Drawing.Size(47, 20);
             this.chkPC.TabIndex = 25;
@@ -543,7 +556,7 @@ namespace ARES
             this.chkPrivate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPrivate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPrivate.ForeColor = System.Drawing.Color.White;
-            this.chkPrivate.Location = new System.Drawing.Point(250, 105);
+            this.chkPrivate.Location = new System.Drawing.Point(106, 115);
             this.chkPrivate.Name = "chkPrivate";
             this.chkPrivate.Size = new System.Drawing.Size(76, 20);
             this.chkPrivate.TabIndex = 24;
@@ -557,7 +570,7 @@ namespace ARES
             this.chkPublic.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPublic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPublic.ForeColor = System.Drawing.Color.White;
-            this.chkPublic.Location = new System.Drawing.Point(174, 105);
+            this.chkPublic.Location = new System.Drawing.Point(106, 94);
             this.chkPublic.Name = "chkPublic";
             this.chkPublic.Size = new System.Drawing.Size(70, 20);
             this.chkPublic.TabIndex = 23;
@@ -713,16 +726,16 @@ namespace ARES
             this.pbRipped.TabIndex = 13;
             this.pbRipped.TabStop = false;
             // 
-            // btnScan
+            // btnHsbClean
             // 
-            this.btnScan.Location = new System.Drawing.Point(3, 206);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(167, 43);
-            this.btnScan.TabIndex = 19;
-            this.btnScan.Text = "Scan Unity Package";
-            this.toolTip1.SetToolTip(this.btnScan, "Scan and remove bad files from unity packages");
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            this.btnHsbClean.Location = new System.Drawing.Point(339, 94);
+            this.btnHsbClean.Name = "btnHsbClean";
+            this.btnHsbClean.Size = new System.Drawing.Size(113, 41);
+            this.btnHsbClean.TabIndex = 28;
+            this.btnHsbClean.Text = "Clean HSB";
+            this.toolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
+            this.btnHsbClean.UseVisualStyleBackColor = true;
+            this.btnHsbClean.Click += new System.EventHandler(this.btnHsbClean_Click);
             // 
             // Main
             // 
@@ -739,7 +752,7 @@ namespace ARES
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "A.R.E.S V11.3.2";
+            this.Text = "A.R.E.S";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ares_Close);
             this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip.ResumeLayout(false);
@@ -818,6 +831,7 @@ namespace ARES
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pbRipped;
         private System.Windows.Forms.Button btnScan;
+        private System.Windows.Forms.Button btnHsbClean;
     }
 }
 
