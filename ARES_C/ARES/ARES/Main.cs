@@ -996,6 +996,21 @@ namespace ARES
             }
 
             MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
+            if(matchModelOld.UnityVersion == null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel);
+                if(dialogResult == DialogResult.Cancel)
+                {
+                    if (hotswapConsole.InvokeRequired)
+                    {
+                        hotswapConsole.Invoke((MethodInvoker)delegate
+                        {
+                            hotswapConsole.Close();
+                        });
+                    }
+                    return;
+                }
+            }
 
             getReadyForCompress(fileDecompressed2, fileDecompressedFinal, matchModelOld, matchModelNew);
 
@@ -1100,26 +1115,19 @@ namespace ARES
             {
                 avatarAssetIdMatch = avatarIdMatch;
             }
-            if(unityCount == 0)
-            {
-                foreach (string line in System.IO.File.ReadLines(file))
-                {
-                    var tempUnity = unityVersionOld.Matches(line);
-                    if (tempUnity.Count > 0)
-                    {
-                        unityMatch = tempUnity;
-                        break;
-                    }
-                }
-            }
 
-            return new MatchModel
+            MatchModel matchModel = new MatchModel
             {
                 AvatarId = avatarIdMatch[0].Value,
                 AvatarCab = avatarCabMatch[0].Value,
-                UnityVersion = unityMatch[0].Value,
                 AvatarAssetId = avatarAssetIdMatch[0].Value
             };
+
+            if(unityMatch != null)
+            {
+                matchModel.UnityVersion = unityMatch[0].Value;
+            }
+            return matchModel;
         }
 
         private void getReadyForCompress(string oldFile, string newFile, MatchModel old, MatchModel newModel)
@@ -1154,9 +1162,12 @@ namespace ARES
             {
                 edited = edited.Replace(old.AvatarCab, newModel.AvatarCab);
             }
-            if (edited.Contains(old.UnityVersion))
+            if (old.UnityVersion != null)
             {
-                edited = edited.Replace(old.UnityVersion, newModel.UnityVersion);
+                if (edited.Contains(old.UnityVersion))
+                {
+                    edited = edited.Replace(old.UnityVersion, newModel.UnityVersion);
+                }
             }
             return edited;
         }
