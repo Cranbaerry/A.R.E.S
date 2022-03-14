@@ -1096,7 +1096,10 @@ namespace ARES
                     unityCount++;
                 }
             }
-
+            if(avatarAssetIdMatch == null)
+            {
+                avatarAssetIdMatch = avatarIdMatch;
+            }
             if(unityCount == 0)
             {
                 foreach (string line in System.IO.File.ReadLines(file))
