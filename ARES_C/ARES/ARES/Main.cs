@@ -489,8 +489,13 @@ namespace ARES
             }
             if (selectedAvatar.PCAssetURL != "None")
             {
-                string[] version = selectedAvatar.PCAssetURL.Split('/');
-                nmPcVersion.Value = Convert.ToInt32(version[7]);
+                try
+                {
+                    string[] version = selectedAvatar.PCAssetURL.Split('/');
+                    string urlCheck = selectedAvatar.PCAssetURL.Replace(version[6] + "/" + version[7] + "/file", version[6]);
+                    RootClass versionList = ApiGrab.getVersions(urlCheck);
+                    nmPcVersion.Value = Convert.ToInt32(versionList.versions.LastOrDefault().version);
+                } catch { nmPcVersion.Value = 1; }
             }
             else
             {
@@ -498,8 +503,13 @@ namespace ARES
             }
             if (selectedAvatar.QUESTAssetURL != "None")
             {
-                string[] version = selectedAvatar.QUESTAssetURL.Split('/');
-                nmQuestVersion.Value = Convert.ToInt32(version[7]);
+                try
+                {
+                    string[] version = selectedAvatar.QUESTAssetURL.Split('/');
+                    string urlCheck = selectedAvatar.QUESTAssetURL.Replace(version[6] + "/" + version[7] + "/file", version[6]);
+                    RootClass versionList = ApiGrab.getVersions(urlCheck);
+                    nmQuestVersion.Value = Convert.ToInt32(versionList.versions.LastOrDefault().version);
+                } catch { nmQuestVersion.Value = 1; }
             }
             else
             {
@@ -996,10 +1006,10 @@ namespace ARES
             }
 
             MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
-            if(matchModelOld.UnityVersion == null)
+            if (matchModelOld.UnityVersion == null)
             {
                 DialogResult dialogResult = MessageBox.Show("Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel);
-                if(dialogResult == DialogResult.Cancel)
+                if (dialogResult == DialogResult.Cancel)
                 {
                     if (hotswapConsole.InvokeRequired)
                     {
@@ -1111,7 +1121,7 @@ namespace ARES
                     unityCount++;
                 }
             }
-            if(avatarAssetIdMatch == null)
+            if (avatarAssetIdMatch == null)
             {
                 avatarAssetIdMatch = avatarIdMatch;
             }
@@ -1123,7 +1133,7 @@ namespace ARES
                 AvatarAssetId = avatarAssetIdMatch[0].Value
             };
 
-            if(unityMatch != null)
+            if (unityMatch != null)
             {
                 matchModel.UnityVersion = unityMatch[0].Value;
             }
@@ -1139,9 +1149,9 @@ namespace ARES
                 {
                     while (!vReader.EndOfStream)
                     {
-                            string vLine = vReader.ReadLine();
-                            string replace = checkAndReplaceLine(vLine, old, newModel);
-                            vWriter.Write(replace);                       
+                        string vLine = vReader.ReadLine();
+                        string replace = checkAndReplaceLine(vLine, old, newModel);
+                        vWriter.Write(replace);
                     }
                 }
             }
@@ -1542,7 +1552,8 @@ namespace ARES
                 var rootDir = "Assets/";
                 var pack = Package.FromDirectory(outpath, fileLocation, true, blank, blank);
                 pack.GeneratePackage(rootDir);
-            } else
+            }
+            else
             {
                 MessageBox.Show("No Bad files were detected");
             }

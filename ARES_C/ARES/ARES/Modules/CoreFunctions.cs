@@ -41,7 +41,8 @@ namespace ARES.Modules
                 {
                     Stream stream = webClient.OpenRead(url);
                     Bitmap bitmap; bitmap = new Bitmap(stream);
-
+                    stream.Close();
+                    stream.Dispose();
                     if (bitmap != null)
                     {
                         return bitmap;

@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Models\Git.cs" />
     <Compile Include="Models\MatchModel.cs" />
+    <Compile Include="Models\VrcJson.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\Stats.cs" />

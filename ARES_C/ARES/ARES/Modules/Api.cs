@@ -127,5 +127,29 @@ namespace ARES.Modules
 
             return item;
         }
+
+        public RootClass getVersions(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                //Needs a useragent to be able to view images.
+                webClient.Headers.Add("user-agent", "VRCX");
+                try
+                {
+                    string web = webClient.DownloadString(url);
+                    RootClass items = JsonConvert.DeserializeObject<RootClass>(web);
+                    return items;
+                }
+                catch
+                {
+                    return null;
+                    //skip as its likely avatar is been yeeted from VRC servers
+                    //avatarImage.Load(CoreFunctions.ErrorImage);
+                }
+                return null;
+
+            }
+
+        }
     }
 }
