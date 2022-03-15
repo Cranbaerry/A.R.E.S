@@ -144,10 +144,7 @@ namespace ARES.Modules
                 {
                     return null;
                     //skip as its likely avatar is been yeeted from VRC servers
-                    //avatarImage.Load(CoreFunctions.ErrorImage);
                 }
-                return null;
-
             }
 
         }
