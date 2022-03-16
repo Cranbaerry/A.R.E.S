@@ -1,5 +1,6 @@
 ﻿using ARES.Models;
 using ARES.Modules;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -139,13 +140,28 @@ namespace ARES
             }
             cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
-            MessageBoxManager.Yes = "PC";
-            MessageBoxManager.No = "Quest";
-            MessageBoxManager.Register();
+           
             if (!iniFile.KeyExists("unity"))
             {
-                MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
-                selectFile();
+                string unityPath = unityRegistry();
+                if(unityPath != null)
+                {
+                    DialogResult dlgResult = MessageBox.Show(string.Format("Possible unity path found, Location: '{0}' is this correct?", unityPath + @"\unity.exe"), "Unity", MessageBoxButtons.YesNo);
+                    if(dlgResult == DialogResult.Yes)
+                    {
+                        iniFile.Write("unity", unityPath + @"\unity.exe");
+                        MessageBox.Show("Leave the command window open it will close by itself after the unity setup is complete");
+                    } else
+                    {
+                        MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
+                        selectFile();
+                    }
+                } else
+                {
+                    MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
+                    selectFile();
+                }
+                
             }
             else
             {
@@ -170,6 +186,11 @@ namespace ARES
                     CoreFunctions.setupUnity(unityPath);
                 }
             }
+
+
+            MessageBoxManager.Yes = "PC";
+            MessageBoxManager.No = "Quest";
+            MessageBoxManager.Register();
 
             localAvatars = CoreFunctions.getLocalAvatars();
             if (localAvatars.Count > 0 && apiEnabled)
@@ -218,6 +239,29 @@ namespace ARES
             }
             unityPath = filePath;
             iniFile.Write("unity", filePath);
+        }
+
+        private string unityRegistry()
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Unity Technologies\Installer\Unity"))
+                {
+                    if (key != null)
+                    {
+                        Object o = key.GetValue("Location x64");
+                        if (o != null)
+                        {
+                            return o.ToString(); 
+                        }
+                    }
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private string selectFileVrca()
