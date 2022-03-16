@@ -1723,5 +1723,12 @@ namespace ARES
                 MessageBox.Show("Still loading last search");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Any changes made via this you will have to restart VRChat to see.");
+            LoggerConfig logger = new LoggerConfig();
+            logger.ShowDialog();
+        }
     }
 }

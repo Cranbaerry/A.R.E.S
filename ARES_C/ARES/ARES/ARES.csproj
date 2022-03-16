@@ -98,6 +98,7 @@
     <Compile Include="Models\Avatar.cs" />
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Modules\Api.cs" />
+    <Compile Include="Models\AresConfig.cs" />
     <Compile Include="Modules\byteModule.cs" />
     <Compile Include="Modules\CoreFunctions.cs" />
     <Compile Include="Modules\GenerateHtml.cs" />
@@ -117,11 +118,20 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoggerConfig.resx">
+      <DependentUpon>LoggerConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="LoggerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerConfig.Designer.cs">
+      <DependentUpon>LoggerConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>

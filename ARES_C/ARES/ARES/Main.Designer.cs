@@ -87,6 +87,7 @@ namespace ARES
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pbRipped = new System.Windows.Forms.PictureBox();
             this.btnRipped = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -475,6 +476,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.btnRipped);
             this.panel3.Controls.Add(this.btnHsbClean);
             this.panel3.Controls.Add(this.cbLimit);
@@ -750,6 +752,17 @@ namespace ARES
             this.btnRipped.UseVisualStyleBackColor = true;
             this.btnRipped.Click += new System.EventHandler(this.btnRipped_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(399, 94);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 41);
+            this.button1.TabIndex = 30;
+            this.button1.Text = "Edit Logger Config";
+            this.toolTip1.SetToolTip(this.button1, "Edit the ARES Logger config");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -846,6 +859,7 @@ namespace ARES
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Button btnHsbClean;
         private System.Windows.Forms.Button btnRipped;
+        private System.Windows.Forms.Button button1;
     }
 }
 
