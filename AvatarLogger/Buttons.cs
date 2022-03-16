@@ -65,7 +65,7 @@ namespace Buttons
             ReMirroredWingMenu otherToggles = WingMenu.AddSubMenu("Other", "Use the other features within ARES");
             otherToggles.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; }, Config.UnlimitedFavorites);
             otherToggles.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; }, Config.Stealth);
-            otherToggles.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            otherToggles.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
 
@@ -109,7 +109,7 @@ namespace Buttons
             FPageT.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
             FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
             FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
-            FPageT.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            FPageT.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             MelonLogger.Msg("Ui ready!");
         }
 
