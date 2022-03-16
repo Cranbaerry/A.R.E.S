@@ -140,28 +140,30 @@ namespace ARES
             }
             cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
-           
+
             if (!iniFile.KeyExists("unity"))
             {
                 string unityPath = unityRegistry();
-                if(unityPath != null)
+                if (unityPath != null)
                 {
                     DialogResult dlgResult = MessageBox.Show(string.Format("Possible unity path found, Location: '{0}' is this correct?", unityPath + @"\unity.exe"), "Unity", MessageBoxButtons.YesNo);
-                    if(dlgResult == DialogResult.Yes)
+                    if (dlgResult == DialogResult.Yes)
                     {
                         iniFile.Write("unity", unityPath + @"\unity.exe");
                         MessageBox.Show("Leave the command window open it will close by itself after the unity setup is complete");
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
                         selectFile();
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Please select unity.exe, after doing this leave the command window open it will close by itself after setup is complete");
                     selectFile();
                 }
-                
+
             }
             else
             {
@@ -252,7 +254,7 @@ namespace ARES
                         Object o = key.GetValue("Location x64");
                         if (o != null)
                         {
-                            return o.ToString(); 
+                            return o.ToString();
                         }
                     }
                 }
@@ -539,7 +541,8 @@ namespace ARES
                     string urlCheck = selectedAvatar.PCAssetURL.Replace(version[6] + "/" + version[7] + "/file", version[6]);
                     RootClass versionList = ApiGrab.getVersions(urlCheck);
                     nmPcVersion.Value = Convert.ToInt32(versionList.versions.LastOrDefault().version);
-                } catch { nmPcVersion.Value = 1; }
+                }
+                catch { nmPcVersion.Value = 1; }
             }
             else
             {
@@ -553,7 +556,8 @@ namespace ARES
                     string urlCheck = selectedAvatar.QUESTAssetURL.Replace(version[6] + "/" + version[7] + "/file", version[6]);
                     RootClass versionList = ApiGrab.getVersions(urlCheck);
                     nmQuestVersion.Value = Convert.ToInt32(versionList.versions.LastOrDefault().version);
-                } catch { nmQuestVersion.Value = 1; }
+                }
+                catch { nmQuestVersion.Value = 1; }
             }
             else
             {
@@ -1668,6 +1672,56 @@ namespace ARES
                 CoreFunctions.WriteLog(string.Format("Killed Process", processName));
             }
             catch { }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnRipped_Click(object sender, EventArgs e)
+        {
+
+
+            if (!locked)
+            {
+                maxThreads = Convert.ToInt32(nmThread.Value);
+                loadImages = chkLoadImages.Checked;
+                flowAvatars.Controls.Clear();
+
+                statusLabel.Text = "Status: Loading API";
+                List<Records> avatars = ApiGrab.getRipped(rippedList);
+                AvatarList = avatars;
+                if (chkPC.Checked)
+                {
+                    AvatarList = AvatarList.Where(x => x.PCAssetURL.Trim().ToLower() != "none").ToList();
+                }
+                if (chkQuest.Checked)
+                {
+                    AvatarList = AvatarList.Where(x => x.QUESTAssetURL.Trim().ToLower() != "none").ToList();
+                }
+                if (chkPublic.Checked == true && chkPrivate.Checked == false)
+                {
+                    AvatarList = AvatarList.Where(x => x.Releasestatus.ToLower().Trim() == "public").ToList();
+                }
+                if (chkPublic.Checked == false && chkPrivate.Checked == true)
+                {
+                    AvatarList = AvatarList.Where(x => x.Releasestatus.ToLower().Trim() == "private").ToList();
+                }
+                avatarCount = AvatarList.Count();
+                lblAvatarCount.Text = avatarCount.ToString();
+                progress.Maximum = avatarCount;
+                progress.Value = 0;
+                locked = true;
+                isAvatar = true;
+                statusLabel.Text = "Status: Loading Avatar Images";
+                imageThread = new Thread(new ThreadStart(GetImages));
+                imageThread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Still loading last search");
+            }
         }
     }
 }

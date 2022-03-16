@@ -64,6 +64,7 @@ namespace ARES
             this.btnLoadVRCA = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnHsbClean = new System.Windows.Forms.Button();
             this.cbLimit = new System.Windows.Forms.ComboBox();
             this.chkQuest = new System.Windows.Forms.CheckBox();
             this.chkPC = new System.Windows.Forms.CheckBox();
@@ -85,7 +86,7 @@ namespace ARES
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pbRipped = new System.Windows.Forms.PictureBox();
-            this.btnHsbClean = new System.Windows.Forms.Button();
+            this.btnRipped = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -105,7 +106,7 @@ namespace ARES
             this.txtSearchTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchTerm.Location = new System.Drawing.Point(197, 6);
             this.txtSearchTerm.Name = "txtSearchTerm";
-            this.txtSearchTerm.Size = new System.Drawing.Size(374, 38);
+            this.txtSearchTerm.Size = new System.Drawing.Size(550, 38);
             this.txtSearchTerm.TabIndex = 0;
             // 
             // label1
@@ -130,7 +131,7 @@ namespace ARES
             this.statusStrip.Location = new System.Drawing.Point(0, 677);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip.Size = new System.Drawing.Size(1173, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1345, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -187,12 +188,12 @@ namespace ARES
             this.flowAvatars.Location = new System.Drawing.Point(13, 186);
             this.flowAvatars.Name = "flowAvatars";
             this.flowAvatars.Padding = new System.Windows.Forms.Padding(10);
-            this.flowAvatars.Size = new System.Drawing.Size(674, 468);
+            this.flowAvatars.Size = new System.Drawing.Size(850, 468);
             this.flowAvatars.TabIndex = 7;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(458, 50);
+            this.btnSearch.Location = new System.Drawing.Point(518, 50);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(113, 41);
             this.btnSearch.TabIndex = 8;
@@ -216,7 +217,7 @@ namespace ARES
             this.groupBox1.Controls.Add(this.btnCopy);
             this.groupBox1.Controls.Add(this.txtAvatarInfo);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(693, 186);
+            this.groupBox1.Location = new System.Drawing.Point(869, 190);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 468);
             this.groupBox1.TabIndex = 9;
@@ -474,6 +475,7 @@ namespace ARES
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
+            this.panel3.Controls.Add(this.btnRipped);
             this.panel3.Controls.Add(this.btnHsbClean);
             this.panel3.Controls.Add(this.cbLimit);
             this.panel3.Controls.Add(this.chkQuest);
@@ -500,8 +502,20 @@ namespace ARES
             this.panel3.Controls.Add(this.label2);
             this.panel3.Location = new System.Drawing.Point(191, 8);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(972, 657);
+            this.panel3.Size = new System.Drawing.Size(1142, 657);
             this.panel3.TabIndex = 12;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // btnHsbClean
+            // 
+            this.btnHsbClean.Location = new System.Drawing.Point(399, 139);
+            this.btnHsbClean.Name = "btnHsbClean";
+            this.btnHsbClean.Size = new System.Drawing.Size(113, 41);
+            this.btnHsbClean.TabIndex = 28;
+            this.btnHsbClean.Text = "Clean HSB";
+            this.toolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
+            this.btnHsbClean.UseVisualStyleBackColor = true;
+            this.btnHsbClean.Click += new System.EventHandler(this.btnHsbClean_Click);
             // 
             // cbLimit
             // 
@@ -517,7 +531,7 @@ namespace ARES
             "50",
             "10",
             "1"});
-            this.cbLimit.Location = new System.Drawing.Point(577, 6);
+            this.cbLimit.Location = new System.Drawing.Point(753, 6);
             this.cbLimit.Name = "cbLimit";
             this.cbLimit.Size = new System.Drawing.Size(110, 39);
             this.cbLimit.TabIndex = 27;
@@ -590,7 +604,7 @@ namespace ARES
             // 
             // btnApi
             // 
-            this.btnApi.Location = new System.Drawing.Point(220, 139);
+            this.btnApi.Location = new System.Drawing.Point(518, 139);
             this.btnApi.Name = "btnApi";
             this.btnApi.Size = new System.Drawing.Size(113, 41);
             this.btnApi.TabIndex = 20;
@@ -600,9 +614,9 @@ namespace ARES
             // 
             // btnVrcaSearch
             // 
-            this.btnVrcaSearch.Location = new System.Drawing.Point(339, 139);
+            this.btnVrcaSearch.Location = new System.Drawing.Point(637, 139);
             this.btnVrcaSearch.Name = "btnVrcaSearch";
-            this.btnVrcaSearch.Size = new System.Drawing.Size(113, 41);
+            this.btnVrcaSearch.Size = new System.Drawing.Size(110, 41);
             this.btnVrcaSearch.TabIndex = 19;
             this.btnVrcaSearch.Text = "Attempt VRCA Search";
             this.btnVrcaSearch.UseVisualStyleBackColor = true;
@@ -610,9 +624,9 @@ namespace ARES
             // 
             // btnRepair
             // 
-            this.btnRepair.Location = new System.Drawing.Point(458, 139);
+            this.btnRepair.Location = new System.Drawing.Point(753, 139);
             this.btnRepair.Name = "btnRepair";
-            this.btnRepair.Size = new System.Drawing.Size(113, 41);
+            this.btnRepair.Size = new System.Drawing.Size(110, 41);
             this.btnRepair.TabIndex = 18;
             this.btnRepair.Text = "Repair VRCA";
             this.btnRepair.UseVisualStyleBackColor = true;
@@ -620,9 +634,9 @@ namespace ARES
             // 
             // btnUnity
             // 
-            this.btnUnity.Location = new System.Drawing.Point(458, 94);
+            this.btnUnity.Location = new System.Drawing.Point(637, 94);
             this.btnUnity.Name = "btnUnity";
-            this.btnUnity.Size = new System.Drawing.Size(113, 41);
+            this.btnUnity.Size = new System.Drawing.Size(110, 41);
             this.btnUnity.TabIndex = 17;
             this.btnUnity.Text = "Open Unity";
             this.btnUnity.UseVisualStyleBackColor = true;
@@ -631,7 +645,7 @@ namespace ARES
             // btnHotswap
             // 
             this.btnHotswap.Enabled = false;
-            this.btnHotswap.Location = new System.Drawing.Point(577, 94);
+            this.btnHotswap.Location = new System.Drawing.Point(753, 94);
             this.btnHotswap.Name = "btnHotswap";
             this.btnHotswap.Size = new System.Drawing.Size(110, 41);
             this.btnHotswap.TabIndex = 16;
@@ -641,7 +655,7 @@ namespace ARES
             // 
             // btnStopSearch
             // 
-            this.btnStopSearch.Location = new System.Drawing.Point(577, 139);
+            this.btnStopSearch.Location = new System.Drawing.Point(753, 50);
             this.btnStopSearch.Name = "btnStopSearch";
             this.btnStopSearch.Size = new System.Drawing.Size(110, 41);
             this.btnStopSearch.TabIndex = 15;
@@ -673,7 +687,7 @@ namespace ARES
             // 
             // btnSearchLocal
             // 
-            this.btnSearchLocal.Location = new System.Drawing.Point(577, 50);
+            this.btnSearchLocal.Location = new System.Drawing.Point(637, 50);
             this.btnSearchLocal.Name = "btnSearchLocal";
             this.btnSearchLocal.Size = new System.Drawing.Size(110, 41);
             this.btnSearchLocal.TabIndex = 12;
@@ -695,13 +709,13 @@ namespace ARES
             "World ID"});
             this.cbSearchTerm.Location = new System.Drawing.Point(197, 50);
             this.cbSearchTerm.Name = "cbSearchTerm";
-            this.cbSearchTerm.Size = new System.Drawing.Size(255, 39);
+            this.cbSearchTerm.Size = new System.Drawing.Size(315, 39);
             this.cbSearchTerm.TabIndex = 11;
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.selectedImage);
-            this.panel4.Location = new System.Drawing.Point(693, 9);
+            this.panel4.Location = new System.Drawing.Point(869, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(270, 171);
             this.panel4.TabIndex = 10;
@@ -726,23 +740,22 @@ namespace ARES
             this.pbRipped.TabIndex = 13;
             this.pbRipped.TabStop = false;
             // 
-            // btnHsbClean
+            // btnRipped
             // 
-            this.btnHsbClean.Location = new System.Drawing.Point(339, 94);
-            this.btnHsbClean.Name = "btnHsbClean";
-            this.btnHsbClean.Size = new System.Drawing.Size(113, 41);
-            this.btnHsbClean.TabIndex = 28;
-            this.btnHsbClean.Text = "Clean HSB";
-            this.toolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
-            this.btnHsbClean.UseVisualStyleBackColor = true;
-            this.btnHsbClean.Click += new System.EventHandler(this.btnHsbClean_Click);
+            this.btnRipped.Location = new System.Drawing.Point(518, 94);
+            this.btnRipped.Name = "btnRipped";
+            this.btnRipped.Size = new System.Drawing.Size(113, 41);
+            this.btnRipped.TabIndex = 29;
+            this.btnRipped.Text = "Search Ripped";
+            this.btnRipped.UseVisualStyleBackColor = true;
+            this.btnRipped.Click += new System.EventHandler(this.btnRipped_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1173, 699);
+            this.ClientSize = new System.Drawing.Size(1345, 699);
             this.Controls.Add(this.pbRipped);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -832,6 +845,7 @@ namespace ARES
         private System.Windows.Forms.PictureBox pbRipped;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Button btnHsbClean;
+        private System.Windows.Forms.Button btnRipped;
     }
 }
 

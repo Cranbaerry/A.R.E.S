@@ -17,18 +17,20 @@ namespace ARES.Modules
             string url = "";
             string amount;
 
-            if(limit == "Max")
+            if (limit == "Max")
             {
                 amount = "5000";
-            } else
+            }
+            else
             {
                 amount = limit;
             }
 
-            if (!string.IsNullOrEmpty(query)) {
+            if (!string.IsNullOrEmpty(query))
+            {
                 if (type == "Avatar Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query,amount);
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query, amount);
                 }
                 if (type == "Avatar ID")
                 {
@@ -38,11 +40,12 @@ namespace ARES.Modules
                 {
                     url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorName,cs,{0}", query, amount);
                 }
-                if(type == "Author ID")
+                if (type == "Author ID")
                 {
                     url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorID,eq,{0}", query, amount);
                 }
-            } else
+            }
+            else
             {
                 url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={0}&order=TimeDetected,desc", amount);
             }
@@ -80,7 +83,8 @@ namespace ARES.Modules
                 {
                     url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldID,eq,{0}", query);
                 }
-            } else
+            }
+            else
             {
                 url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
             }
@@ -147,6 +151,46 @@ namespace ARES.Modules
                 }
             }
 
+        }
+
+        public List<Records> getRipped(List<string> ripped)
+        {
+            string url = "";
+            string amount;
+
+            Avatar avatarList = new Avatar { records = new List<Records>() };
+
+            if (ripped != null)
+            {
+                foreach (var item in ripped.Distinct().ToList())
+                {
+                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=1&order=TimeDetected,desc&filter=AvatarID,eq,{0}", item);
+
+                    HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
+
+                    WebReq.Method = "GET";
+
+                    HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+                    Console.WriteLine(WebResp.StatusCode);
+                    Console.WriteLine(WebResp.Server);
+
+                    string jsonString;
+                    using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
+                    {
+                        StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                        jsonString = reader.ReadToEnd();
+                    }
+
+                    Avatar items = JsonConvert.DeserializeObject<Avatar>(jsonString);
+
+                    avatarList.records = avatarList.records.Concat(items.records).ToList();
+
+
+                }
+                return avatarList.records;
+            }
+            return null;
         }
     }
 }
