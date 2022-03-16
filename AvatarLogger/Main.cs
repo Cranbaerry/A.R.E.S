@@ -15,7 +15,7 @@ using static Buttons.Buttons;
 //using System.Data.SQLite;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.1", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.2", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger
@@ -50,6 +50,11 @@ namespace AvatarLogger
             try
             {
                 MelonLogger.Msg("Applying patches...");
+                if (Config.HWIDSpoof)
+                {
+                    HWIDPatch();
+                    MelonLogger.Msg("HWID patched");
+                }
                 AllowAvatarCopyingPatch();
                 MelonLogger.Msg("Avatar cloning patched, force clone enabled!");
                 OnEventPatch();
@@ -58,9 +63,9 @@ namespace AvatarLogger
                 MelonLogger.Msg("Network manager patched (2/2)");
                 MelonLogger.Msg("Avatars can now be logged!");
             }
-            catch
+            catch (Exception ex)
             {
-                MelonLogger.Msg("Failed patches!");
+                MelonLogger.Msg("Failed patches!" + ex.Message);
             }
             //Starts lister to await Ui
             if (!Config.Stealth)

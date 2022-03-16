@@ -13,7 +13,6 @@ namespace AvatarLogger.AvatarFavorites
     class UnlimitedFavorites : OnUpdateEvent, OnUIEvent
     {
         //Creates instances allowing favoritres system to run ;-;
-        public Main instance;
         private static GameObject avatarPage;
         public static UiAvatarList newFavList;
         public static Il2CppSystem.Collections.Generic.List<ApiAvatar> favedAvatars = new Il2CppSystem.Collections.Generic.List<ApiAvatar>();

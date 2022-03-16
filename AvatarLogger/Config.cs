@@ -18,5 +18,6 @@ namespace AvatarLogger
         public bool LogPrivateAvatars { get; set; } = true;
         public bool LogToConsole { get; set; } = true;
         public bool ConsoleError { get; set; } = true;
+        public bool HWIDSpoof { get; set; } = false;
     }
 }
