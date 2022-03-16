@@ -54,7 +54,7 @@ namespace Buttons
             LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
             LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
             LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
-            LSMP.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            
             ReMirroredWingMenu FPage = WingMenu.AddSubMenu("Functions", "Use the other features within ARES");
             FPage.AddButton("Open ARES GUI", "Opens the ARES GUI on your desktop!", delegate { OpenGUI(); });
             FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
@@ -65,6 +65,7 @@ namespace Buttons
             ReMirroredWingMenu otherToggles = WingMenu.AddSubMenu("Other", "Use the other features within ARES");
             otherToggles.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; }, Config.UnlimitedFavorites);
             otherToggles.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; }, Config.Stealth);
+            otherToggles.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
 
@@ -90,7 +91,7 @@ namespace Buttons
             LSMPT.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
             LSMPT.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
             LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
-            LSMPT.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            
 
             ReMenuPage FPageT = null;
             try
@@ -108,6 +109,7 @@ namespace Buttons
             FPageT.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
             FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
             FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
+            FPageT.AddToggle("HWID Spoff", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             MelonLogger.Msg("Ui ready!");
         }
 
