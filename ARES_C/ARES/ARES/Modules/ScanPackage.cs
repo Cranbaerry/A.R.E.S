@@ -25,13 +25,14 @@ namespace ARES.Modules
         public static string[] badFiles;
 
 
-        public static void WriteLog(string logText)
+        public static void WriteLog(string logText, Main main)
         {
             string logBuilder = string.Format("{0:yy/MM/dd H:mm:ss} | {1} \n", DateTime.Now, logText);
+            main.txtConsole.Text += logBuilder + Environment.NewLine;
             File.AppendAllText("LatestLog.txt", logBuilder);
         }
 
-        public static void ReloadDatabase()
+        public static void ReloadDatabase(Main main)
         {
             if (!Directory.Exists(SafeImport_Safe))
                 Directory.CreateDirectory(SafeImport_Safe);
@@ -70,21 +71,21 @@ namespace ARES.Modules
             }
             badFiles = unsafepathslist.ToArray();
 
-            WriteLog($"Database loaded with {safeFiles.Length} allowed hashes and {badFiles.Length} not allowed hashes.\n");
+            WriteLog($"Database loaded with {safeFiles.Length} allowed hashes and {badFiles.Length} not allowed hashes.\n", main);
         }
 
-        public static void DownloadOnlineSourcesOnStartup()
+        public static void DownloadOnlineSourcesOnStartup(Main main)
         {
             if (!Directory.Exists(MainFolder))
             {
                 Directory.CreateDirectory(MainFolder);
             }
 
-            DownloadGitHubContent_Single();
-            ReloadDatabase();
+            DownloadGitHubContent_Single(main: main);
+            ReloadDatabase(main);
         }
 
-        public static (int, int, int) CheckFiles()
+        public static (int, int, int) CheckFiles(Main main)
         {
             string[] CSPaths = Directory.GetFiles(UnityTemp, "*.cs", SearchOption.AllDirectories);
             string[] DLLPaths = Directory.GetFiles(UnityTemp, "*.dll", SearchOption.AllDirectories);
@@ -98,7 +99,7 @@ namespace ARES.Modules
                 arrayToList.Add(item);
             }
 
-            return CheckSafeUnsafeFiles(arrayToList);
+            return CheckSafeUnsafeFiles(arrayToList, main);
         }
 
         public static string SHA256CheckSum(string filePath)
@@ -110,7 +111,7 @@ namespace ARES.Modules
             }
         }
 
-        public static (int,int,int) CheckSafeUnsafeFiles(List<string> importeds)
+        public static (int,int,int) CheckSafeUnsafeFiles(List<string> importeds, Main main)
         {
             importeds.Sort();
             List<(string, string)> safeFiles = new List<(string, string)>();
@@ -138,7 +139,7 @@ namespace ARES.Modules
                 {
                     output += f.Item1 + " | Hash: " + f.Item2 + "\n";
                 }
-                WriteLog($"Allowed scripts ({safeFiles.Count}):\n" + output);
+                WriteLog($"Allowed scripts ({safeFiles.Count}):\n" + output, main);
             }
 
             if (unknownFiles.Count > 0)
@@ -148,7 +149,7 @@ namespace ARES.Modules
                 {
                     output += f.Item1 + " | Hash: " + f.Item2 + "\n";
                 }
-                WriteLog($"Unknown scripts ({unknownFiles.Count}):\n" + output);
+                WriteLog($"Unknown scripts ({unknownFiles.Count}):\n" + output, main);
             }
 
             if (badFilesShouldDelete.Count > 0)
@@ -163,12 +164,12 @@ namespace ARES.Modules
                         File.Delete(f.Item1 + ".meta");
                     }
                 }
-                WriteLog($"Not allowed scripts ({badFilesShouldDelete.Count}). They will be deleted:\n" + output);
+                WriteLog($"Not allowed scripts ({badFilesShouldDelete.Count}). They will be deleted:\n" + output, main);
             }
             return (safeFiles.Count, unknownFiles.Count, badFilesShouldDelete.Count);
         }
 
-        public static void DownloadGitHubContent_Single(string gitname = "Purple420/Hashes-of-Safe-Scripts")
+        public static void DownloadGitHubContent_Single(Main main, string gitname = "Purple420/Hashes-of-Safe-Scripts")
         {
             string json; GitHub_content[] contents;
             List<(string, string)> safes = new List<(string, string)>();
@@ -192,15 +193,15 @@ namespace ARES.Modules
             }
             catch (WebException e)
             {
-                WriteLog($"An error occurred while fetching Github page {gitname} (Safe Files). Internet down? Webpage down?\n" + e.Message);
+                WriteLog($"An error occurred while fetching Github page {gitname} (Safe Files). Internet down? Webpage down?\n" + e.Message, main);
             }
             catch (NotSupportedException e)
             {
-                WriteLog($"A Not Supported Exception occurred while fetching Github page {gitname} (Safe Files).\n" + e.Message);
+                WriteLog($"A Not Supported Exception occurred while fetching Github page {gitname} (Safe Files).\n" + e.Message,main);
             }
             catch (Exception e)
             {
-                WriteLog($"An Exception occurred while processing Github page {gitname} (Safe Files).\n" + e.Message);
+                WriteLog($"An Exception occurred while processing Github page {gitname} (Safe Files).\n" + e.Message, main);
             }
 
             string unsafeurl = $"https://api.github.com/repos/{gitname}/contents/Unsafe%20Files";
@@ -221,15 +222,15 @@ namespace ARES.Modules
             }
             catch (WebException e)
             {
-                WriteLog($"An error occurred while fetching Github page {gitname} (Unsafe Files). Internet down? Webpage down?\n" + e.Message);
+                WriteLog($"An error occurred while fetching Github page {gitname} (Unsafe Files). Internet down? Webpage down?\n" + e.Message, main);
             }
             catch (NotSupportedException e)
             {
-                WriteLog($"A Not Supported Exception occurred while fetching Github page {gitname} (Unsafe Files).\n" + e.Message);
+                WriteLog($"A Not Supported Exception occurred while fetching Github page {gitname} (Unsafe Files).\n" + e.Message, main);
             }
             catch (Exception e)
             {
-                WriteLog($"An Exception occurred while processing Github page {gitname} (Unsafe Files).\n" + e.Message);
+                WriteLog($"An Exception occurred while processing Github page {gitname} (Unsafe Files).\n" + e.Message, main);
             }
 
             int downloadCount = safes.Count + unsafes.Count;
@@ -239,7 +240,7 @@ namespace ARES.Modules
             if (Directory.Exists(unsafefolder)) Directory.Delete(unsafefolder, true);
             if (!(downloadCount > 0))
             {
-                WriteLog($"There were no Safe or Unsafe entries to download from the Github page {gitname}.\n");
+                WriteLog($"There were no Safe or Unsafe entries to download from the Github page {gitname}.\n", main);
                 return;
             }
 
@@ -257,7 +258,7 @@ namespace ARES.Modules
                 }
                 catch
                 {
-                    WriteLog($"Failed to download Allowed Hashes from GitHub {gitname}, {dd.Item1}\n");
+                    WriteLog($"Failed to download Allowed Hashes from GitHub {gitname}, {dd.Item1}\n", main);
                 }
                 index++;
             }
@@ -272,7 +273,7 @@ namespace ARES.Modules
                 }
                 catch
                 {
-                    WriteLog($"Failed to download Not Allowed Hashes from GitHub {gitname}, {dd.Item1}\n");
+                    WriteLog($"Failed to download Not Allowed Hashes from GitHub {gitname}, {dd.Item1}\n", main);
                 }
                 index++;
             }

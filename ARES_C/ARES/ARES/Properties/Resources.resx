@@ -121,4 +121,25 @@
   <data name="rippeds" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rippeds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="txtAbout" xml:space="preserve">
+    <value>Developers:
+
+ShrekamusChrist
+LargestBoi
+Cassell1337(Retired)
+RealBoppr(Retired)
+
+Special Thanks:
+Thanks to all of our donators and beta testers!
+FACS01 for FACS Utilities:
+ -https://github.com/FACS01-01/FACS_Utilities
+Jeremy for Asset Ripper:
+ -https://github.com/AssetRipper/AssetRipper
+nesrak1 for AssetsTools.NET:
+ -https://github.com/nesrak1/AssetsTools.NET
+GitHub:
+ -https://github.com/Dean2k/A.R.E.S
+Wanna join the community?
+ -https://discord.gg/dhSdMsfgWe</value>
+  </data>
 </root>

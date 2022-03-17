@@ -69,5 +69,32 @@ namespace ARES.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developers:
+        ///
+        ///ShrekamusChrist
+        ///LargestBoi
+        ///Cassell1337(Retired)
+        ///RealBoppr(Retired)
+        ///
+        ///Special Thanks:
+        ///Thanks to all of our donators and beta testers!
+        ///FACS01 for FACS Utilities:
+        /// -https://github.com/FACS01-01/FACS_Utilities
+        ///Jeremy for Asset Ripper:
+        /// -https://github.com/AssetRipper/AssetRipper
+        ///nesrak1 for AssetsTools.NET:
+        /// -https://github.com/nesrak1/AssetsTools.NET
+        ///GitHub:
+        /// -https://github.com/Dean2k/A.R.E.S
+        ///Wanna join the community?
+        /// -https://discord.gg/dhSdMsfgWe.
+        /// </summary>
+        internal static string txtAbout {
+            get {
+                return ResourceManager.GetString("txtAbout", resourceCulture);
+            }
+        }
     }
 }

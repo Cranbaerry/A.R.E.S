@@ -31,205 +31,171 @@ namespace ARES
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.txtSearchTerm = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.progress = new System.Windows.Forms.ToolStripProgressBar();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblStatsAmount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblStats = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label2 = new System.Windows.Forms.Label();
             this.flowAvatars = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtAvatarInfo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbCopy = new System.Windows.Forms.ComboBox();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.logo = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnScan = new System.Windows.Forms.Button();
-            this.nmThread = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.chkLoadImages = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nmQuestVersion = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.nmPcVersion = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbVersionUnity = new System.Windows.Forms.ComboBox();
-            this.btnBrowserView = new System.Windows.Forms.Button();
-            this.btnExtractVRCA = new System.Windows.Forms.Button();
-            this.btnLoadVRCA = new System.Windows.Forms.Button();
-            this.btnDownload = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btnHsbClean = new System.Windows.Forms.Button();
-            this.cbLimit = new System.Windows.Forms.ComboBox();
-            this.chkQuest = new System.Windows.Forms.CheckBox();
-            this.chkPC = new System.Windows.Forms.CheckBox();
-            this.chkPrivate = new System.Windows.Forms.CheckBox();
-            this.chkPublic = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnApi = new System.Windows.Forms.Button();
-            this.btnVrcaSearch = new System.Windows.Forms.Button();
-            this.btnRepair = new System.Windows.Forms.Button();
-            this.btnUnity = new System.Windows.Forms.Button();
-            this.btnHotswap = new System.Windows.Forms.Button();
-            this.btnStopSearch = new System.Windows.Forms.Button();
-            this.lblAvatarCount = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnSearchLocal = new System.Windows.Forms.Button();
-            this.cbSearchTerm = new System.Windows.Forms.ComboBox();
+            this.btnDownload = new MetroFramework.Controls.MetroButton();
+            this.txtAvatarInfo = new MetroFramework.Controls.MetroTextBox();
+            this.cbCopy = new MetroFramework.Controls.MetroComboBox();
+            this.btnCopy = new MetroFramework.Controls.MetroButton();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.selectedImage = new System.Windows.Forms.PictureBox();
+            this.nmThread = new System.Windows.Forms.NumericUpDown();
+            this.nmQuestVersion = new System.Windows.Forms.NumericUpDown();
+            this.nmPcVersion = new System.Windows.Forms.NumericUpDown();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.mTab = new MetroFramework.Controls.MetroTabControl();
+            this.mTabMain = new MetroFramework.Controls.MetroTabPage();
+            this.btnBrowserView = new MetroFramework.Controls.MetroButton();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
+            this.cbLimit = new MetroFramework.Controls.MetroComboBox();
+            this.txtSearchTerm = new MetroFramework.Controls.MetroTextBox();
+            this.btnHotswap = new MetroFramework.Controls.MetroButton();
+            this.btnUnity = new MetroFramework.Controls.MetroButton();
+            this.btnRipped = new MetroFramework.Controls.MetroButton();
+            this.btnStopSearch = new MetroFramework.Controls.MetroButton();
+            this.btnSearchLocal = new MetroFramework.Controls.MetroButton();
+            this.btnSearch = new MetroFramework.Controls.MetroButton();
+            this.cbSearchTerm = new MetroFramework.Controls.MetroComboBox();
+            this.chkQuest = new MetroFramework.Controls.MetroCheckBox();
+            this.chkPC = new MetroFramework.Controls.MetroCheckBox();
+            this.chkPrivate = new MetroFramework.Controls.MetroCheckBox();
+            this.chkPublic = new MetroFramework.Controls.MetroCheckBox();
+            this.lblAvatarCount = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.mTabSettings = new MetroFramework.Controls.MetroTabPage();
+            this.ConfigBox = new System.Windows.Forms.GroupBox();
+            this.cbUnlimitedFavorites = new MetroFramework.Controls.MetroCheckBox();
+            this.cbHWIDSpoof = new MetroFramework.Controls.MetroCheckBox();
+            this.cbStealth = new MetroFramework.Controls.MetroCheckBox();
+            this.cbConsoleError = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogAvatars = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogWorlds = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogFriendsAvatars = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogPrivateAvatars = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogToConsole = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogPublicAvatars = new MetroFramework.Controls.MetroCheckBox();
+            this.cbLogOwnAvatars = new MetroFramework.Controls.MetroCheckBox();
+            this.btnHsbClean = new MetroFramework.Controls.MetroButton();
+            this.btnApi = new MetroFramework.Controls.MetroButton();
+            this.chkLoadImages = new MetroFramework.Controls.MetroCheckBox();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.txtConsole = new MetroFramework.Controls.MetroTextBox();
+            this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.btnRepair = new MetroFramework.Controls.MetroButton();
+            this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this.cbVersionUnity = new MetroFramework.Controls.MetroComboBox();
+            this.btnVrcaSearch = new MetroFramework.Controls.MetroButton();
+            this.btnScan = new MetroFramework.Controls.MetroButton();
+            this.btnExtractVRCA = new MetroFramework.Controls.MetroButton();
+            this.btnLoadVRCA = new MetroFramework.Controls.MetroButton();
+            this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.lblSize = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
+            this.txtAbout = new MetroFramework.Controls.MetroTextBox();
+            this.selectedImage = new System.Windows.Forms.PictureBox();
             this.pbRipped = new System.Windows.Forms.PictureBox();
-            this.btnRipped = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.statusStrip.SuspendLayout();
+            this.btnUnityLoc = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).BeginInit();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.mTab.SuspendLayout();
+            this.mTabMain.SuspendLayout();
+            this.mTabSettings.SuspendLayout();
+            this.ConfigBox.SuspendLayout();
+            this.metroTabPage3.SuspendLayout();
+            this.metroTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtSearchTerm
-            // 
-            this.txtSearchTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchTerm.Location = new System.Drawing.Point(197, 6);
-            this.txtSearchTerm.Name = "txtSearchTerm";
-            this.txtSearchTerm.Size = new System.Drawing.Size(550, 38);
-            this.txtSearchTerm.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(10, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(190, 31);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Search Term:";
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.progress,
-            this.statusLabel,
-            this.toolStripStatusLabel1,
-            this.lblStatsAmount,
-            this.lblStats});
-            this.statusStrip.Location = new System.Drawing.Point(0, 677);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip.Size = new System.Drawing.Size(1345, 22);
-            this.statusStrip.TabIndex = 1;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // progress
-            // 
-            this.progress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.progress.Name = "progress";
-            this.progress.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.progress.Size = new System.Drawing.Size(100, 16);
-            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(64, 17);
-            this.statusLabel.Text = "Status: Idle";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel1.Text = "|";
-            // 
-            // lblStatsAmount
-            // 
-            this.lblStatsAmount.BackColor = System.Drawing.Color.Transparent;
-            this.lblStatsAmount.Name = "lblStatsAmount";
-            this.lblStatsAmount.Size = new System.Drawing.Size(13, 17);
-            this.lblStatsAmount.Text = "0";
-            // 
-            // lblStats
-            // 
-            this.lblStats.BackColor = System.Drawing.Color.Transparent;
-            this.lblStats.Name = "lblStats";
-            this.lblStats.Size = new System.Drawing.Size(81, 17);
-            this.lblStats.Text = ":Database Size";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(188, 31);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Search Type:";
-            // 
             // flowAvatars
             // 
             this.flowAvatars.AutoScroll = true;
-            this.flowAvatars.Location = new System.Drawing.Point(13, 186);
+            this.flowAvatars.BackColor = System.Drawing.Color.Transparent;
+            this.flowAvatars.Location = new System.Drawing.Point(9, 172);
             this.flowAvatars.Name = "flowAvatars";
             this.flowAvatars.Padding = new System.Windows.Forms.Padding(10);
-            this.flowAvatars.Size = new System.Drawing.Size(850, 468);
+            this.flowAvatars.Size = new System.Drawing.Size(843, 468);
             this.flowAvatars.TabIndex = 7;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(518, 50);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(113, 41);
-            this.btnSearch.TabIndex = 8;
-            this.btnSearch.Text = "Search Api";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // txtAvatarInfo
-            // 
-            this.txtAvatarInfo.Location = new System.Drawing.Point(6, 19);
-            this.txtAvatarInfo.Multiline = true;
-            this.txtAvatarInfo.Name = "txtAvatarInfo";
-            this.txtAvatarInfo.ReadOnly = true;
-            this.txtAvatarInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 409);
-            this.txtAvatarInfo.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnDownload);
+            this.groupBox1.Controls.Add(this.txtAvatarInfo);
             this.groupBox1.Controls.Add(this.cbCopy);
             this.groupBox1.Controls.Add(this.btnCopy);
-            this.groupBox1.Controls.Add(this.txtAvatarInfo);
+            this.groupBox1.Controls.Add(this.panel4);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(869, 190);
+            this.groupBox1.Location = new System.Drawing.Point(908, 96);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 468);
+            this.groupBox1.Size = new System.Drawing.Size(270, 720);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Avatar/World Info";
             // 
+            // btnDownload
+            // 
+            this.btnDownload.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnDownload.Location = new System.Drawing.Point(6, 671);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(258, 35);
+            this.btnDownload.TabIndex = 51;
+            this.btnDownload.Text = "Download VRCA / VRCW";
+            this.btnDownload.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnDownload.UseSelectable = true;
+            this.btnDownload.UseStyleColors = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // txtAvatarInfo
+            // 
+            // 
+            // 
+            // 
+            this.txtAvatarInfo.CustomButton.Image = null;
+            this.txtAvatarInfo.CustomButton.Location = new System.Drawing.Point(-168, 1);
+            this.txtAvatarInfo.CustomButton.Name = "";
+            this.txtAvatarInfo.CustomButton.Size = new System.Drawing.Size(425, 425);
+            this.txtAvatarInfo.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAvatarInfo.CustomButton.TabIndex = 1;
+            this.txtAvatarInfo.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtAvatarInfo.CustomButton.UseSelectable = true;
+            this.txtAvatarInfo.CustomButton.Visible = false;
+            this.txtAvatarInfo.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtAvatarInfo.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtAvatarInfo.Lines = new string[0];
+            this.txtAvatarInfo.Location = new System.Drawing.Point(6, 193);
+            this.txtAvatarInfo.MaxLength = 99999999;
+            this.txtAvatarInfo.Multiline = true;
+            this.txtAvatarInfo.Name = "txtAvatarInfo";
+            this.txtAvatarInfo.PasswordChar = '\0';
+            this.txtAvatarInfo.ReadOnly = true;
+            this.txtAvatarInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtAvatarInfo.SelectedText = "";
+            this.txtAvatarInfo.SelectionLength = 0;
+            this.txtAvatarInfo.SelectionStart = 0;
+            this.txtAvatarInfo.ShortcutsEnabled = true;
+            this.txtAvatarInfo.Size = new System.Drawing.Size(258, 427);
+            this.txtAvatarInfo.TabIndex = 49;
+            this.txtAvatarInfo.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtAvatarInfo.UseSelectable = true;
+            this.txtAvatarInfo.UseStyleColors = true;
+            this.txtAvatarInfo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtAvatarInfo.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
             // cbCopy
             // 
-            this.cbCopy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCopy.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.cbCopy.FontWeight = MetroFramework.MetroComboBoxWeight.Bold;
             this.cbCopy.FormattingEnabled = true;
+            this.cbCopy.ItemHeight = 29;
             this.cbCopy.Items.AddRange(new object[] {
             "Time Dectected",
             "Avatar ID",
@@ -246,80 +212,39 @@ namespace ARES
             "Tags",
             "World ID",
             "World Name"});
-            this.cbCopy.Location = new System.Drawing.Point(6, 434);
+            this.cbCopy.Location = new System.Drawing.Point(6, 630);
             this.cbCopy.Name = "cbCopy";
-            this.cbCopy.Size = new System.Drawing.Size(167, 28);
-            this.cbCopy.TabIndex = 19;
+            this.cbCopy.Size = new System.Drawing.Size(167, 35);
+            this.cbCopy.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbCopy.TabIndex = 48;
+            this.cbCopy.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbCopy.UseSelectable = true;
             // 
             // btnCopy
             // 
-            this.btnCopy.ForeColor = System.Drawing.Color.Black;
-            this.btnCopy.Location = new System.Drawing.Point(179, 434);
+            this.btnCopy.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnCopy.Location = new System.Drawing.Point(179, 630);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(85, 28);
-            this.btnCopy.TabIndex = 20;
+            this.btnCopy.Size = new System.Drawing.Size(85, 35);
+            this.btnCopy.TabIndex = 48;
             this.btnCopy.Text = "Copy Info";
-            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnCopy.UseSelectable = true;
+            this.btnCopy.UseStyleColors = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
-            // panel1
+            // panel4
             // 
-            this.panel1.Controls.Add(this.logo);
-            this.panel1.Location = new System.Drawing.Point(12, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(173, 170);
-            this.panel1.TabIndex = 10;
-            // 
-            // logo
-            // 
-            this.logo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logo.ImageLocation = "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png";
-            this.logo.Location = new System.Drawing.Point(0, 0);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(173, 170);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logo.TabIndex = 0;
-            this.logo.TabStop = false;
-            this.logo.Click += new System.EventHandler(this.logo_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.panel2.Controls.Add(this.btnScan);
-            this.panel2.Controls.Add(this.nmThread);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.chkLoadImages);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.nmQuestVersion);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.nmPcVersion);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.cbVersionUnity);
-            this.panel2.Controls.Add(this.btnBrowserView);
-            this.panel2.Controls.Add(this.btnExtractVRCA);
-            this.panel2.Controls.Add(this.btnLoadVRCA);
-            this.panel2.Controls.Add(this.btnDownload);
-            this.panel2.Location = new System.Drawing.Point(12, 184);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(173, 481);
-            this.panel2.TabIndex = 11;
-            // 
-            // btnScan
-            // 
-            this.btnScan.Location = new System.Drawing.Point(3, 206);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(167, 43);
-            this.btnScan.TabIndex = 19;
-            this.btnScan.Text = "Scan Unity Package";
-            this.toolTip1.SetToolTip(this.btnScan, "Scan and remove bad files from unity packages");
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            this.panel4.Controls.Add(this.selectedImage);
+            this.panel4.Location = new System.Drawing.Point(6, 19);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(258, 166);
+            this.panel4.TabIndex = 10;
             // 
             // nmThread
             // 
             this.nmThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmThread.Location = new System.Drawing.Point(2, 426);
+            this.nmThread.Location = new System.Drawing.Point(14, 45);
             this.nmThread.Minimum = new decimal(new int[] {
             1,
             0,
@@ -335,47 +260,10 @@ namespace ARES
             0,
             0});
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(4, 403);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(166, 20);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Max Image Threads";
-            // 
-            // chkLoadImages
-            // 
-            this.chkLoadImages.AutoSize = true;
-            this.chkLoadImages.Checked = true;
-            this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLoadImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLoadImages.ForeColor = System.Drawing.Color.White;
-            this.chkLoadImages.Location = new System.Drawing.Point(7, 454);
-            this.chkLoadImages.Name = "chkLoadImages";
-            this.chkLoadImages.Size = new System.Drawing.Size(148, 28);
-            this.chkLoadImages.TabIndex = 0;
-            this.chkLoadImages.Text = "Load Images";
-            this.toolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
-            this.chkLoadImages.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(5, 300);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(158, 16);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Quest Avatar Version:";
-            // 
             // nmQuestVersion
             // 
             this.nmQuestVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmQuestVersion.Location = new System.Drawing.Point(3, 319);
+            this.nmQuestVersion.Location = new System.Drawing.Point(193, 672);
             this.nmQuestVersion.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -385,21 +273,10 @@ namespace ARES
             this.nmQuestVersion.Size = new System.Drawing.Size(167, 26);
             this.nmQuestVersion.TabIndex = 18;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(5, 252);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(138, 16);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "PC Avatar Version:";
-            // 
             // nmPcVersion
             // 
             this.nmPcVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nmPcVersion.Location = new System.Drawing.Point(3, 271);
+            this.nmPcVersion.Location = new System.Drawing.Point(12, 672);
             this.nmPcVersion.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -409,121 +286,108 @@ namespace ARES
             this.nmPcVersion.Size = new System.Drawing.Size(167, 26);
             this.nmPcVersion.TabIndex = 0;
             // 
-            // label4
+            // mTab
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(2, 345);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 25);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Unity Version:";
+            this.mTab.Controls.Add(this.mTabMain);
+            this.mTab.Controls.Add(this.mTabSettings);
+            this.mTab.Controls.Add(this.metroTabPage3);
+            this.mTab.Controls.Add(this.metroTabPage2);
+            this.mTab.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
+            this.mTab.ItemSize = new System.Drawing.Size(54, 35);
+            this.mTab.Location = new System.Drawing.Point(10, 65);
+            this.mTab.Name = "mTab";
+            this.mTab.SelectedIndex = 0;
+            this.mTab.Size = new System.Drawing.Size(896, 755);
+            this.mTab.TabIndex = 14;
+            this.mTab.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.mTab.UseSelectable = true;
+            this.mTab.UseStyleColors = true;
+            this.mTab.SelectedIndexChanged += new System.EventHandler(this.mTab_SelectedIndexChanged);
             // 
-            // cbVersionUnity
+            // mTabMain
             // 
-            this.cbVersionUnity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVersionUnity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbVersionUnity.FormattingEnabled = true;
-            this.cbVersionUnity.Items.AddRange(new object[] {
-            "2019",
-            "2018"});
-            this.cbVersionUnity.Location = new System.Drawing.Point(2, 373);
-            this.cbVersionUnity.Name = "cbVersionUnity";
-            this.cbVersionUnity.Size = new System.Drawing.Size(167, 28);
-            this.cbVersionUnity.TabIndex = 0;
+            this.mTabMain.Controls.Add(this.btnBrowserView);
+            this.mTabMain.Controls.Add(this.metroLabel7);
+            this.mTabMain.Controls.Add(this.metroLabel6);
+            this.mTabMain.Controls.Add(this.cbLimit);
+            this.mTabMain.Controls.Add(this.txtSearchTerm);
+            this.mTabMain.Controls.Add(this.nmQuestVersion);
+            this.mTabMain.Controls.Add(this.btnHotswap);
+            this.mTabMain.Controls.Add(this.btnUnity);
+            this.mTabMain.Controls.Add(this.btnRipped);
+            this.mTabMain.Controls.Add(this.btnStopSearch);
+            this.mTabMain.Controls.Add(this.nmPcVersion);
+            this.mTabMain.Controls.Add(this.btnSearchLocal);
+            this.mTabMain.Controls.Add(this.btnSearch);
+            this.mTabMain.Controls.Add(this.cbSearchTerm);
+            this.mTabMain.Controls.Add(this.chkQuest);
+            this.mTabMain.Controls.Add(this.chkPC);
+            this.mTabMain.Controls.Add(this.chkPrivate);
+            this.mTabMain.Controls.Add(this.chkPublic);
+            this.mTabMain.Controls.Add(this.lblAvatarCount);
+            this.mTabMain.Controls.Add(this.metroLabel4);
+            this.mTabMain.Controls.Add(this.flowAvatars);
+            this.mTabMain.Controls.Add(this.metroLabel3);
+            this.mTabMain.Controls.Add(this.metroLabel2);
+            this.mTabMain.Controls.Add(this.metroLabel1);
+            this.mTabMain.HorizontalScrollbarBarColor = true;
+            this.mTabMain.HorizontalScrollbarHighlightOnWheel = false;
+            this.mTabMain.HorizontalScrollbarSize = 10;
+            this.mTabMain.Location = new System.Drawing.Point(4, 39);
+            this.mTabMain.Name = "mTabMain";
+            this.mTabMain.Size = new System.Drawing.Size(888, 712);
+            this.mTabMain.TabIndex = 0;
+            this.mTabMain.Text = "Main";
+            this.mTabMain.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.mTabMain.VerticalScrollbarBarColor = true;
+            this.mTabMain.VerticalScrollbarHighlightOnWheel = false;
+            this.mTabMain.VerticalScrollbarSize = 10;
             // 
             // btnBrowserView
             // 
-            this.btnBrowserView.Location = new System.Drawing.Point(3, 10);
+            this.btnBrowserView.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnBrowserView.Location = new System.Drawing.Point(732, 663);
             this.btnBrowserView.Name = "btnBrowserView";
-            this.btnBrowserView.Size = new System.Drawing.Size(167, 43);
-            this.btnBrowserView.TabIndex = 16;
+            this.btnBrowserView.Size = new System.Drawing.Size(120, 35);
+            this.btnBrowserView.TabIndex = 50;
             this.btnBrowserView.Text = "Browser View";
-            this.btnBrowserView.UseVisualStyleBackColor = true;
+            this.btnBrowserView.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnBrowserView.UseSelectable = true;
+            this.btnBrowserView.UseStyleColors = true;
             this.btnBrowserView.Click += new System.EventHandler(this.btnBrowserView_Click);
             // 
-            // btnExtractVRCA
+            // metroLabel7
             // 
-            this.btnExtractVRCA.Location = new System.Drawing.Point(3, 157);
-            this.btnExtractVRCA.Name = "btnExtractVRCA";
-            this.btnExtractVRCA.Size = new System.Drawing.Size(167, 43);
-            this.btnExtractVRCA.TabIndex = 15;
-            this.btnExtractVRCA.Text = "Extract VRCA/VRCW";
-            this.btnExtractVRCA.UseVisualStyleBackColor = true;
-            this.btnExtractVRCA.Click += new System.EventHandler(this.btnExtractVRCA_Click);
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel7.Location = new System.Drawing.Point(193, 644);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(130, 25);
+            this.metroLabel7.TabIndex = 49;
+            this.metroLabel7.Text = "Quest Version";
+            this.metroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel7.UseStyleColors = true;
             // 
-            // btnLoadVRCA
+            // metroLabel6
             // 
-            this.btnLoadVRCA.Location = new System.Drawing.Point(3, 108);
-            this.btnLoadVRCA.Name = "btnLoadVRCA";
-            this.btnLoadVRCA.Size = new System.Drawing.Size(167, 43);
-            this.btnLoadVRCA.TabIndex = 14;
-            this.btnLoadVRCA.Text = "Load VRCA/VRCW";
-            this.btnLoadVRCA.UseVisualStyleBackColor = true;
-            this.btnLoadVRCA.Click += new System.EventHandler(this.btnLoadVRCA_Click);
-            // 
-            // btnDownload
-            // 
-            this.btnDownload.Location = new System.Drawing.Point(3, 59);
-            this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(167, 43);
-            this.btnDownload.TabIndex = 13;
-            this.btnDownload.Text = "Download VRCA / VRCW";
-            this.btnDownload.UseVisualStyleBackColor = true;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(47)))));
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.btnRipped);
-            this.panel3.Controls.Add(this.btnHsbClean);
-            this.panel3.Controls.Add(this.cbLimit);
-            this.panel3.Controls.Add(this.chkQuest);
-            this.panel3.Controls.Add(this.chkPC);
-            this.panel3.Controls.Add(this.chkPrivate);
-            this.panel3.Controls.Add(this.chkPublic);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.btnApi);
-            this.panel3.Controls.Add(this.btnVrcaSearch);
-            this.panel3.Controls.Add(this.btnRepair);
-            this.panel3.Controls.Add(this.btnUnity);
-            this.panel3.Controls.Add(this.btnHotswap);
-            this.panel3.Controls.Add(this.btnStopSearch);
-            this.panel3.Controls.Add(this.lblAvatarCount);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.btnSearchLocal);
-            this.panel3.Controls.Add(this.cbSearchTerm);
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Controls.Add(this.txtSearchTerm);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.groupBox1);
-            this.panel3.Controls.Add(this.btnSearch);
-            this.panel3.Controls.Add(this.flowAvatars);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(191, 8);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1142, 657);
-            this.panel3.TabIndex = 12;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // btnHsbClean
-            // 
-            this.btnHsbClean.Location = new System.Drawing.Point(399, 139);
-            this.btnHsbClean.Name = "btnHsbClean";
-            this.btnHsbClean.Size = new System.Drawing.Size(113, 41);
-            this.btnHsbClean.TabIndex = 28;
-            this.btnHsbClean.Text = "Clean HSB";
-            this.toolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
-            this.btnHsbClean.UseVisualStyleBackColor = true;
-            this.btnHsbClean.Click += new System.EventHandler(this.btnHsbClean_Click);
+            this.metroLabel6.AutoSize = true;
+            this.metroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel6.Location = new System.Drawing.Point(10, 644);
+            this.metroLabel6.Name = "metroLabel6";
+            this.metroLabel6.Size = new System.Drawing.Size(102, 25);
+            this.metroLabel6.TabIndex = 48;
+            this.metroLabel6.Text = "PC Version";
+            this.metroLabel6.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel6.UseStyleColors = true;
             // 
             // cbLimit
             // 
-            this.cbLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLimit.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.cbLimit.FontWeight = MetroFramework.MetroComboBoxWeight.Bold;
             this.cbLimit.FormattingEnabled = true;
+            this.cbLimit.ItemHeight = 29;
             this.cbLimit.Items.AddRange(new object[] {
             "Max",
             "1000",
@@ -533,175 +397,133 @@ namespace ARES
             "50",
             "10",
             "1"});
-            this.cbLimit.Location = new System.Drawing.Point(753, 6);
+            this.cbLimit.Location = new System.Drawing.Point(729, 15);
             this.cbLimit.Name = "cbLimit";
-            this.cbLimit.Size = new System.Drawing.Size(110, 39);
-            this.cbLimit.TabIndex = 27;
-            this.toolTip1.SetToolTip(this.cbLimit, "Limit amount of results pulled back (5000 is max for API local is unlimited)");
+            this.cbLimit.Size = new System.Drawing.Size(121, 35);
+            this.cbLimit.TabIndex = 47;
+            this.cbLimit.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLimit.UseSelectable = true;
+            this.cbLimit.UseStyleColors = true;
             // 
-            // chkQuest
+            // txtSearchTerm
             // 
-            this.chkQuest.AutoSize = true;
-            this.chkQuest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkQuest.ForeColor = System.Drawing.Color.White;
-            this.chkQuest.Location = new System.Drawing.Point(197, 115);
-            this.chkQuest.Name = "chkQuest";
-            this.chkQuest.Size = new System.Drawing.Size(67, 20);
-            this.chkQuest.TabIndex = 26;
-            this.chkQuest.Text = "Quest";
-            this.chkQuest.UseVisualStyleBackColor = true;
             // 
-            // chkPC
             // 
-            this.chkPC.AutoSize = true;
-            this.chkPC.Checked = true;
-            this.chkPC.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPC.ForeColor = System.Drawing.Color.White;
-            this.chkPC.Location = new System.Drawing.Point(197, 94);
-            this.chkPC.Name = "chkPC";
-            this.chkPC.Size = new System.Drawing.Size(47, 20);
-            this.chkPC.TabIndex = 25;
-            this.chkPC.Text = "PC";
-            this.chkPC.UseVisualStyleBackColor = true;
             // 
-            // chkPrivate
-            // 
-            this.chkPrivate.AutoSize = true;
-            this.chkPrivate.Checked = true;
-            this.chkPrivate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPrivate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPrivate.ForeColor = System.Drawing.Color.White;
-            this.chkPrivate.Location = new System.Drawing.Point(106, 115);
-            this.chkPrivate.Name = "chkPrivate";
-            this.chkPrivate.Size = new System.Drawing.Size(76, 20);
-            this.chkPrivate.TabIndex = 24;
-            this.chkPrivate.Text = "Private";
-            this.chkPrivate.UseVisualStyleBackColor = true;
-            // 
-            // chkPublic
-            // 
-            this.chkPublic.AutoSize = true;
-            this.chkPublic.Checked = true;
-            this.chkPublic.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPublic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPublic.ForeColor = System.Drawing.Color.White;
-            this.chkPublic.Location = new System.Drawing.Point(106, 94);
-            this.chkPublic.Name = "chkPublic";
-            this.chkPublic.Size = new System.Drawing.Size(70, 20);
-            this.chkPublic.TabIndex = 23;
-            this.chkPublic.Text = "Public";
-            this.chkPublic.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(10, 99);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 31);
-            this.label7.TabIndex = 22;
-            this.label7.Text = "Filter:";
-            // 
-            // btnApi
-            // 
-            this.btnApi.Location = new System.Drawing.Point(518, 139);
-            this.btnApi.Name = "btnApi";
-            this.btnApi.Size = new System.Drawing.Size(113, 41);
-            this.btnApi.TabIndex = 20;
-            this.btnApi.Text = "Disable API";
-            this.btnApi.UseVisualStyleBackColor = true;
-            this.btnApi.Click += new System.EventHandler(this.btnApi_Click);
-            // 
-            // btnVrcaSearch
-            // 
-            this.btnVrcaSearch.Location = new System.Drawing.Point(637, 139);
-            this.btnVrcaSearch.Name = "btnVrcaSearch";
-            this.btnVrcaSearch.Size = new System.Drawing.Size(110, 41);
-            this.btnVrcaSearch.TabIndex = 19;
-            this.btnVrcaSearch.Text = "Attempt VRCA Search";
-            this.btnVrcaSearch.UseVisualStyleBackColor = true;
-            this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
-            // 
-            // btnRepair
-            // 
-            this.btnRepair.Location = new System.Drawing.Point(753, 139);
-            this.btnRepair.Name = "btnRepair";
-            this.btnRepair.Size = new System.Drawing.Size(110, 41);
-            this.btnRepair.TabIndex = 18;
-            this.btnRepair.Text = "Repair VRCA";
-            this.btnRepair.UseVisualStyleBackColor = true;
-            this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
-            // 
-            // btnUnity
-            // 
-            this.btnUnity.Location = new System.Drawing.Point(637, 94);
-            this.btnUnity.Name = "btnUnity";
-            this.btnUnity.Size = new System.Drawing.Size(110, 41);
-            this.btnUnity.TabIndex = 17;
-            this.btnUnity.Text = "Open Unity";
-            this.btnUnity.UseVisualStyleBackColor = true;
-            this.btnUnity.Click += new System.EventHandler(this.btnUnity_Click);
+            this.txtSearchTerm.CustomButton.Image = null;
+            this.txtSearchTerm.CustomButton.Location = new System.Drawing.Point(533, 1);
+            this.txtSearchTerm.CustomButton.Name = "";
+            this.txtSearchTerm.CustomButton.Size = new System.Drawing.Size(33, 33);
+            this.txtSearchTerm.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtSearchTerm.CustomButton.TabIndex = 1;
+            this.txtSearchTerm.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSearchTerm.CustomButton.UseSelectable = true;
+            this.txtSearchTerm.CustomButton.Visible = false;
+            this.txtSearchTerm.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.txtSearchTerm.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtSearchTerm.Lines = new string[0];
+            this.txtSearchTerm.Location = new System.Drawing.Point(158, 15);
+            this.txtSearchTerm.MaxLength = 32767;
+            this.txtSearchTerm.Name = "txtSearchTerm";
+            this.txtSearchTerm.PasswordChar = '\0';
+            this.txtSearchTerm.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSearchTerm.SelectedText = "";
+            this.txtSearchTerm.SelectionLength = 0;
+            this.txtSearchTerm.SelectionStart = 0;
+            this.txtSearchTerm.ShortcutsEnabled = true;
+            this.txtSearchTerm.Size = new System.Drawing.Size(567, 35);
+            this.txtSearchTerm.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtSearchTerm.TabIndex = 46;
+            this.txtSearchTerm.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtSearchTerm.UseSelectable = true;
+            this.txtSearchTerm.UseStyleColors = true;
+            this.txtSearchTerm.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtSearchTerm.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // btnHotswap
             // 
-            this.btnHotswap.Enabled = false;
-            this.btnHotswap.Location = new System.Drawing.Point(753, 94);
+            this.btnHotswap.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnHotswap.Location = new System.Drawing.Point(730, 103);
             this.btnHotswap.Name = "btnHotswap";
-            this.btnHotswap.Size = new System.Drawing.Size(110, 41);
-            this.btnHotswap.TabIndex = 16;
-            this.btnHotswap.Text = "Hotswap";
-            this.btnHotswap.UseVisualStyleBackColor = true;
+            this.btnHotswap.Size = new System.Drawing.Size(120, 35);
+            this.btnHotswap.TabIndex = 45;
+            this.btnHotswap.Text = "HotSwap";
+            this.btnHotswap.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnHotswap.UseSelectable = true;
+            this.btnHotswap.UseStyleColors = true;
             this.btnHotswap.Click += new System.EventHandler(this.btnHotswap_Click);
+            // 
+            // btnUnity
+            // 
+            this.btnUnity.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnUnity.Location = new System.Drawing.Point(605, 103);
+            this.btnUnity.Name = "btnUnity";
+            this.btnUnity.Size = new System.Drawing.Size(120, 35);
+            this.btnUnity.TabIndex = 44;
+            this.btnUnity.Text = "Open Unity";
+            this.btnUnity.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnUnity.UseSelectable = true;
+            this.btnUnity.UseStyleColors = true;
+            this.btnUnity.Click += new System.EventHandler(this.btnUnity_Click);
+            // 
+            // btnRipped
+            // 
+            this.btnRipped.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnRipped.Location = new System.Drawing.Point(479, 103);
+            this.btnRipped.Name = "btnRipped";
+            this.btnRipped.Size = new System.Drawing.Size(120, 35);
+            this.btnRipped.TabIndex = 43;
+            this.btnRipped.Text = "Search Ripped";
+            this.btnRipped.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnRipped.UseSelectable = true;
+            this.btnRipped.UseStyleColors = true;
+            this.btnRipped.Click += new System.EventHandler(this.btnRipped_Click);
             // 
             // btnStopSearch
             // 
-            this.btnStopSearch.Location = new System.Drawing.Point(753, 50);
+            this.btnStopSearch.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnStopSearch.Location = new System.Drawing.Point(730, 59);
             this.btnStopSearch.Name = "btnStopSearch";
-            this.btnStopSearch.Size = new System.Drawing.Size(110, 41);
-            this.btnStopSearch.TabIndex = 15;
+            this.btnStopSearch.Size = new System.Drawing.Size(120, 35);
+            this.btnStopSearch.TabIndex = 42;
             this.btnStopSearch.Text = "Stop Search";
-            this.btnStopSearch.UseVisualStyleBackColor = true;
+            this.btnStopSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnStopSearch.UseSelectable = true;
+            this.btnStopSearch.UseStyleColors = true;
             this.btnStopSearch.Click += new System.EventHandler(this.btnStopSearch_Click);
-            // 
-            // lblAvatarCount
-            // 
-            this.lblAvatarCount.AutoSize = true;
-            this.lblAvatarCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAvatarCount.ForeColor = System.Drawing.Color.White;
-            this.lblAvatarCount.Location = new System.Drawing.Point(108, 152);
-            this.lblAvatarCount.Name = "lblAvatarCount";
-            this.lblAvatarCount.Size = new System.Drawing.Size(30, 31);
-            this.lblAvatarCount.TabIndex = 14;
-            this.lblAvatarCount.Text = "0";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(12, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 31);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Count:";
             // 
             // btnSearchLocal
             // 
-            this.btnSearchLocal.Location = new System.Drawing.Point(637, 50);
+            this.btnSearchLocal.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnSearchLocal.Location = new System.Drawing.Point(605, 59);
             this.btnSearchLocal.Name = "btnSearchLocal";
-            this.btnSearchLocal.Size = new System.Drawing.Size(110, 41);
-            this.btnSearchLocal.TabIndex = 12;
+            this.btnSearchLocal.Size = new System.Drawing.Size(120, 35);
+            this.btnSearchLocal.TabIndex = 41;
             this.btnSearchLocal.Text = "Search Local";
-            this.btnSearchLocal.UseVisualStyleBackColor = true;
+            this.btnSearchLocal.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnSearchLocal.UseSelectable = true;
+            this.btnSearchLocal.UseStyleColors = true;
             this.btnSearchLocal.Click += new System.EventHandler(this.btnSearchLocal_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnSearch.Location = new System.Drawing.Point(479, 59);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(120, 35);
+            this.btnSearch.TabIndex = 0;
+            this.btnSearch.Text = "Search API";
+            this.btnSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnSearch.UseSelectable = true;
+            this.btnSearch.UseStyleColors = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // cbSearchTerm
             // 
-            this.cbSearchTerm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSearchTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSearchTerm.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.cbSearchTerm.FontWeight = MetroFramework.MetroComboBoxWeight.Bold;
             this.cbSearchTerm.FormattingEnabled = true;
+            this.cbSearchTerm.ItemHeight = 29;
             this.cbSearchTerm.Items.AddRange(new object[] {
             "Avatar Name",
             "Author Name",
@@ -709,25 +531,689 @@ namespace ARES
             "Author ID",
             "World Name",
             "World ID"});
-            this.cbSearchTerm.Location = new System.Drawing.Point(197, 50);
+            this.cbSearchTerm.Location = new System.Drawing.Point(158, 59);
             this.cbSearchTerm.Name = "cbSearchTerm";
-            this.cbSearchTerm.Size = new System.Drawing.Size(315, 39);
-            this.cbSearchTerm.TabIndex = 11;
+            this.cbSearchTerm.Size = new System.Drawing.Size(315, 35);
+            this.cbSearchTerm.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cbSearchTerm.TabIndex = 40;
+            this.cbSearchTerm.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbSearchTerm.UseSelectable = true;
             // 
-            // panel4
+            // chkQuest
             // 
-            this.panel4.Controls.Add(this.selectedImage);
-            this.panel4.Location = new System.Drawing.Point(869, 6);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(270, 171);
-            this.panel4.TabIndex = 10;
+            this.chkQuest.AutoSize = true;
+            this.chkQuest.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkQuest.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkQuest.Location = new System.Drawing.Point(358, 109);
+            this.chkQuest.Name = "chkQuest";
+            this.chkQuest.Size = new System.Drawing.Size(63, 19);
+            this.chkQuest.TabIndex = 39;
+            this.chkQuest.Text = "Quest";
+            this.chkQuest.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.chkQuest.UseSelectable = true;
+            this.chkQuest.UseStyleColors = true;
+            // 
+            // chkPC
+            // 
+            this.chkPC.AutoSize = true;
+            this.chkPC.Checked = true;
+            this.chkPC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPC.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkPC.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkPC.Location = new System.Drawing.Point(309, 109);
+            this.chkPC.Name = "chkPC";
+            this.chkPC.Size = new System.Drawing.Size(43, 19);
+            this.chkPC.TabIndex = 38;
+            this.chkPC.Text = "PC";
+            this.chkPC.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.chkPC.UseSelectable = true;
+            this.chkPC.UseStyleColors = true;
+            // 
+            // chkPrivate
+            // 
+            this.chkPrivate.AutoSize = true;
+            this.chkPrivate.Checked = true;
+            this.chkPrivate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPrivate.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkPrivate.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkPrivate.Location = new System.Drawing.Point(230, 109);
+            this.chkPrivate.Name = "chkPrivate";
+            this.chkPrivate.Size = new System.Drawing.Size(73, 19);
+            this.chkPrivate.TabIndex = 37;
+            this.chkPrivate.Text = "Private";
+            this.chkPrivate.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.chkPrivate.UseSelectable = true;
+            this.chkPrivate.UseStyleColors = true;
+            // 
+            // chkPublic
+            // 
+            this.chkPublic.AutoSize = true;
+            this.chkPublic.Checked = true;
+            this.chkPublic.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPublic.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkPublic.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkPublic.Location = new System.Drawing.Point(158, 109);
+            this.chkPublic.Name = "chkPublic";
+            this.chkPublic.Size = new System.Drawing.Size(66, 19);
+            this.chkPublic.TabIndex = 36;
+            this.chkPublic.Text = "Public";
+            this.chkPublic.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.chkPublic.UseSelectable = true;
+            this.chkPublic.UseStyleColors = true;
+            // 
+            // lblAvatarCount
+            // 
+            this.lblAvatarCount.AutoSize = true;
+            this.lblAvatarCount.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblAvatarCount.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.lblAvatarCount.Location = new System.Drawing.Point(75, 140);
+            this.lblAvatarCount.Name = "lblAvatarCount";
+            this.lblAvatarCount.Size = new System.Drawing.Size(22, 25);
+            this.lblAvatarCount.TabIndex = 35;
+            this.lblAvatarCount.Text = "0";
+            this.lblAvatarCount.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.lblAvatarCount.UseStyleColors = true;
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel4.Location = new System.Drawing.Point(9, 139);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(68, 25);
+            this.metroLabel4.TabIndex = 34;
+            this.metroLabel4.Text = "Count:";
+            this.metroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel4.UseStyleColors = true;
+            // 
+            // metroLabel3
+            // 
+            this.metroLabel3.AutoSize = true;
+            this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel3.Location = new System.Drawing.Point(9, 103);
+            this.metroLabel3.Name = "metroLabel3";
+            this.metroLabel3.Size = new System.Drawing.Size(61, 25);
+            this.metroLabel3.TabIndex = 33;
+            this.metroLabel3.Text = "Filter:";
+            this.metroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel3.UseStyleColors = true;
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel2.Location = new System.Drawing.Point(9, 59);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(120, 25);
+            this.metroLabel2.TabIndex = 32;
+            this.metroLabel2.Text = "Search Type:";
+            this.metroLabel2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel2.UseStyleColors = true;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel1.Location = new System.Drawing.Point(9, 15);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(121, 25);
+            this.metroLabel1.TabIndex = 31;
+            this.metroLabel1.Text = "Search Term:";
+            this.metroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel1.UseStyleColors = true;
+            // 
+            // mTabSettings
+            // 
+            this.mTabSettings.Controls.Add(this.btnUnityLoc);
+            this.mTabSettings.Controls.Add(this.ConfigBox);
+            this.mTabSettings.Controls.Add(this.btnHsbClean);
+            this.mTabSettings.Controls.Add(this.btnApi);
+            this.mTabSettings.Controls.Add(this.chkLoadImages);
+            this.mTabSettings.Controls.Add(this.metroLabel8);
+            this.mTabSettings.Controls.Add(this.nmThread);
+            this.mTabSettings.Controls.Add(this.metroLabel5);
+            this.mTabSettings.Controls.Add(this.txtConsole);
+            this.mTabSettings.HorizontalScrollbarBarColor = true;
+            this.mTabSettings.HorizontalScrollbarHighlightOnWheel = false;
+            this.mTabSettings.HorizontalScrollbarSize = 10;
+            this.mTabSettings.Location = new System.Drawing.Point(4, 39);
+            this.mTabSettings.Name = "mTabSettings";
+            this.mTabSettings.Size = new System.Drawing.Size(888, 712);
+            this.mTabSettings.TabIndex = 1;
+            this.mTabSettings.Text = "Settings  ";
+            this.mTabSettings.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.mTabSettings.VerticalScrollbarBarColor = true;
+            this.mTabSettings.VerticalScrollbarHighlightOnWheel = false;
+            this.mTabSettings.VerticalScrollbarSize = 10;
+            this.mTabSettings.Click += new System.EventHandler(this.mTabSettings_Click);
+            // 
+            // ConfigBox
+            // 
+            this.ConfigBox.BackColor = System.Drawing.Color.Transparent;
+            this.ConfigBox.Controls.Add(this.cbUnlimitedFavorites);
+            this.ConfigBox.Controls.Add(this.cbHWIDSpoof);
+            this.ConfigBox.Controls.Add(this.cbStealth);
+            this.ConfigBox.Controls.Add(this.cbConsoleError);
+            this.ConfigBox.Controls.Add(this.cbLogAvatars);
+            this.ConfigBox.Controls.Add(this.cbLogWorlds);
+            this.ConfigBox.Controls.Add(this.cbLogFriendsAvatars);
+            this.ConfigBox.Controls.Add(this.cbLogPrivateAvatars);
+            this.ConfigBox.Controls.Add(this.cbLogToConsole);
+            this.ConfigBox.Controls.Add(this.cbLogPublicAvatars);
+            this.ConfigBox.Controls.Add(this.cbLogOwnAvatars);
+            this.ConfigBox.ForeColor = System.Drawing.Color.White;
+            this.ConfigBox.Location = new System.Drawing.Point(289, 583);
+            this.ConfigBox.Name = "ConfigBox";
+            this.ConfigBox.Size = new System.Drawing.Size(596, 129);
+            this.ConfigBox.TabIndex = 65;
+            this.ConfigBox.TabStop = false;
+            this.ConfigBox.Text = "ARES Mod Config";
+            // 
+            // cbUnlimitedFavorites
+            // 
+            this.cbUnlimitedFavorites.AutoSize = true;
+            this.cbUnlimitedFavorites.Checked = true;
+            this.cbUnlimitedFavorites.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUnlimitedFavorites.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbUnlimitedFavorites.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbUnlimitedFavorites.Location = new System.Drawing.Point(6, 19);
+            this.cbUnlimitedFavorites.Name = "cbUnlimitedFavorites";
+            this.cbUnlimitedFavorites.Size = new System.Drawing.Size(155, 19);
+            this.cbUnlimitedFavorites.TabIndex = 51;
+            this.cbUnlimitedFavorites.Text = "Unlimited Favorites";
+            this.cbUnlimitedFavorites.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbUnlimitedFavorites.UseSelectable = true;
+            this.cbUnlimitedFavorites.UseStyleColors = true;
+            this.cbUnlimitedFavorites.CheckedChanged += new System.EventHandler(this.cbUnlimitedFavorites_CheckedChanged);
+            // 
+            // cbHWIDSpoof
+            // 
+            this.cbHWIDSpoof.AutoSize = true;
+            this.cbHWIDSpoof.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbHWIDSpoof.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbHWIDSpoof.Location = new System.Drawing.Point(395, 69);
+            this.cbHWIDSpoof.Name = "cbHWIDSpoof";
+            this.cbHWIDSpoof.Size = new System.Drawing.Size(108, 19);
+            this.cbHWIDSpoof.TabIndex = 61;
+            this.cbHWIDSpoof.Text = "HWID Spoof";
+            this.cbHWIDSpoof.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbHWIDSpoof.UseSelectable = true;
+            this.cbHWIDSpoof.UseStyleColors = true;
+            this.cbHWIDSpoof.CheckedChanged += new System.EventHandler(this.cbHWIDSpoof_CheckedChanged);
+            // 
+            // cbStealth
+            // 
+            this.cbStealth.AutoSize = true;
+            this.cbStealth.Checked = true;
+            this.cbStealth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbStealth.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbStealth.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbStealth.Location = new System.Drawing.Point(6, 44);
+            this.cbStealth.Name = "cbStealth";
+            this.cbStealth.Size = new System.Drawing.Size(71, 19);
+            this.cbStealth.TabIndex = 52;
+            this.cbStealth.Text = "Stealth";
+            this.cbStealth.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbStealth.UseSelectable = true;
+            this.cbStealth.UseStyleColors = true;
+            this.cbStealth.CheckedChanged += new System.EventHandler(this.cbStealth_CheckedChanged);
+            // 
+            // cbConsoleError
+            // 
+            this.cbConsoleError.AutoSize = true;
+            this.cbConsoleError.Checked = true;
+            this.cbConsoleError.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbConsoleError.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbConsoleError.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbConsoleError.Location = new System.Drawing.Point(395, 44);
+            this.cbConsoleError.Name = "cbConsoleError";
+            this.cbConsoleError.Size = new System.Drawing.Size(116, 19);
+            this.cbConsoleError.TabIndex = 64;
+            this.cbConsoleError.Text = "Console Error";
+            this.cbConsoleError.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbConsoleError.UseSelectable = true;
+            this.cbConsoleError.UseStyleColors = true;
+            this.cbConsoleError.CheckedChanged += new System.EventHandler(this.cbConsoleError_CheckedChanged);
+            // 
+            // cbLogAvatars
+            // 
+            this.cbLogAvatars.AutoSize = true;
+            this.cbLogAvatars.Checked = true;
+            this.cbLogAvatars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogAvatars.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogAvatars.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogAvatars.Location = new System.Drawing.Point(6, 69);
+            this.cbLogAvatars.Name = "cbLogAvatars";
+            this.cbLogAvatars.Size = new System.Drawing.Size(105, 19);
+            this.cbLogAvatars.TabIndex = 53;
+            this.cbLogAvatars.Text = "Log Avatars";
+            this.cbLogAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogAvatars.UseSelectable = true;
+            this.cbLogAvatars.UseStyleColors = true;
+            this.cbLogAvatars.CheckedChanged += new System.EventHandler(this.cbLogAvatars_CheckedChanged);
+            // 
+            // cbLogWorlds
+            // 
+            this.cbLogWorlds.AutoSize = true;
+            this.cbLogWorlds.Checked = true;
+            this.cbLogWorlds.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogWorlds.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogWorlds.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogWorlds.Location = new System.Drawing.Point(6, 94);
+            this.cbLogWorlds.Name = "cbLogWorlds";
+            this.cbLogWorlds.Size = new System.Drawing.Size(102, 19);
+            this.cbLogWorlds.TabIndex = 54;
+            this.cbLogWorlds.Text = "Log Worlds";
+            this.cbLogWorlds.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogWorlds.UseSelectable = true;
+            this.cbLogWorlds.UseStyleColors = true;
+            this.cbLogWorlds.CheckedChanged += new System.EventHandler(this.cbLogWorlds_CheckedChanged);
+            // 
+            // cbLogFriendsAvatars
+            // 
+            this.cbLogFriendsAvatars.AutoSize = true;
+            this.cbLogFriendsAvatars.Checked = true;
+            this.cbLogFriendsAvatars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogFriendsAvatars.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogFriendsAvatars.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogFriendsAvatars.Location = new System.Drawing.Point(187, 19);
+            this.cbLogFriendsAvatars.Name = "cbLogFriendsAvatars";
+            this.cbLogFriendsAvatars.Size = new System.Drawing.Size(157, 19);
+            this.cbLogFriendsAvatars.TabIndex = 55;
+            this.cbLogFriendsAvatars.Text = "Log Friends Avatars";
+            this.cbLogFriendsAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogFriendsAvatars.UseSelectable = true;
+            this.cbLogFriendsAvatars.UseStyleColors = true;
+            this.cbLogFriendsAvatars.CheckedChanged += new System.EventHandler(this.cbLogFriendsAvatars_CheckedChanged);
+            // 
+            // cbLogPrivateAvatars
+            // 
+            this.cbLogPrivateAvatars.AutoSize = true;
+            this.cbLogPrivateAvatars.Checked = true;
+            this.cbLogPrivateAvatars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogPrivateAvatars.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogPrivateAvatars.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogPrivateAvatars.Location = new System.Drawing.Point(187, 94);
+            this.cbLogPrivateAvatars.Name = "cbLogPrivateAvatars";
+            this.cbLogPrivateAvatars.Size = new System.Drawing.Size(157, 19);
+            this.cbLogPrivateAvatars.TabIndex = 63;
+            this.cbLogPrivateAvatars.Text = "Log Private Avatars";
+            this.cbLogPrivateAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogPrivateAvatars.UseSelectable = true;
+            this.cbLogPrivateAvatars.UseStyleColors = true;
+            this.cbLogPrivateAvatars.CheckedChanged += new System.EventHandler(this.cbLogPrivateAvatars_CheckedChanged);
+            // 
+            // cbLogToConsole
+            // 
+            this.cbLogToConsole.AutoSize = true;
+            this.cbLogToConsole.Checked = true;
+            this.cbLogToConsole.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogToConsole.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogToConsole.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogToConsole.Location = new System.Drawing.Point(395, 19);
+            this.cbLogToConsole.Name = "cbLogToConsole";
+            this.cbLogToConsole.Size = new System.Drawing.Size(127, 19);
+            this.cbLogToConsole.TabIndex = 59;
+            this.cbLogToConsole.Text = "Log To Console";
+            this.cbLogToConsole.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogToConsole.UseSelectable = true;
+            this.cbLogToConsole.UseStyleColors = true;
+            this.cbLogToConsole.CheckedChanged += new System.EventHandler(this.cbLogToConsole_CheckedChanged);
+            // 
+            // cbLogPublicAvatars
+            // 
+            this.cbLogPublicAvatars.AutoSize = true;
+            this.cbLogPublicAvatars.Checked = true;
+            this.cbLogPublicAvatars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogPublicAvatars.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogPublicAvatars.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogPublicAvatars.Location = new System.Drawing.Point(187, 69);
+            this.cbLogPublicAvatars.Name = "cbLogPublicAvatars";
+            this.cbLogPublicAvatars.Size = new System.Drawing.Size(150, 19);
+            this.cbLogPublicAvatars.TabIndex = 62;
+            this.cbLogPublicAvatars.Text = "Log Public Avatars";
+            this.cbLogPublicAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogPublicAvatars.UseSelectable = true;
+            this.cbLogPublicAvatars.UseStyleColors = true;
+            this.cbLogPublicAvatars.CheckedChanged += new System.EventHandler(this.cbLogPublicAvatars_CheckedChanged);
+            // 
+            // cbLogOwnAvatars
+            // 
+            this.cbLogOwnAvatars.AutoSize = true;
+            this.cbLogOwnAvatars.Checked = true;
+            this.cbLogOwnAvatars.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLogOwnAvatars.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbLogOwnAvatars.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbLogOwnAvatars.Location = new System.Drawing.Point(187, 44);
+            this.cbLogOwnAvatars.Name = "cbLogOwnAvatars";
+            this.cbLogOwnAvatars.Size = new System.Drawing.Size(139, 19);
+            this.cbLogOwnAvatars.TabIndex = 61;
+            this.cbLogOwnAvatars.Text = "Log Own Avatars";
+            this.cbLogOwnAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbLogOwnAvatars.UseSelectable = true;
+            this.cbLogOwnAvatars.UseStyleColors = true;
+            this.cbLogOwnAvatars.CheckedChanged += new System.EventHandler(this.cbLogOwnAvatars_CheckedChanged);
+            // 
+            // btnHsbClean
+            // 
+            this.btnHsbClean.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnHsbClean.Location = new System.Drawing.Point(14, 142);
+            this.btnHsbClean.Name = "btnHsbClean";
+            this.btnHsbClean.Size = new System.Drawing.Size(189, 35);
+            this.btnHsbClean.TabIndex = 39;
+            this.btnHsbClean.Text = "Clean HSB";
+            this.btnHsbClean.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroToolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
+            this.btnHsbClean.UseSelectable = true;
+            this.btnHsbClean.UseStyleColors = true;
+            this.btnHsbClean.Click += new System.EventHandler(this.btnHsbClean_Click);
+            // 
+            // btnApi
+            // 
+            this.btnApi.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnApi.Location = new System.Drawing.Point(14, 102);
+            this.btnApi.Name = "btnApi";
+            this.btnApi.Size = new System.Drawing.Size(189, 35);
+            this.btnApi.TabIndex = 38;
+            this.btnApi.Text = "Disable API";
+            this.btnApi.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnApi.UseSelectable = true;
+            this.btnApi.UseStyleColors = true;
+            this.btnApi.Click += new System.EventHandler(this.btnApi_Click);
+            // 
+            // chkLoadImages
+            // 
+            this.chkLoadImages.AutoSize = true;
+            this.chkLoadImages.Checked = true;
+            this.chkLoadImages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLoadImages.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkLoadImages.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkLoadImages.Location = new System.Drawing.Point(14, 77);
+            this.chkLoadImages.Name = "chkLoadImages";
+            this.chkLoadImages.Size = new System.Drawing.Size(110, 19);
+            this.chkLoadImages.TabIndex = 37;
+            this.chkLoadImages.Text = "Load Images";
+            this.chkLoadImages.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroToolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
+            this.chkLoadImages.UseSelectable = true;
+            this.chkLoadImages.UseStyleColors = true;
+            // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel8.Location = new System.Drawing.Point(9, 17);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(180, 25);
+            this.metroLabel8.TabIndex = 33;
+            this.metroLabel8.Text = "Max Image Threads";
+            this.metroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel8.UseStyleColors = true;
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel5.Location = new System.Drawing.Point(289, 17);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(145, 25);
+            this.metroLabel5.TabIndex = 32;
+            this.metroLabel5.Text = "Console Output";
+            this.metroLabel5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel5.UseStyleColors = true;
+            // 
+            // txtConsole
+            // 
+            // 
+            // 
+            // 
+            this.txtConsole.CustomButton.Image = null;
+            this.txtConsole.CustomButton.Location = new System.Drawing.Point(66, 2);
+            this.txtConsole.CustomButton.Name = "";
+            this.txtConsole.CustomButton.Size = new System.Drawing.Size(527, 527);
+            this.txtConsole.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtConsole.CustomButton.TabIndex = 1;
+            this.txtConsole.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtConsole.CustomButton.UseSelectable = true;
+            this.txtConsole.CustomButton.Visible = false;
+            this.txtConsole.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.txtConsole.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtConsole.Lines = new string[0];
+            this.txtConsole.Location = new System.Drawing.Point(289, 45);
+            this.txtConsole.MaxLength = 99999999;
+            this.txtConsole.Multiline = true;
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.PasswordChar = '\0';
+            this.txtConsole.ReadOnly = true;
+            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtConsole.SelectedText = "";
+            this.txtConsole.SelectionLength = 0;
+            this.txtConsole.SelectionStart = 0;
+            this.txtConsole.ShortcutsEnabled = true;
+            this.txtConsole.Size = new System.Drawing.Size(596, 532);
+            this.txtConsole.TabIndex = 2;
+            this.txtConsole.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtConsole.UseSelectable = true;
+            this.txtConsole.UseStyleColors = true;
+            this.txtConsole.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtConsole.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroTabPage3
+            // 
+            this.metroTabPage3.Controls.Add(this.btnRepair);
+            this.metroTabPage3.Controls.Add(this.metroLabel9);
+            this.metroTabPage3.Controls.Add(this.cbVersionUnity);
+            this.metroTabPage3.Controls.Add(this.btnVrcaSearch);
+            this.metroTabPage3.Controls.Add(this.btnScan);
+            this.metroTabPage3.Controls.Add(this.btnExtractVRCA);
+            this.metroTabPage3.Controls.Add(this.btnLoadVRCA);
+            this.metroTabPage3.ForeColor = System.Drawing.Color.Transparent;
+            this.metroTabPage3.HorizontalScrollbarBarColor = true;
+            this.metroTabPage3.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage3.HorizontalScrollbarSize = 10;
+            this.metroTabPage3.Location = new System.Drawing.Point(4, 39);
+            this.metroTabPage3.Name = "metroTabPage3";
+            this.metroTabPage3.Size = new System.Drawing.Size(888, 712);
+            this.metroTabPage3.TabIndex = 3;
+            this.metroTabPage3.Text = "Utility";
+            this.metroTabPage3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTabPage3.VerticalScrollbarBarColor = true;
+            this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage3.VerticalScrollbarSize = 10;
+            // 
+            // btnRepair
+            // 
+            this.btnRepair.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnRepair.Location = new System.Drawing.Point(9, 180);
+            this.btnRepair.Name = "btnRepair";
+            this.btnRepair.Size = new System.Drawing.Size(189, 35);
+            this.btnRepair.TabIndex = 35;
+            this.btnRepair.Text = "Repair VRCA";
+            this.btnRepair.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnRepair.UseSelectable = true;
+            this.btnRepair.UseStyleColors = true;
+            this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
+            // 
+            // metroLabel9
+            // 
+            this.metroLabel9.AutoSize = true;
+            this.metroLabel9.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel9.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel9.Location = new System.Drawing.Point(229, 15);
+            this.metroLabel9.Name = "metroLabel9";
+            this.metroLabel9.Size = new System.Drawing.Size(126, 25);
+            this.metroLabel9.TabIndex = 34;
+            this.metroLabel9.Text = "Unity Version";
+            this.metroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel9.UseStyleColors = true;
+            // 
+            // cbVersionUnity
+            // 
+            this.cbVersionUnity.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.cbVersionUnity.FontWeight = MetroFramework.MetroComboBoxWeight.Bold;
+            this.cbVersionUnity.FormattingEnabled = true;
+            this.cbVersionUnity.ItemHeight = 29;
+            this.cbVersionUnity.Items.AddRange(new object[] {
+            "2019",
+            "2018"});
+            this.cbVersionUnity.Location = new System.Drawing.Point(229, 56);
+            this.cbVersionUnity.Name = "cbVersionUnity";
+            this.cbVersionUnity.Size = new System.Drawing.Size(167, 35);
+            this.cbVersionUnity.TabIndex = 6;
+            this.cbVersionUnity.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.cbVersionUnity.UseSelectable = true;
+            this.cbVersionUnity.UseStyleColors = true;
+            // 
+            // btnVrcaSearch
+            // 
+            this.btnVrcaSearch.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnVrcaSearch.Location = new System.Drawing.Point(9, 139);
+            this.btnVrcaSearch.Name = "btnVrcaSearch";
+            this.btnVrcaSearch.Size = new System.Drawing.Size(189, 35);
+            this.btnVrcaSearch.TabIndex = 5;
+            this.btnVrcaSearch.Text = "Attempt VRCA Search";
+            this.btnVrcaSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnVrcaSearch.UseSelectable = true;
+            this.btnVrcaSearch.UseStyleColors = true;
+            this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
+            // 
+            // btnScan
+            // 
+            this.btnScan.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnScan.Location = new System.Drawing.Point(9, 98);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(189, 35);
+            this.btnScan.TabIndex = 4;
+            this.btnScan.Text = "Scan Unity Package";
+            this.btnScan.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnScan.UseSelectable = true;
+            this.btnScan.UseStyleColors = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            // 
+            // btnExtractVRCA
+            // 
+            this.btnExtractVRCA.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnExtractVRCA.Location = new System.Drawing.Point(9, 56);
+            this.btnExtractVRCA.Name = "btnExtractVRCA";
+            this.btnExtractVRCA.Size = new System.Drawing.Size(189, 35);
+            this.btnExtractVRCA.TabIndex = 3;
+            this.btnExtractVRCA.Text = "Extract VRCA/VRCW";
+            this.btnExtractVRCA.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnExtractVRCA.UseSelectable = true;
+            this.btnExtractVRCA.UseStyleColors = true;
+            this.btnExtractVRCA.Click += new System.EventHandler(this.btnExtractVRCA_Click);
+            // 
+            // btnLoadVRCA
+            // 
+            this.btnLoadVRCA.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnLoadVRCA.Location = new System.Drawing.Point(9, 15);
+            this.btnLoadVRCA.Name = "btnLoadVRCA";
+            this.btnLoadVRCA.Size = new System.Drawing.Size(189, 35);
+            this.btnLoadVRCA.TabIndex = 2;
+            this.btnLoadVRCA.Text = "Load VRCA/VRCW";
+            this.btnLoadVRCA.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnLoadVRCA.UseSelectable = true;
+            this.btnLoadVRCA.UseStyleColors = true;
+            this.btnLoadVRCA.Click += new System.EventHandler(this.btnLoadVRCA_Click);
+            // 
+            // metroTabPage2
+            // 
+            this.metroTabPage2.Controls.Add(this.txtAbout);
+            this.metroTabPage2.Controls.Add(this.lblSize);
+            this.metroTabPage2.Controls.Add(this.metroLabel10);
+            this.metroTabPage2.HorizontalScrollbarBarColor = true;
+            this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.HorizontalScrollbarSize = 10;
+            this.metroTabPage2.Location = new System.Drawing.Point(4, 39);
+            this.metroTabPage2.Name = "metroTabPage2";
+            this.metroTabPage2.Size = new System.Drawing.Size(888, 712);
+            this.metroTabPage2.TabIndex = 2;
+            this.metroTabPage2.Text = "About";
+            this.metroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTabPage2.VerticalScrollbarBarColor = true;
+            this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // lblSize
+            // 
+            this.lblSize.AutoSize = true;
+            this.lblSize.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblSize.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.lblSize.Location = new System.Drawing.Point(155, 11);
+            this.lblSize.Name = "lblSize";
+            this.lblSize.Size = new System.Drawing.Size(22, 25);
+            this.lblSize.TabIndex = 33;
+            this.lblSize.Text = "0";
+            this.lblSize.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.lblSize.UseStyleColors = true;
+            // 
+            // metroLabel10
+            // 
+            this.metroLabel10.AutoSize = true;
+            this.metroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel10.Location = new System.Drawing.Point(9, 11);
+            this.metroLabel10.Name = "metroLabel10";
+            this.metroLabel10.Size = new System.Drawing.Size(140, 25);
+            this.metroLabel10.TabIndex = 32;
+            this.metroLabel10.Text = "Datebase Size: ";
+            this.metroLabel10.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel10.UseStyleColors = true;
+            // 
+            // metroToolTip1
+            // 
+            this.metroToolTip1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroToolTip1.StyleManager = null;
+            this.metroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light;
+            // 
+            // txtAbout
+            // 
+            // 
+            // 
+            // 
+            this.txtAbout.CustomButton.Image = null;
+            this.txtAbout.CustomButton.Location = new System.Drawing.Point(208, 2);
+            this.txtAbout.CustomButton.Name = "";
+            this.txtAbout.CustomButton.Size = new System.Drawing.Size(665, 665);
+            this.txtAbout.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAbout.CustomButton.TabIndex = 1;
+            this.txtAbout.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtAbout.CustomButton.UseSelectable = true;
+            this.txtAbout.CustomButton.Visible = false;
+            this.txtAbout.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtAbout.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtAbout.Lines = new string[0];
+            this.txtAbout.Location = new System.Drawing.Point(0, 37);
+            this.txtAbout.MaxLength = 99999999;
+            this.txtAbout.Multiline = true;
+            this.txtAbout.Name = "txtAbout";
+            this.txtAbout.PasswordChar = '\0';
+            this.txtAbout.ReadOnly = true;
+            this.txtAbout.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtAbout.SelectedText = "";
+            this.txtAbout.SelectionLength = 0;
+            this.txtAbout.SelectionStart = 0;
+            this.txtAbout.ShortcutsEnabled = true;
+            this.txtAbout.Size = new System.Drawing.Size(876, 670);
+            this.txtAbout.TabIndex = 50;
+            this.txtAbout.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.txtAbout.UseSelectable = true;
+            this.txtAbout.UseStyleColors = true;
+            this.txtAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // selectedImage
             // 
             this.selectedImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedImage.Location = new System.Drawing.Point(0, 0);
             this.selectedImage.Name = "selectedImage";
-            this.selectedImage.Size = new System.Drawing.Size(270, 171);
+            this.selectedImage.Size = new System.Drawing.Size(258, 166);
             this.selectedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selectedImage.TabIndex = 0;
             this.selectedImage.TabStop = false;
@@ -735,131 +1221,139 @@ namespace ARES
             // pbRipped
             // 
             this.pbRipped.Image = global::ARES.Properties.Resources.rippeds;
-            this.pbRipped.Location = new System.Drawing.Point(1425, 147);
+            this.pbRipped.Location = new System.Drawing.Point(1865, 149);
             this.pbRipped.Name = "pbRipped";
             this.pbRipped.Size = new System.Drawing.Size(132, 75);
             this.pbRipped.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbRipped.TabIndex = 13;
             this.pbRipped.TabStop = false;
+            this.pbRipped.Visible = false;
             // 
-            // btnRipped
+            // btnUnityLoc
             // 
-            this.btnRipped.Location = new System.Drawing.Point(518, 94);
-            this.btnRipped.Name = "btnRipped";
-            this.btnRipped.Size = new System.Drawing.Size(113, 41);
-            this.btnRipped.TabIndex = 29;
-            this.btnRipped.Text = "Search Ripped";
-            this.btnRipped.UseVisualStyleBackColor = true;
-            this.btnRipped.Click += new System.EventHandler(this.btnRipped_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(399, 94);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 41);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Edit Logger Config";
-            this.toolTip1.SetToolTip(this.button1, "Edit the ARES Logger config");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnUnityLoc.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnUnityLoc.Location = new System.Drawing.Point(14, 183);
+            this.btnUnityLoc.Name = "btnUnityLoc";
+            this.btnUnityLoc.Size = new System.Drawing.Size(189, 35);
+            this.btnUnityLoc.TabIndex = 66;
+            this.btnUnityLoc.Text = "Select Unity Location";
+            this.btnUnityLoc.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroToolTip1.SetToolTip(this.btnUnityLoc, "This will delete the HSB folder & HSBC.rar to fix potential issues");
+            this.btnUnityLoc.UseSelectable = true;
+            this.btnUnityLoc.UseStyleColors = true;
+            this.btnUnityLoc.Click += new System.EventHandler(this.btnUnityLoc_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1345, 699);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(1190, 834);
+            this.Controls.Add(this.mTab);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbRipped);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.statusStrip);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Main";
+            this.Resizable = false;
+            this.Style = MetroFramework.MetroColorStyle.Black;
             this.Text = "A.R.E.S";
+            this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ares_Close);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmQuestVersion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmPcVersion)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
+            this.mTab.ResumeLayout(false);
+            this.mTabMain.ResumeLayout(false);
+            this.mTabMain.PerformLayout();
+            this.mTabSettings.ResumeLayout(false);
+            this.mTabSettings.PerformLayout();
+            this.ConfigBox.ResumeLayout(false);
+            this.ConfigBox.PerformLayout();
+            this.metroTabPage3.ResumeLayout(false);
+            this.metroTabPage3.PerformLayout();
+            this.metroTabPage2.ResumeLayout(false);
+            this.metroTabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtSearchTerm;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowAvatars;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel lblStats;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox txtAvatarInfo;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.PictureBox logo;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox selectedImage;
-        private System.Windows.Forms.ToolStripStatusLabel lblStatsAmount;
-        private System.Windows.Forms.Button btnDownload;
-        private System.Windows.Forms.ComboBox cbSearchTerm;
-        private System.Windows.Forms.Button btnBrowserView;
-        private System.Windows.Forms.Button btnExtractVRCA;
-        private System.Windows.Forms.Button btnLoadVRCA;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Button btnSearchLocal;
-        private System.Windows.Forms.Label lblAvatarCount;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolStripProgressBar progress;
-        public System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ComboBox cbVersionUnity;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown nmPcVersion;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nmQuestVersion;
-        private System.Windows.Forms.Button btnStopSearch;
-        private System.Windows.Forms.Button btnHotswap;
-        private System.Windows.Forms.Button btnUnity;
-        private System.Windows.Forms.Button btnRepair;
-        private System.Windows.Forms.Button btnVrcaSearch;
-        private System.Windows.Forms.ComboBox cbCopy;
-        private System.Windows.Forms.Button btnCopy;
-        private System.Windows.Forms.Button btnApi;
-        private System.Windows.Forms.CheckBox chkQuest;
-        private System.Windows.Forms.CheckBox chkPC;
-        private System.Windows.Forms.CheckBox chkPrivate;
-        private System.Windows.Forms.CheckBox chkPublic;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cbLimit;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.CheckBox chkLoadImages;
         private System.Windows.Forms.NumericUpDown nmThread;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pbRipped;
-        private System.Windows.Forms.Button btnScan;
-        private System.Windows.Forms.Button btnHsbClean;
-        private System.Windows.Forms.Button btnRipped;
-        private System.Windows.Forms.Button button1;
+        private MetroFramework.Controls.MetroTabControl mTab;
+        private MetroFramework.Controls.MetroTabPage mTabMain;
+        private MetroFramework.Controls.MetroTabPage mTabSettings;
+        private MetroFramework.Controls.MetroTabPage metroTabPage2;
+        private MetroFramework.Controls.MetroLabel lblAvatarCount;
+        private MetroFramework.Controls.MetroLabel metroLabel4;
+        private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroCheckBox chkQuest;
+        private MetroFramework.Controls.MetroCheckBox chkPC;
+        private MetroFramework.Controls.MetroCheckBox chkPrivate;
+        private MetroFramework.Controls.MetroCheckBox chkPublic;
+        private MetroFramework.Controls.MetroTabPage metroTabPage3;
+        private MetroFramework.Controls.MetroComboBox cbSearchTerm;
+        private MetroFramework.Controls.MetroButton btnSearch;
+        private MetroFramework.Controls.MetroButton btnStopSearch;
+        private MetroFramework.Controls.MetroButton btnSearchLocal;
+        private MetroFramework.Controls.MetroButton btnRipped;
+        private MetroFramework.Controls.MetroButton btnUnity;
+        private MetroFramework.Controls.MetroButton btnHotswap;
+        private MetroFramework.Controls.MetroComboBox cbLimit;
+        private MetroFramework.Controls.MetroTextBox txtSearchTerm;
+        private MetroFramework.Controls.MetroLabel metroLabel5;
+        public MetroFramework.Controls.MetroTextBox txtConsole;
+        private MetroFramework.Controls.MetroButton btnCopy;
+        private MetroFramework.Controls.MetroComboBox cbCopy;
+        public MetroFramework.Controls.MetroTextBox txtAvatarInfo;
+        private MetroFramework.Controls.MetroButton btnBrowserView;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
+        private MetroFramework.Controls.MetroLabel metroLabel6;
+        private MetroFramework.Controls.MetroButton btnDownload;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private MetroFramework.Controls.MetroButton btnScan;
+        private MetroFramework.Controls.MetroButton btnExtractVRCA;
+        private MetroFramework.Controls.MetroButton btnLoadVRCA;
+        private MetroFramework.Controls.MetroCheckBox chkLoadImages;
+        private MetroFramework.Components.MetroToolTip metroToolTip1;
+        private MetroFramework.Controls.MetroButton btnApi;
+        private MetroFramework.Controls.MetroButton btnVrcaSearch;
+        private MetroFramework.Controls.MetroButton btnRepair;
+        private MetroFramework.Controls.MetroLabel metroLabel9;
+        private MetroFramework.Controls.MetroComboBox cbVersionUnity;
+        private MetroFramework.Controls.MetroButton btnHsbClean;
+        private MetroFramework.Controls.MetroCheckBox cbLogToConsole;
+        private MetroFramework.Controls.MetroCheckBox cbLogFriendsAvatars;
+        private MetroFramework.Controls.MetroCheckBox cbLogWorlds;
+        private MetroFramework.Controls.MetroCheckBox cbLogAvatars;
+        private MetroFramework.Controls.MetroCheckBox cbStealth;
+        private MetroFramework.Controls.MetroCheckBox cbUnlimitedFavorites;
+        private MetroFramework.Controls.MetroCheckBox cbHWIDSpoof;
+        private MetroFramework.Controls.MetroCheckBox cbLogPublicAvatars;
+        private MetroFramework.Controls.MetroCheckBox cbLogOwnAvatars;
+        private MetroFramework.Controls.MetroCheckBox cbLogPrivateAvatars;
+        private MetroFramework.Controls.MetroCheckBox cbConsoleError;
+        private System.Windows.Forms.GroupBox ConfigBox;
+        private MetroFramework.Controls.MetroLabel lblSize;
+        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroTextBox txtAbout;
+        private MetroFramework.Controls.MetroButton btnUnityLoc;
     }
 }
 

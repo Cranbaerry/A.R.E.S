@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ARES.Modules
 {
@@ -74,7 +75,7 @@ namespace ARES.Modules
             }
         }
 
-        public List<Records> getLocalAvatars()
+        public List<Records> getLocalAvatars(Main main)
         {
             if (File.Exists("Log.txt"))
             {
@@ -105,13 +106,13 @@ namespace ARES.Modules
                     };
                     list.Add(records);
                 }
-                WriteLog(string.Format("Loaded Local Avatars"));
+                WriteLog(string.Format("Loaded Local Avatars"), main);
                 return list;
             }
             return new List<Records>();
         }
 
-        public List<WorldClass> getLocalWorlds()
+        public List<WorldClass> getLocalWorlds(Main main)
         {
             if (File.Exists("LogWorld.txt"))
             {
@@ -141,13 +142,13 @@ namespace ARES.Modules
                     };
                     list.Add(records);
                 }
-                WriteLog(string.Format("Loaded Local Worlds"));
+                WriteLog(string.Format("Loaded Local Worlds"), main);
                 return list;
             }
             return new List<WorldClass>();
         }
 
-        public (bool, bool) setupHSB()
+        public (bool, bool) setupHSB(Main main)
         {
             if (File.Exists("HSBC.rar"))
             {
@@ -155,7 +156,7 @@ namespace ARES.Modules
             }
             try
             {
-                tryDelete();
+                tryDelete(main);
                 string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 string commands = string.Format("/C UnRAR.exe x HSB.rar HSB -id[c,d,n,p,q] -O+");
 
@@ -177,7 +178,7 @@ namespace ARES.Modules
             }
         }
 
-        public bool setupUnity(string unityPath)
+        public bool setupUnity(string unityPath, Main main)
         {
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             try
@@ -197,8 +198,8 @@ namespace ARES.Modules
             }
             catch { return false; }
 
-            killProcess("Unity Hub.exe");
-            killProcess("Unity.exe");
+            killProcess("Unity Hub.exe", main);
+            killProcess("Unity.exe", main);
 
             try
             {
@@ -221,7 +222,7 @@ namespace ARES.Modules
                 p.Start();
                 p.WaitForExit();
 
-                tryDelete();
+                tryDelete(main);
             }
             catch (Exception ex)
             {
@@ -231,12 +232,12 @@ namespace ARES.Modules
             return true;
         }
 
-        private void tryDelete()
+        private void tryDelete(Main main)
         {
             try
             {
-                killProcess("Unity Hub.exe");
-                killProcess("Unity.exe");
+                killProcess("Unity Hub.exe", main);
+                killProcess("Unity.exe", main);
                 if (Directory.Exists("HSB"))
                 {
                     Directory.Delete("HSB", true);
@@ -246,10 +247,10 @@ namespace ARES.Modules
             catch { }
         }
 
-        public bool openUnityPreSetup(string unityPath)
+        public bool openUnityPreSetup(string unityPath, Main main)
         {
 
-            tryDelete();
+            tryDelete(main);
             try
             {
                 string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -287,18 +288,18 @@ namespace ARES.Modules
             catch { return false; }
         }
 
-        private void killProcess(string processName)
+        private void killProcess(string processName, Main main)
         {
             try
             {
                 Process.Start("taskkill", "/F /IM \"" + processName + "\"");
                 Console.WriteLine("Killed Process: " + processName);
-                WriteLog(string.Format("Killed Process", processName));
+                WriteLog(string.Format("Killed Process", processName), main);
             }
             catch { }
         }
 
-        public void uploadToApi(List<Records> avatars)
+        public void uploadToApi(List<Records> avatars, Main main)
         {
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string uploadedFile = filePath + @"\AvatarUploaded.txt";           
@@ -328,14 +329,14 @@ namespace ARES.Modules
                             var result = streamReader.ReadToEnd();
                         }
                         File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
-                        WriteLog(string.Format("Avatar: {0} uploaded to API", item.AvatarID));
+                        WriteLog(string.Format("Avatar: {0} uploaded to API", item.AvatarID), main);
                     }
                     catch (Exception ex)
                     {
                         if (ex.Message.Contains("(409) Conflict"))
                         {
                             File.AppendAllText(uploadedFile, item.AvatarID + Environment.NewLine);
-                            WriteLog(string.Format("Avatar: {0} already on API", item.AvatarID));
+                            WriteLog(string.Format("Avatar: {0} already on API", item.AvatarID), main);
                         }
                     }
                     Console.WriteLine(item.AvatarID);
@@ -343,7 +344,7 @@ namespace ARES.Modules
             }
         }
 
-        public void uploadToApiWorld(List<WorldClass> worlds)
+        public void uploadToApiWorld(List<WorldClass> worlds, Main main)
         {
 
             string uploadedFile = "WorldUploaded.txt";
@@ -373,14 +374,14 @@ namespace ARES.Modules
                             var result = streamReader.ReadToEnd();
                         }
                         File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
-                        WriteLog(string.Format("World: {0} Uploaded to API", item.WorldID));
+                        WriteLog(string.Format("World: {0} Uploaded to API", item.WorldID), main);
                     }
                     catch (Exception ex)
                     {
                         if (ex.Message.Contains("(409) Conflict"))
                         {
                             File.AppendAllText(uploadedFile, item.WorldID + Environment.NewLine);
-                            WriteLog(string.Format("World: {0} already on API", item.WorldID));
+                            WriteLog(string.Format("World: {0} already on API", item.WorldID), main);
                         }
                     }
                     Console.WriteLine(item.WorldID);
@@ -402,9 +403,19 @@ namespace ARES.Modules
             return false;
         }
 
-        public void WriteLog(string logText)
+        public void WriteLog(string logText, Main main)
         {
             string logBuilder = string.Format("{0:yy/MM/dd H:mm:ss} | {1} \n", DateTime.Now, logText);
+            if (main.txtConsole.InvokeRequired)
+            {
+                main.txtConsole.Invoke((MethodInvoker)delegate
+                {
+                    main.txtConsole.Text += logBuilder + Environment.NewLine;
+                });
+            } else
+            {
+                main.txtConsole.Text += logBuilder + Environment.NewLine;
+            }
             File.AppendAllText("LatestLog.txt", logBuilder);
         }
     }

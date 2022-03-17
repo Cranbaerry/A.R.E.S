@@ -15,10 +15,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using MetroFramework.Forms;
+using ARES.Properties;
+using Newtonsoft.Json;
 
 namespace ARES
 {
-    public partial class Main : Form
+    public partial class Main : MetroForm
     {
         public Api ApiGrab;
         public CoreFunctions CoreFunctions;
@@ -58,6 +61,11 @@ namespace ARES
             CoreFunctions = new CoreFunctions();
             iniFile = new IniFile();
             generateHtml = new GenerateHtml();
+
+            //just incase i forgot
+            mTab.SelectedIndex = 0;
+            mTabMain.Show();
+            txtAbout.Text = Resources.txtAbout;
             try
             {
                 nmThread.Value = Environment.ProcessorCount;
@@ -132,11 +140,11 @@ namespace ARES
 
             try
             {
-                lblStatsAmount.Text = ApiGrab.getStats().Total_database_size;
+                lblSize.Text = ApiGrab.getStats().Total_database_size;
             }
             catch
             {
-                CoreFunctions.WriteLog("Error getting API stats.");
+                CoreFunctions.WriteLog("Error getting API stats.", this);
             }
             cbSearchTerm.SelectedIndex = 0;
             cbVersionUnity.SelectedIndex = 0;
@@ -146,10 +154,10 @@ namespace ARES
                 string unityPath = unityRegistry();
                 if (unityPath != null)
                 {
-                    DialogResult dlgResult = MessageBox.Show(string.Format("Possible unity path found, Location: '{0}' is this correct?", unityPath + @"\unity.exe"), "Unity", MessageBoxButtons.YesNo);
+                    DialogResult dlgResult = MessageBox.Show(string.Format("Possible unity path found, Location: '{0}' is this correct?", unityPath + @"\Unity.exe"), "Unity", MessageBoxButtons.YesNo);
                     if (dlgResult == DialogResult.Yes)
                     {
-                        iniFile.Write("unity", unityPath + @"\unity.exe");
+                        iniFile.Write("unity", unityPath + @"\Unity.exe");
                         MessageBox.Show("Leave the command window open it will close by itself after the unity setup is complete");
                     }
                     else
@@ -182,10 +190,10 @@ namespace ARES
 
             if (!string.IsNullOrEmpty(unityPath))
             {
-                var unitySetup = CoreFunctions.setupHSB();
+                var unitySetup = CoreFunctions.setupHSB(this);
                 if (unitySetup == (true, false))
                 {
-                    CoreFunctions.setupUnity(unityPath);
+                    CoreFunctions.setupUnity(unityPath, this);
                 }
             }
 
@@ -194,21 +202,21 @@ namespace ARES
             MessageBoxManager.No = "Quest";
             MessageBoxManager.Register();
 
-            localAvatars = CoreFunctions.getLocalAvatars();
+            localAvatars = CoreFunctions.getLocalAvatars(this);
             if (localAvatars.Count > 0 && apiEnabled)
             {
-                uploadThread = new Thread(() => CoreFunctions.uploadToApi(localAvatars));
+                uploadThread = new Thread(() => CoreFunctions.uploadToApi(localAvatars, this));
                 uploadThread.Start();
             }
 
-            localWorlds = CoreFunctions.getLocalWorlds();
+            localWorlds = CoreFunctions.getLocalWorlds(this);
             if (localWorlds.Count > 0 && apiEnabled)
             {
-                CoreFunctions.uploadToApiWorld(localWorlds);
+                CoreFunctions.uploadToApiWorld(localWorlds,this);
             }
             try
             {
-                ScanPackage.DownloadOnlineSourcesOnStartup();
+                ScanPackage.DownloadOnlineSourcesOnStartup(this);
             }
             catch { }
         }
@@ -218,7 +226,7 @@ namespace ARES
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "Unity (Unity.exe)|Unity.exe";
@@ -271,7 +279,7 @@ namespace ARES
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "vrc* files (*.vrc*)|*.vrc*";
@@ -302,7 +310,6 @@ namespace ARES
                 loadImages = chkLoadImages.Checked;
                 flowAvatars.Controls.Clear();
 
-                statusLabel.Text = "Status: Loading API";
                 if (!cbSearchTerm.Text.Contains("World"))
                 {
                     List<Records> avatars = ApiGrab.getAvatars(txtSearchTerm.Text, cbSearchTerm.Text, cbLimit.Text);
@@ -325,11 +332,8 @@ namespace ARES
                     }
                     avatarCount = AvatarList.Count();
                     lblAvatarCount.Text = avatarCount.ToString();
-                    progress.Maximum = avatarCount;
-                    progress.Value = 0;
                     locked = true;
                     isAvatar = true;
-                    statusLabel.Text = "Status: Loading Avatar Images";
                     imageThread = new Thread(new ThreadStart(GetImages));
                     imageThread.Start();
                 }
@@ -339,11 +343,8 @@ namespace ARES
                     worldList = worlds;
                     worldCount = worlds.Count();
                     lblAvatarCount.Text = worldCount.ToString();
-                    progress.Maximum = worldCount;
-                    progress.Value = 0;
                     locked = true;
                     isAvatar = false;
-                    statusLabel.Text = "Status: Loading World Images";
                     imageThread = new Thread(new ThreadStart(GetImagesWorld));
                     imageThread.Start();
                 }
@@ -374,13 +375,6 @@ namespace ARES
                 Console.WriteLine(ex.Message);
             }
             locked = false;
-            if (statusLabel.GetCurrentParent().InvokeRequired)
-            {
-                statusLabel.GetCurrentParent().Invoke((MethodInvoker)delegate
-                {
-                    statusLabel.Text = "Status: Idle";
-                });
-            }
         }
 
         public void MultiGetImages(Records item)
@@ -446,10 +440,6 @@ namespace ARES
                         });
                     }
                 }
-                if (progress.GetCurrentParent().InvokeRequired)
-                {
-                    progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
-                }
                 currentThreads--;
             }
             catch
@@ -501,10 +491,6 @@ namespace ARES
                             });
                         }
                     }
-                    if (progress.GetCurrentParent().InvokeRequired)
-                    {
-                        progress.GetCurrentParent().Invoke(new MethodInvoker(delegate { progress.Value++; }));
-                    }
                 }
             }
             catch (Exception ex)
@@ -512,13 +498,6 @@ namespace ARES
                 Console.WriteLine(ex.Message);
             }
             locked = false;
-            if (statusLabel.GetCurrentParent().InvokeRequired)
-            {
-                statusLabel.GetCurrentParent().Invoke((MethodInvoker)delegate
-                {
-                    statusLabel.Text = "Status: Idle";
-                });
-            }
         }
 
         private void LoadInfo(object sender, EventArgs e)
@@ -597,7 +576,7 @@ namespace ARES
                 {
                     if (txtAvatarInfo.Text.Contains("avtr_") && selectedAvatar.AvatarID.Contains("avtr_"))
                     {
-                        SaveFileDialog savefile = new SaveFileDialog();
+                        System.Windows.Forms.SaveFileDialog savefile = new System.Windows.Forms.SaveFileDialog();
                         string fileName = "custom.vrca";
                         savefile.Filter = "VRCA files (*.vrca)|*.vrca";
                         savefile.FileName = fileName;
@@ -617,7 +596,7 @@ namespace ARES
                 {
                     if (txtAvatarInfo.Text.Contains("wrld_") && selectedWorld.WorldID.Contains("wrld_"))
                     {
-                        SaveFileDialog savefile = new SaveFileDialog();
+                        System.Windows.Forms.SaveFileDialog savefile = new System.Windows.Forms.SaveFileDialog();
                         string fileName = "custom.VRCW";
                         savefile.Filter = "VRCW files (*.VRCW)|*.VRCW";
                         savefile.FileName = fileName;
@@ -884,7 +863,6 @@ namespace ARES
             {
                 loadImages = chkLoadImages.Checked;
                 flowAvatars.Controls.Clear();
-                statusLabel.Text = "Status: Loading Local";
                 List<Records> avatars = null;
 
                 if (chkPC.Checked)
@@ -931,11 +909,8 @@ namespace ARES
                 AvatarList = avatars;
                 avatarCount = avatars.Count();
                 lblAvatarCount.Text = avatarCount.ToString();
-                progress.Maximum = avatarCount;
-                progress.Value = 0;
                 locked = true;
                 isAvatar = true;
-                statusLabel.Text = "Status: Loading Avatar Images";
                 imageThread = new Thread(new ThreadStart(GetImages));
                 imageThread.Start();
             }
@@ -1022,7 +997,7 @@ namespace ARES
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
                 MessageBox.Show("Error decompressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -1041,7 +1016,7 @@ namespace ARES
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
                 MessageBox.Show("Error decompressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -1078,7 +1053,7 @@ namespace ARES
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
                 MessageBox.Show("Error compressing VRCA file");
                 if (hotswapConsole.InvokeRequired)
                 {
@@ -1115,7 +1090,7 @@ namespace ARES
             }
 
             string uncompressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
-            CoreFunctions.WriteLog(string.Format("Successfully hotswapped avatar"));
+            CoreFunctions.WriteLog(string.Format("Successfully hotswapped avatar"), this);
             selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
 
             tryDelete(fileDecompressed);
@@ -1243,7 +1218,7 @@ namespace ARES
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
                 MessageBox.Show("Error decompressing VRCA file");
                 return;
             }
@@ -1258,7 +1233,7 @@ namespace ARES
             btnSearch.PerformClick();
 
             txtAvatarInfo.Text += Environment.NewLine + "Avatar Id from VRCA: " + oldId + Environment.NewLine + "CAB Id from VRCA: " + oldCab;
-            CoreFunctions.WriteLog(string.Format("Repaired VRCA file"));
+            CoreFunctions.WriteLog(string.Format("Repaired VRCA file"), this);
         }
 
         private string getFileString(string file, string searchRegexString)
@@ -1290,12 +1265,12 @@ namespace ARES
                 if (File.Exists(location))
                 {
                     File.Delete(location);
-                    CoreFunctions.WriteLog(string.Format("Deleted file {0}", location));
+                    CoreFunctions.WriteLog(string.Format("Deleted file {0}", location), this);
                 }
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
             }
         }
 
@@ -1304,11 +1279,11 @@ namespace ARES
             try
             {
                 Directory.Delete(location, true);
-                CoreFunctions.WriteLog(string.Format("Deleted file {0}", location));
+                CoreFunctions.WriteLog(string.Format("Deleted file {0}", location), this);
             }
             catch (Exception ex)
             {
-                CoreFunctions.WriteLog(string.Format("{0}", ex.Message));
+                CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
             }
         }
 
@@ -1321,15 +1296,15 @@ namespace ARES
             tryDeleteDirectory(tempFolder + unityTemp);
             tryDeleteDirectory(tempFolder + unityTemp2);
 
-            var unitySetup = CoreFunctions.setupHSB();
+            var unitySetup = CoreFunctions.setupHSB(this);
             if (unitySetup == (true, false))
             {
-                CoreFunctions.setupUnity(unityPath);
-                CoreFunctions.openUnityPreSetup(unityPath);
+                CoreFunctions.setupUnity(unityPath, this);
+                CoreFunctions.openUnityPreSetup(unityPath, this);
             }
             else if (unitySetup == (true, true))
             {
-                CoreFunctions.openUnityPreSetup(unityPath);
+                CoreFunctions.openUnityPreSetup(unityPath, this);
             }
             btnHotswap.Enabled = true;
         }
@@ -1433,6 +1408,8 @@ namespace ARES
                     {
                         return;
                     }
+                    mTabMain.Show();
+                    mTab.SelectedIndex = 0;
                     hotswapConsole = new HotswapConsole();
                     hotswapConsole.Show();
                     hotswapRepair();
@@ -1590,7 +1567,7 @@ namespace ARES
                 outpath = PackageExtractor.ExtractPackage(packageSelected, ScanPackage.UnityTemp);
             }
 
-            (int, int, int) scanCount = ScanPackage.CheckFiles();
+            (int, int, int) scanCount = ScanPackage.CheckFiles(this);
 
             if (scanCount.Item3 > 0)
             {
@@ -1616,7 +1593,7 @@ namespace ARES
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = ".unitypackage files (*.unitypackage)|*.unitypackage";
@@ -1641,7 +1618,7 @@ namespace ARES
 
         private string createPackage()
         {
-            using (var sfd = new SaveFileDialog())
+            using (var sfd = new System.Windows.Forms.SaveFileDialog())
             {
                 sfd.Filter = ".unitypackage files (*.unitypackage)|*.unitypackage";
                 sfd.FilterIndex = 2;
@@ -1669,7 +1646,7 @@ namespace ARES
             {
                 Process.Start("taskkill", "/F /IM \"" + processName + "\"");
                 Console.WriteLine("Killed Process: " + processName);
-                CoreFunctions.WriteLog(string.Format("Killed Process", processName));
+                CoreFunctions.WriteLog(string.Format("Killed Process", processName), this);
             }
             catch { }
         }
@@ -1688,8 +1665,6 @@ namespace ARES
                 maxThreads = Convert.ToInt32(nmThread.Value);
                 loadImages = chkLoadImages.Checked;
                 flowAvatars.Controls.Clear();
-
-                statusLabel.Text = "Status: Loading API";
                 List<Records> avatars = ApiGrab.getRipped(rippedList);
                 AvatarList = avatars;
                 if (chkPC.Checked)
@@ -1710,11 +1685,8 @@ namespace ARES
                 }
                 avatarCount = AvatarList.Count();
                 lblAvatarCount.Text = avatarCount.ToString();
-                progress.Maximum = avatarCount;
-                progress.Value = 0;
                 locked = true;
                 isAvatar = true;
-                statusLabel.Text = "Status: Loading Avatar Images";
                 imageThread = new Thread(new ThreadStart(GetImages));
                 imageThread.Start();
             }
@@ -1729,6 +1701,136 @@ namespace ARES
             MessageBox.Show("Any changes made via this you will have to restart VRChat to see.");
             LoggerConfig logger = new LoggerConfig();
             logger.ShowDialog();
+        }
+
+        private void btnUnityLoc_Click(object sender, EventArgs e)
+        {
+            selectFile();
+        }
+
+        private void mTabSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private AresConfig config;
+        private string fileLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(@"\GUI", @"\UserData") + @"\ARESConfig.json";
+        private bool loading = true;
+
+        private void mTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(mTab.SelectedIndex == 1)
+            {
+                LoadConfig();
+                if (config != null)
+                {
+                    SetCheckBoxes();
+                } else
+                {
+                    ConfigBox.Visible = false;
+                }
+                loading = false;
+            }
+        }
+
+        private void LoadConfig()
+        {
+            try
+            {
+                string json = File.ReadAllText(fileLocation);
+                config = JsonConvert.DeserializeObject<AresConfig>(json);
+            }
+            catch { }
+        }
+
+        private void SetCheckBoxes()
+        {
+            cbConsoleError.Checked = config.ConsoleError;
+            cbStealth.Checked = config.Stealth;
+            cbHWIDSpoof.Checked = config.HWIDSpoof;
+            cbLogAvatars.Checked = config.LogAvatars;
+            cbLogFriendsAvatars.Checked = config.LogFriendsAvatars;
+            cbLogOwnAvatars.Checked = config.LogOwnAvatars;
+            cbLogPrivateAvatars.Checked = config.LogPrivateAvatars;
+            cbLogPublicAvatars.Checked = config.LogPublicAvatars;
+            cbLogToConsole.Checked = config.LogToConsole;
+            cbLogWorlds.Checked = config.LogWorlds;
+            cbUnlimitedFavorites.Checked = config.UnlimitedFavorites;
+        }
+
+        private void WriteConfig()
+        {
+            if (!loading)
+            {
+                string json = JsonConvert.SerializeObject(config);
+                File.WriteAllText(fileLocation, json);
+            }
+        }
+
+        private void cbUnlimitedFavorites_CheckedChanged(object sender, EventArgs e)
+        {
+            config.UnlimitedFavorites = cbUnlimitedFavorites.Checked;
+            WriteConfig();
+        }
+
+        private void cbStealth_CheckedChanged(object sender, EventArgs e)
+        {
+            config.Stealth = cbStealth.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogAvatars_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogAvatars = cbLogAvatars.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogWorlds_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogWorlds = cbLogWorlds.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogFriendsAvatars_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogFriendsAvatars = cbLogFriendsAvatars.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogOwnAvatars_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogOwnAvatars = cbLogOwnAvatars.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogPublicAvatars_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogPublicAvatars = cbLogPublicAvatars.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogPrivateAvatars_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogPrivateAvatars = cbLogPrivateAvatars.Checked;
+            WriteConfig();
+        }
+
+        private void cbLogToConsole_CheckedChanged(object sender, EventArgs e)
+        {
+            config.LogToConsole = cbLogToConsole.Checked;
+            WriteConfig();
+        }
+
+        private void cbConsoleError_CheckedChanged(object sender, EventArgs e)
+        {
+            config.ConsoleError = cbConsoleError.Checked;
+            WriteConfig();
+        }
+
+        private void cbHWIDSpoof_CheckedChanged(object sender, EventArgs e)
+        {
+            config.HWIDSpoof = cbHWIDSpoof.Checked;
+            WriteConfig();
         }
     }
 }
