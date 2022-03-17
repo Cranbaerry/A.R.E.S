@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using ARES.Properties;
 using Newtonsoft.Json;
+using MetroFramework;
 
 namespace ARES
 {
@@ -351,7 +352,7 @@ namespace ARES
             }
             else
             {
-                MessageBox.Show("Still loading last search");
+                MetroMessageBox.Show(this,"Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -614,7 +615,7 @@ namespace ARES
             }
             else
             {
-                MessageBox.Show("Please select an avatar or world first.");
+                MetroMessageBox.Show(this,"Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -656,7 +657,7 @@ namespace ARES
                         }
                         else
                         {
-                            MessageBox.Show("Quest version doesn't exist");
+                            MetroMessageBox.Show(this,"Quest version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -670,7 +671,7 @@ namespace ARES
                         }
                         else
                         {
-                            MessageBox.Show("PC version doesn't exist");
+                            MetroMessageBox.Show(this,"PC version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -824,7 +825,7 @@ namespace ARES
             }
             else
             {
-                MessageBox.Show("Please select an avatar or world first.");
+                MetroMessageBox.Show(this,"Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -841,7 +842,7 @@ namespace ARES
                 {
                     if (ex.Message == "(404) Not Found")
                     {
-                        MessageBox.Show("Version doesn't exist or file has been deleted from VRChat servers");
+                        MetroMessageBox.Show(this,"Version doesn't exist or file has been deleted from VRChat servers", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -916,7 +917,7 @@ namespace ARES
             }
             else
             {
-                MessageBox.Show("Still loading last search");
+                MetroMessageBox.Show(this,"Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -926,7 +927,7 @@ namespace ARES
             {
                 if (vrcaThread.IsAlive)
                 {
-                    MessageBox.Show("Hotswap is still busy with previous request");
+                    MetroMessageBox.Show(this,"Hotswap is still busy with previous request", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -943,7 +944,7 @@ namespace ARES
             }
             else
             {
-                MessageBox.Show("Please select an avatar first.");
+                MetroMessageBox.Show(this,"Please select an avatar first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -980,7 +981,7 @@ namespace ARES
             }
             catch
             {
-                MessageBox.Show("Make sure you've started the build and publish on unity");
+                MetroMessageBox.Show(this,"Make sure you've started the build and publish on unity", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -998,7 +999,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MessageBox.Show("Error decompressing VRCA file");
+                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1017,7 +1018,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MessageBox.Show("Error decompressing VRCA file");
+                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1031,7 +1032,7 @@ namespace ARES
             MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
             if (matchModelOld.UnityVersion == null)
             {
-                DialogResult dialogResult = MessageBox.Show("Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel);
+                DialogResult dialogResult = MetroMessageBox.Show(this,"Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                 if (dialogResult == DialogResult.Cancel)
                 {
                     if (hotswapConsole.InvokeRequired)
@@ -1107,7 +1108,7 @@ namespace ARES
                 });
             }
 
-            MessageBox.Show(string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize));
+            MetroMessageBox.Show(this,string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
             File.AppendAllText(filePath + @"\Ripped.txt", matchModelOld.AvatarId + "\n");
             rippedList.Add(matchModelOld.AvatarId);
         }
@@ -1219,7 +1220,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MessageBox.Show("Error decompressing VRCA file");
+                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1362,7 +1363,7 @@ namespace ARES
             {
                 if (vrcaThread.IsAlive)
                 {
-                    MessageBox.Show("Hotswap is still busy with previous request");
+                    MetroMessageBox.Show(this, "Hotswap is still busy with previous request", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -1381,12 +1382,12 @@ namespace ARES
                 }
                 else
                 {
-                    MessageBox.Show("Please load a VRCA file first");
+                    MetroMessageBox.Show(this, "Please load a VRCA file first", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please select an avatar first.");
+                MetroMessageBox.Show(this, "Please select an avatar first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1396,7 +1397,7 @@ namespace ARES
             {
                 if (vrcaThread.IsAlive)
                 {
-                    MessageBox.Show("VRCA search (Hotswap) is still busy with previous request");
+                    MetroMessageBox.Show(this, "VRCA search (Hotswap) is still busy with previous request", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -1416,12 +1417,12 @@ namespace ARES
                 }
                 else
                 {
-                    MessageBox.Show("Please load a VRCA file first");
+                    MetroMessageBox.Show(this, "Please load a VRCA file first", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please select an avatar first.");
+                MetroMessageBox.Show(this, "Please select an avatar first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1441,72 +1442,72 @@ namespace ARES
                 if (cbCopy.Text == "Time Dectected")
                 {
                     Clipboard.SetText(selectedAvatar.TimeDetected);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this,"information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Avatar ID")
                 {
                     Clipboard.SetText(selectedAvatar.AvatarID);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Avatar Name")
                 {
                     Clipboard.SetText(selectedAvatar.AvatarName);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Avatar Description")
                 {
                     Clipboard.SetText(selectedAvatar.AvatarDescription);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Author ID")
                 {
                     Clipboard.SetText(selectedAvatar.AuthorID);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Author Name")
                 {
                     Clipboard.SetText(selectedAvatar.AuthorName);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "PC Asset URL")
                 {
                     Clipboard.SetText(selectedAvatar.PCAssetURL);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Quest Asset URL")
                 {
                     Clipboard.SetText(selectedAvatar.QUESTAssetURL);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Image URL")
                 {
                     Clipboard.SetText(selectedAvatar.ImageURL);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Thumbnail URL")
                 {
                     Clipboard.SetText(selectedAvatar.ThumbnailURL);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Unity Version")
                 {
                     Clipboard.SetText(selectedAvatar.UnityVersion);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Release Status")
                 {
                     Clipboard.SetText(selectedAvatar.Releasestatus);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Tags")
                 {
                     Clipboard.SetText(selectedAvatar.Tags);
-                    MessageBox.Show("information copied to clipboard.");
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Only works for avatars atm.");
+                MetroMessageBox.Show(this, "Only works for avatars atm.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1694,13 +1695,6 @@ namespace ARES
             {
                 MessageBox.Show("Still loading last search");
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Any changes made via this you will have to restart VRChat to see.");
-            LoggerConfig logger = new LoggerConfig();
-            logger.ShowDialog();
         }
 
         private void btnUnityLoc_Click(object sender, EventArgs e)
