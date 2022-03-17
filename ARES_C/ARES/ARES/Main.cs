@@ -54,6 +54,7 @@ namespace ARES
         public Main()
         {
             InitializeComponent();
+            this.StyleManager = metroStyleManager;
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -179,6 +180,23 @@ namespace ARES
                 unityPath = iniFile.Read("unity");
             }
 
+            if (iniFile.KeyExists("theme"))
+            {
+                if (iniFile.Read("theme") == "light")
+                {
+                    metroStyleManager.Theme = MetroThemeStyle.Light;
+                }
+                else
+                {
+                    metroStyleManager.Theme = MetroThemeStyle.Dark;
+                }
+            }
+
+            if (iniFile.KeyExists("style"))
+            {
+                LoadStyle(iniFile.Read("style"));
+            }
+
             string pluginCheck = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("GUI", "");
             if (!File.Exists(pluginCheck + @"\Plugins\ARESPlugin.dll") && apiEnabled)
             {
@@ -213,7 +231,7 @@ namespace ARES
             localWorlds = CoreFunctions.getLocalWorlds(this);
             if (localWorlds.Count > 0 && apiEnabled)
             {
-                CoreFunctions.uploadToApiWorld(localWorlds,this);
+                CoreFunctions.uploadToApiWorld(localWorlds, this);
             }
             try
             {
@@ -352,7 +370,7 @@ namespace ARES
             }
             else
             {
-                MetroMessageBox.Show(this,"Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -633,7 +651,7 @@ namespace ARES
             }
             else
             {
-                MetroMessageBox.Show(this,"Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -675,7 +693,7 @@ namespace ARES
                         }
                         else
                         {
-                            MetroMessageBox.Show(this,"Quest version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MetroMessageBox.Show(this, "Quest version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -689,7 +707,7 @@ namespace ARES
                         }
                         else
                         {
-                            MetroMessageBox.Show(this,"PC version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MetroMessageBox.Show(this, "PC version doesn't exist", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
@@ -843,7 +861,7 @@ namespace ARES
             }
             else
             {
-                MetroMessageBox.Show(this,"Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Please select an avatar or world first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -860,7 +878,7 @@ namespace ARES
                 {
                     if (ex.Message == "(404) Not Found")
                     {
-                        MetroMessageBox.Show(this,"Version doesn't exist or file has been deleted from VRChat servers", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MetroMessageBox.Show(this, "Version doesn't exist or file has been deleted from VRChat servers", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -935,7 +953,7 @@ namespace ARES
             }
             else
             {
-                MetroMessageBox.Show(this,"Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Still loading last search", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -945,7 +963,7 @@ namespace ARES
             {
                 if (vrcaThread.IsAlive)
                 {
-                    MetroMessageBox.Show(this,"Hotswap is still busy with previous request", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(this, "Hotswap is still busy with previous request", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -962,7 +980,7 @@ namespace ARES
             }
             else
             {
-                MetroMessageBox.Show(this,"Please select an avatar first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Please select an avatar first.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -999,7 +1017,7 @@ namespace ARES
             }
             catch
             {
-                MetroMessageBox.Show(this,"Make sure you've started the build and publish on unity", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Make sure you've started the build and publish on unity", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1017,7 +1035,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1036,7 +1054,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (hotswapConsole.InvokeRequired)
                 {
                     hotswapConsole.Invoke((MethodInvoker)delegate
@@ -1050,7 +1068,7 @@ namespace ARES
             MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
             if (matchModelOld.UnityVersion == null)
             {
-                DialogResult dialogResult = MetroMessageBox.Show(this,"Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                DialogResult dialogResult = MetroMessageBox.Show(this, "Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                 if (dialogResult == DialogResult.Cancel)
                 {
                     if (hotswapConsole.InvokeRequired)
@@ -1126,7 +1144,7 @@ namespace ARES
                 });
             }
 
-            MetroMessageBox.Show(this,string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
+            MetroMessageBox.Show(this, string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
             File.AppendAllText(filePath + @"\Ripped.txt", matchModelOld.AvatarId + "\n");
             rippedList.Add(matchModelOld.AvatarId);
         }
@@ -1238,7 +1256,7 @@ namespace ARES
             catch (Exception ex)
             {
                 CoreFunctions.WriteLog(string.Format("{0}", ex.Message), this);
-                MetroMessageBox.Show(this,"Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Error decompressing VRCA file", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1460,7 +1478,7 @@ namespace ARES
                 if (cbCopy.Text == "Time Dectected")
                 {
                     Clipboard.SetText(selectedAvatar.TimeDetected);
-                    MetroMessageBox.Show(this,"information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroMessageBox.Show(this, "information copied to clipboard.", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (cbCopy.Text == "Avatar ID")
                 {
@@ -1731,13 +1749,14 @@ namespace ARES
 
         private void mTab_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(mTab.SelectedIndex == 1)
+            if (mTab.SelectedIndex == 1)
             {
                 LoadConfig();
                 if (config != null)
                 {
                     SetCheckBoxes();
-                } else
+                }
+                else
                 {
                     ConfigBox.Visible = false;
                 }
@@ -1843,6 +1862,104 @@ namespace ARES
         {
             config.HWIDSpoof = cbHWIDSpoof.Checked;
             WriteConfig();
+        }
+
+        private void btnLight_Click(object sender, EventArgs e)
+        {
+            metroStyleManager.Theme = MetroThemeStyle.Light;
+            iniFile.Write("theme", "light");
+        }
+
+        private void btnDark_Click(object sender, EventArgs e)
+        {
+            metroStyleManager.Theme = MetroThemeStyle.Dark;
+            iniFile.Write("theme", "dark");
+        }
+
+        private void cbThemeColour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadStyle(cbThemeColour.Text);
+        }
+
+        private void LoadStyle(string style)
+        {
+            switch (style)
+            {
+                case "Black":
+                    metroStyleManager.Style = MetroColorStyle.Black;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "White":
+                    metroStyleManager.Style = MetroColorStyle.White;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Silver":
+                    metroStyleManager.Style = MetroColorStyle.Silver;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Green":
+                    metroStyleManager.Style = MetroColorStyle.Green;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Blue":
+                    metroStyleManager.Style = MetroColorStyle.Blue;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Lime":
+                    metroStyleManager.Style = MetroColorStyle.Lime;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Teal":
+                    metroStyleManager.Style = MetroColorStyle.Teal;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Orange":
+                    metroStyleManager.Style = MetroColorStyle.Orange;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Brown":
+                    metroStyleManager.Style = MetroColorStyle.Brown;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Pink":
+                    metroStyleManager.Style = MetroColorStyle.Pink;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Magenta":
+                    metroStyleManager.Style = MetroColorStyle.Magenta;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Purple":
+                    metroStyleManager.Style = MetroColorStyle.Purple;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Red":
+                    metroStyleManager.Style = MetroColorStyle.Red;
+                    iniFile.Write("style", style);
+                    break;
+
+                case "Yellow":
+                    metroStyleManager.Style = MetroColorStyle.Yellow;
+                    iniFile.Write("style", style);
+                    break;
+
+                default:
+                    metroStyleManager.Style = MetroColorStyle.Default;
+                    iniFile.Write("style", "Default");
+                    break;
+            }
         }
     }
 }

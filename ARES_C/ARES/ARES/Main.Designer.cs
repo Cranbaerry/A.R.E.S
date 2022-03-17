@@ -42,7 +42,6 @@ namespace ARES
             this.nmQuestVersion = new System.Windows.Forms.NumericUpDown();
             this.nmPcVersion = new System.Windows.Forms.NumericUpDown();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.mTab = new MetroFramework.Controls.MetroTabControl();
             this.mTabMain = new MetroFramework.Controls.MetroTabPage();
             this.btnBrowserView = new MetroFramework.Controls.MetroButton();
@@ -101,6 +100,13 @@ namespace ARES
             this.selectedImage = new System.Windows.Forms.PictureBox();
             this.pbRipped = new System.Windows.Forms.PictureBox();
             this.btnUnityLoc = new MetroFramework.Controls.MetroButton();
+            this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
+            this.btnLight = new MetroFramework.Controls.MetroButton();
+            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.btnDark = new MetroFramework.Controls.MetroButton();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.cbThemeColour = new MetroFramework.Controls.MetroComboBox();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmThread)).BeginInit();
@@ -114,6 +120,7 @@ namespace ARES
             this.metroTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             this.SuspendLayout();
             // 
             // flowAvatars
@@ -149,7 +156,6 @@ namespace ARES
             this.btnDownload.Size = new System.Drawing.Size(258, 35);
             this.btnDownload.TabIndex = 51;
             this.btnDownload.Text = "Download VRCA / VRCW";
-            this.btnDownload.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnDownload.UseSelectable = true;
             this.btnDownload.UseStyleColors = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
@@ -184,7 +190,6 @@ namespace ARES
             this.txtAvatarInfo.ShortcutsEnabled = true;
             this.txtAvatarInfo.Size = new System.Drawing.Size(258, 427);
             this.txtAvatarInfo.TabIndex = 49;
-            this.txtAvatarInfo.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.txtAvatarInfo.UseSelectable = true;
             this.txtAvatarInfo.UseStyleColors = true;
             this.txtAvatarInfo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -217,8 +222,8 @@ namespace ARES
             this.cbCopy.Size = new System.Drawing.Size(167, 35);
             this.cbCopy.Style = MetroFramework.MetroColorStyle.Blue;
             this.cbCopy.TabIndex = 48;
-            this.cbCopy.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbCopy.UseSelectable = true;
+            this.cbCopy.UseStyleColors = true;
             // 
             // btnCopy
             // 
@@ -228,7 +233,6 @@ namespace ARES
             this.btnCopy.Size = new System.Drawing.Size(85, 35);
             this.btnCopy.TabIndex = 48;
             this.btnCopy.Text = "Copy Info";
-            this.btnCopy.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnCopy.UseSelectable = true;
             this.btnCopy.UseStyleColors = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
@@ -253,7 +257,6 @@ namespace ARES
             this.nmThread.Name = "nmThread";
             this.nmThread.Size = new System.Drawing.Size(167, 26);
             this.nmThread.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.nmThread, "Setting this number too high can cause issues");
             this.nmThread.Value = new decimal(new int[] {
             12,
             0,
@@ -299,7 +302,6 @@ namespace ARES
             this.mTab.SelectedIndex = 0;
             this.mTab.Size = new System.Drawing.Size(896, 755);
             this.mTab.TabIndex = 14;
-            this.mTab.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.mTab.UseSelectable = true;
             this.mTab.UseStyleColors = true;
             this.mTab.SelectedIndexChanged += new System.EventHandler(this.mTab_SelectedIndexChanged);
@@ -338,7 +340,6 @@ namespace ARES
             this.mTabMain.Size = new System.Drawing.Size(888, 712);
             this.mTabMain.TabIndex = 0;
             this.mTabMain.Text = "Main";
-            this.mTabMain.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.mTabMain.VerticalScrollbarBarColor = true;
             this.mTabMain.VerticalScrollbarHighlightOnWheel = false;
             this.mTabMain.VerticalScrollbarSize = 10;
@@ -351,7 +352,6 @@ namespace ARES
             this.btnBrowserView.Size = new System.Drawing.Size(120, 35);
             this.btnBrowserView.TabIndex = 50;
             this.btnBrowserView.Text = "Browser View";
-            this.btnBrowserView.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnBrowserView.UseSelectable = true;
             this.btnBrowserView.UseStyleColors = true;
             this.btnBrowserView.Click += new System.EventHandler(this.btnBrowserView_Click);
@@ -366,7 +366,6 @@ namespace ARES
             this.metroLabel7.Size = new System.Drawing.Size(130, 25);
             this.metroLabel7.TabIndex = 49;
             this.metroLabel7.Text = "Quest Version";
-            this.metroLabel7.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel7.UseStyleColors = true;
             // 
             // metroLabel6
@@ -379,7 +378,6 @@ namespace ARES
             this.metroLabel6.Size = new System.Drawing.Size(102, 25);
             this.metroLabel6.TabIndex = 48;
             this.metroLabel6.Text = "PC Version";
-            this.metroLabel6.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel6.UseStyleColors = true;
             // 
             // cbLimit
@@ -401,7 +399,6 @@ namespace ARES
             this.cbLimit.Name = "cbLimit";
             this.cbLimit.Size = new System.Drawing.Size(121, 35);
             this.cbLimit.TabIndex = 47;
-            this.cbLimit.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLimit.UseSelectable = true;
             this.cbLimit.UseStyleColors = true;
             // 
@@ -432,9 +429,7 @@ namespace ARES
             this.txtSearchTerm.SelectionStart = 0;
             this.txtSearchTerm.ShortcutsEnabled = true;
             this.txtSearchTerm.Size = new System.Drawing.Size(567, 35);
-            this.txtSearchTerm.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtSearchTerm.TabIndex = 46;
-            this.txtSearchTerm.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.txtSearchTerm.UseSelectable = true;
             this.txtSearchTerm.UseStyleColors = true;
             this.txtSearchTerm.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -448,7 +443,6 @@ namespace ARES
             this.btnHotswap.Size = new System.Drawing.Size(120, 35);
             this.btnHotswap.TabIndex = 45;
             this.btnHotswap.Text = "HotSwap";
-            this.btnHotswap.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnHotswap.UseSelectable = true;
             this.btnHotswap.UseStyleColors = true;
             this.btnHotswap.Click += new System.EventHandler(this.btnHotswap_Click);
@@ -461,7 +455,6 @@ namespace ARES
             this.btnUnity.Size = new System.Drawing.Size(120, 35);
             this.btnUnity.TabIndex = 44;
             this.btnUnity.Text = "Open Unity";
-            this.btnUnity.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnUnity.UseSelectable = true;
             this.btnUnity.UseStyleColors = true;
             this.btnUnity.Click += new System.EventHandler(this.btnUnity_Click);
@@ -474,7 +467,6 @@ namespace ARES
             this.btnRipped.Size = new System.Drawing.Size(120, 35);
             this.btnRipped.TabIndex = 43;
             this.btnRipped.Text = "Search Ripped";
-            this.btnRipped.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnRipped.UseSelectable = true;
             this.btnRipped.UseStyleColors = true;
             this.btnRipped.Click += new System.EventHandler(this.btnRipped_Click);
@@ -487,7 +479,6 @@ namespace ARES
             this.btnStopSearch.Size = new System.Drawing.Size(120, 35);
             this.btnStopSearch.TabIndex = 42;
             this.btnStopSearch.Text = "Stop Search";
-            this.btnStopSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnStopSearch.UseSelectable = true;
             this.btnStopSearch.UseStyleColors = true;
             this.btnStopSearch.Click += new System.EventHandler(this.btnStopSearch_Click);
@@ -500,7 +491,6 @@ namespace ARES
             this.btnSearchLocal.Size = new System.Drawing.Size(120, 35);
             this.btnSearchLocal.TabIndex = 41;
             this.btnSearchLocal.Text = "Search Local";
-            this.btnSearchLocal.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnSearchLocal.UseSelectable = true;
             this.btnSearchLocal.UseStyleColors = true;
             this.btnSearchLocal.Click += new System.EventHandler(this.btnSearchLocal_Click);
@@ -513,7 +503,6 @@ namespace ARES
             this.btnSearch.Size = new System.Drawing.Size(120, 35);
             this.btnSearch.TabIndex = 0;
             this.btnSearch.Text = "Search API";
-            this.btnSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnSearch.UseSelectable = true;
             this.btnSearch.UseStyleColors = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -534,10 +523,9 @@ namespace ARES
             this.cbSearchTerm.Location = new System.Drawing.Point(158, 59);
             this.cbSearchTerm.Name = "cbSearchTerm";
             this.cbSearchTerm.Size = new System.Drawing.Size(315, 35);
-            this.cbSearchTerm.Style = MetroFramework.MetroColorStyle.Blue;
             this.cbSearchTerm.TabIndex = 40;
-            this.cbSearchTerm.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbSearchTerm.UseSelectable = true;
+            this.cbSearchTerm.UseStyleColors = true;
             // 
             // chkQuest
             // 
@@ -549,7 +537,6 @@ namespace ARES
             this.chkQuest.Size = new System.Drawing.Size(63, 19);
             this.chkQuest.TabIndex = 39;
             this.chkQuest.Text = "Quest";
-            this.chkQuest.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.chkQuest.UseSelectable = true;
             this.chkQuest.UseStyleColors = true;
             // 
@@ -565,7 +552,6 @@ namespace ARES
             this.chkPC.Size = new System.Drawing.Size(43, 19);
             this.chkPC.TabIndex = 38;
             this.chkPC.Text = "PC";
-            this.chkPC.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.chkPC.UseSelectable = true;
             this.chkPC.UseStyleColors = true;
             // 
@@ -581,7 +567,6 @@ namespace ARES
             this.chkPrivate.Size = new System.Drawing.Size(73, 19);
             this.chkPrivate.TabIndex = 37;
             this.chkPrivate.Text = "Private";
-            this.chkPrivate.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.chkPrivate.UseSelectable = true;
             this.chkPrivate.UseStyleColors = true;
             // 
@@ -597,7 +582,6 @@ namespace ARES
             this.chkPublic.Size = new System.Drawing.Size(66, 19);
             this.chkPublic.TabIndex = 36;
             this.chkPublic.Text = "Public";
-            this.chkPublic.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.chkPublic.UseSelectable = true;
             this.chkPublic.UseStyleColors = true;
             // 
@@ -611,7 +595,6 @@ namespace ARES
             this.lblAvatarCount.Size = new System.Drawing.Size(22, 25);
             this.lblAvatarCount.TabIndex = 35;
             this.lblAvatarCount.Text = "0";
-            this.lblAvatarCount.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.lblAvatarCount.UseStyleColors = true;
             // 
             // metroLabel4
@@ -624,7 +607,6 @@ namespace ARES
             this.metroLabel4.Size = new System.Drawing.Size(68, 25);
             this.metroLabel4.TabIndex = 34;
             this.metroLabel4.Text = "Count:";
-            this.metroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel4.UseStyleColors = true;
             // 
             // metroLabel3
@@ -637,7 +619,6 @@ namespace ARES
             this.metroLabel3.Size = new System.Drawing.Size(61, 25);
             this.metroLabel3.TabIndex = 33;
             this.metroLabel3.Text = "Filter:";
-            this.metroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel3.UseStyleColors = true;
             // 
             // metroLabel2
@@ -650,7 +631,6 @@ namespace ARES
             this.metroLabel2.Size = new System.Drawing.Size(120, 25);
             this.metroLabel2.TabIndex = 32;
             this.metroLabel2.Text = "Search Type:";
-            this.metroLabel2.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel2.UseStyleColors = true;
             // 
             // metroLabel1
@@ -663,11 +643,15 @@ namespace ARES
             this.metroLabel1.Size = new System.Drawing.Size(121, 25);
             this.metroLabel1.TabIndex = 31;
             this.metroLabel1.Text = "Search Term:";
-            this.metroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel1.UseStyleColors = true;
             // 
             // mTabSettings
             // 
+            this.mTabSettings.Controls.Add(this.cbThemeColour);
+            this.mTabSettings.Controls.Add(this.metroLabel12);
+            this.mTabSettings.Controls.Add(this.btnDark);
+            this.mTabSettings.Controls.Add(this.metroLabel11);
+            this.mTabSettings.Controls.Add(this.btnLight);
             this.mTabSettings.Controls.Add(this.btnUnityLoc);
             this.mTabSettings.Controls.Add(this.ConfigBox);
             this.mTabSettings.Controls.Add(this.btnHsbClean);
@@ -685,7 +669,6 @@ namespace ARES
             this.mTabSettings.Size = new System.Drawing.Size(888, 712);
             this.mTabSettings.TabIndex = 1;
             this.mTabSettings.Text = "Settings  ";
-            this.mTabSettings.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.mTabSettings.VerticalScrollbarBarColor = true;
             this.mTabSettings.VerticalScrollbarHighlightOnWheel = false;
             this.mTabSettings.VerticalScrollbarSize = 10;
@@ -725,7 +708,6 @@ namespace ARES
             this.cbUnlimitedFavorites.Size = new System.Drawing.Size(155, 19);
             this.cbUnlimitedFavorites.TabIndex = 51;
             this.cbUnlimitedFavorites.Text = "Unlimited Favorites";
-            this.cbUnlimitedFavorites.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbUnlimitedFavorites.UseSelectable = true;
             this.cbUnlimitedFavorites.UseStyleColors = true;
             this.cbUnlimitedFavorites.CheckedChanged += new System.EventHandler(this.cbUnlimitedFavorites_CheckedChanged);
@@ -740,7 +722,6 @@ namespace ARES
             this.cbHWIDSpoof.Size = new System.Drawing.Size(108, 19);
             this.cbHWIDSpoof.TabIndex = 61;
             this.cbHWIDSpoof.Text = "HWID Spoof";
-            this.cbHWIDSpoof.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbHWIDSpoof.UseSelectable = true;
             this.cbHWIDSpoof.UseStyleColors = true;
             this.cbHWIDSpoof.CheckedChanged += new System.EventHandler(this.cbHWIDSpoof_CheckedChanged);
@@ -757,7 +738,6 @@ namespace ARES
             this.cbStealth.Size = new System.Drawing.Size(71, 19);
             this.cbStealth.TabIndex = 52;
             this.cbStealth.Text = "Stealth";
-            this.cbStealth.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbStealth.UseSelectable = true;
             this.cbStealth.UseStyleColors = true;
             this.cbStealth.CheckedChanged += new System.EventHandler(this.cbStealth_CheckedChanged);
@@ -774,7 +754,6 @@ namespace ARES
             this.cbConsoleError.Size = new System.Drawing.Size(116, 19);
             this.cbConsoleError.TabIndex = 64;
             this.cbConsoleError.Text = "Console Error";
-            this.cbConsoleError.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbConsoleError.UseSelectable = true;
             this.cbConsoleError.UseStyleColors = true;
             this.cbConsoleError.CheckedChanged += new System.EventHandler(this.cbConsoleError_CheckedChanged);
@@ -791,7 +770,6 @@ namespace ARES
             this.cbLogAvatars.Size = new System.Drawing.Size(105, 19);
             this.cbLogAvatars.TabIndex = 53;
             this.cbLogAvatars.Text = "Log Avatars";
-            this.cbLogAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogAvatars.UseSelectable = true;
             this.cbLogAvatars.UseStyleColors = true;
             this.cbLogAvatars.CheckedChanged += new System.EventHandler(this.cbLogAvatars_CheckedChanged);
@@ -808,7 +786,6 @@ namespace ARES
             this.cbLogWorlds.Size = new System.Drawing.Size(102, 19);
             this.cbLogWorlds.TabIndex = 54;
             this.cbLogWorlds.Text = "Log Worlds";
-            this.cbLogWorlds.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogWorlds.UseSelectable = true;
             this.cbLogWorlds.UseStyleColors = true;
             this.cbLogWorlds.CheckedChanged += new System.EventHandler(this.cbLogWorlds_CheckedChanged);
@@ -825,7 +802,6 @@ namespace ARES
             this.cbLogFriendsAvatars.Size = new System.Drawing.Size(157, 19);
             this.cbLogFriendsAvatars.TabIndex = 55;
             this.cbLogFriendsAvatars.Text = "Log Friends Avatars";
-            this.cbLogFriendsAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogFriendsAvatars.UseSelectable = true;
             this.cbLogFriendsAvatars.UseStyleColors = true;
             this.cbLogFriendsAvatars.CheckedChanged += new System.EventHandler(this.cbLogFriendsAvatars_CheckedChanged);
@@ -842,7 +818,6 @@ namespace ARES
             this.cbLogPrivateAvatars.Size = new System.Drawing.Size(157, 19);
             this.cbLogPrivateAvatars.TabIndex = 63;
             this.cbLogPrivateAvatars.Text = "Log Private Avatars";
-            this.cbLogPrivateAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogPrivateAvatars.UseSelectable = true;
             this.cbLogPrivateAvatars.UseStyleColors = true;
             this.cbLogPrivateAvatars.CheckedChanged += new System.EventHandler(this.cbLogPrivateAvatars_CheckedChanged);
@@ -859,7 +834,6 @@ namespace ARES
             this.cbLogToConsole.Size = new System.Drawing.Size(127, 19);
             this.cbLogToConsole.TabIndex = 59;
             this.cbLogToConsole.Text = "Log To Console";
-            this.cbLogToConsole.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogToConsole.UseSelectable = true;
             this.cbLogToConsole.UseStyleColors = true;
             this.cbLogToConsole.CheckedChanged += new System.EventHandler(this.cbLogToConsole_CheckedChanged);
@@ -876,7 +850,6 @@ namespace ARES
             this.cbLogPublicAvatars.Size = new System.Drawing.Size(150, 19);
             this.cbLogPublicAvatars.TabIndex = 62;
             this.cbLogPublicAvatars.Text = "Log Public Avatars";
-            this.cbLogPublicAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogPublicAvatars.UseSelectable = true;
             this.cbLogPublicAvatars.UseStyleColors = true;
             this.cbLogPublicAvatars.CheckedChanged += new System.EventHandler(this.cbLogPublicAvatars_CheckedChanged);
@@ -893,7 +866,6 @@ namespace ARES
             this.cbLogOwnAvatars.Size = new System.Drawing.Size(139, 19);
             this.cbLogOwnAvatars.TabIndex = 61;
             this.cbLogOwnAvatars.Text = "Log Own Avatars";
-            this.cbLogOwnAvatars.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbLogOwnAvatars.UseSelectable = true;
             this.cbLogOwnAvatars.UseStyleColors = true;
             this.cbLogOwnAvatars.CheckedChanged += new System.EventHandler(this.cbLogOwnAvatars_CheckedChanged);
@@ -906,7 +878,6 @@ namespace ARES
             this.btnHsbClean.Size = new System.Drawing.Size(189, 35);
             this.btnHsbClean.TabIndex = 39;
             this.btnHsbClean.Text = "Clean HSB";
-            this.btnHsbClean.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroToolTip1.SetToolTip(this.btnHsbClean, "This will delete the HSB folder & HSBC.rar to fix potential issues");
             this.btnHsbClean.UseSelectable = true;
             this.btnHsbClean.UseStyleColors = true;
@@ -920,7 +891,6 @@ namespace ARES
             this.btnApi.Size = new System.Drawing.Size(189, 35);
             this.btnApi.TabIndex = 38;
             this.btnApi.Text = "Disable API";
-            this.btnApi.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnApi.UseSelectable = true;
             this.btnApi.UseStyleColors = true;
             this.btnApi.Click += new System.EventHandler(this.btnApi_Click);
@@ -937,7 +907,6 @@ namespace ARES
             this.chkLoadImages.Size = new System.Drawing.Size(110, 19);
             this.chkLoadImages.TabIndex = 37;
             this.chkLoadImages.Text = "Load Images";
-            this.chkLoadImages.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroToolTip1.SetToolTip(this.chkLoadImages, "This will still load image on top right even if disabled");
             this.chkLoadImages.UseSelectable = true;
             this.chkLoadImages.UseStyleColors = true;
@@ -952,7 +921,6 @@ namespace ARES
             this.metroLabel8.Size = new System.Drawing.Size(180, 25);
             this.metroLabel8.TabIndex = 33;
             this.metroLabel8.Text = "Max Image Threads";
-            this.metroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel8.UseStyleColors = true;
             // 
             // metroLabel5
@@ -965,7 +933,6 @@ namespace ARES
             this.metroLabel5.Size = new System.Drawing.Size(145, 25);
             this.metroLabel5.TabIndex = 32;
             this.metroLabel5.Text = "Console Output";
-            this.metroLabel5.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel5.UseStyleColors = true;
             // 
             // txtConsole
@@ -998,7 +965,6 @@ namespace ARES
             this.txtConsole.ShortcutsEnabled = true;
             this.txtConsole.Size = new System.Drawing.Size(596, 532);
             this.txtConsole.TabIndex = 2;
-            this.txtConsole.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.txtConsole.UseSelectable = true;
             this.txtConsole.UseStyleColors = true;
             this.txtConsole.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -1022,7 +988,6 @@ namespace ARES
             this.metroTabPage3.Size = new System.Drawing.Size(888, 712);
             this.metroTabPage3.TabIndex = 3;
             this.metroTabPage3.Text = "Utility";
-            this.metroTabPage3.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabPage3.VerticalScrollbarBarColor = true;
             this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage3.VerticalScrollbarSize = 10;
@@ -1035,7 +1000,6 @@ namespace ARES
             this.btnRepair.Size = new System.Drawing.Size(189, 35);
             this.btnRepair.TabIndex = 35;
             this.btnRepair.Text = "Repair VRCA";
-            this.btnRepair.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnRepair.UseSelectable = true;
             this.btnRepair.UseStyleColors = true;
             this.btnRepair.Click += new System.EventHandler(this.btnRepair_Click);
@@ -1050,7 +1014,6 @@ namespace ARES
             this.metroLabel9.Size = new System.Drawing.Size(126, 25);
             this.metroLabel9.TabIndex = 34;
             this.metroLabel9.Text = "Unity Version";
-            this.metroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel9.UseStyleColors = true;
             // 
             // cbVersionUnity
@@ -1066,7 +1029,6 @@ namespace ARES
             this.cbVersionUnity.Name = "cbVersionUnity";
             this.cbVersionUnity.Size = new System.Drawing.Size(167, 35);
             this.cbVersionUnity.TabIndex = 6;
-            this.cbVersionUnity.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cbVersionUnity.UseSelectable = true;
             this.cbVersionUnity.UseStyleColors = true;
             // 
@@ -1078,7 +1040,6 @@ namespace ARES
             this.btnVrcaSearch.Size = new System.Drawing.Size(189, 35);
             this.btnVrcaSearch.TabIndex = 5;
             this.btnVrcaSearch.Text = "Attempt VRCA Search";
-            this.btnVrcaSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnVrcaSearch.UseSelectable = true;
             this.btnVrcaSearch.UseStyleColors = true;
             this.btnVrcaSearch.Click += new System.EventHandler(this.btnVrcaSearch_Click);
@@ -1091,7 +1052,6 @@ namespace ARES
             this.btnScan.Size = new System.Drawing.Size(189, 35);
             this.btnScan.TabIndex = 4;
             this.btnScan.Text = "Scan Unity Package";
-            this.btnScan.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnScan.UseSelectable = true;
             this.btnScan.UseStyleColors = true;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
@@ -1104,7 +1064,6 @@ namespace ARES
             this.btnExtractVRCA.Size = new System.Drawing.Size(189, 35);
             this.btnExtractVRCA.TabIndex = 3;
             this.btnExtractVRCA.Text = "Extract VRCA/VRCW";
-            this.btnExtractVRCA.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnExtractVRCA.UseSelectable = true;
             this.btnExtractVRCA.UseStyleColors = true;
             this.btnExtractVRCA.Click += new System.EventHandler(this.btnExtractVRCA_Click);
@@ -1117,7 +1076,6 @@ namespace ARES
             this.btnLoadVRCA.Size = new System.Drawing.Size(189, 35);
             this.btnLoadVRCA.TabIndex = 2;
             this.btnLoadVRCA.Text = "Load VRCA/VRCW";
-            this.btnLoadVRCA.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnLoadVRCA.UseSelectable = true;
             this.btnLoadVRCA.UseStyleColors = true;
             this.btnLoadVRCA.Click += new System.EventHandler(this.btnLoadVRCA_Click);
@@ -1135,7 +1093,6 @@ namespace ARES
             this.metroTabPage2.Size = new System.Drawing.Size(888, 712);
             this.metroTabPage2.TabIndex = 2;
             this.metroTabPage2.Text = "About";
-            this.metroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
@@ -1150,7 +1107,6 @@ namespace ARES
             this.lblSize.Size = new System.Drawing.Size(22, 25);
             this.lblSize.TabIndex = 33;
             this.lblSize.Text = "0";
-            this.lblSize.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.lblSize.UseStyleColors = true;
             // 
             // metroLabel10
@@ -1163,7 +1119,6 @@ namespace ARES
             this.metroLabel10.Size = new System.Drawing.Size(140, 25);
             this.metroLabel10.TabIndex = 32;
             this.metroLabel10.Text = "Datebase Size: ";
-            this.metroLabel10.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroLabel10.UseStyleColors = true;
             // 
             // metroToolTip1
@@ -1202,7 +1157,6 @@ namespace ARES
             this.txtAbout.ShortcutsEnabled = true;
             this.txtAbout.Size = new System.Drawing.Size(876, 670);
             this.txtAbout.TabIndex = 50;
-            this.txtAbout.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.txtAbout.UseSelectable = true;
             this.txtAbout.UseStyleColors = true;
             this.txtAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -1237,11 +1191,94 @@ namespace ARES
             this.btnUnityLoc.Size = new System.Drawing.Size(189, 35);
             this.btnUnityLoc.TabIndex = 66;
             this.btnUnityLoc.Text = "Select Unity Location";
-            this.btnUnityLoc.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroToolTip1.SetToolTip(this.btnUnityLoc, "This will delete the HSB folder & HSBC.rar to fix potential issues");
             this.btnUnityLoc.UseSelectable = true;
             this.btnUnityLoc.UseStyleColors = true;
             this.btnUnityLoc.Click += new System.EventHandler(this.btnUnityLoc_Click);
+            // 
+            // metroStyleManager
+            // 
+            this.metroStyleManager.Owner = this;
+            this.metroStyleManager.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroStyleExtender
+            // 
+            this.metroStyleExtender.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // btnLight
+            // 
+            this.btnLight.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnLight.Location = new System.Drawing.Point(14, 293);
+            this.btnLight.Name = "btnLight";
+            this.btnLight.Size = new System.Drawing.Size(189, 35);
+            this.btnLight.TabIndex = 67;
+            this.btnLight.Text = "Light";
+            this.btnLight.UseSelectable = true;
+            this.btnLight.UseStyleColors = true;
+            this.btnLight.Click += new System.EventHandler(this.btnLight_Click);
+            // 
+            // metroLabel11
+            // 
+            this.metroLabel11.AutoSize = true;
+            this.metroLabel11.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel11.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel11.Location = new System.Drawing.Point(14, 265);
+            this.metroLabel11.Name = "metroLabel11";
+            this.metroLabel11.Size = new System.Drawing.Size(144, 25);
+            this.metroLabel11.TabIndex = 68;
+            this.metroLabel11.Text = "Theme Settings";
+            this.metroLabel11.UseStyleColors = true;
+            // 
+            // btnDark
+            // 
+            this.btnDark.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnDark.Location = new System.Drawing.Point(14, 334);
+            this.btnDark.Name = "btnDark";
+            this.btnDark.Size = new System.Drawing.Size(189, 35);
+            this.btnDark.TabIndex = 69;
+            this.btnDark.Text = "Dark";
+            this.btnDark.UseSelectable = true;
+            this.btnDark.UseStyleColors = true;
+            this.btnDark.Click += new System.EventHandler(this.btnDark_Click);
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel12.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel12.Location = new System.Drawing.Point(9, 372);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(131, 25);
+            this.metroLabel12.TabIndex = 70;
+            this.metroLabel12.Text = "Theme Colour";
+            this.metroLabel12.UseStyleColors = true;
+            // 
+            // cbThemeColour
+            // 
+            this.cbThemeColour.FormattingEnabled = true;
+            this.cbThemeColour.ItemHeight = 23;
+            this.cbThemeColour.Items.AddRange(new object[] {
+            "Default",
+            "Black",
+            "White",
+            "Silver",
+            "Blue",
+            "Green",
+            "Lime",
+            "Teal",
+            "Orange",
+            "Brown",
+            "Pink",
+            "Magenta",
+            "Purple",
+            "Red",
+            "Yellow"});
+            this.cbThemeColour.Location = new System.Drawing.Point(14, 400);
+            this.cbThemeColour.Name = "cbThemeColour";
+            this.cbThemeColour.Size = new System.Drawing.Size(189, 29);
+            this.cbThemeColour.TabIndex = 71;
+            this.cbThemeColour.UseSelectable = true;
+            this.cbThemeColour.SelectedIndexChanged += new System.EventHandler(this.cbThemeColour_SelectedIndexChanged);
             // 
             // Main
             // 
@@ -1256,9 +1293,9 @@ namespace ARES
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Resizable = false;
-            this.Style = MetroFramework.MetroColorStyle.Black;
+            this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "A.R.E.S";
-            this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ares_Close);
             this.Load += new System.EventHandler(this.Main_Load);
             this.groupBox1.ResumeLayout(false);
@@ -1279,6 +1316,7 @@ namespace ARES
             this.metroTabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipped)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1291,7 +1329,6 @@ namespace ARES
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.NumericUpDown nmPcVersion;
         private System.Windows.Forms.NumericUpDown nmQuestVersion;
-        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.NumericUpDown nmThread;
         private System.Windows.Forms.PictureBox pbRipped;
         private MetroFramework.Controls.MetroTabControl mTab;
@@ -1354,6 +1391,13 @@ namespace ARES
         private MetroFramework.Controls.MetroLabel metroLabel10;
         private MetroFramework.Controls.MetroTextBox txtAbout;
         private MetroFramework.Controls.MetroButton btnUnityLoc;
+        private MetroFramework.Components.MetroStyleManager metroStyleManager;
+        private MetroFramework.Components.MetroStyleExtender metroStyleExtender;
+        private MetroFramework.Controls.MetroButton btnDark;
+        private MetroFramework.Controls.MetroLabel metroLabel11;
+        private MetroFramework.Controls.MetroButton btnLight;
+        private MetroFramework.Controls.MetroComboBox cbThemeColour;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
     }
 }
 
