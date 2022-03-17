@@ -378,6 +378,18 @@ namespace ARES
             locked = false;
         }
 
+        private void labelAvatar_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    {
+                        LoadInfo(sender, e);
+                    }
+                    break;
+            }
+        }
+
         public void MultiGetImages(Records item)
         {
             try
@@ -421,6 +433,12 @@ namespace ARES
                         groupBox.Controls.Add(label);
                         label.Parent = avatarImage;
                     }
+                    label.MouseDown += labelAvatar_MouseDown;
+                    ContextMenu cm = new ContextMenu();
+                    cm.MenuItems.Add("Hotswap", new EventHandler(btnHotswap_Click));
+                    cm.MenuItems.Add("Extract", new EventHandler(btnExtractVRCA_Click));
+                    cm.MenuItems.Add("Download", new EventHandler(btnDownload_Click));
+                    label.ContextMenu = cm;
 
                     if (flowAvatars.InvokeRequired)
                     {
