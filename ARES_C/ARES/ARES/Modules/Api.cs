@@ -137,7 +137,7 @@ namespace ARES.Modules
             using (WebClient webClient = new WebClient())
             {
                 //Needs a useragent to be able to view images.
-                webClient.Headers.Add("user-agent", "VRCX");
+                webClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36");
                 try
                 {
                     string web = webClient.DownloadString(url);
