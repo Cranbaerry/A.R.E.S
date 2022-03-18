@@ -37,7 +37,7 @@ namespace ARES.Modules
             using (WebClient webClient = new WebClient())
             {
                 //Needs a useragent to be able to view images.
-                webClient.Headers.Add("user-agent", "VRCX");
+                webClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36");
                 try
                 {
                     Stream stream = webClient.OpenRead(url);
@@ -49,8 +49,9 @@ namespace ARES.Modules
                         return bitmap;
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return null;
                     //skip as its likely avatar is been yeeted from VRC servers
                     //avatarImage.Load(CoreFunctions.ErrorImage);
