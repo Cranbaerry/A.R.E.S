@@ -67,6 +67,8 @@ namespace ARES
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.mTabSettings = new MetroFramework.Controls.MetroTabPage();
+            this.btnClearPluginLogs = new MetroFramework.Controls.MetroButton();
+            this.btnClearLogs = new MetroFramework.Controls.MetroButton();
             this.cbThemeColour = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.btnDark = new MetroFramework.Controls.MetroButton();
@@ -682,6 +684,8 @@ namespace ARES
             // 
             // mTabSettings
             // 
+            this.mTabSettings.Controls.Add(this.btnClearPluginLogs);
+            this.mTabSettings.Controls.Add(this.btnClearLogs);
             this.mTabSettings.Controls.Add(this.cbThemeColour);
             this.mTabSettings.Controls.Add(this.metroLabel12);
             this.mTabSettings.Controls.Add(this.btnDark);
@@ -709,6 +713,32 @@ namespace ARES
             this.mTabSettings.VerticalScrollbarSize = 10;
             this.mTabSettings.Click += new System.EventHandler(this.mTabSettings_Click);
             // 
+            // btnClearPluginLogs
+            // 
+            this.btnClearPluginLogs.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnClearPluginLogs.Location = new System.Drawing.Point(14, 265);
+            this.btnClearPluginLogs.Name = "btnClearPluginLogs";
+            this.btnClearPluginLogs.Size = new System.Drawing.Size(189, 35);
+            this.btnClearPluginLogs.TabIndex = 73;
+            this.btnClearPluginLogs.Text = "Clear Plugin Logs";
+            this.metroToolTip1.SetToolTip(this.btnClearPluginLogs, "Clear ARES Avatar & world logs");
+            this.btnClearPluginLogs.UseSelectable = true;
+            this.btnClearPluginLogs.UseStyleColors = true;
+            this.btnClearPluginLogs.Click += new System.EventHandler(this.btnClearPluginLogs_Click);
+            // 
+            // btnClearLogs
+            // 
+            this.btnClearLogs.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnClearLogs.Location = new System.Drawing.Point(14, 224);
+            this.btnClearLogs.Name = "btnClearLogs";
+            this.btnClearLogs.Size = new System.Drawing.Size(189, 35);
+            this.btnClearLogs.TabIndex = 72;
+            this.btnClearLogs.Text = "Clear Logs";
+            this.metroToolTip1.SetToolTip(this.btnClearLogs, "Clear ARES program logs");
+            this.btnClearLogs.UseSelectable = true;
+            this.btnClearLogs.UseStyleColors = true;
+            this.btnClearLogs.Click += new System.EventHandler(this.btnClearLogs_Click);
+            // 
             // cbThemeColour
             // 
             this.cbThemeColour.FormattingEnabled = true;
@@ -729,7 +759,7 @@ namespace ARES
             "Purple",
             "Red",
             "Yellow"});
-            this.cbThemeColour.Location = new System.Drawing.Point(14, 400);
+            this.cbThemeColour.Location = new System.Drawing.Point(9, 481);
             this.cbThemeColour.Name = "cbThemeColour";
             this.cbThemeColour.Size = new System.Drawing.Size(189, 29);
             this.cbThemeColour.TabIndex = 71;
@@ -741,7 +771,7 @@ namespace ARES
             this.metroLabel12.AutoSize = true;
             this.metroLabel12.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel12.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel12.Location = new System.Drawing.Point(9, 372);
+            this.metroLabel12.Location = new System.Drawing.Point(4, 453);
             this.metroLabel12.Name = "metroLabel12";
             this.metroLabel12.Size = new System.Drawing.Size(131, 25);
             this.metroLabel12.TabIndex = 70;
@@ -751,7 +781,7 @@ namespace ARES
             // btnDark
             // 
             this.btnDark.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btnDark.Location = new System.Drawing.Point(14, 334);
+            this.btnDark.Location = new System.Drawing.Point(9, 415);
             this.btnDark.Name = "btnDark";
             this.btnDark.Size = new System.Drawing.Size(189, 35);
             this.btnDark.TabIndex = 69;
@@ -765,7 +795,7 @@ namespace ARES
             this.metroLabel11.AutoSize = true;
             this.metroLabel11.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel11.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel11.Location = new System.Drawing.Point(14, 265);
+            this.metroLabel11.Location = new System.Drawing.Point(9, 346);
             this.metroLabel11.Name = "metroLabel11";
             this.metroLabel11.Size = new System.Drawing.Size(144, 25);
             this.metroLabel11.TabIndex = 68;
@@ -775,7 +805,7 @@ namespace ARES
             // btnLight
             // 
             this.btnLight.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btnLight.Location = new System.Drawing.Point(14, 293);
+            this.btnLight.Location = new System.Drawing.Point(9, 374);
             this.btnLight.Name = "btnLight";
             this.btnLight.Size = new System.Drawing.Size(189, 35);
             this.btnLight.TabIndex = 67;
@@ -792,13 +822,14 @@ namespace ARES
             this.btnUnityLoc.Size = new System.Drawing.Size(189, 35);
             this.btnUnityLoc.TabIndex = 66;
             this.btnUnityLoc.Text = "Select Unity Location";
-            this.metroToolTip1.SetToolTip(this.btnUnityLoc, "This will delete the HSB folder & HSBC.rar to fix potential issues");
             this.btnUnityLoc.UseSelectable = true;
             this.btnUnityLoc.UseStyleColors = true;
             this.btnUnityLoc.Click += new System.EventHandler(this.btnUnityLoc_Click);
             // 
             // ConfigBox
             // 
+            this.ConfigBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ConfigBox.BackColor = System.Drawing.Color.Transparent;
             this.ConfigBox.Controls.Add(this.cbUnlimitedFavorites);
             this.ConfigBox.Controls.Add(this.cbHWIDSpoof);
@@ -1048,6 +1079,7 @@ namespace ARES
             // 
             // metroLabel5
             // 
+            this.metroLabel5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.metroLabel5.AutoSize = true;
             this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
@@ -1060,6 +1092,9 @@ namespace ARES
             // 
             // txtConsole
             // 
+            this.txtConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -1222,6 +1257,9 @@ namespace ARES
             // 
             // txtAbout
             // 
+            this.txtAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -1422,6 +1460,8 @@ namespace ARES
         private MetroFramework.Controls.MetroButton btnLight;
         private MetroFramework.Controls.MetroComboBox cbThemeColour;
         private MetroFramework.Controls.MetroLabel metroLabel12;
+        private MetroFramework.Controls.MetroButton btnClearPluginLogs;
+        private MetroFramework.Controls.MetroButton btnClearLogs;
     }
 }
 

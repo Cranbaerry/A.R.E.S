@@ -50,7 +50,7 @@ namespace ARES
         public bool apiEnabled;
         public bool loadImages;
         public List<string> rippedList;
-
+ 
         public Main()
         {
             InitializeComponent();
@@ -994,16 +994,14 @@ namespace ARES
             string fileTarget = filePath + @"\target.vrca";
             string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("\\Roaming", "");
             string unityVRCA = tempFolder + "\\Local\\Temp\\DefaultCompany\\HSB\\custom.vrca";
-            string regexId = @"(avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})";
-            string regexPrefabId = @"(prefab-id-v1_avtr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}_[\d]{10})";
-            string regexCab = @"(CAB-[\w\d]{32})";
-            string regexUnity = @"20[\d]{2}.[\d]{1}.[\w\d]{4}";
-            string regexUnityOlder = @"5.[\d]{1}.[\w\d]{3}";
+            string regexId = @"avtr_[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}";
+            string regexPrefabId = @"prefab-id-v1_avtr_[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}_[\d]{10}\.prefab";
+            string regexCab = @"CAB-[\w]{32}";
+            string regexUnity = @"20[\d]{2}\.[\d]\.[\d]{2}f[\d]";
             Regex AvatarIdRegex = new Regex(regexId);
             Regex AvatarPrefabIdRegex = new Regex(regexPrefabId);
             Regex AvatarCabRegex = new Regex(regexCab);
             Regex UnityRegex = new Regex(regexUnity);
-            Regex UnityRegexOlder = new Regex(regexUnityOlder);
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
@@ -1045,7 +1043,7 @@ namespace ARES
                 }
                 return;
             }
-            MatchModel matchModelNew = getMatches(fileDecompressed, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
+            MatchModel matchModelNew = getMatches(fileDecompressed, AvatarIdRegex, AvatarCabRegex, UnityRegex, AvatarPrefabIdRegex);
 
             try
             {
@@ -1065,7 +1063,7 @@ namespace ARES
                 return;
             }
 
-            MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, UnityRegexOlder, AvatarPrefabIdRegex);
+            MatchModel matchModelOld = getMatches(fileDecompressed2, AvatarIdRegex, AvatarCabRegex, UnityRegex, AvatarPrefabIdRegex);
             if (matchModelOld.UnityVersion == null)
             {
                 DialogResult dialogResult = MetroMessageBox.Show(this, "Possible risky hotswap detected", "Risky Upload", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
@@ -1149,7 +1147,7 @@ namespace ARES
             rippedList.Add(matchModelOld.AvatarId);
         }
 
-        private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex unityVersionOld, Regex avatarAssetId)
+        private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex avatarAssetId)
         {
             MatchCollection avatarIdMatch = null;
             MatchCollection avatarAssetIdMatch = null;
@@ -1157,7 +1155,7 @@ namespace ARES
             MatchCollection unityMatch = null;
             int unityCount = 0;
 
-            foreach (string line in System.IO.File.ReadLines(file))
+            foreach (string line in File.ReadLines(file))
             {
                 var tempId = avatarId.Matches(line);
                 var tempAssetId = avatarAssetId.Matches(line);
@@ -1202,7 +1200,7 @@ namespace ARES
 
         private void getReadyForCompress(string oldFile, string newFile, MatchModel old, MatchModel newModel)
         {
-            var enc = Encoding.GetEncoding(28592);
+            var enc = Encoding.GetEncoding(28591);
             using (StreamReaderOver vReader = new StreamReaderOver(oldFile, enc))
             {
                 using (StreamWriter vWriter = new StreamWriter(newFile, false, enc))
@@ -1960,6 +1958,20 @@ namespace ARES
                     iniFile.Write("style", "Default");
                     break;
             }
+        }
+
+        private void btnClearLogs_Click(object sender, EventArgs e)
+        {
+            tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\LatestLog.txt");
+            tryDeleteDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs");
+        }
+
+        private void btnClearPluginLogs_Click(object sender, EventArgs e)
+        {
+            tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Log.txt");
+            tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\LogWorld.txt");
+            tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\WorldUploaded.txt");
+            tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\AvatarUploaded.txt");
         }
     }
 }

@@ -129,11 +129,14 @@ namespace ARES.UPDATER
 
         static string SHA256CheckSum(string filePath)
         {
-            using (SHA256 SHA256 = SHA256Managed.Create())
+            try
             {
-                using (FileStream fileStream = File.OpenRead(filePath))
-                    return BitConverter.ToString(SHA256.ComputeHash(fileStream)).Replace("-", "");
-            }
+                using (SHA256 SHA256 = SHA256Managed.Create())
+                {
+                    using (FileStream fileStream = File.OpenRead(filePath))
+                        return BitConverter.ToString(SHA256.ComputeHash(fileStream)).Replace("-", "");
+                }
+            } catch { return "0"; }
         }
 
         static string GetHashLatestAsync(string url)
