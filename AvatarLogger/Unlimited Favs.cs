@@ -44,7 +44,7 @@ namespace AvatarLogger.AvatarFavorites
             //Fetches avatar page
             avatarPage = GameObject.Find("UserInterface/MenuContent/Screens/Avatar");
             newFavList = VRCUiManager.prop_VRCUiManager_0.field_Public_GameObject_0.transform.Find("Screens/Avatar/Vertical Scroll View/Viewport/Content/Legacy Avatar List").gameObject.GetComponent<UiAvatarList>();
-            newFavList.transform.SetAsFirstSibling();
+            newFavList.transform.SetAsLastSibling();
             newFavList.clearUnseenListOnCollapse = false;
             newFavList.field_Public_Category_0 = UiAvatarList.Category.SpecificList;
             newFavList.GetComponentInChildren<Text>().text = "ARES Favorites ;-;";
