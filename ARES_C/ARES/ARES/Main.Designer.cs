@@ -94,6 +94,14 @@ namespace ARES
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.txtConsole = new MetroFramework.Controls.MetroTextBox();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.toggleWorld = new MetroFramework.Controls.MetroToggle();
+            this.toggleAvatar = new MetroFramework.Controls.MetroToggle();
+            this.btnWorldOut = new MetroFramework.Controls.MetroButton();
+            this.txtWorldOutput = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel14 = new MetroFramework.Controls.MetroLabel();
+            this.btnAvatarOut = new MetroFramework.Controls.MetroButton();
+            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
+            this.txtAvatarOutput = new MetroFramework.Controls.MetroTextBox();
             this.btnRepair = new MetroFramework.Controls.MetroButton();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
             this.cbVersionUnity = new MetroFramework.Controls.MetroComboBox();
@@ -1130,6 +1138,14 @@ namespace ARES
             // 
             // metroTabPage3
             // 
+            this.metroTabPage3.Controls.Add(this.toggleWorld);
+            this.metroTabPage3.Controls.Add(this.toggleAvatar);
+            this.metroTabPage3.Controls.Add(this.btnWorldOut);
+            this.metroTabPage3.Controls.Add(this.txtWorldOutput);
+            this.metroTabPage3.Controls.Add(this.metroLabel14);
+            this.metroTabPage3.Controls.Add(this.btnAvatarOut);
+            this.metroTabPage3.Controls.Add(this.metroLabel13);
+            this.metroTabPage3.Controls.Add(this.txtAvatarOutput);
             this.metroTabPage3.Controls.Add(this.btnRepair);
             this.metroTabPage3.Controls.Add(this.metroLabel9);
             this.metroTabPage3.Controls.Add(this.cbVersionUnity);
@@ -1149,6 +1165,152 @@ namespace ARES
             this.metroTabPage3.VerticalScrollbarBarColor = true;
             this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage3.VerticalScrollbarSize = 10;
+            // 
+            // toggleWorld
+            // 
+            this.toggleWorld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toggleWorld.AutoSize = true;
+            this.toggleWorld.Location = new System.Drawing.Point(805, 296);
+            this.toggleWorld.Name = "toggleWorld";
+            this.toggleWorld.Size = new System.Drawing.Size(80, 17);
+            this.toggleWorld.TabIndex = 54;
+            this.toggleWorld.Text = "Off";
+            this.toggleWorld.UseSelectable = true;
+            this.toggleWorld.CheckedChanged += new System.EventHandler(this.toggleWorld_CheckedChanged);
+            // 
+            // toggleAvatar
+            // 
+            this.toggleAvatar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toggleAvatar.AutoSize = true;
+            this.toggleAvatar.Location = new System.Drawing.Point(805, 241);
+            this.toggleAvatar.Name = "toggleAvatar";
+            this.toggleAvatar.Size = new System.Drawing.Size(80, 17);
+            this.toggleAvatar.TabIndex = 53;
+            this.toggleAvatar.Text = "Off";
+            this.toggleAvatar.UseSelectable = true;
+            this.toggleAvatar.CheckedChanged += new System.EventHandler(this.toggleAvatar_CheckedChanged);
+            // 
+            // btnWorldOut
+            // 
+            this.btnWorldOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWorldOut.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnWorldOut.Location = new System.Drawing.Point(681, 288);
+            this.btnWorldOut.Name = "btnWorldOut";
+            this.btnWorldOut.Size = new System.Drawing.Size(106, 35);
+            this.btnWorldOut.TabIndex = 52;
+            this.btnWorldOut.Text = "Select";
+            this.btnWorldOut.UseSelectable = true;
+            this.btnWorldOut.UseStyleColors = true;
+            this.btnWorldOut.Click += new System.EventHandler(this.btnWorldOut_Click);
+            // 
+            // txtWorldOutput
+            // 
+            this.txtWorldOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.txtWorldOutput.CustomButton.Image = null;
+            this.txtWorldOutput.CustomButton.Location = new System.Drawing.Point(384, 1);
+            this.txtWorldOutput.CustomButton.Name = "";
+            this.txtWorldOutput.CustomButton.Size = new System.Drawing.Size(33, 33);
+            this.txtWorldOutput.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtWorldOutput.CustomButton.TabIndex = 1;
+            this.txtWorldOutput.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtWorldOutput.CustomButton.UseSelectable = true;
+            this.txtWorldOutput.CustomButton.Visible = false;
+            this.txtWorldOutput.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.txtWorldOutput.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtWorldOutput.Lines = new string[0];
+            this.txtWorldOutput.Location = new System.Drawing.Point(257, 288);
+            this.txtWorldOutput.MaxLength = 32767;
+            this.txtWorldOutput.Name = "txtWorldOutput";
+            this.txtWorldOutput.PasswordChar = '\0';
+            this.txtWorldOutput.ReadOnly = true;
+            this.txtWorldOutput.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtWorldOutput.SelectedText = "";
+            this.txtWorldOutput.SelectionLength = 0;
+            this.txtWorldOutput.SelectionStart = 0;
+            this.txtWorldOutput.ShortcutsEnabled = true;
+            this.txtWorldOutput.Size = new System.Drawing.Size(418, 35);
+            this.txtWorldOutput.TabIndex = 51;
+            this.txtWorldOutput.UseSelectable = true;
+            this.txtWorldOutput.UseStyleColors = true;
+            this.txtWorldOutput.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtWorldOutput.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel14
+            // 
+            this.metroLabel14.AutoSize = true;
+            this.metroLabel14.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel14.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel14.Location = new System.Drawing.Point(9, 288);
+            this.metroLabel14.Name = "metroLabel14";
+            this.metroLabel14.Size = new System.Drawing.Size(242, 25);
+            this.metroLabel14.TabIndex = 50;
+            this.metroLabel14.Text = "World pre-selected output:";
+            this.metroLabel14.UseStyleColors = true;
+            // 
+            // btnAvatarOut
+            // 
+            this.btnAvatarOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAvatarOut.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnAvatarOut.Location = new System.Drawing.Point(681, 233);
+            this.btnAvatarOut.Name = "btnAvatarOut";
+            this.btnAvatarOut.Size = new System.Drawing.Size(106, 35);
+            this.btnAvatarOut.TabIndex = 49;
+            this.btnAvatarOut.Text = "Select";
+            this.btnAvatarOut.UseSelectable = true;
+            this.btnAvatarOut.UseStyleColors = true;
+            this.btnAvatarOut.Click += new System.EventHandler(this.btnAvatarOut_Click);
+            // 
+            // metroLabel13
+            // 
+            this.metroLabel13.AutoSize = true;
+            this.metroLabel13.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel13.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel13.Location = new System.Drawing.Point(9, 233);
+            this.metroLabel13.Name = "metroLabel13";
+            this.metroLabel13.Size = new System.Drawing.Size(247, 25);
+            this.metroLabel13.TabIndex = 48;
+            this.metroLabel13.Text = "Avatar pre-selected output:";
+            this.metroLabel13.UseStyleColors = true;
+            // 
+            // txtAvatarOutput
+            // 
+            this.txtAvatarOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.txtAvatarOutput.CustomButton.Image = null;
+            this.txtAvatarOutput.CustomButton.Location = new System.Drawing.Point(384, 1);
+            this.txtAvatarOutput.CustomButton.Name = "";
+            this.txtAvatarOutput.CustomButton.Size = new System.Drawing.Size(33, 33);
+            this.txtAvatarOutput.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAvatarOutput.CustomButton.TabIndex = 1;
+            this.txtAvatarOutput.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtAvatarOutput.CustomButton.UseSelectable = true;
+            this.txtAvatarOutput.CustomButton.Visible = false;
+            this.txtAvatarOutput.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.txtAvatarOutput.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtAvatarOutput.Lines = new string[0];
+            this.txtAvatarOutput.Location = new System.Drawing.Point(257, 233);
+            this.txtAvatarOutput.MaxLength = 32767;
+            this.txtAvatarOutput.Name = "txtAvatarOutput";
+            this.txtAvatarOutput.PasswordChar = '\0';
+            this.txtAvatarOutput.ReadOnly = true;
+            this.txtAvatarOutput.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtAvatarOutput.SelectedText = "";
+            this.txtAvatarOutput.SelectionLength = 0;
+            this.txtAvatarOutput.SelectionStart = 0;
+            this.txtAvatarOutput.ShortcutsEnabled = true;
+            this.txtAvatarOutput.Size = new System.Drawing.Size(418, 35);
+            this.txtAvatarOutput.TabIndex = 47;
+            this.txtAvatarOutput.UseSelectable = true;
+            this.txtAvatarOutput.UseStyleColors = true;
+            this.txtAvatarOutput.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtAvatarOutput.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // btnRepair
             // 
@@ -1181,7 +1343,9 @@ namespace ARES
             this.cbVersionUnity.FormattingEnabled = true;
             this.cbVersionUnity.ItemHeight = 29;
             this.cbVersionUnity.Items.AddRange(new object[] {
+            "2019beta",
             "2019",
+            "2018beta",
             "2018"});
             this.cbVersionUnity.Location = new System.Drawing.Point(229, 56);
             this.cbVersionUnity.Name = "cbVersionUnity";
@@ -1462,6 +1626,14 @@ namespace ARES
         private MetroFramework.Controls.MetroLabel metroLabel12;
         private MetroFramework.Controls.MetroButton btnClearPluginLogs;
         private MetroFramework.Controls.MetroButton btnClearLogs;
+        private MetroFramework.Controls.MetroToggle toggleWorld;
+        private MetroFramework.Controls.MetroToggle toggleAvatar;
+        private MetroFramework.Controls.MetroButton btnWorldOut;
+        private MetroFramework.Controls.MetroTextBox txtWorldOutput;
+        private MetroFramework.Controls.MetroLabel metroLabel14;
+        private MetroFramework.Controls.MetroButton btnAvatarOut;
+        private MetroFramework.Controls.MetroLabel metroLabel13;
+        private MetroFramework.Controls.MetroTextBox txtAvatarOutput;
     }
 }
 

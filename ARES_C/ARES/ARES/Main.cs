@@ -50,7 +50,7 @@ namespace ARES
         public bool apiEnabled;
         public bool loadImages;
         public List<string> rippedList;
- 
+
         public Main()
         {
             InitializeComponent();
@@ -113,6 +113,26 @@ namespace ARES
                 {
                     rippedList.Add(line);
                 }
+            }
+
+            if (iniFile.KeyExists("avatarOutput"))
+            {
+                txtAvatarOutput.Text = iniFile.Read("avatarOutput");
+            }
+
+            if (iniFile.KeyExists("worldOutput"))
+            {
+                txtWorldOutput.Text = iniFile.Read("worldOutput");
+            }
+
+            if (iniFile.KeyExists("avatarOutputAuto"))
+            {
+                toggleAvatar.Checked = Convert.ToBoolean(iniFile.Read("avatarOutputAuto"));
+            }
+
+            if (iniFile.KeyExists("worldOutputAuto"))
+            {
+                toggleWorld.Checked = Convert.ToBoolean(iniFile.Read("worldOutputAuto"));
             }
 
             if (!iniFile.KeyExists("apiEnabled"))
@@ -752,8 +772,16 @@ namespace ARES
                     ShowNewFolderButton = true
                 };
                 // Show the FolderBrowserDialog.
-                DialogResult result = folderDlg.ShowDialog();
-                if (result == DialogResult.OK)
+                DialogResult result = DialogResult.OK;
+                if (!toggleAvatar.Checked || txtAvatarOutput.Text == "")
+                {
+                    result = folderDlg.ShowDialog();
+                }
+                else
+                {
+                    folderDlg.SelectedPath = txtAvatarOutput.Text;
+                }
+                if (result == DialogResult.OK || (toggleAvatar.Checked && txtAvatarOutput.Text != ""))
                 {
                     string unityVersion = cbVersionUnity.Text + "DLL";
                     string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -814,8 +842,16 @@ namespace ARES
                     ShowNewFolderButton = true
                 };
                 // Show the FolderBrowserDialog.
-                DialogResult result = folderDlg.ShowDialog();
-                if (result == DialogResult.OK)
+                DialogResult result = DialogResult.OK;
+                if (!toggleWorld.Checked || txtWorldOutput.Text == "")
+                {
+                    result = folderDlg.ShowDialog();
+                }
+                else
+                {
+                    folderDlg.SelectedPath = txtWorldOutput.Text;
+                }
+                if (result == DialogResult.OK || (toggleWorld.Checked && txtWorldOutput.Text != ""))
                 {
                     string unityVersion = cbVersionUnity.Text + "DLL";
                     string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -1126,7 +1162,23 @@ namespace ARES
 
             string uncompressedSize = string.Format("{0:0.##} {1}", len, sizes[order]);
             CoreFunctions.WriteLog(string.Format("Successfully hotswapped avatar"), this);
-            selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
+            if (selectedAvatar != null)
+            {
+                if (selectedAvatar.AvatarID == "VRCA")
+                {
+                    imageSave();
+                }
+                else { selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png); }
+            }
+            if (selectedWorld != null)
+            {
+                if (selectedWorld.WorldID == "VRCA")
+                {
+                    imageSave();
+                }
+                else { selectedImage.Image.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png); }
+            }
+
 
             tryDelete(fileDecompressed);
             tryDelete(fileDecompressed2);
@@ -1145,6 +1197,22 @@ namespace ARES
             MetroMessageBox.Show(this, string.Format("Got file sizes, comp:{0}, decomp:{1}", compressedSize, uncompressedSize), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
             File.AppendAllText(filePath + @"\Ripped.txt", matchModelOld.AvatarId + "\n");
             rippedList.Add(matchModelOld.AvatarId);
+        }
+
+        private void imageSave()
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                byte[] data = webClient.DownloadData("https://source.unsplash.com/random/1200x900?sig=incrementingIdentifier");
+                using (MemoryStream mem = new MemoryStream(data))
+                {
+                    using (var yourImage = Image.FromStream(mem))
+                    {
+                        yourImage.Save(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\HSB\HSB\Assets\ARES SMART\Resources\ARESLogoTex.png", ImageFormat.Png);
+                    }
+                }
+
+            }
         }
 
         private MatchModel getMatches(string file, Regex avatarId, Regex avatarCab, Regex unityVersion, Regex avatarAssetId)
@@ -1972,6 +2040,44 @@ namespace ARES
             tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\LogWorld.txt");
             tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\WorldUploaded.txt");
             tryDelete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\AvatarUploaded.txt");
+        }
+
+        private void btnAvatarOut_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true
+            };
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                txtAvatarOutput.Text = folderDlg.SelectedPath;
+                iniFile.Write("avatarOutput", folderDlg.SelectedPath);
+            }
+        }
+
+        private void btnWorldOut_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true
+            };
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                txtWorldOutput.Text = folderDlg.SelectedPath;
+                iniFile.Write("worldOutput", folderDlg.SelectedPath);
+            }
+        }
+
+        private void toggleAvatar_CheckedChanged(object sender, EventArgs e)
+        {
+            iniFile.Write("avatarOutputAuto", toggleAvatar.Checked.ToString());
+        }
+
+        private void toggleWorld_CheckedChanged(object sender, EventArgs e)
+        {
+            iniFile.Write("worldOutputAuto", toggleWorld.Checked.ToString());
         }
     }
 }
