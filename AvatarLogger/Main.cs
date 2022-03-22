@@ -15,7 +15,7 @@ using static Buttons.Buttons;
 //using System.Data.SQLite;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.2", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.3", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger
@@ -45,8 +45,11 @@ namespace AvatarLogger
                 File.Create("UserData/ARES_Favorites_config.json");
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
             //Ensures reqired upkeep files are installed and updated
-            UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll");
-            HandleQueue(UpkeepFiles);
+            if (Config.AutoUpdate)
+            {
+                UpkeepFiles.Add($"{MelonHandler.PluginsDirectory}\\ARESPlugin.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESPlugin.dll");
+                HandleQueue(UpkeepFiles);
+            }
             try
             {
                 MelonLogger.Msg("Applying patches...");

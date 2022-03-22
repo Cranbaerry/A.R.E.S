@@ -17,25 +17,37 @@ namespace ARESPlugin
 
         public override void OnPreInitialization()
         {
-            Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/AvatarLogger.dll");
-            Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReMod.Core/releases/latest/download/ReMod.Core.dll");
-            Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png");
-
-            foreach (KeyValuePair<string, string> pair in Files)
+            bool skipUpdates = false;
+            string[] arguments = Environment.GetCommandLineArgs();
+            foreach (string item in arguments)
             {
-                string name = pair.Key.Substring(pair.Key.LastIndexOf('\\') + 1);
-                if (File.Exists(pair.Key))
+                if(item.ToLower() == "-ShrekNo")
                 {
-                    var OldHash = SHA256CheckSum(pair.Key);
-                    DownloadMod(pair);
-                    if (SHA256CheckSum(pair.Key) != OldHash)
-                    {
-                        MelonLogger.Msg($"Updated: {name}!");
-                    }
+                    skipUpdates = true;
                 }
-                else
+            }
+            if (!skipUpdates)
+            {
+                Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/AvatarLogger.dll");
+                Files.Add($"{MelonUtils.GameDirectory}\\ReMod.Core.dll", "https://github.com/RequiDev/ReMod.Core/releases/latest/download/ReMod.Core.dll");
+                Files.Add($"{MelonUtils.GameDirectory}\\ARESLogo.png", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/ARESLogo.png");
+
+                foreach (KeyValuePair<string, string> pair in Files)
                 {
-                    DownloadMod(pair);
+                    string name = pair.Key.Substring(pair.Key.LastIndexOf('\\') + 1);
+                    if (File.Exists(pair.Key))
+                    {
+                        var OldHash = SHA256CheckSum(pair.Key);
+                        DownloadMod(pair);
+                        if (SHA256CheckSum(pair.Key) != OldHash)
+                        {
+                            MelonLogger.Msg($"Updated: {name}!");
+                        }
+                    }
+                    else
+                    {
+                        DownloadMod(pair);
+                    }
                 }
             }
         }

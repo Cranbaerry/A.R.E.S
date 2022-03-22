@@ -66,6 +66,7 @@ namespace Buttons
             otherToggles.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; }, Config.UnlimitedFavorites);
             otherToggles.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; }, Config.Stealth);
             otherToggles.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            otherToggles.AddToggle("Auto Update", "Allow the plugin to auto update!", delegate (bool b) { Config.AutoUpdate = b; }, Config.AutoUpdate);
             FPage.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             FPage.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
 
@@ -110,6 +111,7 @@ namespace Buttons
             FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
             FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
             FPageT.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
+            FPageT.AddToggle("Auto Update", "Allow the plugin to auto update!", delegate (bool b) { Config.AutoUpdate = b; }, Config.AutoUpdate);
             MelonLogger.Msg("Ui ready!");
         }
 
