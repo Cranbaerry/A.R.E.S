@@ -21,7 +21,7 @@ namespace ARESPlugin
             string[] arguments = Environment.GetCommandLineArgs();
             foreach (string item in arguments)
             {
-                if(item.ToLower() == "-ShrekNo")
+                if(item.ToLower() == "-shrekno")
                 {
                     skipUpdates = true;
                 }
