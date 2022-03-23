@@ -67,6 +67,8 @@ namespace ARES
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.mTabSettings = new MetroFramework.Controls.MetroTabPage();
+            this.chkNoImages = new MetroFramework.Controls.MetroCheckBox();
+            this.btnCleanLog = new MetroFramework.Controls.MetroButton();
             this.btnClearPluginLogs = new MetroFramework.Controls.MetroButton();
             this.btnClearLogs = new MetroFramework.Controls.MetroButton();
             this.cbThemeColour = new MetroFramework.Controls.MetroComboBox();
@@ -117,6 +119,7 @@ namespace ARES
             this.pbRipped = new System.Windows.Forms.PictureBox();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
+            this.cbAutoUpdate = new MetroFramework.Controls.MetroCheckBox();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
@@ -339,7 +342,7 @@ namespace ARES
             this.mTab.ItemSize = new System.Drawing.Size(54, 35);
             this.mTab.Location = new System.Drawing.Point(10, 65);
             this.mTab.Name = "mTab";
-            this.mTab.SelectedIndex = 0;
+            this.mTab.SelectedIndex = 1;
             this.mTab.Size = new System.Drawing.Size(896, 755);
             this.mTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.mTab.TabIndex = 14;
@@ -692,6 +695,8 @@ namespace ARES
             // 
             // mTabSettings
             // 
+            this.mTabSettings.Controls.Add(this.chkNoImages);
+            this.mTabSettings.Controls.Add(this.btnCleanLog);
             this.mTabSettings.Controls.Add(this.btnClearPluginLogs);
             this.mTabSettings.Controls.Add(this.btnClearLogs);
             this.mTabSettings.Controls.Add(this.cbThemeColour);
@@ -720,6 +725,33 @@ namespace ARES
             this.mTabSettings.VerticalScrollbarHighlightOnWheel = false;
             this.mTabSettings.VerticalScrollbarSize = 10;
             this.mTabSettings.Click += new System.EventHandler(this.mTabSettings_Click);
+            // 
+            // chkNoImages
+            // 
+            this.chkNoImages.AutoSize = true;
+            this.chkNoImages.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.chkNoImages.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.chkNoImages.Location = new System.Drawing.Point(130, 77);
+            this.chkNoImages.Name = "chkNoImages";
+            this.chkNoImages.Size = new System.Drawing.Size(140, 19);
+            this.chkNoImages.TabIndex = 75;
+            this.chkNoImages.Text = "Leave No Images";
+            this.metroToolTip1.SetToolTip(this.chkNoImages, "This will still load image on top right even if disabled");
+            this.chkNoImages.UseSelectable = true;
+            this.chkNoImages.UseStyleColors = true;
+            // 
+            // btnCleanLog
+            // 
+            this.btnCleanLog.FontSize = MetroFramework.MetroButtonSize.Tall;
+            this.btnCleanLog.Location = new System.Drawing.Point(14, 306);
+            this.btnCleanLog.Name = "btnCleanLog";
+            this.btnCleanLog.Size = new System.Drawing.Size(189, 35);
+            this.btnCleanLog.TabIndex = 74;
+            this.btnCleanLog.Text = "Clean Melon Log";
+            this.metroToolTip1.SetToolTip(this.btnCleanLog, "Clean MelonLoader Logs of ARES");
+            this.btnCleanLog.UseSelectable = true;
+            this.btnCleanLog.UseStyleColors = true;
+            this.btnCleanLog.Click += new System.EventHandler(this.btnCleanLog_Click);
             // 
             // btnClearPluginLogs
             // 
@@ -767,7 +799,7 @@ namespace ARES
             "Purple",
             "Red",
             "Yellow"});
-            this.cbThemeColour.Location = new System.Drawing.Point(9, 481);
+            this.cbThemeColour.Location = new System.Drawing.Point(9, 549);
             this.cbThemeColour.Name = "cbThemeColour";
             this.cbThemeColour.Size = new System.Drawing.Size(189, 29);
             this.cbThemeColour.TabIndex = 71;
@@ -779,7 +811,7 @@ namespace ARES
             this.metroLabel12.AutoSize = true;
             this.metroLabel12.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel12.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel12.Location = new System.Drawing.Point(4, 453);
+            this.metroLabel12.Location = new System.Drawing.Point(4, 521);
             this.metroLabel12.Name = "metroLabel12";
             this.metroLabel12.Size = new System.Drawing.Size(131, 25);
             this.metroLabel12.TabIndex = 70;
@@ -789,7 +821,7 @@ namespace ARES
             // btnDark
             // 
             this.btnDark.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btnDark.Location = new System.Drawing.Point(9, 415);
+            this.btnDark.Location = new System.Drawing.Point(9, 483);
             this.btnDark.Name = "btnDark";
             this.btnDark.Size = new System.Drawing.Size(189, 35);
             this.btnDark.TabIndex = 69;
@@ -803,7 +835,7 @@ namespace ARES
             this.metroLabel11.AutoSize = true;
             this.metroLabel11.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel11.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel11.Location = new System.Drawing.Point(9, 346);
+            this.metroLabel11.Location = new System.Drawing.Point(9, 414);
             this.metroLabel11.Name = "metroLabel11";
             this.metroLabel11.Size = new System.Drawing.Size(144, 25);
             this.metroLabel11.TabIndex = 68;
@@ -813,7 +845,7 @@ namespace ARES
             // btnLight
             // 
             this.btnLight.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.btnLight.Location = new System.Drawing.Point(9, 374);
+            this.btnLight.Location = new System.Drawing.Point(9, 442);
             this.btnLight.Name = "btnLight";
             this.btnLight.Size = new System.Drawing.Size(189, 35);
             this.btnLight.TabIndex = 67;
@@ -839,6 +871,7 @@ namespace ARES
             this.ConfigBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ConfigBox.BackColor = System.Drawing.Color.Transparent;
+            this.ConfigBox.Controls.Add(this.cbAutoUpdate);
             this.ConfigBox.Controls.Add(this.cbUnlimitedFavorites);
             this.ConfigBox.Controls.Add(this.cbHWIDSpoof);
             this.ConfigBox.Controls.Add(this.cbStealth);
@@ -1507,6 +1540,21 @@ namespace ARES
             // 
             this.metroStyleExtender.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
+            // cbAutoUpdate
+            // 
+            this.cbAutoUpdate.AutoSize = true;
+            this.cbAutoUpdate.Checked = true;
+            this.cbAutoUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAutoUpdate.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbAutoUpdate.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbAutoUpdate.Location = new System.Drawing.Point(395, 94);
+            this.cbAutoUpdate.Name = "cbAutoUpdate";
+            this.cbAutoUpdate.Size = new System.Drawing.Size(162, 19);
+            this.cbAutoUpdate.TabIndex = 65;
+            this.cbAutoUpdate.Text = "Auto Update Plugins";
+            this.cbAutoUpdate.UseSelectable = true;
+            this.cbAutoUpdate.UseStyleColors = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1634,6 +1682,9 @@ namespace ARES
         private MetroFramework.Controls.MetroButton btnAvatarOut;
         private MetroFramework.Controls.MetroLabel metroLabel13;
         private MetroFramework.Controls.MetroTextBox txtAvatarOutput;
+        private MetroFramework.Controls.MetroButton btnCleanLog;
+        private MetroFramework.Controls.MetroCheckBox chkNoImages;
+        private MetroFramework.Controls.MetroCheckBox cbAutoUpdate;
     }
 }
 

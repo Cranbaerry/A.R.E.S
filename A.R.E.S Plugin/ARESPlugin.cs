@@ -24,8 +24,10 @@ namespace ARESPlugin
                 if(item.ToLower() == "-shrekno")
                 {
                     skipUpdates = true;
+                    MelonLogger.Msg("Skipping Updating ARES");
                 }
             }
+            
             if (!skipUpdates)
             {
                 Files.Add($"{MelonHandler.ModsDirectory}\\AvatarLogger.dll", "https://github.com/Dean2k/A.R.E.S/releases/latest/download/AvatarLogger.dll");

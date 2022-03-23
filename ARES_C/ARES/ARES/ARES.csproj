@@ -777,6 +777,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\rippeds.png" />
+    <None Include="Resources\NoImage.bmp" />
+    <None Include="Resources\No-Image.png" />
     <Content Include="UnRAR.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

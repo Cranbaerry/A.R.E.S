@@ -63,6 +63,16 @@ namespace ARES.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap No_Image {
+            get {
+                object obj = ResourceManager.GetObject("No_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap rippeds {
             get {
                 object obj = ResourceManager.GetObject("rippeds", resourceCulture);

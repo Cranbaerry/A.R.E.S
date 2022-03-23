@@ -67,6 +67,8 @@ Features:
     -Ability to hotswap from a vaid VRCA file downloaded elsewhere
 
     -Ability to almost perfectly extract vrca files for repairs with FACS
+	
+To turn of plugin Auto updating do so via the ingame options or via ARES, you'll also need to add a new launch option to the game "-shrekno"
 
 Installation:
 	

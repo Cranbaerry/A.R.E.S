@@ -1,4 +1,5 @@
 ﻿using ARES.Models;
+using ARES.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,17 +23,17 @@ namespace ARES.Modules
 
         public string SetAvatarInfo(Records avatar)
         {
-            string avatarString = string.Format("Time Dectected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(avatar.TimeDetected), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QUESTAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
+            string avatarString = string.Format("Time Detected: {0} {13}Avatar ID: {1} {13}Avatar Name: {2} {13}Avatar Description {3} {13}Author ID: {4} {13}Author Name: {5} {13}PC Asset URL: {6} {13}Quest Asset URL: {7} {13}Image URL: {8} {13}Thumbnail URL: {9} {13}Unity Version: {10} {13}Release Status: {11} {13}Tags: {12}", GetDate(avatar.TimeDetected), avatar.AvatarID, avatar.AvatarName, avatar.AvatarDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.QUESTAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
             return avatarString;
         }
 
         public string SetWorldInfo(WorldClass avatar)
         {
-            string avatarString = string.Format("Time Dectected: {0} {12}World ID: {1} {12}World Name: {2} {12}World Description {3} {12}Author ID: {4} {12}Author Name: {5} {12}PC Asset URL: {6} {12}Image URL: {7} {12}Thumbnail URL: {8} {12}Unity Version: {9} {12}Release Status: {10} {12}Tags: {11}", GetDate(avatar.TimeDetected), avatar.WorldID, avatar.WorldName, avatar.WorldDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
+            string avatarString = string.Format("Time Detected: {0} {12}World ID: {1} {12}World Name: {2} {12}World Description {3} {12}Author ID: {4} {12}Author Name: {5} {12}PC Asset URL: {6} {12}Image URL: {7} {12}Thumbnail URL: {8} {12}Unity Version: {9} {12}Release Status: {10} {12}Tags: {11}", GetDate(avatar.TimeDetected), avatar.WorldID, avatar.WorldName, avatar.WorldDescription, avatar.AuthorID, avatar.AuthorName, avatar.PCAssetURL, avatar.ImageURL, avatar.ThumbnailURL, avatar.UnityVersion, avatar.Releasestatus, avatar.Tags, Environment.NewLine);
             return avatarString;
         }
 
-        public Bitmap loadImage(string url)
+        public Bitmap loadImage(string url, bool loadBroken)
         {
             using (WebClient webClient = new WebClient())
             {
@@ -51,8 +52,14 @@ namespace ARES.Modules
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    return null;
+                    if (loadBroken)
+                    {
+                        return Resources.No_Image;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                     //skip as its likely avatar is been yeeted from VRC servers
                     //avatarImage.Load(CoreFunctions.ErrorImage);
                 }

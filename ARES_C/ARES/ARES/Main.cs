@@ -276,14 +276,6 @@ namespace ARES
                 {
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
-
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (StreamReader reader = new StreamReader(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
                 }
             }
             unityPath = filePath;
@@ -328,14 +320,6 @@ namespace ARES
                 {
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
-
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (StreamReader reader = new StreamReader(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
                 }
             }
             return filePath;
@@ -448,7 +432,7 @@ namespace ARES
                 Bitmap bitmap = null;
                 if (loadImages)
                 {
-                    bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                    bitmap = CoreFunctions.loadImage(item.ThumbnailURL, chkNoImages.Checked);
                 }
 
                 if (bitmap != null || !loadImages)
@@ -517,7 +501,7 @@ namespace ARES
                     Bitmap bitmap = null;
                     if (loadImages)
                     {
-                        bitmap = CoreFunctions.loadImage(item.ThumbnailURL);
+                        bitmap = CoreFunctions.loadImage(item.ThumbnailURL, chkNoImages.Checked);
                     }
 
                     if (bitmap != null || !loadImages)
@@ -563,7 +547,7 @@ namespace ARES
             selectedAvatar = AvatarList.Find(x => x.AvatarID == img.Name);
             txtAvatarInfo.Text = CoreFunctions.SetAvatarInfo(selectedAvatar);
 
-            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedAvatar.ImageURL);
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedAvatar.ImageURL, chkNoImages.Checked);
 
             if (bitmap != null)
             {
@@ -607,7 +591,7 @@ namespace ARES
             selectedWorld = worldList.Find(x => x.WorldID == img.Name);
             txtAvatarInfo.Text = CoreFunctions.SetWorldInfo(selectedWorld);
 
-            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedWorld.ImageURL);
+            Bitmap bitmap; bitmap = CoreFunctions.loadImage(selectedWorld.ImageURL, chkNoImages.Checked);
 
             if (bitmap != null)
             {
@@ -1853,6 +1837,7 @@ namespace ARES
             cbLogToConsole.Checked = config.LogToConsole;
             cbLogWorlds.Checked = config.LogWorlds;
             cbUnlimitedFavorites.Checked = config.UnlimitedFavorites;
+            cbAutoUpdate.Checked = config.AutoUpdate;
         }
 
         private void WriteConfig()
@@ -2079,5 +2064,143 @@ namespace ARES
         {
             iniFile.Write("worldOutputAuto", toggleWorld.Checked.ToString());
         }
+
+        public int PluginCount = 0;
+        public int ModCount = 0;
+        public int PluginCountNumber = 0;
+        public int ModCountNumber = 0;
+        public int lineSkip = 0;
+
+        private void btnCleanLog_Click(object sender, EventArgs e)
+        {
+            PluginCount = 0;
+            ModCount = 0;
+            PluginCountNumber = 0;
+            ModCountNumber = 0;
+            string melonLog = MelonLogLocation();
+            string newMelonLog = SaveLogLocation();
+            if (melonLog != null && newMelonLog != null)
+            {
+                melonLogClean(melonLog, newMelonLog);
+                finalCleanup(newMelonLog);
+                MetroMessageBox.Show(this, "Log file has been cleaned", "Log Cleaned", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void finalCleanup(string logLocation)
+        {
+            int newPlugin = PluginCountNumber - PluginCount;
+            int newMod = ModCountNumber - ModCount;
+            string text = File.ReadAllText(logLocation);
+            text = text.Replace(PluginCountNumber + " Plugin Loaded", newPlugin.ToString() + " Plugin Loaded");
+            text = text.Replace(ModCountNumber + " Mods Loaded", newMod.ToString() + " Mods Loaded");
+            File.WriteAllText(logLocation, text);
+        }
+
+        private void melonLogClean(string oldFile, string cleanFile)
+        {
+            var enc = Encoding.UTF8;
+            using (StreamReader vReader = new StreamReader(oldFile, enc))
+            {
+                using (StreamWriter vWriter = new StreamWriter(cleanFile, false, enc))
+                {
+                    while (!vReader.EndOfStream)
+                    {
+                        string vLine = vReader.ReadLine();
+                        string replace = checkAndReplaceLine(vLine);
+                        if (replace != null && lineSkip == 0)
+                        {
+                            vWriter.WriteLine(replace);
+                        }
+                        if(lineSkip > 0)
+                        {
+                            lineSkip--;
+                        }
+                    }
+                }
+            }
+        }
+
+        private string checkAndReplaceLine(string line)
+        {
+            if (line.Contains("Plugin Loaded"))
+            {
+                try
+                {
+                    string resultString = Regex.Match(line, @"\d+ Plugin Loaded").Value;
+                    PluginCountNumber = Convert.ToInt32(Regex.Match(resultString, @"\d+").Value);
+                }
+                catch { }
+            }
+            if (line.Contains("Mods Loaded"))
+            {
+                try
+                {
+                    string resultString = Regex.Match(line, @"\d+ Mods Loaded").Value;
+                    ModCountNumber = Convert.ToInt32(Regex.Match(resultString, @"\d+").Value);
+                }
+                catch { }
+            }
+            if (line.Contains("ARES Manager"))
+            {
+                PluginCount++;
+                lineSkip = 4;
+                return null;
+            }
+            if(line.Contains("A.R.E.S Logger v"))
+            {
+                ModCount++;
+                lineSkip = 4;
+                return null;
+            }
+            if (line.Contains("A.R.E.S"))
+            {
+                return null;
+            }
+            if (line.Contains("ARES"))
+            {
+                return null;
+            }
+            return line;
+        }
+
+        private string SaveLogLocation()
+        {
+            System.Windows.Forms.SaveFileDialog savefile = new System.Windows.Forms.SaveFileDialog();
+            string fileName = "MelonLog.log";
+            savefile.Filter = "log files (*.log)|*.log";
+            savefile.FileName = fileName;
+            savefile.Title = "Select new cleaned melonlog location";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                fileName = savefile.FileName;
+                return fileName;
+            }
+            return null;
+        }
+
+        private string MelonLogLocation()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Assembly.GetExecutingAssembly().Location;
+                openFileDialog.Filter = "Melon Log (*.log)|*.log";
+                openFileDialog.RestoreDirectory = true;
+                openFileDialog.Title = "Select Melon loader log";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+                    return filePath;
+                }
+            }
+            return null;
+        }
+
     }
 }

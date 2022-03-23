@@ -19,5 +19,6 @@ namespace ARES.Models
         public bool LogToConsole { get; set; }
         public bool ConsoleError { get; set; }
         public bool HWIDSpoof { get; set; }
+        public bool AutoUpdate { get; set; }
     }
 }
