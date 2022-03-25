@@ -78,7 +78,8 @@ namespace ARES
             this.btnLight = new MetroFramework.Controls.MetroButton();
             this.btnUnityLoc = new MetroFramework.Controls.MetroButton();
             this.ConfigBox = new System.Windows.Forms.GroupBox();
-            this.cbUnlimitedFavorites = new MetroFramework.Controls.MetroCheckBox();
+            this.cbAutoUpdate = new MetroFramework.Controls.MetroCheckBox();
+            this.cbCustomNameplates = new MetroFramework.Controls.MetroCheckBox();
             this.cbHWIDSpoof = new MetroFramework.Controls.MetroCheckBox();
             this.cbStealth = new MetroFramework.Controls.MetroCheckBox();
             this.cbConsoleError = new MetroFramework.Controls.MetroCheckBox();
@@ -119,7 +120,6 @@ namespace ARES
             this.pbRipped = new System.Windows.Forms.PictureBox();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
-            this.cbAutoUpdate = new MetroFramework.Controls.MetroCheckBox();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedImage)).BeginInit();
@@ -872,7 +872,7 @@ namespace ARES
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ConfigBox.BackColor = System.Drawing.Color.Transparent;
             this.ConfigBox.Controls.Add(this.cbAutoUpdate);
-            this.ConfigBox.Controls.Add(this.cbUnlimitedFavorites);
+            this.ConfigBox.Controls.Add(this.cbCustomNameplates);
             this.ConfigBox.Controls.Add(this.cbHWIDSpoof);
             this.ConfigBox.Controls.Add(this.cbStealth);
             this.ConfigBox.Controls.Add(this.cbConsoleError);
@@ -891,21 +891,34 @@ namespace ARES
             this.ConfigBox.TabStop = false;
             this.ConfigBox.Text = "ARES Mod Config";
             // 
-            // cbUnlimitedFavorites
+            // cbAutoUpdate
             // 
-            this.cbUnlimitedFavorites.AutoSize = true;
-            this.cbUnlimitedFavorites.Checked = true;
-            this.cbUnlimitedFavorites.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbUnlimitedFavorites.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
-            this.cbUnlimitedFavorites.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
-            this.cbUnlimitedFavorites.Location = new System.Drawing.Point(6, 19);
-            this.cbUnlimitedFavorites.Name = "cbUnlimitedFavorites";
-            this.cbUnlimitedFavorites.Size = new System.Drawing.Size(155, 19);
-            this.cbUnlimitedFavorites.TabIndex = 51;
-            this.cbUnlimitedFavorites.Text = "Unlimited Favorites";
-            this.cbUnlimitedFavorites.UseSelectable = true;
-            this.cbUnlimitedFavorites.UseStyleColors = true;
-            this.cbUnlimitedFavorites.CheckedChanged += new System.EventHandler(this.cbUnlimitedFavorites_CheckedChanged);
+            this.cbAutoUpdate.AutoSize = true;
+            this.cbAutoUpdate.Checked = true;
+            this.cbAutoUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAutoUpdate.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbAutoUpdate.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbAutoUpdate.Location = new System.Drawing.Point(395, 94);
+            this.cbAutoUpdate.Name = "cbAutoUpdate";
+            this.cbAutoUpdate.Size = new System.Drawing.Size(162, 19);
+            this.cbAutoUpdate.TabIndex = 65;
+            this.cbAutoUpdate.Text = "Auto Update Plugins";
+            this.cbAutoUpdate.UseSelectable = true;
+            this.cbAutoUpdate.UseStyleColors = true;
+            // 
+            // cbCustomNameplates
+            // 
+            this.cbCustomNameplates.AutoSize = true;
+            this.cbCustomNameplates.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.cbCustomNameplates.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.cbCustomNameplates.Location = new System.Drawing.Point(6, 19);
+            this.cbCustomNameplates.Name = "cbCustomNameplates";
+            this.cbCustomNameplates.Size = new System.Drawing.Size(159, 19);
+            this.cbCustomNameplates.TabIndex = 51;
+            this.cbCustomNameplates.Text = "Custom Nameplates";
+            this.cbCustomNameplates.UseSelectable = true;
+            this.cbCustomNameplates.UseStyleColors = true;
+            this.cbCustomNameplates.CheckedChanged += new System.EventHandler(this.cbUnlimitedFavorites_CheckedChanged);
             // 
             // cbHWIDSpoof
             // 
@@ -1376,10 +1389,10 @@ namespace ARES
             this.cbVersionUnity.FormattingEnabled = true;
             this.cbVersionUnity.ItemHeight = 29;
             this.cbVersionUnity.Items.AddRange(new object[] {
-            "2019beta",
             "2019",
-            "2018beta",
-            "2018"});
+            "2019beta",
+            "2018",
+            "2018beta"});
             this.cbVersionUnity.Location = new System.Drawing.Point(229, 56);
             this.cbVersionUnity.Name = "cbVersionUnity";
             this.cbVersionUnity.Size = new System.Drawing.Size(167, 35);
@@ -1540,21 +1553,6 @@ namespace ARES
             // 
             this.metroStyleExtender.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // cbAutoUpdate
-            // 
-            this.cbAutoUpdate.AutoSize = true;
-            this.cbAutoUpdate.Checked = true;
-            this.cbAutoUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAutoUpdate.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
-            this.cbAutoUpdate.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
-            this.cbAutoUpdate.Location = new System.Drawing.Point(395, 94);
-            this.cbAutoUpdate.Name = "cbAutoUpdate";
-            this.cbAutoUpdate.Size = new System.Drawing.Size(162, 19);
-            this.cbAutoUpdate.TabIndex = 65;
-            this.cbAutoUpdate.Text = "Auto Update Plugins";
-            this.cbAutoUpdate.UseSelectable = true;
-            this.cbAutoUpdate.UseStyleColors = true;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1654,7 +1652,7 @@ namespace ARES
         private MetroFramework.Controls.MetroCheckBox cbLogWorlds;
         private MetroFramework.Controls.MetroCheckBox cbLogAvatars;
         private MetroFramework.Controls.MetroCheckBox cbStealth;
-        private MetroFramework.Controls.MetroCheckBox cbUnlimitedFavorites;
+        private MetroFramework.Controls.MetroCheckBox cbCustomNameplates;
         private MetroFramework.Controls.MetroCheckBox cbHWIDSpoof;
         private MetroFramework.Controls.MetroCheckBox cbLogPublicAvatars;
         private MetroFramework.Controls.MetroCheckBox cbLogOwnAvatars;

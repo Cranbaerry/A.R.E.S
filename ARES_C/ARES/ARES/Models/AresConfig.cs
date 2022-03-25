@@ -8,7 +8,7 @@ namespace ARES.Models
 {
     public class AresConfig
     {
-        public bool UnlimitedFavorites { get; set; }
+        public bool CustomNameplates { get; set; }
         public bool Stealth { get; set; }
         public bool LogAvatars { get; set; }
         public bool LogWorlds { get; set; }

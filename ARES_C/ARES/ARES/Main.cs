@@ -1836,7 +1836,7 @@ namespace ARES
             cbLogPublicAvatars.Checked = config.LogPublicAvatars;
             cbLogToConsole.Checked = config.LogToConsole;
             cbLogWorlds.Checked = config.LogWorlds;
-            cbUnlimitedFavorites.Checked = config.UnlimitedFavorites;
+            cbCustomNameplates.Checked = config.CustomNameplates;
             cbAutoUpdate.Checked = config.AutoUpdate;
         }
 
@@ -1851,7 +1851,7 @@ namespace ARES
 
         private void cbUnlimitedFavorites_CheckedChanged(object sender, EventArgs e)
         {
-            config.UnlimitedFavorites = cbUnlimitedFavorites.Checked;
+            config.CustomNameplates = cbCustomNameplates.Checked;
             WriteConfig();
         }
 
