@@ -12,10 +12,13 @@ using static Logging.Logging;
 using static BaseFuncs.BaseFuncs;
 using static Patches.Patches;
 using static Buttons.Buttons;
+using UnhollowerRuntimeLib;
+using VRC;
+using System.Collections;
 //using System.Data.SQLite;
 //Melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.3", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
+[assembly: MelonInfo(typeof(AvatarLogger.Main), "A.R.E.S Logger", "4.2.4", "By ShrekamusChrist, LargestBoi, Yui and Afton")]
 [assembly: MelonColor(ConsoleColor.Yellow)]
 
 namespace AvatarLogger
@@ -44,6 +47,7 @@ namespace AvatarLogger
             if (!File.Exists("UserData/ARES_Favorites_config.json"))
                 File.Create("UserData/ARES_Favorites_config.json");
             Helper = new ConfigHelper<Config>($"{MelonUtils.UserDataDirectory}\\ARESConfig.json", true);
+           
             //Ensures reqired upkeep files are installed and updated
             if (Config.AutoUpdate)
             {
@@ -61,8 +65,16 @@ namespace AvatarLogger
                 AllowAvatarCopyingPatch();
                 MelonLogger.Msg("Avatar cloning patched, force clone enabled!");
                 OnEventPatch();
+                try
+                {
+                    ClassInjector.RegisterTypeInIl2Cpp<CustomNameplate>();
+                } catch
+                {
+                    MelonLogger.Msg("Failed to inject");
+                }
                 MelonLogger.Msg("OnEvent patch applied (1/2)");
                 MelonCoroutines.Start(OnNetworkManagerInit());
+                MelonCoroutines.Start(WaitForUiManager());
                 MelonLogger.Msg("Network manager patched (2/2)");
                 MelonLogger.Msg("Avatars can now be logged!");
             }
@@ -78,23 +90,30 @@ namespace AvatarLogger
             }
             else { MelonLogger.Msg("ARES running in stealth mode! To restore your in-game buttons enable 'Stealth' in the settings category in your GUI!"); }
 
-            //sqlite_conn = new SQLiteConnection(@"Data Source=.\GUI\Logs.sqlite;Version=3;");
-            //sqlite_conn.Open();
-            //SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
-            //try
-            //{                
-            //    sqlite_cmd.CommandText = "CREATE TABLE `Avatars` (`TimeDetected` varchar(12) DEFAULT NULL,`AvatarID` varchar(255) DEFAULT NULL,`AvatarName` varchar(255) DEFAULT NULL,`AvatarDescription` varchar(1000) DEFAULT NULL,`AuthorID` varchar(255) DEFAULT NULL,`AuthorName` varchar(255) DEFAULT NULL,`PCAssetURL` varchar(255) DEFAULT NULL,`QUESTAssetURL` varchar(255) DEFAULT NULL,`ImageURL` varchar(255) DEFAULT NULL,`ThumbnailURL` varchar(255) DEFAULT NULL,`UnityVersion` varchar(255) DEFAULT NULL,`Releasestatus` varchar(255) DEFAULT NULL,`Tags` varchar(255) DEFAULT NULL,`Uploaded` boolean NOT NULL default 0);";
-            //    sqlite_cmd.ExecuteNonQuery();
-            //}
-            //catch { }
 
-            //try
-            //{
-            //    sqlite_cmd.CommandText = "CREATE TABLE `Worlds` (`TimeDetected` varchar(12) NOT NULL,`WorldID` varchar(255) NOT NULL,`WorldName` varchar(255) NOT NULL,`WorldDescription` varchar(1000) NOT NULL,`AuthorID` varchar(255) NOT NULL,`AuthorName` varchar(255) NOT NULL,`PCAssetURL` varchar(255) NOT NULL,`ImageURL` varchar(255) NOT NULL,`ThumbnailURL` varchar(255) NOT NULL,`UnityVersion` varchar(255) NOT NULL,`Releasestatus` varchar(255) NOT NULL,`Tags` varchar(255) NOT NULL,`Uploaded` boolean NOT NULL default 0);";
-            //    sqlite_cmd.ExecuteNonQuery();
-            //}
-            //catch { }
+           
+        }
 
+        private IEnumerator WaitForUiManager()
+        {
+            while (VRCUiManager.field_Private_Static_VRCUiManager_0 == null) yield return null;
+
+            var playerJoinedDelegate = NetworkManager.field_Internal_Static_NetworkManager_0.field_Internal_VRCEventDelegate_1_Player_0;
+
+                playerJoinedDelegate.field_Private_HashSet_1_UnityAction_1_T_0.Add(new Action<Player>(p =>
+                {
+                    if (p != null) OnPlayerJoined(p);
+                }));
+            
+        }
+
+        public static void OnPlayerJoined(Player player)
+        {
+            if (Config.CustomNameplates)
+            {
+                CustomNameplate nameplate = player.transform.Find("Player Nameplate/Canvas/Nameplate").gameObject.AddComponent<CustomNameplate>();
+                nameplate.player = player;
+            }
         }
 
 

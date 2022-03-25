@@ -1,21 +1,21 @@
 ﻿//Importing reqired modules
-using System;
-using System.IO;
-using UnityEngine;
-using System.Threading;
-using System.Diagnostics;
-using ReMod.Core.UI.QuickMenu;
+using ComfyUtils;
 using MelonLoader;
-using System.Windows.Forms;
+using ReMod.Core.UI.QuickMenu;
+using ReMod.Core.UI.Wings;
+using System;
+using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
+using UnityEngine;
+using VRC;
 using VRC.Core;
 using VRC.UI;
-using ComfyUtils;
-using ReMod.Core.Managers;
-using static BaseFuncs.BaseFuncs;
 using static AvatarLogger.Main;
-using AvatarLogger.AvatarFavorites;
-using ReMod.Core.UI.Wings;
+using static BaseFuncs.BaseFuncs;
+
 //Contains all code responsible for creating buttons/in-game Ui elements
 namespace Buttons
 {
@@ -31,6 +31,7 @@ namespace Buttons
             }
             return SocialMenuInstance;
         }
+
         public static Sprite ButtonImage = LoadSpriteFromDisk((Environment.CurrentDirectory + "\\ARESLogo.png"));
         private static ConfigHelper<AvatarLogger.Config> Helper => AvatarLogger.Main.Helper;
 
@@ -38,12 +39,9 @@ namespace Buttons
         public static void OnUiManagerInit()
         {
             MelonLogger.Msg("Ui initiating...");
-            if (Config.UnlimitedFavorites)
-            {
-                UnlimitedFavorites.UI();
-                MelonCoroutines.Start(UnlimitedFavorites.RefreshMenu(1f));
-                MelonLogger.Msg("ARES Favorites Go BRRR");
-            }
+
+            MelonLogger.Msg("ARES Favorites Go BRRR");
+
             ReMirroredWingMenu WingMenu = ReMirroredWingMenu.Create("ARES", "Open the ARES menu", ButtonImage);
             ReMirroredWingMenu LSMP = WingMenu.AddSubMenu("Log Settings", "Allows you to configure your ARES settings!");
             LSMP.AddToggle("Log Worlds", "Toggles the logging of worlds", delegate (bool b) { Config.LogWorlds = b; }, Config.LogWorlds);
@@ -53,17 +51,16 @@ namespace Buttons
             LSMP.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; }, Config.LogOwnAvatars);
             LSMP.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
             LSMP.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
-            LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
-            
+            LSMP.AddToggle("Log Errors To Console", "Toggles the ability display why avatars weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
+
             ReMirroredWingMenu FPage = WingMenu.AddSubMenu("Functions", "Use the other features within ARES");
             FPage.AddButton("Open ARES GUI", "Opens the ARES GUI on your desktop!", delegate { OpenGUI(); });
             FPage.AddButton("Copy Instance ID", "Copies the current instance ID to your clipboard!", delegate { Clipboard.SetText(WorldInstanceID); });
             FPage.AddButton("Join Instance By ID", "Joins the instance currently within your clipboard!", delegate { JoinInstanceByID(); });
             FPage.AddButton("Wear Avatar ID", "Changes into avatar ID that is currently in clipboard!", delegate { ChangeAvatar(); });
             FPage.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
-            
+
             ReMirroredWingMenu otherToggles = WingMenu.AddSubMenu("Other", "Use the other features within ARES");
-            otherToggles.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; }, Config.UnlimitedFavorites);
             otherToggles.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; }, Config.Stealth);
             otherToggles.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             otherToggles.AddToggle("Auto Update", "Allow the plugin to auto update!", delegate (bool b) { Config.AutoUpdate = b; }, Config.AutoUpdate);
@@ -92,7 +89,6 @@ namespace Buttons
             LSMPT.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
             LSMPT.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
             LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
-            
 
             ReMenuPage FPageT = null;
             try
@@ -108,7 +104,7 @@ namespace Buttons
             FPageT.AddButton("Restart VRC", "Restarts VRChat!", delegate { RVRC(false); });
             FPageT.AddButton("Restart VRC (Persistent)", "Restarts VRChat and re-joins the room you were in!", delegate { RVRC(true); });
             FPageT.AddButton("Show Logging Statistics", "Displays session statistics within the console", delegate { ShowSessionStats(); });
-            FPageT.AddToggle("ARES Favorites", "Allows for an infinite amount of avatar favorites! (Reiqires restart!)", delegate (bool b) { Config.UnlimitedFavorites = b; RVRC(true); }, Config.UnlimitedFavorites);
+            FPageT.AddToggle("Custom Nameplates", "Shows Custom Nameplates (reload world to fully unload)", delegate (bool b) { Config.CustomNameplates = b; CustomNamePlate(b); }, Config.CustomNameplates);
             FPageT.AddToggle("Stealth Mode", "Hides all in-game indicators that you are running ARES (Reiqires restart!)", delegate (bool b) { Config.Stealth = b; RVRC(true); }, Config.Stealth);
             FPageT.AddToggle("HWID Spoof", "Spoof your HWID incase you've been banned etc!", delegate (bool b) { Config.HWIDSpoof = b; }, Config.HWIDSpoof);
             FPageT.AddToggle("Auto Update", "Allow the plugin to auto update!", delegate (bool b) { Config.AutoUpdate = b; }, Config.AutoUpdate);
@@ -143,6 +139,33 @@ namespace Buttons
                 Name = "RestartVRC Thread"
             }.Start();
         }
+
+        public static void CustomNamePlate(bool enable)
+        {
+            if (enable)
+            {
+                try
+                {
+                    foreach (Player player in UnityEngine.Object.FindObjectsOfType<Player>())
+                    {
+
+                        AvatarLogger.CustomNameplate nameplate = player.transform.Find("Player Nameplate/Canvas/Nameplate").gameObject.AddComponent<AvatarLogger.CustomNameplate>();
+                        nameplate.player = player;
+
+                    }
+                }
+                catch { }
+            }
+            else
+            {
+                foreach (Player player in UnityEngine.Object.FindObjectsOfType<Player>())
+                {
+                    AvatarLogger.CustomNameplate disabler = player.transform.Find("Player Nameplate/Canvas/Nameplate").gameObject.GetComponent<AvatarLogger.CustomNameplate>();
+                    disabler.Dispose();
+                }
+            }
+        }
+
         //Shows the current logging session statistics
         private static void ShowSessionStats()
         {
@@ -156,6 +179,7 @@ namespace Buttons
             MelonLogger.Msg($"Logged Public Avatars: {Pub}");
             MelonLogger.Msg("-------------------------------------");
         }
+
         //Takes the insatnce ID attached to the clipboard and joins the world!
         private static void JoinInstanceByID()
         {
@@ -170,6 +194,7 @@ namespace Buttons
                 MelonLogger.Msg($"Invalid instance ID!");
             }
         }
+
         //Changes into the avatar based on an avatar ID within the clipboard
         public static void ChangeAvatar()
         {
@@ -190,6 +215,7 @@ namespace Buttons
                 MelonLogger.Msg($"Invalid Avatar ID!");
             }
         }
+
         //Launches the ARES GUI from VRChat
         public static void OpenGUI()
         {
@@ -199,48 +225,48 @@ namespace Buttons
                 foreach (Process proc in Process.GetProcessesByName("ARES"))
                 {
                     proc.Kill();
-                    MelonLogger.Log("Pre-existant ARES closed!");
+                    MelonLogger.Msg("Pre-existant ARES closed!");
                 }
             }
             catch (Exception ex)
             {
-                MelonLogger.Log("Error closing ARES :\n" + ex.Message);
+                MelonLogger.Msg("Error closing ARES :\n" + ex.Message);
             }
             try
             {
                 foreach (Process proc in Process.GetProcessesByName("HOTSWAP"))
                 {
                     proc.Kill();
-                    MelonLogger.Log("Pre-existant HOTSWAP closed!");
+                    MelonLogger.Msg("Pre-existant HOTSWAP closed!");
                 }
             }
             catch (Exception ex)
             {
-                MelonLogger.Log("Error closing HOTSWAP :\n" + ex.Message);
+                MelonLogger.Msg("Error closing HOTSWAP :\n" + ex.Message);
             }
             try
             {
                 foreach (Process proc in Process.GetProcessesByName("Unity"))
                 {
                     proc.Kill();
-                    MelonLogger.Log("Pre-existant Unity closed!");
+                    MelonLogger.Msg("Pre-existant Unity closed!");
                 }
             }
             catch (Exception ex)
             {
-                MelonLogger.Log("Error closing Unity :\n" + ex.Message);
+                MelonLogger.Msg("Error closing Unity :\n" + ex.Message);
             }
             try
             {
                 foreach (Process proc in Process.GetProcessesByName("Unity Hub"))
                 {
                     proc.Kill();
-                    MelonLogger.Log("Pre-existant Unity Hub closed!");
+                    MelonLogger.Msg("Pre-existant Unity Hub closed!");
                 }
             }
             catch (Exception ex)
             {
-                MelonLogger.Log("Error closing Unity Hub :\n" + ex.Message);
+                MelonLogger.Msg("Error closing Unity Hub :\n" + ex.Message);
             }
 
             try
@@ -248,18 +274,18 @@ namespace Buttons
                 foreach (Process proc in Process.GetProcessesByName("AssetRipperConsole"))
                 {
                     proc.Kill();
-                    MelonLogger.Log("Pre-existant AssetRipperConsole closed!");
+                    MelonLogger.Msg("Pre-existant AssetRipperConsole closed!");
                 }
             }
             catch (Exception ex)
             {
-                MelonLogger.Log("Error closing AssetRipperConsole :\n" + ex.Message);
+                MelonLogger.Msg("Error closing AssetRipperConsole :\n" + ex.Message);
             }
             //Enters the GUI folder and runs it!
             Directory.SetCurrentDirectory(MelonUtils.GameDirectory + "\\GUI\\");
             Process.Start("ARES.exe");
             Directory.SetCurrentDirectory(MelonUtils.GameDirectory);
-            MelonLogger.Log("ARES GUI Launched!");
+            MelonLogger.Msg("ARES GUI Launched!");
         }
     }
 }
