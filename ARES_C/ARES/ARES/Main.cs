@@ -36,6 +36,7 @@ namespace ARES
         public Thread imageThread;
         public Thread vrcaThread;
         public Thread uploadThread;
+        public Thread scanThread;
         public Thread browserThread;
         public int threadCount;
         public int maxThreads = 12;
@@ -255,7 +256,9 @@ namespace ARES
             }
             try
             {
-                ScanPackage.DownloadOnlineSourcesOnStartup(this);
+                CoreFunctions.WriteLog("Fetching unity sources", this);
+                scanThread = new Thread(() => ScanPackage.DownloadOnlineSourcesOnStartup(this));
+                scanThread.Start();
             }
             catch { }
         }
@@ -1632,13 +1635,13 @@ namespace ARES
             Thread.Sleep(2000);
         }
 
-        private void logo_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("ARES is an avatar recovery tool! It is only for educational uses! We do not condone theft of avatars,\nthe tool soley exists to recover avatars from within VRChat back onto new accounts and into their unity packages keeping as much of the avatar in-tact as possible!\n\nCurrently Developed by: \nShrekamusChrist\n\nPrevious Developers: \nLargestBoi\nCass_Dev");
-        }
-
         private void btnScan_Click(object sender, EventArgs e)
         {
+            if (scanThread.IsAlive)
+            {
+                MetroMessageBox.Show(this, "Still downloading hashes of files good & bad, please try again later", "Busy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             if (Directory.Exists(ScanPackage.UnityTemp))
             {
                 tryDeleteDirectory(ScanPackage.UnityTemp);
