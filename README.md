@@ -60,7 +60,7 @@ Features:
 
     -Search by release platforms: search for avatars that have PC or Quest compatability!
 	
-	-Version detection: IF your copy is out of dste your application will now propmt you to upgrade
+	-Version detection: IF your copy is out of date your application will now prompt you to upgrade
 
     -API support! If you are willing to share your logs with us in return you will gain access to a database containing avatars logged by other users
 
