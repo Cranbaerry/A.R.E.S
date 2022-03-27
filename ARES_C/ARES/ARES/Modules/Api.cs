@@ -55,9 +55,6 @@ namespace ARES.Modules
 
             HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
 
-            Console.WriteLine(WebResp.StatusCode);
-            Console.WriteLine(WebResp.Server);
-
             string jsonString;
             using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
             {
