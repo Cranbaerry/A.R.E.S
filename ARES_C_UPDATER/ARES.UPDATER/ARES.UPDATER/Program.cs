@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenZipExtractor;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -30,10 +31,6 @@ namespace ARES.UPDATER
                     Directory.CreateDirectory(fileLocation + @"\GUI");
                     Console.WriteLine("Updating ARES");
                     startGuiDownload();
-                }
-                if (!File.Exists(fileLocation + @"\UnRAR.exe"))
-                {
-                    startUnRarDownload();
                 }
 
                 if (guiDownloaded)
@@ -69,32 +66,12 @@ namespace ARES.UPDATER
             guiDownloaded = true;
         }
 
-        static void startUnRarDownload()
-        {
-            FileDownloader fileDownloader = new FileDownloader("https://github.com/Dean2k/A.R.E.S/releases/latest/download/UnRAR.exe", fileLocation + @"\UnRAR.exe");
-            fileDownloader.StartDownload(timeout, "UnRAR.rar");
-        }
-
         static void extractGUI()
         {
-            string fileExtractLocation = string.Format("x -id[c,d,n,p,q] -O+ -y {0}\\GUI.rar \"{0}{1}\"", fileLocation, @"\GUI\");
-            try
+            using (ArchiveFile archiveFile = new ArchiveFile(@"GUI.rar"))
             {
-                string commands = string.Format("/C UnRAR.exe {0}", fileExtractLocation);
-
-                Process p = new Process();
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "CMD.EXE",
-                    Arguments = commands,
-                    WorkingDirectory = fileLocation
-                };
-                p.StartInfo = psi;
-                p.Start();
-                p.WaitForExit();
-
+                archiveFile.Extract(fileLocation + @"\GUI\", true); // extract all
             }
-            catch { }
         }
 
         static void startARES()
