@@ -88,7 +88,7 @@ namespace Buttons
             LSMPT.AddToggle("Log Own Avatars", "Toggles the logging of own avatars", delegate (bool b) { Config.LogOwnAvatars = b; }, Config.LogOwnAvatars);
             LSMPT.AddToggle("Log Friends Avatars", "Toggles the ability to log avatars uploaded to your friends accounts!", delegate (bool b) { Config.LogFriendsAvatars = b; }, Config.LogFriendsAvatars);
             LSMPT.AddToggle("Log To Console", "Toggles the ability display logged avatars in console!", delegate (bool b) { Config.LogToConsole = b; }, Config.LogToConsole);
-            LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avaatrs weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
+            LSMPT.AddToggle("Log Errors To Console", "Toggles the ability display why avatars weren't logged in console!", delegate (bool b) { Config.ConsoleError = b; }, Config.ConsoleError);
 
             ReMenuPage FPageT = null;
             try

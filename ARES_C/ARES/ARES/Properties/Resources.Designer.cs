@@ -99,7 +99,8 @@ namespace ARES.Properties {
         ///GitHub:
         /// -https://github.com/Dean2k/A.R.E.S
         ///Wanna join the community?
-        /// -https://discord.gg/dhSdMsfgWe.
+        /// -https://discord.gg/dhSdMsfgWe
+        /// -https://ares-mod.com.
         /// </summary>
         internal static string txtAbout {
             get {

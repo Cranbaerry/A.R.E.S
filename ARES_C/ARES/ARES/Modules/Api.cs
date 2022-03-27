@@ -30,24 +30,24 @@ namespace ARES.Modules
             {
                 if (type == "Avatar Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query, amount);
+                    url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AvatarName,cs,{0}", query, amount);
                 }
                 if (type == "Avatar ID")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=1&order=TimeDetected,desc&filter=AvatarID,eq,{0}", query, amount);
+                    url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=1&order=TimeDetected,desc&filter=AvatarID,eq,{0}", query, amount);
                 }
                 if (type == "Author Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorName,cs,{0}", query, amount);
+                    url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorName,cs,{0}", query, amount);
                 }
                 if (type == "Author ID")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorID,eq,{0}", query, amount);
+                    url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={1}&order=TimeDetected,desc&filter=AuthorID,eq,{0}", query, amount);
                 }
             }
             else
             {
-                url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={0}&order=TimeDetected,desc", amount);
+                url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size={0}&order=TimeDetected,desc", amount);
             }
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
 
@@ -74,16 +74,16 @@ namespace ARES.Modules
             {
                 if (type == "World Name")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldName,cs,{0}", query);
+                    url = string.Format("https://api.ares-mod.com/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldName,cs,{0}", query);
                 }
                 if (type == "World ID")
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldID,eq,{0}", query);
+                    url = string.Format("https://api.ares-mod.com/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc&filter=WorldID,eq,{0}", query);
                 }
             }
             else
             {
-                url = string.Format("http://avatarlogger.tk/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
+                url = string.Format("https://api.ares-mod.com/records/Worlds?include=TimeDetected,WorldID,WorldName,WorldDescription,AuthorID,AuthorName,PCAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=500&order=TimeDetected,desc");
             }
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
 
@@ -108,7 +108,7 @@ namespace ARES.Modules
 
         public Stats getStats()
         {
-            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://avatarlogger.tk/stats.php"));
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("https://api.ares-mod.com/stats.php"));
 
             WebReq.Method = "GET";
 
@@ -161,7 +161,7 @@ namespace ARES.Modules
             {
                 foreach (var item in ripped.Distinct().ToList())
                 {
-                    url = string.Format("http://avatarlogger.tk/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=1&order=TimeDetected,desc&filter=AvatarID,eq,{0}", item);
+                    url = string.Format("https://api.ares-mod.com/records/Avatars?include=TimeDetected,AvatarID,AvatarName,AvatarDescription,AuthorID,AuthorName,PCAssetURL,QUESTAssetURL,ImageURL,ThumbnailURL,UnityVersion,Releasestatus,Tags&size=1&order=TimeDetected,desc&filter=AvatarID,eq,{0}", item);
 
                     HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
 

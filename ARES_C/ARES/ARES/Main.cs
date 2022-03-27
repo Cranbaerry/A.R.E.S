@@ -2153,6 +2153,12 @@ namespace ARES
                 lineSkip = 4;
                 return null;
             }
+            if (line.Contains("ReModCE_ARES"))
+            {
+                ModCount++;
+                lineSkip = 4;
+                return null;
+            }
             if (line.Contains("A.R.E.S"))
             {
                 return null;

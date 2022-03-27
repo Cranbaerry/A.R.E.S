@@ -321,7 +321,7 @@ namespace ARES.Modules
             {
                 if (!HasAvatarId(uploadedFile, item.AvatarID))
                 {
-                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://avatarlogger.tk/records/Avatars");
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.ares-mod.com/records/Avatars");
                     httpWebRequest.ContentType = "application/json";
                     httpWebRequest.Method = "POST";
                     string jsonPost = JsonConvert.SerializeObject(item);
@@ -366,7 +366,7 @@ namespace ARES.Modules
             {
                 if (!HasAvatarId(uploadedFile, item.WorldID))
                 {
-                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://avatarlogger.tk/records/Worlds");
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.ares-mod.com/records/Worlds");
                     httpWebRequest.ContentType = "application/json";
                     httpWebRequest.Method = "POST";
                     string jsonPost = JsonConvert.SerializeObject(item);
