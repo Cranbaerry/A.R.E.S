@@ -5,3 +5,7 @@
 
 because i am tired of the ripperstore so time to make my own OwO~ **Made by a Furry**
 
+### TODOS
+  1. change location of stored files to fox logger 
+  2. have foxlogger communicate with foxclient 
+  
