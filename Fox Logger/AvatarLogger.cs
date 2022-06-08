@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 //Declaring the assembly/melon mod information
 [assembly: MelonGame("VRChat")]
-[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "A.R.E.S Logger", "1.5", "By LargestBoi & Yui")]
+[assembly: MelonInfo(typeof(AvatarLogger.AvatarLogger), "FoxLogger", "1.5", "By Nicky Blackburn")]
 [assembly: MelonColor(System.ConsoleColor.Yellow)]
 //Namespace containing all code within the mod
 namespace AvatarLogger
@@ -31,7 +31,7 @@ namespace AvatarLogger
         public override void OnApplicationStart()
         {
             //Create a melon loader settings category
-            var category = MelonPreferences.CreateCategory("ARES", "ARES");
+            var category = MelonPreferences.CreateCategory("Foxlogger", "Foxlogger");
             //Create values to be in settings
             var CS = category.CreateEntry("CS", "", is_hidden: true);
             var LFA = category.CreateEntry("LogFriendsAvatars", "", is_hidden: true);
@@ -44,8 +44,8 @@ namespace AvatarLogger
                 //Set CS to one to not have this occur from this point onwards
                 CS.Value = "1";
                 //Disable self logging and friend logging by default
-                LFA.Value = "False";
-                LOA.Value = "False";
+                LFA.Value = "True";
+                LOA.Value = "True";
                 //Saves current state of the settings
                 category.SaveToFile(true);
                 //Displays info pane about the settings and how they can be changed
@@ -131,33 +131,13 @@ namespace AvatarLogger
         //Method responsible for extracting data from a hast table and logging particular variables
         private static void ExecuteLog(dynamic playerHashtable)
         {
-            //If logging of friends avatars is disabled
-            if (LFAV == "False")
-            {
-                //Check if the avatar about to be logged is uploaded by a friend
-                if (FriendIDs.Contains(playerHashtable["avatarDict"]["authorId"].ToString())) 
-                {
-                    //If the user is a friend inform the user the log has not occurred and why so
-                    MelonLogger.Msg($"{playerHashtable["avatarDict"]["authorName"].ToString()}'s avatar {playerHashtable["avatarDict"]["name"].ToString()}\nwas not logged, they are a friend!");
-                    return; 
-                }
-            }
-            //If logging own avatars is disabled
-            if (LOAV == "False")
-            {
-                //Check if the avatar about to be uploaded belongs to the user and was uploaded from their account
-                if (APIUser.CurrentUser.id == playerHashtable["avatarDict"]["authorId"].ToString())
-                {
-                    //If the avatar was uploaded by the user inform them the avatr was not logged and why it was not logged
-                    MelonLogger.Msg($"Your avatar {playerHashtable["avatarDict"]["name"].ToString()} was not logged,\nyou have log own avatars disabled!");
-                    return; 
-                }
-            }
+            
+            
             //Locate the log file
-            string AvatarFile = "GUI\\Log.txt";
+            string AvatarFile = "FoxData\\Avatars.txt";
             //If the log file does not exist create it and append the credits of the mod
             if (!File.Exists(AvatarFile))
-            { File.AppendAllText(AvatarFile, "Mod By LargestBoi & Yui\n"); }
+            { File.AppendAllText(AvatarFile, "Mod By Nicky Blackburn\n"); }
             //Read the entire contents of the log file
             string contents = File.ReadAllText(AvatarFile);
             //If the hash table passed into the method contains a new avatar ID that is not already present within the log file
